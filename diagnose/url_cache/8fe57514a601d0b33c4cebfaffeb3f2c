@@ -1,0 +1,257 @@
+Web accessibility is the goal of making web pages easier to navigate and read. While this is primarily intended to assist those with disabilities, it can be helpful to all readers. We aim to adhere to WCAG guidelines 2.0 (a.k.a. ISO/IEC 40500:2012) on which the following suggestions are based. Articles adhering to them are easier to read and edit for everyone.
+
+
+== Article structure ==
+A standardized structure of articles improves accessibility, because it enables users to expect contents to be in a specific part of the page. For example, a blind user is searching for disambiguation links. If he doesn't find any at the top of the page, he will know that there aren't any and he doesn't have to read the whole page to find that out.
+Standardization is already a habit on Wikipedia, thus the guidelines to follow are simply Wikipedia:Manual of Style/Layout and Wikipedia:Lead section#Elements of the lead.
+
+
+=== Headings ===
+Headings should be descriptive and in a consistent order (See alsoReferencesFurther readingExternal links).
+Headings should be nested sequentially, starting with level 2 (==), then level 3 (===) and so on (level 1 is not used, as this is the auto-generated page title), neither using random heading levels (e.g. selected for emphasis, which is not the purpose of headings), nor skipping parts of the sequence.
+Do not make pseudo-headings using bold or semicolon markup. Screen readers and other machines can only use correctly formatted headings. If you want to reduce the size of the table of contents (TOC), use {{TOC limit}} instead.
+
+
+=== Floating elements ===
+In the wikicode, floating elements should be placed inside the section they belong to. For example, an image may be displayed under a header due to other floating elements pushing it down, while in the wikisyntax it is placed at the top of the page. Images should be inserted inside the section they belong to.
+
+
+=== Resolution ===
+Wikipedia articles should be accessible to readers using devices with small screens, or to readers using monitors with a low resolution. The lowest resolution that it is considered possible to support without adversely affecting other users is 1024768; all articles should look acceptable at this resolution without excessive horizontal scrolling. This is sometimes an issue in articles with multiple images on both sides of the screen; although lower resolutions will tend to stretch paragraphs vertically, moving images apart in that direction, be careful not to add images or other floating content on both sides of the screen simultaneously. Large tables and images can also create problems; sometimes horizontal scrolling is unavoidable, but consider restructuring wide tables to extend vertically rather than horizontally.
+
+
+== Text ==
+
+In articles, do not use strikethrough to remove objectionable text. Either comment it out with "<!--" and "-->" or remove it entirely. By default, most screen readers do not indicate presentational text attributes (bold, italic, underline) or even semantic text attributes (emphasis, importance, text deletion), so struck-out text is read normally along with any other text. (Editors who participate in Wikipedia policy and deletion debates are advised to turn on the sounding of text attributes when doing so, as struck text is very common in Wikipedia-internal discussions.)
+Screen readers without Unicode support will read a character outside Latin-1 as a question mark, and even in the latest version of JAWS, the most popular screen reader, Unicode characters are very difficult to read.
+Provide a transliteration for all text in a non-Latin writing system where the non-Latin character is important in the original context such as names, places, things etc.
+Do not use unpronounceable symbols such as  (a heart symbol); use images with alt text instead.
+Symbols that cause problems for screen readers may already have templates created to produce an image and alt text. An example is {{}}; see Category:Image insertion templates for more.
+Do not use techniques that require interaction to provide information, such as tooltips or any other "hover" text. Abbreviations are exempt from these requirements, so the {{abbr}} template may be used to indicate the long form of a word.
+Do not insert line breaks within a sentence, since this makes it harder to edit with a screen reader. A single line break may follow a sentence, which may help some editors.
+The use of reduced font sizes should be used sparingly. Avoid using smaller font sizes in elements that already use a smaller font size, such as infoboxes, navboxes and reference sections. In no case should the resulting font size drop below 85% of the page fontsize (or 11px).
+
+
+== Other languages ==
+
+Non-English words or phrases should be encased in {{lang}}, which uses ISO 639 language codes, thus:
+{{lang|fr|Assemble nationale}}
+which renders as
+Assemble nationale.
+Rationale: {{lang}} enables speech synthesizers to pronounce the text in the correct language. It has many other uses; see Template:Lang/doc#Rationale for a comprehensive list of benefits.
+
+
+== Links ==
+Create good link descriptions, especially for external links (avoid "click here!", "this").
+Do not use Unicode characters as icons; use an icon with alt text instead. For example, a character like "" can not be reproduced into useful text by a screen reader, and will usually be read as a question mark.
+
+
+== Color ==
+
+Colors are most commonly found in Wikipedia articles within templates and tables. To view the colors available, see List of colors. For technical assistance on how colors are used, see Help:Using colours.
+Articles that use color should keep accessibility in mind, as follows:
+Ensure that color is not the only method used to convey important information. Especially, do not use colored text or background unless its status is also indicated using another method such as an accessible symbol matched to a legend, or footnote labels. Otherwise, blind users or readers accessing Wikipedia through a printout or device without a color screen will not receive that information.
+Links should clearly be identifiable as a link to our readers.
+Some readers of Wikipedia are partially or fully color blind. Ensure the contrast of the text with its background reaches at least WCAG 2.0's AA level, and AAA level when feasible. Here is a selection of tools that can be used to check that the contrast is correct:
+The Color Contrast Analyser enables you to pick colors on the page, and review their contrast thoroughly. However, be sure to only use the up-to-date "luminosity" algorithm, and not the "color brightness/difference" which is outdated.
+You can also use Snook's color contrast tool, which is entirely up-to-date.
+Several other tools exist on the web, but check if they are up-to-date before using them. Several tools are based on WCAG 1.0's algorithm, while the reference is now WCAG 2.0's algorithm. If the tool doesn't specifically mention that it is based on WCAG 2.0, assume that it is outdated.
+
+Additional tools can be used to help produce graphical charts and color schemes for maps and the like. These tools are not accurate means to review contrast accessibility, but they can be helpful for specific tasks.
+The color scheme generator helps to choose a good set of colors for a graphical chart.
+Color Brewer 2.0's provides safe color schemes for maps and detailed explanations.
+Colorfilter.wickline.org or vischeck.com are tools for simulating color blind vision.
+
+If an article overuses colors, and you don't know how to fix it yourself, you can ask for help from other editors. Place ({{Overcolored}} or {{Overcoloured}}) on the top of the article:
+
+
+== Block elements ==
+
+
+=== Lists ===
+
+Do not separate list items, including items in a definition list (a list made with leading semicolons and colons) or an unordered list, by leaving blank lines or tabular column breaks between them, since this causes MediaWiki to end one list and start a new one. This results in screen readers announcing multiple lists when only one was intended. Lists are meant to group elements that belong together, and breaking these groups will mislead and confuse a screen-reader user. Improper formatting can also more than triple the length of time it takes to read the list.
+
+
+==== Indentation ====
+
+Colons at the start of a line indent the line. This is used, for example, to indicate replies in a threaded discussion on Talk pages. This indentation is achieved by using HTML definition lists. This is not ideal for accessibility nor semantics, but is currently in wide practice. Blank lines should not be used between indented lines as they are currently rendered as the end of a list and the start of a new one. If a space is needed, insert an extra line consisting of the same number of colons.
+
+
+==== Vertical lists ====
+
+
+===== Bulleted vertical lists =====
+For bulleted vertical lists, do not separate items by leaving blank lines between them. If list items are separated by more than one line break, the HTML list will be ended before the line break, and another HTML list will be opened after the line break. This effectively breaks what is seen as one list into several smaller lists for those using screen readers. For example, for the coding:
+
+* White rose
+* Yellow rose
+
+* Pink rose
+
+* Red rose
+
+the software suppresses line spaces and therefore it looks like this:
+White rose
+Yellow rose
+Pink rose
+Red rose
+but will be read by a screen reader as: "List of 2 items: (bullet) White rose, (bullet) Yellow rose, list end. List of 1 items: (bullet) Pink rose, list end. List of 1 items: (bullet) Red rose, list end."
+Do not separate list items with line breaks (<br>). Use one of the following methods.
+
+
+===== Unbulleted vertical lists =====
+
+For unbulleted lists running down the page, the templates {{plainlist}} and {{unbulleted list}} are available, to improve accessibility and semantic meaningfulness by marking up what is clearly a list rather than including <br /> line breaks, which should not be used - see above. Alternatively, in templates such as Navboxes and the like, or any suitable container, such lists may be styled with the class "plainlist", thus:
+| listclass = plainlist or
+| bodyclass = plainlist
+In infoboxes:
+| rowclass = plainlist or
+| bodyclass = plainlist
+may be used. See also Manual of Style: Lists  Unbulleted lists. See WP:NAV for more details on Navigation templates.
+
+
+==== Horizontal lists ====
+
+For lists running across the page, and in single rows in infoboxes and other tables, the templates {{flatlist}} and {{hlist}} ("h[orizontal]list") are available to improve accessibility and semantic meaningfulness. This feature makes use of the correct HTML markup for each list item, rather than including bullet characters which, for example, are read out (e.g., "dot cat dot dog dot horse dot...") by the assistive software used by people who are blind.
+Alternatively, in templates such as Navboxes and the like, or any suitable container, such lists may be styled with the class "hlist", thus:
+| listclass = hlist or
+| bodyclass = hlist
+In infoboxes:
+| rowclass = hlist or
+| bodyclass = hlist
+may be used. See WP:NAV for more details on Navigation templates.
+
+
+=== Tables ===
+Screen readers and other web browsing tools make use of specific table tags to help users navigate the data contained within them.
+Use the correct wikitable pipe syntax to take advantage of all the features available. See meta:Help:Tables for more information on the special syntax used for tables. Do not solely use formatting, either from CSS or hard-coded styles, to create semantic meaning (e.g., changing background colour).
+The technique of creating a multi-line infobox using matching embedded HTML <br /> tags in adjacent cells creates a visual row not reflected in the HTML table structure. This is a problem for users of screen readers which read tables cell by cell, HTML row by HTML row, not visual row by visual row. WikiProject Accessibility/Infobox accessibility has been addressing this problem.
+
+
+==== Data tables ====
+
+{| 
+|+ [caption text]
+|-
+! scope="col" | [column header 1]
+! scope="col" | [column header 2]
+! scope="col" | [column header 3]
+|-
+! scope="row" | [row header 1]
+| [normal cell 1,2] || [normal cell 1,3]
+|-
+! scope="row" | [row header 2]
+| [normal cell 2,2] || [normal cell 2,3]
+...
+|}
+
+Caption ( |+ )
+A caption is a table's title, describing its nature.
+Row & column headers ( ! )
+Like the caption, these help present the information in a logical structure to visitors. The headers help screen readers render header information about data cells. For example, header information is spoken prior to the cell data, or header information is provided on request.
+Scope of headers ( ! scope="col" | and ! scope="row" | )
+This clearly identifies headers as either row headers or column headers. Headers can now be associated to corresponding cells.
+Wikipedia:Manual of Style/Accessibility/Data tables tutorial provides detailed requirements about:
+Correct table captions
+Correct headers structure
+Images and color
+Avoiding nested tables
+
+
+==== Layout tables ====
+
+Some navboxes, series templates, and infoboxes are made using tables.
+Avoid using tables for layout purposes only. The best option is to use HTML's <div> blocks and style attributes because they provide flexibility. For example, see {{Navbox}}.
+For simple layouts tables can be an option. Especially if the only point of the table is to get a floating effect, then align="right" etc. will work with some browsers not supporting CSS at all. This is in fact a verbose approximation of <div> plus CSS, and not the design sin known as (nested) "table layout".
+However, to avoid accessibility barriers, when using tables for layout purposes do not use any caption, row, or column headers, and also no summary attribute. These structural table elements should be used only for data tables. Do not use structural elements for presentation purposes, use style sheets. For Wiki table markup this means to avoid "!" (= <th> in XHTML) in such cases:
+
+{| class="toccolours" style="width:94%"
+| style="text-align: center; background-color: #ccf;" | '''Title'''
+|-
+| [normal cell] || [normal cell]
+|-
+| [normal cell] || [normal cell]
+|}
+
+For example, see {{Navbox}}.
+
+
+== Images ==
+
+Images should include an alt attribute, even an empty one, that acts as a substitute for the image for blind readers, search-spiders, and other non-visual users. If additional alt text is added it should be succinct, or should refer the reader to the caption or adjacent text: see WP:ALT for more information.
+In most cases, images should contain a caption, either using the built in image syntax or a secondary line of text. The caption should concisely describe the meaning of the image, the essential information it is trying to convey.
+Where possible, any charts or diagrams should have a text equivalent, or should be well-described so that users who are unable to see the image can gain some understanding of the concept.
+Detailed image descriptions, where not appropriate for an article, should be placed on the image description page, with a note saying that activating the image link will lead to a more detailed description.
+Images should be inside the section they belong to (after the heading and after any links to other articles), and not in the heading nor at the end of the previous section, otherwise screen readers would read the image (and its textual alternative) in a different section; as they would appear to viewers of the mobile site. See Wikipedia:Picture tutorial for more information.
+Avoid referring to images as being on the left or right. Image placement is different for viewers of the mobile version of Wikipedia, and is meaningless to people having pages read to them by assistive software. Instead, use captions to identify images.
+This guideline includes alt text for LaTeX-formatted equations in <math> mode.
+
+
+== Animations, videos and audio ==
+
+
+=== Animations ===
+To be accessible, an animation (GIF  Graphics Interchange Format) should either:
+not exceed a duration of five seconds (which results in making it a purely decorative element), or
+be equipped with control functions (stop, pause, play).
+In short, most animated GIFs should be converted to video (to learn how, see the tutorial converting animated GIFs to Theora OGG).
+
+
+=== Video ===
+Subtitles can be added to video, in Timed Text format. There is a corresponding help page at commons:Commons:Video#Subtitles_and_closed_captioning. Subtitles are meant for the transcription of speech.
+There is a need for closed captions for the hearing impaired. As of November 2012 this is not possible, but this feature could be easily added and has been requested in bugzilla:41694. Closed captions are meant to be viewed instead of subtitles. Closed captions provides a text version of all important informations provided through the sound. It can include dialogues, sounds (natural and artificial), the setting and background, the actions and expressions of people and animals, text or graphics. Guides in the following references can be used to create closed captions.
+A text version of the video would also be needed for the blind, but as of November 2012 there is no convenient way to provide alt text for videos.
+
+
+=== Audio ===
+Subtitles for speech, lyrics, dialogue, etc. can easily be added to audio files. The method is similar to that of the video: commons:Commons:Video#Subtitles_and_closed_captioning.
+
+
+== Styles and markup options ==
+
+
+=== Best practice: Use Wikimarkup and CSS classes in preference to alternatives ===
+In general, styles for tables and other block-level elements should be set using CSS classes, not with inline style attributes. The site-wide CSS in MediaWiki:Common.css is more carefully tested to ensure accessibility (e.g. sufficient color contrast) and compatibility with a wide range of browsers. Moreover, it allows for users with very specific needs to change the color schemes in their own style sheet (Special:MyPage/skin.css, or their browser's style sheet). For example, a style sheet at Wikipedia:Style sheets for visually impaired users provides higher contrast backgrounds for navboxes. The problem is that when the default site-wide classes are overridden, it makes it far more difficult for an individual to choose his/her own theme.
+It also creates a greater degree of professionalism by ensuring a consistent appearance between articles, and conformance to a style guide.
+Regarding accessibility, deviations from standard conventions may be tolerated so long as they are accessible. Members of the accessibility project ensured that the default style is accessible. If some template or specific color scheme deviates from the standard, its authors should make sure that it meets accessibility requirements such as providing enough color contrast. For instance, the infoboxes and navigational templates relating to The Simpsons use a yellow colour-scheme, to tie in with the dominant colour in the series. In this case, blue links on yellow provides enough color contrast, thus it is accessible.
+In general, articles should use wikimarkup in preference to the limited set of allowed HTML elements. In particular, do not use the HTML style tags <i> and <b> to format text; it is preferable to use Wiki markup '' or ''', or logical style tags. Of course there are natural exceptions: it may be beneficial to use <u></u> tags to indicate something like an example of an unclickable link. The <font> tag should also be avoided in article text; use logical style tags like <em>, <code>, or <strong> to emphasise semantic differences. Use <small> and <big> semantic tags to change font size, rather than setting it explicitly with the font-size= style attribute.
+
+
+=== Users with limited CSS/JavaScript support ===
+
+Wikipedia articles should be accessible to readers using browsers and devices which have limited or no support for JavaScript or Cascading Style Sheets. At the same time, it is recognised that it is impossible to provide the same quality of appearance to such users without unnecessarily avoiding features that would benefit users with more capable browsers. As such, features which would cause content to be hidden or corrupted when CSS or JavaScript is unavailable must not be used. This includes techniques such as the hiddenStructure method for hiding table contentwhich produces incomprehensible output without CSSand some implementations of the NavFrame collapsing codewhich can make content inaccessible without JavaScript support. However, consideration for users without CSS or JavaScript should extend mainly to making sure that their reading experience is possible; it is recognised that it will inevitably be inferior.
+To accommodate these considerations, test any potentially disruptive changes with JavaScript or CSS disabled. In Firefox or Chrome, this can be done easily with the Web Developer extension; JavaScript can be disabled in IE in the "Options" screen. Be particularly careful with inline CSS effects, which are not supported by several browsers, media, and XHTML versions.
+
+
+== See also ==
+Web Accessibility Initiative (WAI)
+Wikipedia:Accessibility advocates
+Wikipedia:Accessibility dos and don'ts
+Wikipedia:Dyslexic readers
+Wikipedia:Using JAWS
+Wikipedia:WikiProject Accessibility
+Wikipedia:WikiProject Usability
+usability:Accessibility Initiative
+
+
+== References ==
+
+
+=== Specific ===
+
+
+=== General ===
+Clark, Joe (2003). Building Accessible Websites. New Riders Press. ISBN 0-7357-1150-X. Retrieved 1 January 2011. 
+Pilgrim, Mark (2002). "Dive Into Accessibility: 30 days to a more accessible web site". Retrieved 26 December 2013. 
+
+
+=== Technical ===
+
+
+== External links ==
+10 Quick Tips to Make Accessible Web Sites, from WAI
+Colorblind web page filter
+Essential Components of Web Accessibility, from WAI
+Introduction to Web Accessibility, from WAI
+MediaWiki bug 367: Markup accessibility issues (tracking)
