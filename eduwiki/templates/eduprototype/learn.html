@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+    <div class="container">
+        <div class="row">
+            <h2>{{ tree.title }}</h2>
+            <p>
+                {{ tree.text }}
+            </p>
+            {% for subtopic in subtopics %}
+                <h3>{{subtopic.title}}</h3>
+                <p>
+                    {{ subtopic.text }}
+                </p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
