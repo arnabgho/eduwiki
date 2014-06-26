@@ -27,28 +27,19 @@ def intro(request, context_dict_in={}):
     context = RequestContext(request)
     context_dict = context_dict_in
     json_tree = query(search_name_url)  #comes out in a JSON string
-    tree = json.loads(json_tree, object_hook=recurhook)
-    #tree = json2obj(json_tree)          #convert to python object
-    #request.session['tree'] = tree      #save it to session  
+    tree = json.loads(json_tree, object_hook=recurhook)  #converted into a python dictionary  
     context_dict['tree'] = tree          #save it to context
     return render_to_response('eduprototype/intro.html', context_dict, context)
 
 def quiz(request):
     context = RequestContext(request)
-    if not request.session.get('tree'):
-        return HttpResponse("Sorry, something went wrong. (views.intro)")
-    tree = request.session['tree']
-    context_dict = {'tree': tree}
+    #tree = request.session['tree']
+    #context_dict = {'tree': tree}
+    context_dict = {}
     return render_to_response('eduprototype/quiz.html', context_dict, context)
 
-def search(request, searchstring):
-    #send searchstring to diagnose
-    tree = None #get response from searchstring
-    request.session['tree'] = tree
-    return intro(HttpRequest())
 
-
-#extra code to enable making JSON-style dictionaries into objects
+#extra code to fix issues with the way json.loads processes this
 
 def recurhook(d):
     if d['children']:
