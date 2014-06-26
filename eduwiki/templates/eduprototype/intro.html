@@ -11,17 +11,18 @@
         <h2>&nbsp;&nbsp;&nbsp;&nbsp;The prerequisites are:</h2>
         <br>
         <div class="col-sm-10 col-sm-offset-1">
-            {%for child in tree.children %}
+            <form role="quiz" action="/eduprototype/learn/" method="get">
+            {%for question in quiz %}
                 <div class="panel panel-default">
-                    <div class="panel-heading"><h3>{{ child.title }}, <small>which is:</small></h3></div>
+                    <div class="panel-heading"><h3>{{ question.title }}, <small>which is:</small></h3></div>
                     <table class="table">
-                        {% for dist in child.distractors %}
-                            <tr><td/><td>{{ dist }}</td></tr>
+                        {% for answer in question.answers %}
+                            <tr><td/><input type="radio" name="quiz{{ question.number }}" value="{{ answer.correct }}"><td>{{ answer.text }}</td></tr>
                         {% endfor %}
-                        <tr><td/><td>{{ child.description }}</td></tr>
                     </table>
                 </div>
             {% endfor %}
+            </form>
         </div>
     </div>
 </div>
