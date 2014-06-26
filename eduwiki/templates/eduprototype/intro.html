@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-10"><h1>
+            You searched for {{ tree.title }}, let's see what you know about some related topics.
+        </h1></div>
+    </div>
+    <div class="row">
+        <h2>&nbsp;&nbsp;&nbsp;&nbsp;The prerequisites are:</h2>
+        <br>
+        <div class="col-sm-10 col-sm-offset-1">
+            {%for child in tree.children %}
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h3>{{ child.title }}, <small>which is:</small></h3></div>
+                    <table class="table">
+                        {% for dist in child.distractors %}
+                            <tr><td/><td>{{ dist }}</td></tr>
+                        {% endfor %}
+                        <tr><td/><td>{{ child.description }}</td></tr>
+                    </table>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
