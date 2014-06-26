@@ -12,18 +12,24 @@
         <br>
         <div class="col-sm-10 col-sm-offset-1">
             <form role="quiz" action="/eduprototype/learn/" method="get">
-            {%for question in quiz %}
+                {%for question in quiz %}
                 <div class="panel panel-default">
                     <div class="panel-heading"><h3>{{ question.title }}, <small>which is:</small></h3></div>
                     <table class="table">
                         {% for answer in question.answers %}
-                            <tr><td/><input type="radio" name="quiz{{ question.number }}" value="{{ answer.correct }}"><td>{{ answer.text }}</td></tr>
+                            <tr><td/><input type="radio" name="q{{ question.number }}" value="{{ answer.correct }}"><td>{{ answer.text }}</td></tr>
                         {% endfor %}
                     </table>
                 </div>
-            {% endfor %}
+                {% endfor %}
+                <div class="col-md-6 col-md-offset-3">
+                    <button type="submit" class="btn btn-lg btn-block btn-primary">Move on to Learning Things</button>
+                </div>
             </form>
         </div>
+    </div>
+    <div class="row">
+        <br>
     </div>
 </div>
 {% endblock %}
