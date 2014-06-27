@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+<div class="container">
+	<div class="row">
+		<div class="page-header">
+		  <h1>Sorry, there are a few things with that name.<br> <small>&nbsp;&nbsp;&nbsp;&nbsp;Did you mean:</small></h1>
+		</div>
+	</div>
+	<div class="row">
+		<dl class="dl-horizontal">
+		{% for page in pages %}
+			<dt>
+			<a href="/eduprototype/quiz/?q={{ page.link }}">{{ page.title }}</a>
+			</dt>
+			<dd>{{ page.text }}</dd>
+		{% endfor %}
+		</dl>
+	</div>
+</div>
+{% endblock %}

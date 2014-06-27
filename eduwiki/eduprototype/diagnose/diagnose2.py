@@ -6,7 +6,6 @@ import json
 import sys
 import array
 import unicodedata
-from wikitree import WikiNode
 
 class EduTopic:
     def __init__(self, name, distractors, description):
@@ -22,10 +21,11 @@ class WikiEducate:
         self.cache = cache
         self.fetcher = DiskCacheFetcher('url_cache')
 
+
     def wikitext(self):
         self.page = wikipedia.page(self.topic)
-        wiki_content = self.page.wikitext()
-        return wiki_content
+        text = self.page.wikitext()
+        return text
 
     def wikilinks(self):
         wtext = self.wikitext()
@@ -34,7 +34,10 @@ class WikiEducate:
         link_array = []
         for m in wikilink_rx.finditer(wtext):
             #print '%02d-%02d: %s' % (m.start(), m.end(), m.group(2))
-            link_array.append(m.group(2))
+            if link_array.append(m.group(1)):
+                link_array.append(m.group(1))
+            else:
+                link_array.append(m.group(2))
 
         return link_array
 
