@@ -4,9 +4,9 @@ from django.conf import settings
 
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
-    url(r'^intro/$', views.intro, name='intro'),
-    url(r'^learn/$', views.learn, name='learn'),
     url(r'^quiz/$', views.quiz, name='quiz'),
+    url(r'^disambiguation/$', views.disambiguation, name='disambiguation'),
+    url(r'^learn/$', views.learn, name='learn'),
 )
 
 if settings.DEBUG:
