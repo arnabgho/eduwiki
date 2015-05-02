@@ -1,13 +1,13 @@
 from django.shortcuts import render, render_to_response, redirect
 from django.http import HttpResponse, HttpRequest
 from django.template import RequestContext
-from diagnose.diagnose import query
+# from diagnose.diagnose import query
 from diagnose.wikipedia import DisambiguationError, page
 from random import randint
 import json
+from diagnose import wikipedia_wrapper
 
 
-# the index page view
 def index(request):
     """
     A search box, directed to /quiz/ page with the search term
@@ -22,25 +22,24 @@ def quiz(request):
     The intro view\n
     Requires Input: a search term in request["q"].
     """
+
     if 'q' not in request.GET or not request.GET['q']:
         return redirect('index')
-    searchterm = request.GET['q']
-    context_dict = {}
-    context = RequestContext(request)
+
+    search_term = request.GET['q']
+    response_data = {}
+
     try:
-        json_tree = query(searchterm)
-        # comes out in a JSON string
-        # TODO:: why would you want a JSON string?
-        # Why not directly use the dict?
+        knowledge_tree = wikipedia_wrapper.query(search_term)
     except DisambiguationError as dis:
         return disambiguation(request, dis)
     # converted into a python dictionary
-    tree = json.loads(json_tree, object_hook=recurhook)
-    request.session['tree'] = tree
-    context_dict['quiz'] = make_quiz(tree)
-    context_dict['tree'] = tree
+    # tree = json.loads(knowledge_tree, object_hook=recurhook)
+    # request.session['tree'] = knowledge_tree
+    response_data['quiz'] = make_quiz(knowledge_tree)
+    response_data['tree'] = knowledge_tree
     # save it to context
-    return render('eduprototype/quiz.html', context_dict, context)
+    return render(request, 'eduprototype/quiz.html', response_data)
 
 
 def disambiguation(request, dis=[]):
@@ -58,8 +57,7 @@ def disambiguation(request, dis=[]):
              zip(dis.options, dis.descriptions, dis.links)]
     context_dict = {'pages': pages}
     context = RequestContext(request)
-    return render_to_response('eduprototype/disambiguation.html',
-                              context_dict, context)
+    return render(request, 'eduprototype/disambiguation.html', context_dict)
 
 
 def learn(request):
@@ -141,16 +139,17 @@ def quiz_correctness(request):
     return responses
 
 
-def recurhook(d):
-    """
-    extra code to fix issues with the way json.loads processes this
-    :param d:
-    :return:
-    """
-    if d['children']:
-        # d['children'] = json.loads(d['children'], recurhook)
-        children = []
-        for child in d['children']:
-            children.append(json.loads(child, object_hook=recurhook))
-        d['children'] = children
-    return d
+#TODO:: to remove. not needed if we do not use json in the middle of the code
+# def recurhook(d):
+#     """
+#     extra code to fix issues with the way json.loads processes this
+#     :param d:
+#     :return:
+#     """
+#     if d['children']:
+#         # d['children'] = json.loads(d['children'], recurhook)
+#         children = []
+#         for child in d['children']:
+#             children.append(json.loads(child, object_hook=recurhook))
+#         d['children'] = children
+#     return d

@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, url
-from eduprototype import views
+from question_generation import views
 from django.conf import settings
 
 urlpatterns = patterns('',

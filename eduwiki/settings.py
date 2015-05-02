@@ -10,7 +10,11 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from mongoengine import connect
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+# TODO::remove this after removing the "cache"
 PROJECT_PATH = os.path.abspath(BASE_DIR)
 TEMPLATE_PATH = os.path.join(PROJECT_PATH, 'templates')
 DATABASE_PATH = os.path.join(PROJECT_PATH, 'eduwiki.db')
@@ -41,7 +45,12 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admindocs',
-    'eduprototype',
+    'django.contrib.humanize',
+    'mongoengine.django.mongo_auth',
+    'mongonaut',
+    'sslserver',
+
+    'question_generation',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -49,6 +58,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -69,6 +79,9 @@ MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media')
 
 DATABASES = {
     'default': {
+        # TODO:: session['tree'] does not work if ENGINE is dummy.
+        # Fix this and set dummy.
+        # 'ENGINE': 'django.db.backends.dummy',
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': DATABASE_PATH,
     }
@@ -79,7 +92,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'US/Eastern'
 
 USE_I18N = True
 
@@ -92,7 +105,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/var/www/crowdTutor/static'
 
 STATICFILES_DIRS = (
     STATIC_PATH,
 )
+
+MONGODB_HOST = 'localhost'
+MONGODB_USER = 'eduwiki'
+MONGODB_PWD = 'eduwiki_2015-qi-guo'
+
+connect('eduwiki_db', host=MONGODB_HOST)
+
+# Following is added to for SSL
+# # Web SSL PWD = "SSLeduwiki2015"
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True

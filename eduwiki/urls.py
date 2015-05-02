@@ -10,6 +10,6 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
-    url(r'^$', include('eduprototype.urls')),
-    url(r'^eduprototype/', include('eduprototype.urls')),
+    url(r'^$', include('question_generation.urls')),
+    url(r'^question_generation/', include('question_generation.urls')),
 )

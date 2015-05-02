@@ -121,7 +121,7 @@ class DiskCacheFetcher:
         filepath = os.path.join(self.cache_dir, filename)
         if __name__ != "__main__":
             filepath = os.path.join('diagnose', filepath)
-            filepath = os.path.join('eduprototype', filepath)
+            filepath = os.path.join('question_generation', filepath)
 
         fd, temppath = tempfile.mkstemp()
         fp = os.fdopen(fd, 'w')
@@ -183,17 +183,17 @@ for i in range(0, 4):
     #print "Investigating " + prereqs[i] + "\n"
     topic_name = unicodedata.normalize('NFKD', prereqs[i]).encode('ascii', 'ignore')
     topic = WikiEducate(topic_name, True)
-    description = topic.returnWhatIs()
+    description = topic.return_what_is()
     distractors = topic.wikilinks()
     distractor_defs = []
     for j in range(0,3):
         distractor_name = unicodedata.normalize('NFKD', distractors[j]).encode('ascii', 'ignore')
         distractor = WikiEducate(distractor_name, True)
-        distractor_description = distractor.returnWhatIs()
+        distractor_description = distractor.return_what_is()
         distractor_defs.append(distractor_description)
         #print "D: " + distractor_name + "=" + distractor_description + "\n"
     #print prereqs[i] + ": " + description + "\n"
-    topic_text = topic.plainTextSummary(1)
+    topic_text = topic.plain_text_summary(1)
     #print "TOPIC TEXT" + topic_text + "\n\n";
     #print "\n"
     #topic_learner = EduTopic(topic_name, distractor_defs, topic_text)
@@ -205,10 +205,10 @@ sys.stdout.write(json.dumps(my_json))
 
 #print wikitext
 
-#summary = wikieducate.plainTextSummary()
-#links = wikieducate.topWikiLinks()
-#categories = wikieducate.categoryTitles()
-#first_mention = wikieducate.returnWhatIs()
+#summary = wikieducate.plain_text_summary()
+#links = wikieducate.top_wiki_links()
+#categories = wikieducate.category_titles()
+#first_mention = wikieducate.return_what_is()
 
 #print "Summary:", summary
 #print

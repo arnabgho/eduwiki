@@ -1,5 +1,5 @@
 from wikipedia import *
-from diagnose import *
+from wikipedia_wrapper import *
 
 # def test():
 # 	p = getpage_exact("Python (programming language)"
