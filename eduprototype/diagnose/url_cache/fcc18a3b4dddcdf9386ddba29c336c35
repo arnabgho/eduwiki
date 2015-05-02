@@ -1,0 +1,112 @@
+Django (/do/ JANG-goh) is a free and open source web application framework, written in Python, which follows the modelviewcontroller (MVC) architectural pattern. It is maintained by the Django Software Foundation (DSF), an independent organization established as a 501(c)(3) non-profit.
+Django's primary goal is to ease the creation of complex, database-driven websites. Django emphasizes reusability and "pluggability" of components, rapid development, and the principle of don't repeat yourself. Python is used throughout, even for settings, files, and data models. Django also provides an optional administrative create, read, update and delete interface that is generated dynamically through introspection and configured via admin models.
+Some well-known sites that use Django include Pinterest, Instagram, Mozilla, The Washington Times, Disqus, the Public Broadcasting Service, and Bitbucket.
+
+
+== History ==
+Django was born in the fall of 2003, when the web programmers at the Lawrence Journal-World newspaper, Adrian Holovaty and Simon Willison, began using Python to build applications. It was released publicly under a BSD license in July 2005. The framework was named after guitarist Django Reinhardt.
+In June 2008, it was announced that a newly formed Django Software Foundation (DSF) would maintain Django in the future.
+
+
+== Features ==
+
+
+=== Components ===
+
+Despite having its own nomenclature, such as naming the callable objects generating the response "views", the core Django framework can be seen as MVC. It consists of an object-relational mapper which mediates between data models (defined as Python classes) and a relational database ("Model"); a system for processing requests with a web templating system ("View") and a regular-expression-based URL dispatcher ("Controller").
+Also included in the core framework are:
+A lightweight and standalone web server for development and testing.
+A form serialization and validation system which can translate between HTML forms and values suitable for storage in the database.
+A template system that utilizes the concept of inheritance borrowed from object-oriented programming.
+A caching framework which can use any of several cache methods.
+Support for middleware classes which can intervene at various stages of request processing and carry out custom functions.
+An internal dispatcher system which allows components of an application to communicate events to each other via pre-defined signals.
+An internationalization system, including translations of Django's own components into a variety of languages.
+A serialization system which can produce and read XML and/or JSON representations of Django model instances.
+A system for extending the capabilities of the template engine.
+An interface to Python's built in unit test framework.
+
+
+=== Bundled applications ===
+The main Django distribution also bundles a number of applications in its "contrib" package, including:
+An extensible authentication system.
+The dynamic administrative interface.
+Tools for generating RSS and Atom syndication feeds.
+A sites framework that allows one Django installation to run multiple websites, each with their own content and applications.
+Tools for generating Google Sitemaps.
+Built-in mitigation for cross-site request forgery, cross-site scripting, SQL injection, password cracking and other typical web attacks, most of them turned on by default.
+A framework for creating GIS applications.
+
+
+=== Extensibility ===
+Django's configuration system allows third party code to be plugged into a regular project, provided that it follows the reusable app conventions. More than 2500 packages are available to extend the framework's original behavior, providing solutions to issues the original tool didn't: registration, search, API provision and consumption, CMS, etc.
+This extensibility is, however, mitigated by internal components dependencies. While the Django philosophy implies loose coupling, the template filters and tags assume one engine implementation, and both the auth and admin bundled applications require the use of the internal ORM. None of these filters or bundled apps are mandatory to run a Django project, but reusable apps tend to depend on them, encouraging developers to keep using the official stack in order to benefit fully from the apps ecosystem.
+
+
+=== Server arrangements ===
+Django can be run in conjunction with Apache, NGINX using WSGI, Gunicorn, or Cherokee using flup (a Python module). Django also includes the ability to launch a FastCGI server, enabling use behind any web server which supports FastCGI, such as Lighttpd or Hiawatha. It is also possible to use other WSGI-compliant web servers. Django officially supports four database backends: PostgreSQL, MySQL, SQLite, and Oracle. Microsoft SQL Server can be used with django-mssql but only in Microsoft operating systems, while similarly external backends exist for IBM DB2, SQL Anywhere and Firebird. There is a fork named django-nonrel which supports NoSQL databases, such as MongoDB and Google App Engine's Datastore.
+Django may also be run in conjunction with Jython on any Java EE application server such as GlassFish or JBoss. In this case django-jython must be installed in order to provide JDBC drivers for database connectivity, which also provides functionality to compile Django in to a .war suitable for deployment.
+Google App Engine includes support for Django version 1.x.x as one of the bundled frameworks.
+
+
+== Using Django ==
+
+
+=== Online resources ===
+Django Official Documentation - Current and detailed documentation on nearly every aspect of Django. It includes a version selector for information pertaining to specific versions of Django.
+Tango with Django - A beginner's guide to web development with Django.
+Two Scoops - Making Python and Django as fun as ice cream.
+Django Packages - A directory of reusable apps, sites, tools, and more for Django projects.
+Django Basics - Installing Django and Setting Up a Project and an App
+
+
+=== Books ===
+
+
+=== Integrated development environments for Python ===
+
+While a number of Django developers use text editors such as Vim, Emacs, TextMate or Sublime with Django Bundle for their projects, others prefer python-specific tools providing debugging, refactoring, unit testing, etc.
+Anjuta
+Aptana Studio with integrated PyDev
+Eclipse with PyDev
+Eric Python IDE
+IntelliJ IDEA with Django plugin, provides functionality similar to PyCharm
+Koding
+Komodo IDE
+Microsoft Visual Studio with Python Tools for Visual Studio
+MonoDevelop
+NetBeans with Django Plugin
+Ninja IDE
+PyCharm
+PyScripter
+Spyder (software)
+SourceLair
+Wing IDE
+
+
+== Versions ==
+
+
+== Community ==
+
+
+=== DjangoCon ===
+There is a semiannual conference for Django developers and users, named "DjangoCon", that has been held since September 2008. DjangoCon is held annually in Europe, in May or June; while another is held in the United States in September, usually in Portland, Oregon. The 2012 DjangoCon took place in Washington D.C from 3 to 8 September. 2013 DjangoCon was held in Chicago at the Hyatt Regency Hotel and the post-conference Sprints were hosted at Digital Bootcamp, computer training center.
+Django mini-conferences were held in Hobart, Australia in July 2013 and Brisbane, Australia in August 2014.
+
+
+== Other languages ==
+Django's template design has been ported to other languages besides Python, providing decent cross-platform support. Some of these options are more direct ports, while others are inspired by Django, retaining its concepts but taking greater liberties to deviate from Django's design.
+Swig for JavaScript
+Liquid for Ruby
+Template::Swig for Perl
+Twig for PHP
+Jinja for Python
+
+
+== See also ==
+
+Comparison of web application frameworks
+
+
+== References ==

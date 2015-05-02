@@ -1,0 +1,41 @@
+Jenkins is an open source continuous integration tool written in Java. The project was forked from Hudson after a dispute with Oracle.
+Jenkins provides continuous integration services for software development. It is a server-based system running in a servlet container such as Apache Tomcat. It supports SCM tools including AccuRev, CVS, Subversion, Git, Mercurial, Perforce, Clearcase and RTC, and can execute Apache Ant and Apache Maven based projects as well as arbitrary shell scripts and Windows batch commands. The primary developer of Jenkins is Kohsuke Kawaguchi. Released under the MIT License, Jenkins is free software.
+Builds can be started by various means, including being triggered by commit in a version control system, scheduling via a cron-like mechanism, building when other builds have completed, and by requesting a specific build URL.
+
+
+== History ==
+Jenkins was originally developed as the Hudson project. Hudson's creation started in summer of 2004 at Sun Microsystems. It was first released in java.net in Feb. 2005.
+Around 2007 Hudson became known as a better alternative to CruiseControl and other open-source build-servers. At the JavaOne conference in May 2008 the software won the Duke's Choice Award in the Developer Solutions category.
+During November 2010, an issue arose in the Hudson community with respect to the infrastructure used, which grew to encompass questions over the stewardship and control by Oracle. Negotiations between the principal project contributors and Oracle took place, and although there were many areas of agreement a key sticking point was the trademarked name "Hudson", after Oracle claimed the right to the name and applied for a trademark in December 2010. As a result, on January 11, 2011, a call for votes was made to change the project name from "Hudson" to "Jenkins". The proposal was overwhelmingly approved by community vote on January 29, 2011, creating the Jenkins project.
+On February 1, 2011, Oracle said that they intended to continue development of Hudson, and considered Jenkins a fork rather than a rename. Jenkins and Hudson therefore continue as two independent projects, each claiming the other is the fork. As of December 2013, the Jenkins organisation on GitHub had 567 project members and around 1,100 public repositories, compared with Hudson's 32 project members and 17 public repositories.
+In 2011, creator Kohsuke Kawaguchi received a Google-O'Reilly Open Source Award for his work on the Hudson/Jenkins project. In 2014, Kawaguchi became the Chief Technology Officer for CloudBees.
+
+
+== Plugins ==
+Plugins have been released for Jenkins that extend its use to projects written in languages other than Java. Plugins are available for integrating Jenkins with most version control systems and big databases. Many build tools are supported via their respective plugins. Plugins can also change the way Jenkins looks or add new functionality.
+Builds can generate test reports in various formats supported by plugins (JUnit support is currently bundled) and Jenkins can display the reports and generate trends and render them in the GUI.
+
+
+== Other frameworks ==
+Based on the original Jenkins for Java, there are now similar tools for other programming frameworks such as:
+Buildbot  a Python system to automate the compile/test cycle to validate code changes.
+Tox  an automation tool providing packaging, testing and deployment of Python software.
+Travis-CI  a distributed CI server which builds tests for open source projects for free.
+Django-Jenkins  Django (Python) Web Framework integration with Jenkins.
+See Continuous Integration for more.
+
+
+== See also ==
+
+Continuous integration software
+Comparison of continuous integration software
+
+
+== References ==
+
+
+== External links ==
+Jenkins homepage
+Hudson free book
+Jenkins creator Kohsuke Kawaguchi on The Changelog podcast talking about the project origin and name change(link is broken as of 2015.02.07)
+7 Ways to Optimize Jenkins/Hudsonfrom founder Kohsuke Kawaguchi

@@ -9,31 +9,48 @@ import json
 
 # the index page view
 def index(request):
+    """
+    A search box, directed to /quiz/ page with the search term
+    """
     context = RequestContext(request)
     context_dict = {}
     return render_to_response('eduprototype/index.html', context_dict, context)
 
 
-# the intro view
 def quiz(request):
+    """
+    The intro view\n
+    Requires Input: a search term in request["q"].
+    """
     if 'q' not in request.GET or not request.GET['q']:
         return redirect('index')
     searchterm = request.GET['q']
     context_dict = {}
     context = RequestContext(request)
     try:
-        json_tree = query(searchterm)  # comes out in a JSON string
+        json_tree = query(searchterm)
+        # comes out in a JSON string
+        # TODO:: why would you want a JSON string?
+        # Why not directly use the dict?
     except DisambiguationError as dis:
         return disambiguation(request, dis)
     # converted into a python dictionary
     tree = json.loads(json_tree, object_hook=recurhook)
     request.session['tree'] = tree
     context_dict['quiz'] = make_quiz(tree)
-    context_dict['tree'] = tree          # save it to context
-    return render_to_response('eduprototype/quiz.html', context_dict, context)
+    context_dict['tree'] = tree
+    # save it to context
+    return render('eduprototype/quiz.html', context_dict, context)
 
 
 def disambiguation(request, dis=[]):
+    """
+    The search term may not corresponds to multiple terms, ask the user to select the exact term
+    :param request:
+    :param dis: the object of the DisambiguationError
+    :return: a page with multiple related terms returned by Wikipedia API
+    """
+
     if not dis:
         return redirect('index')
     pages = [{'title': option, 'text': description, 'link': link}
@@ -45,9 +62,13 @@ def disambiguation(request, dis=[]):
                               context_dict, context)
 
 
-# the learn view, this is displayed after the quiz is completed to display
-# the information the user needs
 def learn(request):
+    """
+    the learn view, this is displayed after the quiz is completed to display
+    the information the user needs
+    :param request:
+    :return:
+    """
     context = RequestContext(request)
     if 'q0' not in request.GET or not request.GET['q0']:
         return redirect('index')
@@ -66,9 +87,12 @@ def learn(request):
     return render_to_response('eduprototype/learn.html', context_dict, context)
 
 
-# code for assembling the dicts needed for the quizzes
+
 def make_quiz(topic):
-    # goes though the quizzes and returns a list of dicts for the quiz page
+    """
+    code for assembling the dicts needed for the quizzes
+    goes though the quizzes and returns a list of dicts for the quiz page
+    """
     children = topic['children']
     quiz = []
     for i, child in enumerate(children):
@@ -77,8 +101,10 @@ def make_quiz(topic):
 
 
 def make_question(topic, num):
-    # a whole bunch of ugly code to randomize the answers but keep
-    # track of which one is correct
+    """
+    a whole bunch of ugly code to randomize the answers but keep
+    track of which one is correct
+    """
     answers_prerand = topic['distractors']
     description = topic['description']
     answers_prerand.insert(0, description)
@@ -95,9 +121,13 @@ def make_question(topic, num):
     return {'title': topic['title'], 'number': num, 'answers': answers}
 
 
-# really ugly code to take the request to learn and get back a list
-# of booleans representing whether or not the user answered correctly
 def quiz_correctness(request):
+    """
+    really ugly code to take the request to learn and get back a list
+    of booleans representing whether or not the user answered correctly
+    :param request:
+    :return:
+    """
     i = 0
     while ('q'+str(i)) in request.GET:
         i += 1
@@ -111,9 +141,12 @@ def quiz_correctness(request):
     return responses
 
 
-# extra code to fix issues with the way json.loads processes this
-
 def recurhook(d):
+    """
+    extra code to fix issues with the way json.loads processes this
+    :param d:
+    :return:
+    """
     if d['children']:
         # d['children'] = json.loads(d['children'], recurhook)
         children = []

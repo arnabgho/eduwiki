@@ -9,10 +9,16 @@ import sys
 import unicodedata
 
 
-# takes a search term and, optionally, a depth and branch factor, and returns a
-# JSON tree representing the term's article, with its prereqs and quiz items as
-# well as those of the prereqs, and of their prereqs, etc.
 def query(search_term, depth=1, children=3):
+    """
+    A recursive function that automatically generates multiple choice questions
+    for the search_term and its prereqs
+
+    :param depth: the depth of the tree, max: 6
+    :param children: the depth of the tree, max: 6
+    :return a tree (JSON format) representing the term's article, with its prerequisites
+    and quiz items as well as those of the prereqs, and of their prereqs, etc.
+    """
     # set a max depth and branching factor as a failsafe
     if depth > 6:
         depth = 6
@@ -21,7 +27,7 @@ def query(search_term, depth=1, children=3):
 
     # get the topic and the names of its prereq links
     main_topic = WikiEducate(normal(search_term))
-    prereqs = main_topic.wikilinks(children)
+    prereqs = main_topic.wiki_links(children)
     topic_name = main_topic.page.title
 
     # create a JSON tree which will be recursively built
@@ -31,7 +37,7 @@ def query(search_term, depth=1, children=3):
     # note: I'm referring to the actual string of text as the distractor
     topic_text = main_topic.plainTextSummary(1)
     description = main_topic.returnWhatIs()
-    distractor_names = main_topic.wikilinks(children)
+    distractor_names = main_topic.wiki_links(children)
     distractors = []
     for i in range(0, 3):
         distractor_name = normal(distractor_names[i])
@@ -53,18 +59,22 @@ def query(search_term, depth=1, children=3):
 
 
 def normal(text):
+    """
+    normalize unicode and return ascii text
+    return "ascii" if there is an UnicodeEncodeError
+    """
     try:
         return unicodedata.normalize('NFKD', text).encode('ascii')
     except UnicodeEncodeError as u:
-        return "ascii"
+        return "ascii" + str(u)
 
 
-def getpage(topic):
-    return WikiEducate(topic)
+# def getpage(topic):
+#     return WikiEducate(topic)
 
 
-def getpage_exact(topic):
-    return WikiEducate(topic, autosuggest=False)
+# def getpage_exact(topic):
+#     return WikiEducate(topic, autosuggest=False)
 
 
 class WikiEducate:
@@ -74,12 +84,12 @@ class WikiEducate:
         self.fetcher = DiskCacheFetcher('url_cache')
         self.page = wikipedia.page(self.topic, auto_suggest=autosuggest)
 
-    def wikitext(self):
-        text = self.page.wikitext()
-        return text
+    # def wikitext(self):
+    # text = self.page.wikitext()
+    # return text
 
-    def wikilinks(self, num):
-        wtext = self.wikitext()
+    def wiki_links(self, num):
+        wtext = self.page.wikitext()
         # print wtext
         wikilink_rx = re.compile(r'\[\[([^|\]]*\|)?([^\]]+)\]\]')
         link_array = []
@@ -88,68 +98,74 @@ class WikiEducate:
                 break
             if m.group(1) is not None:
                 if "Image" in m.group(1) or "Template" in m.group(1) or \
-                        "File" in m.group(1):
+                                "File" in m.group(1):
                     continue
                 link_array.append(m.group(1)[:-1])
             else:
                 if "Image" in m.group(2) or "Template" in m.group(2) or \
-                        "File" in m.group(2):
+                                "File" in m.group(2):
                     continue
                 link_array.append(m.group(2))
         return link_array
 
-    # Returns (up to) first n paragraphs of given Wikipedia article.
+
     def plainTextSummary(self, n=2):
+        """
+        :param n: max paragraph number
+        :return: (up to) first n paragraphs of given Wikipedia article.
+        """
         cached = self.cache and \
-            self.fetcher.fetch(self.topic+"-plainTextSummary")
+                 self.fetcher.fetch(self.topic + "-plainTextSummary")
         if cached:
             page_content = cached
         else:
             self.page = wikipedia.page(self.topic)
             page_content = self.page.content
-            self.fetcher.cache(self.topic+"-plainTextSummary", page_content)
+            self.fetcher.cache(self.topic + "-plainTextSummary", page_content)
         first_n_paragraphs = "\n".join(page_content.split("\n")[:n])
         return first_n_paragraphs
 
     # Returns an array of article titles for wiki links within given wiki text.
     def topWikiLinks(self, n=2):
-        cached = self.cache and self.fetcher.fetch(self.topic+"-links")
+        cached = self.cache and self.fetcher.fetch(self.topic + "-links")
         if cached:
             links = json.loads(cached)
         else:
             self.page = wikipedia.page(self.topic)
             links = self.page.links
-            self.fetcher.cache(self.topic+"-links", json.dumps(links))
+            self.fetcher.cache(self.topic + "-links", json.dumps(links))
         return links
 
     # Returns an array of category titles
     def categoryTitles(self):
-        cached = self.cache and self.fetcher.fetch(self.topic+"-categories")
+        cached = self.cache and self.fetcher.fetch(self.topic + "-categories")
         if cached:
             categories = json.loads(cached)
         else:
             self.page = wikipedia.page(self.topic)
             categories = self.page.categories
-            self.fetcher.cache(self.topic+"-categories",
+            self.fetcher.cache(self.topic + "-categories",
                                json.dumps(categories))
         return categories
 
     # Returns first mention in article of the following regex
     # "<topic>\s[^\.](is|was)([^\.])+\." or None (if no matches)
     def returnWhatIs(self):
-        cached = self.cache and self.fetcher.fetch(self.topic+"-whatis")
+        cached = self.cache and self.fetcher.fetch(self.topic + "-whatis")
         if cached:
             whatis = cached
         else:
             self.page = wikipedia.page(self.topic)
-            regex_str = '('+self.topic[:5]+'('+self.topic[5:]+')?'+'|'+'('+self.topic[:len(self.topic)-5]+')?'+self.topic[len(self.topic)-5:] + ')' + '(\s[^\.]*(is|was|can be regarded as)|[^,\.]{,15}?,)\s([^\.]+)\.(?=\s)'
+            regex_str = '(' + self.topic[:5] + '(' + self.topic[5:] + ')?' + '|' + '(' + self.topic[:len(
+                self.topic) - 5] + ')?' + self.topic[len(
+                self.topic) - 5:] + ')' + '(\s[^\.]*(is|was|can be regarded as)|[^,\.]{,15}?,)\s([^\.]+)\.(?=\s)'
             mentions = re.findall(regex_str, self.page.content, re.IGNORECASE)
 
             whatis = mentions[0][5]
             whatis = re.sub(r'.*\sis\s+(.*)$', r'\1', whatis)
             if not mentions:
                 whatis = "can't find a good description"
-            self.fetcher.cache(self.topic+"-whatis", whatis)
+            self.fetcher.cache(self.topic + "-whatis", whatis)
         return whatis
 
 
