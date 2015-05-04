@@ -24,7 +24,7 @@ Contrasting the term with related concepts may help clarify its meaning. Frankli
 
 === Intuitive distinguishing agents from objects ===
 Agents are more autonomous than objects.
-Agents have flexible behaviour, reactive, proactive, social.
+Agents have flexible behaviour: reactive, proactive, social.
 Agents have at least one thread of control but may have more.
 (Wooldridge, 2002)
 
@@ -50,7 +50,7 @@ Organizational impacts include the transformation of the entire electronic comme
 
 
 === Work contentment and job satisfaction impact ===
-People like to perform easy tasks providing the sensation of success unless the repetition of the simple tasking is affecting the overall output. In general implementing software agents to perform administrational requirements provides a substantial increase in work contentment, as administering the own work does never please the worker. The effort freed up serves for higher degree of engagement in the substantial tasks of individual work. Hence, software agents may provide the basics to implement self-controlled work, relieved from hierarchical controls and interference. Such conditions may be secured by application of software agents for required formal support.
+People like to perform easy tasks providing the sensation of success unless the repetition of the simple tasking is affecting the overall output. In general implementing software agents to perform administrative requirements provides a substantial increase in work contentment, as administering their own work does never please the worker. The effort freed up serves for higher degree of engagement in the substantial tasks of individual work. Hence, software agents may provide the basics to implement self-controlled work, relieved from hierarchical controls and interference. Such conditions may be secured by application of software agents for required formal support.
 
 
 === Cultural impact ===
@@ -73,7 +73,7 @@ Data-mining agents
 
 
 === Buyer agents (shopping bots) ===
-Buyer agents travel around a network (i.e. the internet) retrieving information about goods and services. These agents, also known as 'shopping bots', work very efficiently for commodity products such as CDs, books, electronic components, and other one-size-fits-all products.
+Buyer agents travel around a network (e.g. the internet) retrieving information about goods and services. These agents, also known as 'shopping bots', work very efficiently for commodity products such as CDs, books, electronic components, and other one-size-fits-all products.
 
 
 === User agents (personal agents) ===

@@ -9,6 +9,7 @@ import sys
 import unicodedata
 from WikiEducate import WikiEducate
 
+
 def query(search_term, depth=1, num_children=3):
     """
     A recursive function that automatically generates multiple choice questions
@@ -27,15 +28,17 @@ def query(search_term, depth=1, num_children=3):
 
     # get the topic and the names of its prereq links
     main_topic = WikiEducate(normal(search_term))
-    prereqs = main_topic.wiki_links(num_children)
+    prereq_names = main_topic.wiki_links(num_children)
     topic_name = main_topic.page.title
 
-    # create a JSON tree which will be recursively built
+    # create a knowledge tree (dict) which will be recursively built
     knowledge_children = []
+
 
     # get topic text, descriptor, and distractors
     # note: I'm referring to the actual string of text as the distractor
-    topic_text = main_topic.plain_text_summary(1)
+    # distractor is generated from the definition of the first few linked items
+    topic_text = main_topic.page.summary  # main_topic.plain_text_summary(1)
     description = main_topic.return_what_is()
     distractor_names = main_topic.wiki_links(num_children)
     distractors = []
@@ -48,7 +51,7 @@ def query(search_term, depth=1, num_children=3):
     # run for num_children if depth left
     if depth != 0:
         for j in range(0, num_children):
-            json_child = query(prereqs[j], depth=depth - 1, num_children=num_children)
+            json_child = query(prereq_names[j], depth=depth - 1, num_children=num_children)
             knowledge_children.append(json_child)
 
     # assemble the tree and return it
@@ -66,7 +69,7 @@ def normal(text):
     """
     return str(text)
     # try:
-    #     return unicodedata.normalize('NFKD', text).encode('ascii')
+    # return unicodedata.normalize('NFKD', text).encode('ascii')
     # except UnicodeEncodeError as u:
     #     return "ascii" + str(u)
 
