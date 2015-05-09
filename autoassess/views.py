@@ -5,22 +5,26 @@ from django.template import RequestContext
 from diagnose.wikipedia import DisambiguationError, page
 from random import randint
 import json
-from diagnose import wikipedia_wrapper
+from diagnose import diagnose
 
 
 def index(request):
+    return search_page(request)
+
+
+def search_page(request):
     """
     A search box, directed to /quiz/ page with the search term
     """
     context = RequestContext(request)
     context_dict = {}
-    return render_to_response('eduprototype/index.html', context_dict, context)
+    return render_to_response('autoassess/index.html', context_dict, context)
 
 
 def quiz(request):
     """
     The intro view\n
-    Requires Input: a search term in request["q"].
+    Requires Input: a search term in request.GET["q"].
     """
 
     if 'q' not in request.GET or not request.GET['q']:
@@ -30,16 +34,18 @@ def quiz(request):
     response_data = {}
 
     try:
-        knowledge_tree = wikipedia_wrapper.query(search_term)
+        questions = diagnose.diagnose(search_term)
     except DisambiguationError as dis:
         return disambiguation(request, dis)
     # converted into a python dictionary
-    # tree = json.loads(knowledge_tree, object_hook=recurhook)
-    # request.session['tree'] = knowledge_tree
-    response_data['quiz'] = make_quiz(knowledge_tree)
-    response_data['tree'] = knowledge_tree
+
+    #TODO:: why use session here? Way to substitute?
+    # request.session['tree'] = prereq_tree
+    response_data['quiz'] = questions
+    response_data['search_term'] = search_term
     # save it to context
-    return render(request, 'eduprototype/quiz.html', response_data)
+
+    return render(request, 'autoassess/quiz.html', response_data)
 
 
 def disambiguation(request, dis=[]):
@@ -49,15 +55,13 @@ def disambiguation(request, dis=[]):
     :param dis: the object of the DisambiguationError
     :return: a page with multiple related terms returned by Wikipedia API
     """
-
     if not dis:
         return redirect('index')
     pages = [{'title': option, 'text': description, 'link': link}
              for option, description, link in
              zip(dis.options, dis.descriptions, dis.links)]
     context_dict = {'pages': pages}
-    context = RequestContext(request)
-    return render(request, 'eduprototype/disambiguation.html', context_dict)
+    return render(request, 'autoassess/disambiguation.html', context_dict)
 
 
 def learn(request):
@@ -67,6 +71,7 @@ def learn(request):
     :param request:
     :return:
     """
+    #TODO:: left over work for code reconstruction
     context = RequestContext(request)
     if 'q0' not in request.GET or not request.GET['q0']:
         return redirect('index')
@@ -82,41 +87,7 @@ def learn(request):
                  zip(tree['children'], responses)]
 
     context_dict = {'tree': tree, "subtopics": subtopics}
-    return render_to_response('eduprototype/learn.html', context_dict, context)
-
-
-
-def make_quiz(topic):
-    """
-    code for assembling the dicts needed for the quizzes
-    goes though the quizzes and returns a list of dicts for the quiz page
-    """
-    children = topic['children']
-    quiz = []
-    for i, child in enumerate(children):
-        quiz.append(make_question(child, i))
-    return quiz
-
-
-def make_question(topic, num):
-    """
-    a whole bunch of ugly code to randomize the answers but keep
-    track of which one is correct
-    """
-    answers_prerand = topic['distractors']
-    description = topic['description']
-    answers_prerand.insert(0, description)
-    answers = []
-    l = len(answers_prerand)
-    found = False
-    for i in range(l):
-        correct = "incorrect"
-        rand = randint(0, len(answers_prerand) - 1)
-        if rand == 0 and not found:
-            correct = "correct"
-            found = True
-        answers.append({'text': answers_prerand.pop(rand), 'correct': correct})
-    return {'title': topic['title'], 'number': num, 'answers': answers}
+    return render_to_response('autoassess/learn.html', context_dict, context)
 
 
 def quiz_correctness(request):
@@ -126,6 +97,7 @@ def quiz_correctness(request):
     :param request:
     :return:
     """
+    #TODO:: left over work for code reconstruction
     i = 0
     while ('q'+str(i)) in request.GET:
         i += 1
@@ -139,7 +111,40 @@ def quiz_correctness(request):
     return responses
 
 
-#TODO:: to remove. not needed if we do not use json in the middle of the code
+# def make_quiz(topic):
+#     """
+#     code for assembling the dicts needed for the quizzes
+#     goes though the quizzes and returns a list of dicts for the quiz page
+#     """
+#     children = topic['children']
+#     quiz = []
+#     for i, child in enumerate(children):
+#         quiz.append(make_question(child, i))
+#     return quiz
+#
+#
+# def make_question(topic, num):
+#     """
+#     a whole bunch of ugly code to randomize the answers but keep
+#     track of which one is correct
+#     """
+#     answers_prerand = topic['distractors']
+#     description = topic['description']
+#     answers_prerand.insert(0, description)
+#     answers = []
+#     l = len(answers_prerand)
+#     found = False
+#     for i in range(l):
+#         correct = "incorrect"
+#         rand = randint(0, len(answers_prerand) - 1)
+#         if rand == 0 and not found:
+#             correct = "correct"
+#             found = True
+#         answers.append({'text': answers_prerand.pop(rand), 'correct': correct})
+#     return {'title': topic['title'], 'number': num, 'answers': answers}
+
+# (Deprecated) saving this just in case.
+# tree = json.loads(prereq_tree, object_hook=recurhook)
 # def recurhook(d):
 #     """
 #     extra code to fix issues with the way json.loads processes this

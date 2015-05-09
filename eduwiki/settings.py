@@ -50,7 +50,7 @@ INSTALLED_APPS = (
     'mongonaut',
     'sslserver',
 
-    'question_generation',
+    'autoassess',
 )
 
 MIDDLEWARE_CLASSES = (
