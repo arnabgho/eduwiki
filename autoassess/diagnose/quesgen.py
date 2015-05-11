@@ -40,6 +40,7 @@ def format_question(question):
         'topic': question['topic'],
         'question_text': question['question_text'],
         'choices': possible_answers,
+        'type': question['type']
     }
     return formated_question
 

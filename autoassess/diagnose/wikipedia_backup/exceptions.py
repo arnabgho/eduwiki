@@ -5,9 +5,6 @@ Global wikipedia exception and warning classes.
 import sys
 
 
-ODD_ERROR_MESSAGE = "This shouldn't happen. Please report on GitHub: github.com/goldsmith/Wikipedia"
-
-
 class WikipediaException(Exception):
     """Base Wikipedia exception class."""
 
@@ -52,9 +49,11 @@ class DisambiguationError(WikipediaException):
     .. note:: `options` does not include titles that do not link to a valid Wikipedia page.
     """
 
-    def __init__(self, title, may_refer_to):
+    def __init__(self, title, may_refer_to, descriptions, links):
         self.title = title
         self.options = may_refer_to
+        self.descriptions = descriptions
+        self.links = links
 
     def __unicode__(self):
         return u"\"{0}\" may refer to: \n{1}".format(self.title, '\n'.join(self.options))

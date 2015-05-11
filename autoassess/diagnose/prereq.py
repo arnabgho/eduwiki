@@ -4,6 +4,7 @@ import wikipedia
 import re
 import search_wikipage
 
+
 def find_direct_prereq(wikipage, num):
     """
     Based on the guess that the first few terms with wikipedia link
@@ -12,7 +13,26 @@ def find_direct_prereq(wikipage, num):
     :return:
     """
     # TODO:: the heuristic actually needs to be changed
+    # return content_categories(wikipage, num)
     return linked_wiki_terms(wikipage, num)
+
+
+def content_categories(wikipage, num):
+    """
+    request categories, and remove the hidden/tracking categories which are not content categories
+    :param wikipage:
+    :param num:
+    :return:
+    """
+    # TODO:: http://www.mediawiki.org/wiki/API:Categorymembers
+    categories = wikipage.content_categories
+    print categories
+    prereqs = []
+    for cat in categories:
+        if 'articles that' in cat.lower():
+            continue
+        prereqs.append(cat)
+    return prereqs
 
 
 def linked_wiki_terms(wikipage, num):
@@ -20,12 +40,13 @@ def linked_wiki_terms(wikipage, num):
     :param num: the number of linked texts to return
     :return: list(strings), the first few texts that have a wikipedia hyper link
     """
-    # TODO: use the page._links to match and find the first few links, maybe?
+    # TODO:: use the iwlinks to get the first few links!
+    # internal_links = wikipage.internal_links
     w_text = wikipage.wikitext()
     wikilink_rx = re.compile(r'\[\[([^|\]]*\|)?([^\]]+)\]\]')
     link_array = []
     for m in wikilink_rx.finditer(w_text):
-        if len(link_array) > num:
+        if len(link_array) >= num:
             break
         if m.group(1) is not None:
             if "Image" in m.group(1) or "Template" in m.group(1) or \
@@ -59,8 +80,8 @@ def find_prereq_tree(topic, depth=1, num_prereq=3):
 
     # run for num_children if depth left
     if depth != 0:
-        for j in range(0, num_prereq):
-            prereq_subtree = find_prereq_tree(prereq_names[j], depth=depth - 1, num_prereq=num_prereq)
+        for pn in prereq_names:
+            prereq_subtree = find_prereq_tree(pn, depth=depth - 1, num_prereq=num_prereq)
             prereqs.append(prereq_subtree)
 
     # assemble the tree and return it

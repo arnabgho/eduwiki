@@ -16,7 +16,7 @@ def diagnose(search_term, depth=2, num_prereq=3):
         prereq_questions.append(child_question)
     questions = [topic_question] + prereq_questions
 
-    print questions
+    # print questions
     return questions
 
 

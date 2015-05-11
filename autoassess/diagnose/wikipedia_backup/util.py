@@ -1,15 +1,10 @@
-from __future__ import print_function, unicode_literals
-
 import sys
 import functools
 
 
 def debug(fn):
     def wrapper(*args, **kwargs):
-        print(fn.__name__, 'called!')
-        print(sorted(args), tuple(sorted(kwargs.items())))
         res = fn(*args, **kwargs)
-        print(res)
         return res
 
     return wrapper
