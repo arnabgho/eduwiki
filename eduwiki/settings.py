@@ -11,14 +11,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 from mongoengine import connect
-
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-
-# TODO::remove this after removing the "cache"
-PROJECT_PATH = os.path.abspath(BASE_DIR)
-TEMPLATE_PATH = os.path.join(PROJECT_PATH, 'templates')
-DATABASE_PATH = os.path.join(PROJECT_PATH, 'eduwiki.db')
-STATIC_PATH = os.path.join(PROJECT_PATH, 'static')
 
 
 # Quick-start development settings - unsuitable for production
@@ -67,12 +60,9 @@ ROOT_URLCONF = 'eduwiki.urls'
 
 WSGI_APPLICATION = 'eduwiki.wsgi.application'
 
-TEMPLATE_DIRS = (
-    TEMPLATE_PATH,
-)
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media')
+# MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media')
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
@@ -81,11 +71,21 @@ DATABASES = {
     'default': {
         # TODO:: session['tree'] does not work if ENGINE is dummy.
         # Fix this and set dummy.
-        # 'ENGINE': 'django.db.backends.dummy',
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': DATABASE_PATH,
+        'ENGINE': 'django.db.backends.dummy',
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': DATABASE_PATH,
     }
 }
+
+AUTHENTICATION_BACKENDS = (
+    'mongoengine.django.auth.MongoEngineBackend',
+)
+
+MONGOENGINE_USER_DOCUMENT = 'mongoengine.django.auth.User'
+AUTH_USER_MODEL = 'mongo_auth.MongoUser'
+#
+SESSION_ENGINE = 'mongoengine.django.sessions'
+SESSION_SERIALIZER = 'mongoengine.django.sessions.BSONSerializer'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
@@ -105,11 +105,21 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/var/www/crowdTutor/static'
-
-STATICFILES_DIRS = (
-    STATIC_PATH,
+STATIC_ROOT = '/var/www/eduwiki/static'
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR, 'templates/'),
 )
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
+
+# Used by the authentication system for all the applications.
+# URL to use if the authentication system requires a user to log in.
+LOGIN_URL = '/accounts/login/'
+# Default URL to redirect to after a user logs in.
+LOGIN_REDIRECT_URL = '/'
+# REGISTER_REDIRECT_URL = '/accounts/activate/'
+
 
 MONGODB_HOST = 'localhost'
 MONGODB_USER = 'eduwiki'
@@ -118,7 +128,7 @@ MONGODB_PWD = 'eduwiki_2015-qi-guo'
 connect('eduwiki_db', host=MONGODB_HOST)
 
 # Following is added to for SSL
-# # Web SSL PWD = "SSLeduwiki2015"
+# # Web SSL PWD = "SSLcrowdTutor2015"
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # SESSION_COOKIE_SECURE = True
 # CSRF_COOKIE_SECURE = True
