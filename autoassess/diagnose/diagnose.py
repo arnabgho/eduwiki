@@ -1,7 +1,7 @@
 import wikipedia
 import prereq
 import quesgen
-
+import unicodedata
 
 def diagnose(search_term, depth=2, num_prereq=3):
     # find prereq tree
@@ -69,15 +69,3 @@ def diagnose(search_term, depth=2, num_prereq=3):
 #         'description': description, 'distractors': distractors,
 #         'children': knowledge_children}
 #     return prereq_tree
-
-
-# def normal(text):
-#     """
-#     normalize unicode and return ascii text
-#     return "ascii" if there is an UnicodeEncodeError
-#     """
-#     return str(text)
-#     # try:
-#     # return unicodedata.normalize('NFKD', text).encode('ascii')
-#     # except UnicodeEncodeError as u:
-#     # return "ascii" + str(u)

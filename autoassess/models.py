@@ -83,7 +83,8 @@ def save_questions(questions, force=True):
     """
 
     # save prerequisites
-    topics = [str(q['topic']) for q in questions]
+    topics = [q['topic'] for q in questions]
+    print topics
     main_topic = topics[0]
     old_prereqs = Prereq.objects.filter(topic=main_topic)
     if old_prereqs:
