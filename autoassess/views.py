@@ -28,7 +28,7 @@ def quiz(request):
     search_term = request.GET['q']
 
     force_generating_new = False
-    if 'f' in request.GET and request.GET['f'] == 'T':
+    if 'f' in request.GET and bool(request.GET['f']):
         force_generating_new = True
 
     try:

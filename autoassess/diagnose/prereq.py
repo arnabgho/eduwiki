@@ -87,5 +87,40 @@ def find_prereq_tree(topic, depth=1, num_prereq=3):
     # assemble the tree and return it
     prereq_tree = {
         'wikipage': wikipage,
-        'children': prereqs}
+        'children': prereqs
+    }
     return prereq_tree
+
+
+def prereq_stat(wikipage, terms):
+    """
+    Get some stats of certain terms in a wikipage,
+    to get sense of the prerequisites
+    :param wikipage:
+    :param terms:
+    :return:
+    """
+    wikitext = wikipage.wikitext()
+    counts = {}
+    star_pos = {}
+
+    suggested_terms = []
+    for t in terms:
+        results, suggestion = wikipedia.search(t, results=1, suggestion=True)
+        suggested_term = suggestion or results[0]
+        suggested_terms.append(suggested_term)
+    terms = suggested_terms
+
+    for t in terms:
+        star_pos[t] = wikitext.index(t)
+    for t in enumerate(terms):
+        if star_pos[t] == -1:
+            continue
+        counts[t] = wikitext.count(t)
+
+    stats = {
+        'start_pos': star_pos,
+        'counts': counts,
+    }
+
+    return stats
