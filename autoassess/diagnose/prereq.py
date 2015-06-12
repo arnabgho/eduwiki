@@ -1,6 +1,6 @@
 __author__ = 'moonkey'
 
-import wikipedia
+from util import wikipedia
 import re
 import search_wikipage
 

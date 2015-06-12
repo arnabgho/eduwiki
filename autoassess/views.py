@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from diagnose.wikipedia import DisambiguationError
+from diagnose.util.wikipedia import DisambiguationError
 from diagnose import diagnose
 from diagnose import search_wikipage
 from .models import *

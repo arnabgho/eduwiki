@@ -1,6 +1,6 @@
 __author__ = 'moonkey'
 
-import wikipedia
+from util import wikipedia
 import util.str_util
 
 

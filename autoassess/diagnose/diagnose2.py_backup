@@ -1,6 +1,6 @@
 import pyjs
 import md5, os, tempfile, time
-import wikipedia
+from util import wikipedia
 import re
 import json
 import sys

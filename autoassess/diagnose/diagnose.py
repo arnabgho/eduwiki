@@ -1,4 +1,4 @@
-import wikipedia
+from util import wikipedia
 import prereq
 import quesgen
 import unicodedata

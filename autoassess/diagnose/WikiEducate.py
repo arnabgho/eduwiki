@@ -2,12 +2,11 @@ import os
 import tempfile
 import time
 import hashlib
-import wikipedia
+from util import wikipedia
 import re
 import json
 import sys
 import unicodedata
-from autoassess.models import WikiPage
 import time
 
 
@@ -16,10 +15,10 @@ class WikiEducate:
         self.topic = topic
         self.cache = cache  # means whether to save in the db or not
         # try:
-        #     self.page = WikiPage.objects.filter(title=topic)[0]
+        #     self.page = WikipediaArticle.objects.filter(title=topic)[0]
         # except Exception:
         #     self.page = wikipedia.page(self.topic, auto_suggest=autosuggest)
-        # TODO: need to make self.page all WikiPage, not wikipedia.page at all
+        # TODO: need to make self.page all WikipediaArticle, not wikipedia.page at all
 
         # page_obj_construction_start = time.time()
         self.page = wikipedia.page(self.topic, auto_suggest=autosuggest)

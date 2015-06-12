@@ -1,7 +1,7 @@
 __author__ = 'moonkey'
 
 import re
-import wikipedia
+from util import wikipedia
 import random
 import quesgen_whatisregex
 import quesgen_sentstruct

@@ -2,10 +2,37 @@ __author__ = 'moonkey'
 
 import nltk
 import string
+import os
+import nltk.parse.stanford
+import nltk_tgrep
 
-class NlUtil:
+
+class NlpUtil:
     def __init__(self):
         self.tokenizer = None
+        self.parser = None
+
+    def _load_tokenizer(self):
+        try:
+            if not self.tokenizer:
+                self.tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
+                return True
+        except:
+            raise Exception
+
+    def _load_parser(self):
+        if self.parser:
+            return True
+        try:
+            os.environ['STANFORD_PARSER'] = os.path.join(
+                os.path.expanduser('~'), 'stanford-parser/stanford-parser.jar')
+            os.environ['STANFORD_MODELS'] = os.path.join(
+                os.path.expanduser('~'), 'stanford-parser/stanford-parser-3.5.2-models.jar')
+            self.parser = nltk.parse.stanford.StanfordParser(
+                model_path="edu/stanford/nlp/models/lexparser/englishPCFG.ser.gz")
+            return True
+        except Exception:
+            raise Exception
 
     def punkt_tokenize(self, text):
         """
@@ -18,17 +45,39 @@ class NlUtil:
         :return:
         """
         if not self.tokenizer:
-            self.tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
+            self._load_tokenizer()
         sentences = self.tokenizer.tokenize(text)
         return sentences
 
-    def pos_tag(self, text):
+    def parsing(self, text):
+        if not self.parser:
+            self._load_parser()
         tokens = nltk.word_tokenize(text)
-        tagged = nltk.pos_tag(tokens)
-        return tagged
+        # tagged = nltk.pos_tag(tokens)
+        parsed = self.parser.parse(tokens).next()
+        return parsed
+
+    @staticmethod
+    def tgrep_positions(sent_tree, pattern):
+        if type(sent_tree) is not nltk.tree.ParentedTree:
+            sent_tree = nltk.tree.ParentedTree.convert(sent_tree)
+        matched_positions = nltk_tgrep.tgrep_positions(sent_tree, pattern)
+
+        # TODO:: insepct other functions, is there a result like in regex where each parts are separated?
+        return matched_positions
+
+    @classmethod
+    def tgrep(cls, sent_tree, pattern):
+        return sent_tree[cls.tgrep_positions(sent_tree, pattern)]
+
+    @staticmethod
+    def untokenize(tokens):
+        sentence = "".join(
+            [" " + i if not i.startswith("'") and i not in string.punctuation else i for i in tokens]).strip()
+        return sentence
 
 
-class StemmedText:
+class ProcessedText:
     """
     Maybe use nltk.stem.wordnet.WordNetLemmatizer instead of PorterStemmer.
     As stemmer semms just truncate the last parts, 'wolves' to 'wolv' not 'wolf'.
@@ -38,16 +87,42 @@ class StemmedText:
     """
 
     def __init__(self, text, stemmer=nltk.stem.PorterStemmer()):
-        self.original = text
-        self.stemmed = self._stemming(text=text, stemmer=stemmer)
+        if type(text) is str:
+            self.original_text = text
+            self.original_tokens = nltk.word_tokenize(text)
+        elif type(text) is list:
+            self.original_tokens = text
+            self.original_text = NlpUtil.untokenize(text)
+
+        self.stemmed_tokens = None
+        self.processed_tokens = None
+
+        self._processing()
+        # self.stemmed = self.stemming(text=text, stemmer=stemmer)
+
+    def _processing(self):
+        stopwords = nltk.corpus.stopwords.words('english')
+        stopwords += list(string.punctuation)
+
+        if not self.stemmed_tokens:
+            self._stemming()
+        # to lower case and remove stop words
+        self.processed_tokens = [t.lower() for t in self.stemmed_tokens if t.lower() not in stopwords]
+
+
+    def _stemming(self, stemmer=nltk.stem.PorterStemmer()):
+        if not self.original_tokens:
+            return None
+
+        self.stemmed_tokens = [stemmer.stem(t) for t in self.original_tokens]
 
     @staticmethod
-    def _stemming(text, stemmer=nltk.stem.PorterStemmer()):
+    def stemming(text, stemmer=nltk.stem.PorterStemmer()):
         """
             stemming/ to lower case
-        :param text: str or list of tokens
+        :param text: list of tokens
         :param stemmer:
-        :return: returned type is the same as input text, str of list.
+        :return: returned type is the same as input text.
         """
         stopwords = nltk.corpus.stopwords.words('english')
         stopwords += list(string.punctuation)
@@ -64,7 +139,7 @@ class StemmedText:
         stemmed_tokens = [stemmer.stem(t.lower()) for t in original_tokens if t.lower() not in stopwords]
 
         if type(text) is str or unicode:
-            stemmed_str = ' '.join(stemmed_tokens)
+            stemmed_str = NlpUtil.untokenize(stemmed_tokens)
             return stemmed_str
         elif type(text) is list:
             return stemmed_tokens
@@ -73,32 +148,7 @@ class StemmedText:
 
 
 def test():
-    nlutil = NlUtil()
-    # a = "In numerical analysis, isotonic regression (IR) involves finding a weighted " \
-    # "least-squares fit to a vector with weights vector subject to a set of non-contradictory" \
-    #     " constraints of kind . Such constraints define partial order or total order and can be " \
-    #     "represented as a directed graph , where N is the set of variables involved, and E is the " \
-    #     "set of pairs (i, j) for each constraint . Thus, the IR problem corresponds to the following" \
-    #     " quadratic program (QP): In the case when is a total order, a simple iterative algorithm" \
-    #     " for solving this QP is called the pool adjacent violators algorithm (PAVA). Best and " \
-    #     "Chakravarti (1990) have studied the problem as an active set identification problem, and " \
-    #     "have proposed a primal algorithm in O(n), the same complexity as the PAVA, which can be seen" \
-    #     " as a dual algorithm. IR has applications in statistical inference, for example, to fit of an " \
-    #     "isotonic curve to mean experimental results when an order is expected. A benefit of isotonic " \
-    #     "regression is that it does not assume any form for the target function, such as linearity assumed" \
-    #     " by linear regression. Another application is nonmetric multidimensional scaling, where a " \
-    #     "low-dimensional embedding for data points is sought such that order of distances between points" \
-    #     " in the embedding matches order of dissimilarity between points. Isotonic regression is used " \
-    #     "iteratively to fit ideal distances to preserve relative dissimilarity order. Isotonic regression" \
-    #     " is also sometimes referred to as monotonic regression. Correctly speaking, isotonic is used when" \
-    #     " the direction of the trend is strictly increasing, while monotonic could imply a trend that is " \
-    #     "either strictly increasing or strictly decreasing. Isotonic Regression under the for is defined as" \
-    #     " follows:"
-    #
-    # sentences = util.punkt_tokenize(a)
-    # stemmed = [StemmedText(s).stemmed for s in sentences]
-    # print '\n-----\n'.join(sentences)
-    # print '\n-----\n'.join(stemmed)
+    nlutil = NlpUtil()
 
     sentence = "At eight o'clock on Thursday morning Arthur didn't feel very good. I am good."
     tags = nlutil.pos_tag(sentence)

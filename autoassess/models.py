@@ -33,41 +33,6 @@ class Prereq(Document):
     prereqs = ListField(StringField(), required=True)
 
 
-class WikiPage(Document):
-    """
-    This matches what the wikipedia.page() returns [WikipediaPage object], and saves it
-    But this is not the same object as the WikipediaPage in the 'wikipedia' package
-    """
-    # TODO: figure out whether to save this or not, seems not necessary at all.
-    # TODO:: how about just a dict field? Think about that.
-    categories = ListField(StringField())
-    content = StringField()
-    images = ListField(StringField())
-    links = ListField(StringField())
-    original_title = StringField()
-    # TODO:figure out what "original_title" actually means? May need to merge the titles, or just delte this field
-    pageid = StringField()
-    parent_id = IntField()
-    references = ListField(URLField())
-    revision_id = IntField()
-    sections = ListField(StringField())
-    summary = StringField()
-    title = StringField()
-    url = URLField()
-
-
-class WikiKnowledgeNode(Document):
-    """
-    tree node of the knowledge tree
-    """
-    title = StringField()
-    page = ReferenceField(WikiPage)
-    question = ReferenceField(WikiQuestion)
-
-    # to reference the same type as itself
-    prerequisites = ListField(ReferenceField("self", reverse_delete_rule=NULLIFY))
-
-
 def load_questions(topic):
     questions = [load_question(topic)]
     prereqs = Prereq.objects.filter(topic=topic)[0].prereqs
