@@ -87,6 +87,7 @@ class NlpUtil:
         print >> sys.stderr, tokens
         # tagged = nltk.pos_tag(tokens)
         parsed = self.parser.parse(tokens).next()
+        print >> sys.stderr, "parsed_tree:"+str(parsed)
         return parsed
 
     @staticmethod
