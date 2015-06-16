@@ -154,6 +154,7 @@ def question_from_single_sentence(sentence, topic):
     # Maybe just remove "(*)".
 
     parsed_sentence, matched_positions = extract_verbal_phrase(sentence, topic)
+    print >> sys.stderr, matched_positions
     if matched_positions:
         matched_pos = matched_positions[0]
         matched_VP = parsed_sentence[matched_pos]
@@ -253,6 +254,7 @@ def topic_regex(topic=""):
 def extract_verbal_phrase(sentence, topic):
     nlutil = NlpUtil()
 
+    print >> sys.stderr, "pre nlutil.parsing()"
     parsed_sentence = nlutil.parsing(sentence)
 
     print >> sys.stderr, "parsed_sentence" + str(parsed_sentence)

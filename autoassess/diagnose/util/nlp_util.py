@@ -5,16 +5,18 @@ import string
 import os
 import nltk.parse.stanford
 import nltk_tgrep
-
+import sys
 # TODO:: test loading the parsers and tokenizers globally, i.e., the following
 # load the tokenizers and the parsers in the module, and then just use the global object in NlpUtil
 
 
 def load_punkt_tokenizer():
+    print >> sys.stderr, "loading tokenizer"
     return nltk.data.load('tokenizers/punkt/english.pickle')
 
 
 def load_stanford_parser():
+    print >> sys.stderr, "loading stanford_parser"
     # os.environ['STANFORD_PARSER'] = os.path.join(
     #     os.path.expanduser('~'), 'stanford-parser/stanford-parser.jar')
     # os.environ['STANFORD_MODELS'] = os.path.join(
@@ -34,6 +36,7 @@ STANFORD_PARSER = load_stanford_parser()
 
 class NlpUtil:
     def __init__(self):
+        print >> sys.stderr, "loading NlpUtil()"
         self.tokenizer = PUNKT_TOKENIZER
         self.parser = STANFORD_PARSER
         # self.tokenizer = None
@@ -49,12 +52,13 @@ class NlpUtil:
 
     def _load_parser(self):
         if self.parser:
+            print >> sys.stderr,  'parser already there'
             return True
         try:
             os.environ['STANFORD_PARSER'] = os.path.join(
-                os.path.expanduser('~'), 'stanford-parser/stanford-parser.jar')
+                '/opt/stanford-parser/stanford-parser.jar')
             os.environ['STANFORD_MODELS'] = os.path.join(
-                os.path.expanduser('~'), 'stanford-parser/stanford-parser-3.5.2-models.jar')
+                '/opt/stanford-parser/stanford-parser-3.5.2-models.jar')
             self.parser = nltk.parse.stanford.StanfordParser(
                 model_path="edu/stanford/nlp/models/lexparser/englishPCFG.ser.gz")
             return True
@@ -80,6 +84,7 @@ class NlpUtil:
         if not self.parser:
             self._load_parser()
         tokens = nltk.word_tokenize(text)
+        print >> sys.stderr, tokens
         # tagged = nltk.pos_tag(tokens)
         parsed = self.parser.parse(tokens).next()
         return parsed
