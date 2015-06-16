@@ -51,8 +51,6 @@ def quiz(request):
         return disambiguation(request, dis)
     # converted into a python dictionary
 
-    # TODO:: why use session here? Way to substitute?
-    # request.session['tree'] = prereq_tree
     response_data['quiz'] = questions
     response_data['search_term'] = search_term
     # save it to context
