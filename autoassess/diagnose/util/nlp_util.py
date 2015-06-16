@@ -37,10 +37,10 @@ STANFORD_PARSER = load_stanford_parser()
 class NlpUtil:
     def __init__(self):
         print >> sys.stderr, "loading NlpUtil()"
-        self.tokenizer = PUNKT_TOKENIZER
-        self.parser = STANFORD_PARSER
-        # self.tokenizer = None
-        # self.parser = None
+        # self.tokenizer = PUNKT_TOKENIZER
+        # self.parser = STANFORD_PARSER
+        self.tokenizer = None
+        self.parser = None
 
     def _load_tokenizer(self):
         try:
