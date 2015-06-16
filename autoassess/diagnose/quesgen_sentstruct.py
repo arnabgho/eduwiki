@@ -254,6 +254,7 @@ def extract_verbal_phrase(sentence, topic):
 
     parsed_sentence = nlutil.parsing(sentence)
 
+    print >> sys.stderr, "parsed_sentence" + str(parsed_sentence)
     # matching  certain patterns that are suitable for question generation.
     topic = topic_cleaning(topic)
     topic_tokens = nltk.word_tokenize(topic)
@@ -265,6 +266,7 @@ def extract_verbal_phrase(sentence, topic):
     or_tokens = []
     processed_topic_tokens = util.nlp_util.ProcessedText(topic_tokens)
     pt = processed_topic_tokens
+    print >> sys.stderr, "processed_tokens:" + str(pt.stemmed_tokens)
     for idx in range(0, len(topic_tokens)):
         original_token = pt.original_tokens[idx]
         stemmed_token = pt.stemmed_tokens[idx]
