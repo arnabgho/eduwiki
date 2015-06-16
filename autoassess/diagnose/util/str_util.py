@@ -2,6 +2,8 @@ __author__ = 'moonkey'
 
 import unicodedata
 import urllib
+
+
 def normal_str(text):
     """
     normalize unicode and return ascii text
@@ -10,7 +12,7 @@ def normal_str(text):
     # return str(text)
     return text
     # try:
-    #     return unicodedata.normalize('NFKD', text).encode('ascii')
+    # return unicodedata.normalize('NFKD', text).encode('ascii')
     # except UnicodeEncodeError as u:
     #     return text.decode('utf-8')
-        # return "ascii_encoding_error" + str(u)
+    # return "ascii_encoding_error" + str(u)

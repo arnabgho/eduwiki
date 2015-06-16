@@ -12,7 +12,7 @@ import numpy
 import nltk
 import os
 from util.nlp_util import NlpUtil
-
+import sys
 QUESTION_TYPE_WHAT_IS = 'WHAT_IS'
 QUESTION_TYPE_WHY_IS = 'WHY_IS'
 
@@ -161,7 +161,7 @@ def question_from_single_sentence(sentence, topic):
         parsed_sentence[matched_pos] = nltk.tree.ParentedTree.fromstring("(VP ________)")
         stem = NlpUtil.untokenize(parsed_sentence.leaves())
 
-        print stem
+        print >> sys.stderr, stem
         # TODO:: is this the effect of the parser?
         answer = NlpUtil.revert_penntreebank_character(answer)
         stem = NlpUtil.revert_penntreebank_character(stem)
@@ -293,7 +293,7 @@ def extract_verbal_phrase(sentence, topic):
     # only root sentence NP considered
     topic_NP = '/NP*/ << ' + topic_words_sequence + ' > (S > ROOT)'
 
-    print topic_NP
+    print >> sys.stderr, topic_NP
     # for them to be sisters, should be better than "VP , NP"
     following_VP = 'VP $,, (' + topic_NP + ')'
 
