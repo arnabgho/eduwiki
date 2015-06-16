@@ -256,7 +256,7 @@ def extract_verbal_phrase(sentence, topic):
 
     print >> sys.stderr, "pre nlutil.parsing()"
     parsed_sentence = nlutil.parsing(sentence)
-    if parsed_sentence:
+    if not parsed_sentence:
         print >> sys.stderr, "no parsed tree returned for extracting VP."
         return None, None
 
