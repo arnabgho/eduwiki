@@ -5,7 +5,7 @@ import re
 import search_wikipage
 
 
-def find_direct_prereq(wikipage, num):
+def direct_prereq_generator(wikipage, num):
     """
     Based on the guess that the first few terms with wikipedia link
     will turn out to be background knowledge
@@ -13,8 +13,9 @@ def find_direct_prereq(wikipage, num):
     :return:
     """
     # TODO:: the heuristic actually needs to be changed
+    # for example, we can measure the similarity (BOW)
     # return content_categories(wikipage, num)
-    return linked_wiki_terms(wikipage, num)
+    return linked_wiki_term_generator(wikipage, num)
 
 
 def content_categories(wikipage, num):
@@ -35,7 +36,7 @@ def content_categories(wikipage, num):
     return prereqs
 
 
-def linked_wiki_terms(wikipage, num):
+def linked_wiki_term_generator(wikipage, num):
     """
     :param num: the number of linked texts to return
     :return: list(strings), the first few texts that have a wikipedia hyper link
@@ -44,26 +45,35 @@ def linked_wiki_terms(wikipage, num):
     # internal_links = wikipage.internal_links
     w_text = wikipage.wikitext()
     wikilink_rx = re.compile(r'\[\[([^|\]]*\|)?([^\]]+)\]\]')
-    link_array = []
+    # link_array = []
     for m in wikilink_rx.finditer(w_text):
-        if len(link_array) >= num:
-            break
+        # if len(link_array) >= num:
+        #     break
         if m.group(1) is not None:
             if "Image" in m.group(1) or "Template" in m.group(1) or \
                             "File" in m.group(1):
                 continue
-            link_array.append(m.group(1)[:-1])
+            link = m.group(1)[:-1]
+            yield link
         else:
             if "Image" in m.group(2) or "Template" in m.group(2) or \
                             "File" in m.group(2):
                 continue
-            link_array.append(m.group(2))
-    return link_array
+            link = m.group(2)
+            yield link
+    # return link_array
 
 
 def find_prereq_tree(topic, depth=1, num_prereq=3):
-    # find exact page of the topic
+    # find the exact page of the topic
     # This only happens at the root node, because all the rest are wiki links
+    if topic.startswith("wikt") or topic.startswith("wikitionary"):
+        raise ValueError("wikitionary terms not supported")
+    elif '#' in topic:
+        # for links containing section like "Euclidean group#Direct_and_indirect_isometries"
+        topic = topic[0:topic.find('#')]
+
+
     wikipage = search_wikipage.get_wikipage(topic)
 
     # set a max depth and branching factor as a fail-safe
@@ -73,7 +83,7 @@ def find_prereq_tree(topic, depth=1, num_prereq=3):
     num_prereq = min(num_prereq, max_num_prereq_per_node)
 
     # get the topic and the names of its prereq links
-    prereq_names = find_direct_prereq(wikipage, num_prereq)
+    prereq_names = direct_prereq_generator(wikipage, num_prereq)
 
     # create a knowledge tree (dict) which will be recursively built
     prereqs = []
@@ -81,7 +91,12 @@ def find_prereq_tree(topic, depth=1, num_prereq=3):
     # run for num_children if depth left
     if depth != 0:
         for pn in prereq_names:
-            prereq_subtree = find_prereq_tree(pn, depth=depth - 1, num_prereq=num_prereq)
+            if len(prereqs) >= num_prereq:
+                break
+            try:
+                prereq_subtree = find_prereq_tree(pn, depth=depth - 1, num_prereq=num_prereq)
+            except Exception:
+                continue
             prereqs.append(prereq_subtree)
 
     # assemble the tree and return it

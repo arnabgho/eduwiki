@@ -1,3 +1,4 @@
+# coding=utf-8
 __author__ = 'moonkey'
 
 import re
@@ -36,7 +37,7 @@ def generate_question(prereq_tree):
 
 
 def generate_question_stem(prereq_tree):
-    question_sentences = get_question_sentences(prereq_tree['wikipage'])
+    question_sentences = question_sentence_generator(prereq_tree['wikipage'])
 
     question_generated = None
 
@@ -55,7 +56,7 @@ def generate_question_stem(prereq_tree):
 def generate_distractors(prereq_tree):
     distractors = []
     for child in prereq_tree['children']:
-        sentences = get_topic_mentioning_sentences(child['wikipage'])
+        sentences = topic_mentioning_sentence_generator(child['wikipage'])
         distractor = None
         for sentence in sentences:
             distractor = distractor_from_single_sentence(sentence, child['wikipage'].title)
@@ -68,25 +69,30 @@ def generate_distractors(prereq_tree):
     return distractors
 
 
-def get_topic_mentioning_sentences(wikipage):
+def topic_mentioning_sentence_generator(wikipage):
     content = wikipage.content
     nlutil = NlpUtil()
     sentences = nlutil.punkt_tokenize(content)
 
-    # TODO::move this part: (somewhere later)
-    # filter sentences with the key word (stemming matching?)
-    sentences = [s for s in sentences if wikipage.title.lower() in s.lower()]
+    # TODO:: filter sentences with the key word (stemming matching here, not later?)
+    # return {"filtered": " ", original_topic_form:" "}
 
-    # fast hack for wrongly tokenized sentence, for example with section information "=== Tree bagging ===" in it
-    # TODO::
-    # this should not occur for the well organized offline sentences
-    # Also we should not give them all up, but preprocess them better before sentence tokenization
-    # only take sentences from certain parts, ignore "reference" "external links" etc.
-    sentences = [s for s in sentences if '\n' not in s.strip('\n')]
+    # sentences = [s for s in sentences if wikipage.title.lower() in s.lower()]
+    topic_re = re.compile(topic_regex(wikipage.title))
+    # sentences = [s for s in sentences if topic_re.search(s)]
 
-    # for temporary testing
-    sentences = sentences[1:3]
-    return sentences
+    for s in sentences:
+        # if wikipage.title.lower() in s.lower():
+        if topic_re.search(s):
+            if '\n' not in s.strip('\n'):  # TODO:: see below
+                yield s
+
+                # TODO:: only take sentences from certain parts, ignore "reference" "external links" etc.
+                # fast hack for wrongly tokenized sentence,
+                # for example with section information "=== Tree bagging ===" in it
+                # this should not occur for the well organized offline sentences
+                # Also we should not give them all up, but preprocess them better before sentence tokenization
+                # only take sentences from certain parts, ignore "reference" "external links" etc.
 
 
 def rank_sentences_textrank(sentences):
@@ -131,8 +137,8 @@ def rank_sentences_textrank(sentences):
     return top_sentences
 
 
-def get_question_sentences(wikipage):
-    sentences = get_topic_mentioning_sentences(wikipage)
+def question_sentence_generator(wikipage):
+    sentences = topic_mentioning_sentence_generator(wikipage)
     # sentences = rank_sentences_textrank(sentences)
     return sentences
 
@@ -150,6 +156,11 @@ def question_from_single_sentence(sentence, topic):
         answer = NlpUtil.untokenize(matched_VP.leaves())
         parsed_sentence[matched_pos] = nltk.tree.ParentedTree.fromstring("(VP ________)")
         stem = NlpUtil.untokenize(parsed_sentence.leaves())
+
+        print stem
+        # TODO:: is this the effect of the parser?
+        answer = NlpUtil.revert_penntreebank_character(answer)
+        stem = NlpUtil.revert_penntreebank_character(stem)
     else:
         answer = None
         stem = None
@@ -193,18 +204,45 @@ def distractors_from_single_sentence(sentence, topic):
     :param topic:
     :return:
     """
-    # TODO::maybe using yield ???!!!
     parsed_sentence, matched_positions = extract_verbal_phrase(sentence, topic)
     if matched_positions:
-        distractors = []
+        # distractors = []
         for matched_pos in matched_positions:
             # matched_pos = matched_positions[0]
             matched_VP = parsed_sentence[matched_pos]
             distractor = NlpUtil.untokenize(matched_VP.leaves())
-            distractors.append(distractor)
-        return distractors
-    else:
+            distractor = NlpUtil.revert_penntreebank_character(distractor)
+            yield distractor
+
+
+def topic_cleaning(topic=""):
+    if not topic:
         return None
+    # Remove the string inside the brackets like in "Intersection (set theory)"
+    topic = re.sub(r'\([^)]*\)', '', topic)
+    topic.strip(" ")
+
+    return topic
+
+
+def topic_regex(topic=""):
+    topic = topic_cleaning(topic)
+
+    # Separate linked terms to tokens, like in "Karush–Kuhn–Tucker conditions"
+    topic = re.sub(r"[-–_]+", ' ', topic, re.UNICODE)  # note '-' is ascii while '–' is not
+
+    topic_tokens = nltk.word_tokenize(topic)
+    try:
+        processed_topic_tokens = util.nlp_util.ProcessedText(topic_tokens)
+        stemmed_tokens = processed_topic_tokens.stemmed_tokens
+    except UnicodeDecodeError:  # non-ascii characters like in "L'Hôpital's rule"
+        stemmed_tokens = topic_tokens
+        # TODO:: deal with the
+        # if directly code them with unicode(t,'utf-8'), it will not match the original ascii-coded string
+
+    topic_reg = '.*'.join(stemmed_tokens)
+    topic_reg = '(?i)' + topic_reg
+    return topic_reg
 
 
 def extract_verbal_phrase(sentence, topic):
@@ -213,36 +251,39 @@ def extract_verbal_phrase(sentence, topic):
     parsed_sentence = nlutil.parsing(sentence)
 
     # matching  certain patterns that are suitable for question generation.
+    topic = topic_cleaning(topic)
     topic_tokens = nltk.word_tokenize(topic)
-
-    # ##### Examples (topic = "Reinforcement learning")
-    # topic_words_sequence_simple = ' << Reinforcement|reinforcement << learning)'
-    # the next line enforces the words to be continuous
-    # topic_words_sequence = '((* << Reinforcement|reinforcement) . (* << learning))'
-    # TODO:: maybe match stemmed text, for example "statistical hypothesis test"/"statistical hypothesis testing"
 
 
     # or_tokens = [[t, t.lower()] if not t.islower() else [t] for t in topic_tokens]
     # Stemmed topic tokens added
-    # TODO:: add initials
+    # TODO:: add initials like KKT(hard) or GDP(easy)
     or_tokens = []
     processed_topic_tokens = util.nlp_util.ProcessedText(topic_tokens)
     pt = processed_topic_tokens
     for idx in range(0, len(topic_tokens)):
         original_token = pt.original_tokens[idx]
         stemmed_token = pt.stemmed_tokens[idx]
-        if stemmed_token == original_token:
-            or_token = [original_token + "*"]
-        else:
-            or_token = [original_token, stemmed_token + "*"]
 
-        if not original_token.islower():
-            or_token += [t.lower() for t in or_token]
+        or_token = [stemmed_token + "*"]
+        # TODO:: (test) the following seems to be the same as the above line
+        # if stemmed_token == original_token:
+        # or_token = [stemmed_token + "*"]
+        # else:
+        #     or_token = [original_token, stemmed_token + "*"]
+
+        # if not original_token.islower():
+        #     or_token += [t.lower() for t in or_token]
 
         or_tokens.append(or_token)
+    # topic_word_nodes = ['(* << /' + "|".join(s) + "/)" for s in or_tokens]
 
-    topic_word_nodes = ['(* << /' + "|".join(s) + "/)" for s in or_tokens]
-    topic_words_sequence = '( ' + ' . '.join(topic_word_nodes) + ' )'
+    # TODO:: (test) easier way to match while ignoring the case
+    topic_word_nodes = ['(* << i@/' + "|".join(s) + "/)" for s in or_tokens]
+
+    topic_words_sequence = '( ' + ' .. '.join(topic_word_nodes) + ' )'
+    # for topic "A B C", "." would result in "A.B.C" which means A are directly followed by both B and C, which is false,
+    # change into "..",
 
     # ###
     # only root sentence NP considered
@@ -273,17 +314,3 @@ def format_question(question):
         'type': question['type']
     }
     return formated_question
-
-
-def test_sentence_parsing():
-    sentence = "Reinforcement learning is an area of machine learning inspired by behaviorist psychology, concerned" \
-               " with how software agents ought to take actions in an environment so as to maximize some notion of" \
-               " cumulative reward. "
-    question = question_from_single_sentence(sentence, 'Reinforcement learning')
-    print "===========Generated Question============="
-    print "Stem: " + str(question['stem'])
-    print "Answer: " + str(question['answer'])
-
-
-if __name__ == "__main__":
-    test_sentence_parsing()

@@ -6,11 +6,34 @@ import os
 import nltk.parse.stanford
 import nltk_tgrep
 
+# TODO:: test loading the parsers and tokenizers globally, i.e., the following
+# load the tokenizers and the parsers in the module, and then just use the global object in NlpUtil
+
+
+def load_punkt_tokenizer():
+    return nltk.data.load('tokenizers/punkt/english.pickle')
+
+
+def load_stanford_parser():
+    os.environ['STANFORD_PARSER'] = os.path.join(
+        os.path.expanduser('~'), 'stanford-parser/stanford-parser.jar')
+    os.environ['STANFORD_MODELS'] = os.path.join(
+        os.path.expanduser('~'), 'stanford-parser/stanford-parser-3.5.2-models.jar')
+    parser = nltk.parse.stanford.StanfordParser(
+        model_path="edu/stanford/nlp/models/lexparser/englishPCFG.ser.gz")
+    return parser
+
+
+PUNKT_TOKENIZER = load_punkt_tokenizer()
+STANFORD_PARSER = load_stanford_parser()
+
 
 class NlpUtil:
     def __init__(self):
-        self.tokenizer = None
-        self.parser = None
+        self.tokenizer = PUNKT_TOKENIZER
+        self.parser = STANFORD_PARSER
+        # self.tokenizer = None
+        # self.parser = None
 
     def _load_tokenizer(self):
         try:
@@ -76,6 +99,18 @@ class NlpUtil:
             [" " + i if not i.startswith("'") and i not in string.punctuation else i for i in tokens]).strip()
         return sentence
 
+    @staticmethod
+    def revert_penntreebank_character(text):
+        dic = {
+            '-LRB- ': '(',
+            ' -RRB-': ')',
+            '-LSB- ': '[',
+            ' -RSB-': ']'
+        }
+        for i, j in dic.iteritems():
+            text = text.replace(i, j)
+        return text
+
 
 class ProcessedText:
     """
@@ -86,7 +121,7 @@ class ProcessedText:
      like we want 'hypothesis test' to be matched with 'hypothesis testing'.
     """
 
-    def __init__(self, text, stemmer=nltk.stem.PorterStemmer()):
+    def __init__(self, text):
         if type(text) is str:
             self.original_text = text
             self.original_tokens = nltk.word_tokenize(text)
@@ -109,12 +144,14 @@ class ProcessedText:
         # to lower case and remove stop words
         self.processed_tokens = [t.lower() for t in self.stemmed_tokens if t.lower() not in stopwords]
 
-
     def _stemming(self, stemmer=nltk.stem.PorterStemmer()):
         if not self.original_tokens:
             return None
-
-        self.stemmed_tokens = [stemmer.stem(t) for t in self.original_tokens]
+        try:
+            self.stemmed_tokens = [stemmer.stem(t) for t in self.original_tokens]
+        except UnicodeDecodeError as e:
+            raise e
+            # self.stemmed_tokens = [stemmer.stem(unicode(t, 'utf-8')) for t in self.original_tokens]
 
     @staticmethod
     def stemming(text, stemmer=nltk.stem.PorterStemmer()):

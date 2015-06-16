@@ -14,7 +14,7 @@ def search_page(request):
     A search box, directed to /quiz/ page with the search term
     """
     context_dict = {}
-    return render(request,'autoassess/index.html', context_dict)
+    return render(request, 'autoassess/index.html', context_dict)
 
 
 def quiz(request):
@@ -35,13 +35,13 @@ def quiz(request):
         # TODO:: load question[s] | save&load prereq hierarchy
         if not force_generating_new:
             try:
-            # the search term may not corresponds to a wikipedia entry
+                # the search term may not corresponds to a wikipedia entry
                 wiki_topic = search_wikipage.get_wikipage(search_term).title
                 questions = load_questions(wiki_topic)
             except IndexError as e:
-            # this is the error it will raise if no questions is founded
-            # if there is not questions for this topic in the database
-            # then generate and save
+                # this is the error it will raise if no questions is founded
+                # if there is not questions for this topic in the database
+                # then generate and save
                 questions = diagnose.diagnose(search_term)
                 save_questions(questions)
         else:
@@ -58,7 +58,6 @@ def quiz(request):
     # save it to context
 
     return render(request, 'autoassess/quiz.html', response_data)
-
 
 
 def disambiguation(request, dis=[]):
@@ -121,7 +120,7 @@ def learn(request):
 # def recurhook(d):
 # """
 # extra code to fix issues with the way json.loads processes this
-#     :param d:
+# :param d:
 #     :return:
 #     """
 #     if d['children']:

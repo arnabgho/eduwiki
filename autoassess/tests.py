@@ -1,4 +1,4 @@
-from diagnose.prereq import find_direct_prereq
+from diagnose.prereq import direct_prereq_generator
 # Create your tests here.
 topics = []
 from diagnose import quesgen_sentstruct
@@ -30,7 +30,7 @@ def test_sentence_extraction():
     # for t in topics:
     #     page = wikipedia.page(t)
     #     # Extract sentences
-    #     sents = quesgen_sentstruct.get_question_sentences(page)
+    #     sents = quesgen_sentstruct.question_sentence_generator(page)
     #     topic = page.title
     #     sents = sents[0:10]
     #     sents = [(sent, topic) for sent in sents]
@@ -79,7 +79,7 @@ def generate_eduwiki_link():
     #
     # for t in topics:
     # wikipage = WikipediaPage(title=t)
-    # pres = find_direct_prereq(wikipage, 3)
+    # pres = direct_prereq_generator(wikipage, 3)
     # line = t + ","
     # for p in pres:
     # line += p + ";"
@@ -100,8 +100,10 @@ def test_setentence_syntree():
     # draw_sentence_syntree("Reinforcement learning is known.")
     # draw_sentence_syntree("Reinforcement learning is known to be great.")
     draw_sentence_syntree("In the operations research and control literature, "
-                          "the field where reinforcement learning methods are studied "
+                          "the field where MAIN_TOPIC methods are studied "
                           "is called approximate dynamic programming.")
+
+
 def draw_sentence_syntree(sentence):
     nlutil = NlpUtil()
     parsed_sentence = nlutil.parsing(sentence)

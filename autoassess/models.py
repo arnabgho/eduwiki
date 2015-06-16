@@ -30,7 +30,7 @@ class Prereq(Document):
     for linking question topics
     """
     topic = StringField(required=True)
-    prereqs = ListField(StringField(), required=True)
+    prereqs = ListField(StringField())
 
 
 def load_questions(topic):
@@ -43,7 +43,7 @@ def load_questions(topic):
 
 def save_questions(questions, force=True):
     """
-    :param questions: topics for later topics are prereqs for the question for the first topic
+    :param questions: topics of later questions are prereqs for the topic for the first question
     :return:
     """
 
