@@ -88,8 +88,9 @@ class NlpUtil:
         # tagged = nltk.pos_tag(tokens)
         try:
             parsed = self.parser.parse(tokens).next()
-        except:
+        except Exception, err:
             print >> sys.stderr, "the sentence cannot be parsed"
+            print >> sys.stderr, str(err)
             return None
         print >> sys.stderr, "parsed_tree:" + str(parsed)
         return parsed
