@@ -256,6 +256,9 @@ def extract_verbal_phrase(sentence, topic):
 
     print >> sys.stderr, "pre nlutil.parsing()"
     parsed_sentence = nlutil.parsing(sentence)
+    if parsed_sentence:
+        print >> sys.stderr, "no parsed tree returned for extracting VP."
+        return None, None
 
     print >> sys.stderr, "parsed_sentence" + str(parsed_sentence)
     # matching  certain patterns that are suitable for question generation.
