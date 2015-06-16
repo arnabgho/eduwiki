@@ -41,8 +41,10 @@ def generate_question_stem(prereq_tree):
 
     question_generated = None
 
+    logged_sentences = []
     for question_sent in question_sentences:
         try:
+            logged_sentences.append(question_sent)
             question_generated = question_from_single_sentence(
                 question_sent, prereq_tree['wikipage'].title)
             if question_generated['stem'] and question_generated['answer']:
@@ -50,6 +52,8 @@ def generate_question_stem(prereq_tree):
         except Exception:
             continue
 
+    if not question_generated:
+        raise ValueError("No question generated")
     return question_generated
 
 
@@ -270,7 +274,7 @@ def extract_verbal_phrase(sentence, topic):
         # if stemmed_token == original_token:
         # or_token = [stemmed_token + "*"]
         # else:
-        #     or_token = [original_token, stemmed_token + "*"]
+        # or_token = [original_token, stemmed_token + "*"]
 
         # if not original_token.islower():
         #     or_token += [t.lower() for t in or_token]
