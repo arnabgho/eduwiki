@@ -11,9 +11,9 @@ def diagnose(search_term, depth=2, num_prereq=3):
     topic_question = quesgen.generate_question(prereq_tree)
 
     prereq_questions = []
-    for child in prereq_tree['children']:
-        child_question = quesgen.generate_question(child)
-        prereq_questions.append(child_question)
+    # for child in prereq_tree['children']:
+    #     child_question = quesgen.generate_question(child)
+    #     prereq_questions.append(child_question)
     questions = [topic_question] + prereq_questions
 
     # print questions
