@@ -45,6 +45,7 @@ def generate_question_stem(prereq_tree):
     for question_sent in question_sentences:
         try:
             logged_sentences.append(question_sent)
+            print >> sys.stderr, "question_sent:"+question_sent
             question_generated = question_from_single_sentence(
                 question_sent, prereq_tree['wikipage'].title)
             if question_generated['stem'] and question_generated['answer']:
