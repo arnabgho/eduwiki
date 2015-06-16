@@ -45,7 +45,7 @@ def generate_question_stem(prereq_tree):
     for question_sent in question_sentences:
         try:
             logged_sentences.append(question_sent)
-            print >> sys.stderr, "question_sent:"+question_sent
+            # print >> sys.stderr, "question_sent:"+question_sent
             question_generated = question_from_single_sentence(
                 question_sent, prereq_tree['wikipage'].title)
             if question_generated['stem'] and question_generated['answer']:
@@ -154,7 +154,7 @@ def question_from_single_sentence(sentence, topic):
     # Maybe just remove "(*)".
 
     parsed_sentence, matched_positions = extract_verbal_phrase(sentence, topic)
-    print >> sys.stderr, matched_positions
+    # print >> sys.stderr, matched_positions
     if matched_positions:
         matched_pos = matched_positions[0]
         matched_VP = parsed_sentence[matched_pos]
@@ -163,7 +163,7 @@ def question_from_single_sentence(sentence, topic):
         parsed_sentence[matched_pos] = nltk.tree.ParentedTree.fromstring("(VP ________)")
         stem = NlpUtil.untokenize(parsed_sentence.leaves())
 
-        print >> sys.stderr, stem
+        # print >> sys.stderr, stem
         # TODO:: is this the effect of the parser?
         answer = NlpUtil.revert_penntreebank_character(answer)
         stem = NlpUtil.revert_penntreebank_character(stem)
@@ -254,13 +254,13 @@ def topic_regex(topic=""):
 def extract_verbal_phrase(sentence, topic):
     nlutil = NlpUtil()
 
-    print >> sys.stderr, "pre nlutil.parsing()"
+    # print >> sys.stderr, "pre nlutil.parsing()"
     parsed_sentence = nlutil.parsing(sentence)
     if not parsed_sentence:
-        print >> sys.stderr, "no parsed tree returned for extracting VP."
+        # print >> sys.stderr, "no parsed tree returned for extracting VP."
         return None, None
 
-    print >> sys.stderr, "parsed_sentence" + str(parsed_sentence)
+    # print >> sys.stderr, "parsed_sentence" + str(parsed_sentence)
     # matching  certain patterns that are suitable for question generation.
     topic = topic_cleaning(topic)
     topic_tokens = nltk.word_tokenize(topic)
@@ -272,7 +272,7 @@ def extract_verbal_phrase(sentence, topic):
     or_tokens = []
     processed_topic_tokens = util.nlp_util.ProcessedText(topic_tokens)
     pt = processed_topic_tokens
-    print >> sys.stderr, "processed_tokens:" + str(pt.stemmed_tokens)
+    # print >> sys.stderr, "processed_tokens:" + str(pt.stemmed_tokens)
     for idx in range(0, len(topic_tokens)):
         original_token = pt.original_tokens[idx]
         stemmed_token = pt.stemmed_tokens[idx]
@@ -301,7 +301,7 @@ def extract_verbal_phrase(sentence, topic):
     # only root sentence NP considered
     topic_NP = '/NP*/ << ' + topic_words_sequence + ' > (S > ROOT)'
 
-    print >> sys.stderr, topic_NP
+    # print >> sys.stderr, topic_NP
     # for them to be sisters, should be better than "VP , NP"
     following_VP = 'VP $,, (' + topic_NP + ')'
 

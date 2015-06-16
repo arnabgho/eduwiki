@@ -12,12 +12,12 @@ import traceback
 
 
 def load_punkt_tokenizer():
-    print >> sys.stderr, "loading tokenizer"
+    # print >> sys.stderr, "loading tokenizer"
     return nltk.data.load('tokenizers/punkt/english.pickle')
 
 
 def load_stanford_parser():
-    print >> sys.stderr, "loading stanford_parser"
+    # print >> sys.stderr, "loading stanford_parser"
     # os.environ['STANFORD_PARSER'] = os.path.join(
     # os.path.expanduser('~'), 'stanford-parser/stanford-parser.jar')
     # os.environ['STANFORD_MODELS'] = os.path.join(
@@ -37,7 +37,7 @@ STANFORD_PARSER = load_stanford_parser()
 
 class NlpUtil:
     def __init__(self):
-        print >> sys.stderr, "loading NlpUtil()"
+        # print >> sys.stderr, "loading NlpUtil()"
         self.tokenizer = PUNKT_TOKENIZER
         self.parser = STANFORD_PARSER
         # self.tokenizer = None
@@ -53,7 +53,7 @@ class NlpUtil:
 
     def _load_parser(self):
         if self.parser:
-            print >> sys.stderr, 'parser already there'
+            # print >> sys.stderr, 'parser already there'
             return True
         try:
             os.environ['STANFORD_PARSER'] = os.path.join(
@@ -85,16 +85,16 @@ class NlpUtil:
         if not self.parser:
             self._load_parser()
         tokens = nltk.word_tokenize(text)
-        print >> sys.stderr, tokens
+        # print >> sys.stderr, tokens
         # tagged = nltk.pos_tag(tokens)
         try:
             parsed = self.parser.parse(tokens).next()
         except Exception, err:
-            print >> sys.stderr, "the sentence cannot be parsed"
+            # print >> sys.stderr, "the sentence cannot be parsed"
             print >> sys.stderr, str(err)
             traceback.print_exc(file=sys.stderr)
             return None
-        print >> sys.stderr, "parsed_tree:" + str(parsed)
+        # print >> sys.stderr, "parsed_tree:" + str(parsed)
         return parsed
 
     @staticmethod
