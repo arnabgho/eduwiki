@@ -6,6 +6,7 @@ import os
 import nltk.parse.stanford
 import nltk_tgrep
 import sys
+import traceback
 # TODO:: test loading the parsers and tokenizers globally, i.e., the following
 # load the tokenizers and the parsers in the module, and then just use the global object in NlpUtil
 
@@ -91,6 +92,7 @@ class NlpUtil:
         except Exception, err:
             print >> sys.stderr, "the sentence cannot be parsed"
             print >> sys.stderr, str(err)
+            traceback.print_exc(file=sys.stderr)
             return None
         print >> sys.stderr, "parsed_tree:" + str(parsed)
         return parsed
