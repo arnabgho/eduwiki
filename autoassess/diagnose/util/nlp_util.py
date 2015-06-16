@@ -15,10 +15,14 @@ def load_punkt_tokenizer():
 
 
 def load_stanford_parser():
+    # os.environ['STANFORD_PARSER'] = os.path.join(
+    #     os.path.expanduser('~'), 'stanford-parser/stanford-parser.jar')
+    # os.environ['STANFORD_MODELS'] = os.path.join(
+    #     os.path.expanduser('~'), 'stanford-parser/stanford-parser-3.5.2-models.jar')
     os.environ['STANFORD_PARSER'] = os.path.join(
-        os.path.expanduser('~'), 'stanford-parser/stanford-parser.jar')
+        '/opt/stanford-parser/stanford-parser.jar')
     os.environ['STANFORD_MODELS'] = os.path.join(
-        os.path.expanduser('~'), 'stanford-parser/stanford-parser-3.5.2-models.jar')
+        '/opt/stanford-parser/stanford-parser-3.5.2-models.jar')
     parser = nltk.parse.stanford.StanfordParser(
         model_path="edu/stanford/nlp/models/lexparser/englishPCFG.ser.gz")
     return parser
