@@ -42,7 +42,7 @@ INSTALLED_APPS = (
     'mongoengine.django.mongo_auth',
     'mongonaut',
     'sslserver',
-
+    'gunicorn',
     'autoassess',
 )
 
