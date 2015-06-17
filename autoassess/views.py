@@ -32,7 +32,6 @@ def quiz(request):
         force_generating_new = True
 
     try:
-        # TODO:: load question[s] | save&load prereq hierarchy
         if not force_generating_new:
             try:
                 # the search term may not corresponds to a wikipedia entry
@@ -49,11 +48,9 @@ def quiz(request):
             save_questions(questions)
     except DisambiguationError as dis:
         return disambiguation(request, dis)
-    # converted into a python dictionary
 
     response_data['quiz'] = questions
     response_data['search_term'] = search_term
-    # save it to context
 
     return render(request, 'autoassess/quiz.html', response_data)
 
@@ -115,11 +112,12 @@ def learn(request):
 
 # (Deprecated) saving this just in case.
 # tree = json.loads(prereq_tree, object_hook=recurhook)
+#
 # def recurhook(d):
 # """
 # extra code to fix issues with the way json.loads processes this
 # :param d:
-#     :return:
+# :return:
 #     """
 #     if d['children']:
 #         # d['children'] = json.loads(d['children'], recurhook)

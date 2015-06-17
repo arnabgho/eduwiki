@@ -35,9 +35,13 @@ class Prereq(Document):
 
 def load_questions(topic):
     questions = [load_question(topic)]
-    prereqs = Prereq.objects.filter(topic=topic)[0].prereqs
-    for pre in prereqs:
-        questions.append(load_question(topic=pre))
+    try:
+        prereqs = Prereq.objects.filter(topic=topic)[0].prereqs
+        for pre in prereqs:
+            questions.append(load_question(topic=pre))
+    except Exception:
+        # error loading prereqs
+        pass
     return questions
 
 
@@ -102,6 +106,14 @@ def load_question(topic):
 
 
 def save_question(question, force=True):
+    """
+    Note there is a mismatch between "load" and "save.
+    We may saved questions with different types, but in "load",
+    we only require topic as the input, and return the first questions
+    :param question:
+    :param force:
+    :return:
+    """
     old_questions = WikiQuestion.objects.filter(
         topic=question['topic'],
         type=question['type']

@@ -3,6 +3,7 @@ import prereq
 import quesgen
 import unicodedata
 
+
 def diagnose(search_term, depth=2, num_prereq=3):
     # find prereq tree
     prereq_tree = prereq.find_prereq_tree(search_term, depth=depth, num_prereq=num_prereq)
@@ -12,7 +13,7 @@ def diagnose(search_term, depth=2, num_prereq=3):
 
     prereq_questions = []
     # for child in prereq_tree['children']:
-    #     child_question = quesgen.generate_question(child)
+    # child_question = quesgen.generate_question(child)
     #     prereq_questions.append(child_question)
     questions = [topic_question] + prereq_questions
 
@@ -21,7 +22,7 @@ def diagnose(search_term, depth=2, num_prereq=3):
 
 
 # def query(search_term, depth=1, num_prereq=3):
-#     """
+# """
 #     A recursive function that automatically generates multiple choice questions
 #     for the search_term and its prereqs
 #
