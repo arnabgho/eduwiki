@@ -8,6 +8,7 @@ from django.views.decorators.clickjacking import xframe_options_exempt
 from .models import *
 import requests
 
+
 @xframe_options_exempt
 def single_question(request):
     """
@@ -40,18 +41,15 @@ def single_question(request):
         response_data['assignmentId'] = None
         response_data['hitId'] = None
     else:
-        if "ASSIGNMENT_ID_NOT_AVAILABLE" == request_data['assignmentId'] or \
-                        u'ASSIGNMENT_ID_NOT_AVAILABLE' == request_data['assignmentId']:
-            # preview mode
-            assignmentId = "ASSIGNMENT_ID_NOT_AVAILABLE"  # request_data['assignmentId']
-            hitId = request_data['hitId']
+        assignmentId = request_data['assignmentId'].strip(" ")
+        hitId = request_data['hitId']
 
+        if "ASSIGNMENT_ID_NOT_AVAILABLE" == assignmentId:
+            # preview mode
             response_data['assignmentId'] = assignmentId
             response_data['hitId'] = hitId
         else:
             # question form mode
-            assignmentId = request_data['assignmentId']
-            hitId = request_data['hitId']
             workerId = request_data['workerId']
             turkSubmitTo = request_data['turkSubmitTo']
 
@@ -94,8 +92,12 @@ def question_submit(request):
     turkSubmitTo = request_data['turkSubmitTo']
 
     # ==== submit data to mturk website ====
-    turk_submit_data = {}
-    requests.get(turkSubmitTo, params=turk_submit_data)
+    turk_submit_data = {
+        'assignmentId': assignmentId,
+        'workerId': workerId
+    }
+    result = requests.post(turkSubmitTo, data=turk_submit_data)
+    print result
 
     response_data['assignmentId'] = assignmentId
     response_data['hitId'] = hitId
