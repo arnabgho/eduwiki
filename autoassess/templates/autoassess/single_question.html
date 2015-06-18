@@ -21,6 +21,16 @@
 
             <div class="col-sm-10 col-sm-offset-1">
                 <form role="form" action="{% url 'question_submit' %}" method="get">
+                    {% if assignmentId %}
+                        {% ifequal assignmentId "ASSIGNMENT_ID_NOT_AVAILABLE" %}
+                        Preview Mode
+                        {% else %}
+                            Assignment Id = {{ assgnmentId }}
+                            Worker Id = {{ workerId }}
+                            turkSubmitTo = {{ turkSubmitTo }}
+                        {% endifequal %}
+                    {% endif %}
+
                     <input name="main_topic" value="{{ search_term }}" hidden="hidden">
                     {% for question in quiz %}
                         <div class="panel panel-default">

@@ -4,18 +4,61 @@ from django.shortcuts import render, redirect, Http404
 from diagnose.util.wikipedia import DisambiguationError
 from diagnose import diagnose
 from diagnose import search_wikipage
+from django.views.decorators.clickjacking import xframe_options_exempt
 from .models import *
+import requests
 
-
+@xframe_options_exempt
 def single_question(request):
     """
     The intro view\n
     Requires Input: a search term in request.GET["q"].
+    ========= Preview ============
+    GET /autoassess/single_question?q=Reinforcement+learning
+    &assignmentId=ASSIGNMENT_ID_NOT_AVAILABLE
+    &hitId=3RKHNXPHGVV4TMFBNBL8TQP4MT8KU9
+    ======= Question form ========
+    GET /autoassess/single_question?q=Reinforcement+learning
+    &assignmentId=34X6J5FLPTYJCTZ6EJ6T7UOKHE0QJI
+    &hitId=3RKHNXPHGVV4TMFBNBL8TQP4MT8KU9
+    &workerId=AE5VGQ7G4FKI
+    &turkSubmitTo=https%3A%2F%2Fworkersandbox.mturk.com
     """
+    request_data = {}
+    if request.method == 'GET':
+        request_data = request.GET
+    elif request.method == 'POST':
+        request_data = request.POST
+
     response_data = {}
-    if 'q' not in request.GET or not request.GET['q']:
+    if 'q' not in request_data or not request_data['q']:
         raise Http404
-    search_term = request.GET['q']
+    search_term = request_data['q']
+
+    if 'assignmentId' not in request_data:
+        # user visiting mode not from mturk
+        response_data['assignmentId'] = None
+        response_data['hitId'] = None
+    else:
+        if "ASSIGNMENT_ID_NOT_AVAILABLE" == request_data['assignmentId'] or \
+                        u'ASSIGNMENT_ID_NOT_AVAILABLE' == request_data['assignmentId']:
+            # preview mode
+            assignmentId = "ASSIGNMENT_ID_NOT_AVAILABLE"  # request_data['assignmentId']
+            hitId = request_data['hitId']
+
+            response_data['assignmentId'] = assignmentId
+            response_data['hitId'] = hitId
+        else:
+            # question form mode
+            assignmentId = request_data['assignmentId']
+            hitId = request_data['hitId']
+            workerId = request_data['workerId']
+            turkSubmitTo = request_data['turkSubmitTo']
+
+            response_data['assignmentId'] = assignmentId
+            response_data['hitId'] = hitId
+            response_data['workerId'] = workerId
+            response_data['turkSubmitTo'] = turkSubmitTo
 
     try:
         try:
@@ -38,5 +81,25 @@ def single_question(request):
 
 
 def question_submit(request):
+    request_data = {}
+    if request.method == 'GET':
+        request_data = request.GET
+    elif request.method == 'POST':
+        request_data = request.POST
     response_data = {}
+
+    assignmentId = request_data['assignmentId']
+    hitId = request_data['hitId']
+    workerId = request_data['workerId']
+    turkSubmitTo = request_data['turkSubmitTo']
+
+    # ==== submit data to mturk website ====
+    turk_submit_data = {}
+    requests.get(turkSubmitTo, params=turk_submit_data)
+
+    response_data['assignmentId'] = assignmentId
+    response_data['hitId'] = hitId
+    response_data['workerId'] = workerId
+    response_data['turkSubmitTo'] = turkSubmitTo
+
     return render(request, 'autoassess/single_question.html', response_data)
