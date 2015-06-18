@@ -73,6 +73,7 @@ def single_question(request):
 
     return render(request, 'autoassess/single_question.html', response_data)
 
+
 @xframe_options_exempt
 def question_submit(request):
     request_data = {}
@@ -90,10 +91,12 @@ def question_submit(request):
     # ==== submit data to mturk website ====
     turk_submit_data = {
         'assignmentId': assignmentId,
-        'workerId': workerId
+        'workerId': workerId,
+        'test': 'true',
     }
-    r = requests.post(turkSubmitTo+'/mturk/externalSubmit', data=request_data)
-    return HttpResponse(r.text)
+    result = requests.request("POST", turkSubmitTo + '/mturk/externalSubmit', data=turk_submit_data)
+
+    return HttpResponse(result.text)
 
     # response_data['assignmentId'] = assignmentId
     # # response_data['hitId'] = hitId
