@@ -1,6 +1,6 @@
 __author__ = 'moonkey'
 
-from django.shortcuts import render, redirect, Http404
+from django.shortcuts import render, redirect, Http404, HttpResponse
 from diagnose.util.wikipedia import DisambiguationError
 from diagnose import diagnose
 from diagnose import search_wikipage
@@ -19,11 +19,7 @@ def single_question(request):
     &assignmentId=ASSIGNMENT_ID_NOT_AVAILABLE
     &hitId=3RKHNXPHGVV4TMFBNBL8TQP4MT8KU9
     ======= Question form ========
-    GET /autoassess/single_question?q=Reinforcement+learning
-    &assignmentId=34X6J5FLPTYJCTZ6EJ6T7UOKHE0QJI
-    &hitId=3RKHNXPHGVV4TMFBNBL8TQP4MT8KU9
-    &workerId=AE5VGQ7G4FKI
-    &turkSubmitTo=https%3A%2F%2Fworkersandbox.mturk.com
+    GET /autoassess/single_question?q=Reinforcement+learning&assignmentId=34X6J5FLPTYJCTZ6EJ6T7UOKHE0QJI&hitId=3RKHNXPHGVV4TMFBNBL8TQP4MT8KU9&workerId=AE5VGQ7G4FKI&turkSubmitTo=https%3A%2F%2Fworkersandbox.mturk.com
     """
     request_data = {}
     if request.method == 'GET':
@@ -97,7 +93,7 @@ def question_submit(request):
         'workerId': workerId
     }
     result = requests.post(turkSubmitTo+'/mturk/externalSubmit', data=turk_submit_data)
-    print result
+    return HttpResponse(result.content)
 
     response_data['assignmentId'] = assignmentId
     response_data['hitId'] = hitId
