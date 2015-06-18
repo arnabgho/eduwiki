@@ -77,7 +77,7 @@ def single_question(request):
 
     return render(request, 'autoassess/single_question.html', response_data)
 
-
+@xframe_options_exempt
 def question_submit(request):
     request_data = {}
     if request.method == 'GET':
