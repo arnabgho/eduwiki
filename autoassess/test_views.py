@@ -83,7 +83,7 @@ def question_submit(request):
     response_data = {}
 
     assignmentId = request_data['assignmentId']
-    hitId = request_data['hitId']
+    # hitId = request_data['hitId']
     workerId = request_data['workerId']
     turkSubmitTo = request_data['turkSubmitTo']
 
@@ -96,7 +96,7 @@ def question_submit(request):
     return HttpResponse(result.content)
 
     response_data['assignmentId'] = assignmentId
-    response_data['hitId'] = hitId
+    # response_data['hitId'] = hitId
     response_data['workerId'] = workerId
     response_data['turkSubmitTo'] = turkSubmitTo
 
