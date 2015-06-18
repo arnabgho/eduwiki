@@ -20,8 +20,8 @@
     {#            <br>#}
 
     <div class="col-sm-10 col-sm-offset-1">
-        <form role="form" action="{{ turkSubmitTo }}/mturk/externalSubmit" method="get">
-{#        <form role="form" action="{% url 'question_submit' %}" method="get">#}
+{#        <form role="form" action="{{ turkSubmitTo }}/mturk/externalSubmit" method="get">#}
+        <form role="form" action="{% url 'question_submit' %}" method="get">
             {% if assignmentId %}
                 <div>
                 {% ifequal assignmentId "ASSIGNMENT_ID_NOT_AVAILABLE" %}
@@ -37,7 +37,7 @@
                 {% endifequal %}
             {% endif %}
             {#        Meta Information about the HIT #}
-{#            <input name="assignmentId" value="{{ assignmentId }}" hidden="hidden">#}
+            <input name="assignmentId" value="{{ assignmentId }}" hidden="hidden">
             <input name="hitId" value="{{ hitId }}" hidden="hidden">
             <input name="workerId" value="{{ workerId }}" hidden="hidden">
             <input name="turkSubmitTo" value="{{ turkSubmitTo }}" hidden="hidden">

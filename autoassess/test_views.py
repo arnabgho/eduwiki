@@ -95,10 +95,10 @@ def question_submit(request):
     result = requests.post(turkSubmitTo+'/mturk/externalSubmit', data=turk_submit_data)
     return HttpResponse(result.content)
 
-    response_data['assignmentId'] = assignmentId
-    # response_data['hitId'] = hitId
-    response_data['workerId'] = workerId
-    response_data['turkSubmitTo'] = turkSubmitTo
+    # response_data['assignmentId'] = assignmentId
+    # # response_data['hitId'] = hitId
+    # response_data['workerId'] = workerId
+    # response_data['turkSubmitTo'] = turkSubmitTo
 
-    return redirect(turkSubmitTo+'/mturk/externalSubmit')
-    return render(request, 'autoassess/single_question.html', response_data)
+    # return redirect(turkSubmitTo+'/mturk/externalSubmit')
+    # return render(request, 'autoassess/single_question.html', response_data)
