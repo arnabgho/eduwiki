@@ -100,4 +100,5 @@ def question_submit(request):
     response_data['workerId'] = workerId
     response_data['turkSubmitTo'] = turkSubmitTo
 
+    return redirect(turkSubmitTo+'/mturk/externalSubmit')
     return render(request, 'autoassess/single_question.html', response_data)
