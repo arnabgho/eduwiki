@@ -3,6 +3,7 @@ from diagnose.util.wikipedia import DisambiguationError
 from diagnose import diagnose
 from diagnose import search_wikipage
 from .models import *
+from answer_handler import *
 
 
 def index(request):
@@ -90,14 +91,27 @@ def learn(request):
             'wikipage': search_wikipage.get_wikipage(main_topic),
             'is_main_topic': True
         })
+        # user_answers.pop('main_topic')
     else:
         main_topic = None
 
     topics_to_learn = []
     # get a list of which questions had correct responses
-    for ans in user_answers:
-        if user_answers[ans] == 'False' and ans.lower() != main_topic.lower():
-            topics_to_learn.append(ans)
+    for ques_id in user_answers:
+        if ques_id == 'main_topic':
+            continue
+        try:
+            if not check_answer_correctness(question_id=ques_id, ans=user_answers[ques_id]):
+                topic = WikiQuestion.objects(id=ques_id)[0].topic
+                if topic.lower() == main_topic.lower():
+                    continue
+                else:
+                    topics_to_learn.append(topic)
+        except:
+            continue
+        
+        # if user_answers[ques_id] == 'False' and ques_id.lower() != main_topic.lower():
+        # topics_to_learn.append(ques_id)
 
     for topic in topics_to_learn:
         response_data['topics'].append(
@@ -118,9 +132,9 @@ def learn(request):
 # extra code to fix issues with the way json.loads processes this
 # :param d:
 # :return:
-#     """
-#     if d['children']:
-#         # d['children'] = json.loads(d['children'], recurhook)
+# """
+# if d['children']:
+# # d['children'] = json.loads(d['children'], recurhook)
 #         children = []
 #         for child in d['children']:
 #             children.append(json.loads(child, object_hook=recurhook))

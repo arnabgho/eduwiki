@@ -24,6 +24,10 @@ class WikiQuestion(Document):
     # by deafult, the first option is the right answer
     correct_answer = IntField(required=True)
 
+    # for question generation
+    # TODO:: load questions with version (latest by default)
+    version = StringField()
+
 
 class Prereq(Document):
     """
@@ -31,6 +35,32 @@ class Prereq(Document):
     """
     topic = StringField(required=True)
     prereqs = ListField(StringField())
+
+
+class WikiQuestionAnswer(Document):
+    """
+    to record mturk answers
+    """
+    #TODO:: write(/read)/test
+    question = ReferenceField(WikiQuestion, required=True)
+    topic = StringField()
+    time = DateTimeField()
+
+    answer = IntField(required=True)  # corresponds to choices indices in the WikiQuestion
+    correctness = BooleanField()  # fast way to retrieve correctness, maybe not needed
+
+    # user info
+    # Later: generate random workerId for normal visitors? This is not needed for the mturk test. You are not going to
+    # have a lot of users off mturk anyway
+    workerId = StringField(required=True)
+    assignmentId = StringField(required=True)
+    hitId = StringField()
+    turkSubmitTo = StringField()
+
+    #extra information
+    topic_confidence = IntField(min_value=-1, max_value=5)
+    question_confidence = IntField(min_value=-1, max_value=5)
+    comment = StringField()
 
 
 def load_questions(topic):
@@ -74,7 +104,7 @@ def save_questions(questions, force=True):
     return True
 
 
-def load_question(topic):
+def load_question(topic, version=None):
     """
     Note there is a mismatch between "load" and "save.
     We may saved questions with different types, but in "load",
@@ -83,8 +113,12 @@ def load_question(topic):
     :return:
     """
     try:
-        wiki_question = WikiQuestion.objects.filter(topic=topic)[0]
+        if version is None:
+            wiki_question = WikiQuestion.objects(topic=topic)[0]
+        else:
+            wiki_question = WikiQuestion.objects(topic=topic, version=version)[0]
         question = {
+            'id': wiki_question.id,
             'topic': wiki_question.topic,
             'type': wiki_question.type,
             'question_text': wiki_question.question_text,
@@ -93,10 +127,10 @@ def load_question(topic):
 
         possible_answers = []
         for idx, c in enumerate(wiki_question['choices']):
-
             possible_answers.append({
                 'text': c,
-                'correct': True if idx == wiki_question['correct_answer'] else False
+                'correct': True if idx == wiki_question['correct_answer'] else False,
+                'idx': idx,
             })
         random.shuffle(possible_answers)
         question['choices'] = possible_answers

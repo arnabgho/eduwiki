@@ -8,6 +8,7 @@ from django.views.decorators.clickjacking import xframe_options_exempt
 from .models import *
 import requests
 
+import answer_handler
 
 @xframe_options_exempt
 def single_question(request):
@@ -78,30 +79,23 @@ def single_question(request):
 def question_submit(request):
     request_data = {}
     if request.method == 'GET':
-        request_data = request.GET
+        request_data = request.GET.dict()
     elif request.method == 'POST':
-        request_data = request.POST
+        request_data = request.POST.dict()
     response_data = {}
 
-    assignmentId = request_data['assignmentId']
-    # hitId = request_data['hitId']
-    workerId = request_data['workerId']
+    # This is not used here for now
+    main_topic = request_data.pop('main_topic')
+
+    # mturk will filter submitted data with field name 'hitId'
+    turk_submit_data = request_data.copy()
+    turk_submit_data.pop('hitId')
+
     turkSubmitTo = request_data['turkSubmitTo']
 
     # ==== submit data to mturk website ====
-    turk_submit_data = {
-        'assignmentId': assignmentId,
-        'workerId': workerId,
-        'test': 'true',
-    }
+
     result = requests.request("POST", turkSubmitTo + '/mturk/externalSubmit', data=turk_submit_data)
 
+    answer_handler.save_answer(request_data)
     return HttpResponse(result.text)
-
-    # response_data['assignmentId'] = assignmentId
-    # # response_data['hitId'] = hitId
-    # response_data['workerId'] = workerId
-    # response_data['turkSubmitTo'] = turkSubmitTo
-
-    # return redirect(turkSubmitTo+'/mturk/externalSubmit')
-    # return render(request, 'autoassess/single_question.html', response_data)

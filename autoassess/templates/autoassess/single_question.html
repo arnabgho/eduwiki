@@ -12,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'main.css' %}" rel="stylesheet">
+    <link href="{% static 'autoassess/css/star-rating.min.css' %}" media="all" rel="stylesheet" type="text/css">
 </head>
 <body>
 
@@ -20,7 +21,9 @@
     {#            <br>#}
 
     <div class="col-sm-10 col-sm-offset-1">
-{#        <form role="form" action="{{ turkSubmitTo }}/mturk/externalSubmit" method="get">#}
+        {#        <form role="form" action="{{ turkSubmitTo }}/mturk/externalSubmit" method="get">#}
+        <h2> Question about <i>{{ search_term }}</i></h2>
+
         <form role="form" action="{% url 'question_submit' %}" method="get">
             {% if assignmentId %}
                 <div>
@@ -36,13 +39,24 @@
                     </div>
                 {% endifequal %}
             {% endif %}
+
             {#        Meta Information about the HIT #}
             <input name="assignmentId" value="{{ assignmentId }}" hidden="hidden">
-{#            <input name="hitId" value="{{ hitId }}" hidden="hidden">#}
+            <input name="hitId" value="{{ hitId }}" hidden="hidden">
             <input name="workerId" value="{{ workerId }}" hidden="hidden">
             <input name="turkSubmitTo" value="{{ turkSubmitTo }}" hidden="hidden">
             <input name="main_topic" value="{{ search_term }}" hidden="hidden">
 
+            <div class="form-group">
+                <label for="topic_confidence">
+                    <span class="text-warning">Topic Knowledge Level [REQUIRED]</span>
+                    (How well do you know about the topic <i>{{ search_term }}</i>?)
+                </label>
+
+                <input type="number" required="required" class="rating" data-size="sm"
+                       step="1" min="0" max="5"
+                       name="topic_confidence" id="topic_confidence">
+            </div>
             {#        Questions for the HIT #}
             {% for question in quiz %}
                 <div class="panel panel-default">
@@ -54,13 +68,29 @@
                         {% for answer in question.choices %}
                             <tr>
                                 <td/>
-                                <input type="radio" name="{{ question.topic }}" value="{{ answer.correct }}">
+                                {# <input type="radio" name="{{ question.topic }}" value="{{ answer.correct }}"> #}
+                                <input type="radio" name="{{ question.id }}" value="{{ answer.idx }}"
+                                       required="required">
                                 <td>{{ answer.text }}</td>
                             </tr>
                         {% endfor %}
                     </table>
                 </div>
             {% endfor %}
+            <div class="form-group">
+                <label for="question_confidence">
+                    <span class="text-warning">Question Answer Confidence [REQUIRED]</span>
+                    (How sure are you about the answer?)
+                </label>
+                <input type="number" required="required" class="rating"  data-size="sm"
+                       step="1" min="0" max="5"
+                       name="question_confidence" id="question_confidence">
+            </div>
+            <div class="form-group">
+                <label for="comment">Comments (Optional) </label>
+                <input type="text" class="form-control" id="comment" name="comment"
+                       placeholder="Comments about the question qualities. Bonus will be granted for good questions.">
+            </div>
             <div class="col-md-6 col-md-offset-3">
                 <button type="submit" class="btn btn-lg btn-block btn-primary">Submit Answer
                 </button>
@@ -71,5 +101,6 @@
 
 <script src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'autoassess/js/star-rating.min.js' %}"></script>
 </body>
 </html>

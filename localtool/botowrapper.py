@@ -28,7 +28,7 @@ def create_hit_question(question_url, sandbox=True):
     mtc = connect_mturk(sandbox=sandbox)
 
     # --------------- META INFO -------------------
-    external_question = ExternalQuestion(external_url=question_url, frame_height=400)
+    external_question = ExternalQuestion(external_url=question_url, frame_height=800)
 
     title = 'Inspect multiple-choice question qualities'
     description = 'Answer the multiple-choice questions of various topics, and inspect the qualities of them. ' \
