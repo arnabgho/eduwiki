@@ -96,7 +96,7 @@ def question_submit(request):
         'assignmentId': assignmentId,
         'workerId': workerId
     }
-    result = requests.post(turkSubmitTo, data=turk_submit_data)
+    result = requests.post(turkSubmitTo+'/mturk/externalSubmit', data=turk_submit_data)
     print result
 
     response_data['assignmentId'] = assignmentId
