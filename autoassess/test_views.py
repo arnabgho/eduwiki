@@ -6,8 +6,7 @@ from diagnose import diagnose
 from diagnose import search_wikipage
 from django.views.decorators.clickjacking import xframe_options_exempt
 from .models import *
-import requests
-
+import json
 import answer_handler
 
 @xframe_options_exempt
@@ -87,15 +86,18 @@ def question_submit(request):
     # This is not used here for now
     main_topic = request_data.pop('main_topic')
 
-    # mturk will filter submitted data with field name 'hitId'
-    turk_submit_data = request_data.copy()
-    turk_submit_data.pop('hitId')
-
-    turkSubmitTo = request_data['turkSubmitTo']
-
-    # ==== submit data to mturk website ====
-
-    result = requests.request("POST", turkSubmitTo + '/mturk/externalSubmit', data=turk_submit_data)
+    request_data.pop("csrfmiddlewaretoken", None)
 
     answer_handler.save_answer(request_data)
-    return HttpResponse(result.text)
+
+
+    # ==== submit data to mturk website ====
+    # turkSubmitTo = request_data['turkSubmitTo']
+    # result = requests.request("POST", turkSubmitTo + '/mturk/externalSubmit', data=turk_submit_data)
+
+
+
+
+
+    # return HttpResponse(result.text)
+    return HttpResponse(json.dumps(response_data), content_type="application/json")

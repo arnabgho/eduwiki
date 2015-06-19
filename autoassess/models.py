@@ -41,7 +41,7 @@ class WikiQuestionAnswer(Document):
     """
     to record mturk answers
     """
-    #TODO:: write(/read)/test
+    # TODO:: write(/read)/test
     question = ReferenceField(WikiQuestion, required=True)
     topic = StringField()
     time = DateTimeField()
@@ -57,7 +57,7 @@ class WikiQuestionAnswer(Document):
     hitId = StringField()
     turkSubmitTo = StringField()
 
-    #extra information
+    # extra information
     topic_confidence = IntField(min_value=-1, max_value=5)
     question_confidence = IntField(min_value=-1, max_value=5)
     comment = StringField()

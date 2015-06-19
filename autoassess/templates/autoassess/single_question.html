@@ -21,25 +21,29 @@
     {#            <br>#}
 
     <div class="col-sm-10 col-sm-offset-1">
-        {#        <form role="form" action="{{ turkSubmitTo }}/mturk/externalSubmit" method="get">#}
-        <h2> Question about <i>{{ search_term }}</i></h2>
+        <h2 class="text-info text-center">{{ search_term }}</h2>
 
-        <form role="form" action="{% url 'question_submit' %}" method="get">
-            {% if assignmentId %}
-                <div>
-                {% ifequal assignmentId "ASSIGNMENT_ID_NOT_AVAILABLE" %}
-                    <div class="btn btn-primary">
-                        <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
-                        Preview Mode
-                    </div>
-                {% else %}
-                    <div class="btn btn-primary">
-                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                        Worker Id = {{ workerId }}
-                    </div>
-                {% endifequal %}
-            {% endif %}
+        <form role="form" action="{{ turkSubmitTo }}/mturk/externalSubmit" method="post"
+              eduwiki_action="{% url 'question_submit' %}"
+              name="question_answer_form" id="question_answer_form">
+            {#        <form role="form" action="{% url 'question_submit' %}" method="get">#}
+            <div class="text-center">
+                {% if assignmentId %}
+                    {% ifequal assignmentId "ASSIGNMENT_ID_NOT_AVAILABLE" %}
+                        <div class="btn btn-primary">
+                            <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+                            Preview Mode
+                        </div>
+                    {% else %}
+                        <div class="btn btn-primary">
+                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                            Worker Id = {{ workerId }}
+                        </div>
+                    {% endifequal %}
+                {% endif %}
+            </div>
 
+            {% csrf_token %}
             {#        Meta Information about the HIT #}
             <input name="assignmentId" value="{{ assignmentId }}" hidden="hidden">
             <input name="hitId" value="{{ hitId }}" hidden="hidden">
@@ -49,51 +53,62 @@
 
             <div class="form-group">
                 <label for="topic_confidence">
-                    <span class="text-warning">Topic Knowledge Level [REQUIRED]</span>
-                    (How well do you know about the topic <i>{{ search_term }}</i>?)
+                    <span class="text-warning">Topic Knowledge Level</span> <span
+                        class="text-danger">[REQUIRED]</span>
+                    (How well do you know about the topic <i class="text-info">{{ search_term }}</i>?)
                 </label>
 
                 <input type="number" required="required" class="rating" data-size="sm"
                        step="1" min="0" max="5"
                        name="topic_confidence" id="topic_confidence">
             </div>
+            {#       Information to show before the user select topic confidence #}
+            <div id="pre_topic_confidence" class="alert alert-info alert-dismissable">
+                The rest of the form (including the submit button) will show up after you select your "Topic
+                Knowledge Level".
+                {#                Note the topic confidence is not changeable after your selection.#}
+
+            </div>
+
             {#        Questions for the HIT #}
-            {% for question in quiz %}
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4>{{ question.question_text }}
-                        </h4>
+            <div id="after_topic_confidence" hidden="hidden">
+                {% for question in quiz %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4>{{ question.question_text }}
+                            </h4>
+                        </div>
+                        <table class="table">
+                            {% for answer in question.choices %}
+                                <tr>
+                                    <td/>
+                                    {# <input type="radio" name="{{ question.topic }}" value="{{ answer.correct }}"> #}
+                                    <input type="radio" name="{{ question.id }}" value="{{ answer.idx }}"
+                                           required="required">
+                                    <td>{{ answer.text }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
                     </div>
-                    <table class="table">
-                        {% for answer in question.choices %}
-                            <tr>
-                                <td/>
-                                {# <input type="radio" name="{{ question.topic }}" value="{{ answer.correct }}"> #}
-                                <input type="radio" name="{{ question.id }}" value="{{ answer.idx }}"
-                                       required="required">
-                                <td>{{ answer.text }}</td>
-                            </tr>
-                        {% endfor %}
-                    </table>
+                {% endfor %}
+                <div class="form-group">
+                    <label for="question_confidence">
+                        <span class="text-warning">Question Answer Confidence</span> <span class="text-danger">[REQUIRED]</span>
+                        (How sure are you about the answer?)
+                    </label>
+                    <input type="number" required="required" class="rating" data-size="sm"
+                           step="1" min="0" max="5"
+                           name="question_confidence" id="question_confidence">
                 </div>
-            {% endfor %}
-            <div class="form-group">
-                <label for="question_confidence">
-                    <span class="text-warning">Question Answer Confidence [REQUIRED]</span>
-                    (How sure are you about the answer?)
-                </label>
-                <input type="number" required="required" class="rating"  data-size="sm"
-                       step="1" min="0" max="5"
-                       name="question_confidence" id="question_confidence">
-            </div>
-            <div class="form-group">
-                <label for="comment">Comments (Optional) </label>
-                <input type="text" class="form-control" id="comment" name="comment"
-                       placeholder="Comments about the question qualities. Bonus will be granted for good questions.">
-            </div>
-            <div class="col-md-6 col-md-offset-3">
-                <button type="submit" class="btn btn-lg btn-block btn-primary">Submit Answer
-                </button>
+                <div class="form-group">
+                    <label for="comment">Comments (Optional) </label>
+                    <input type="text" class="form-control" id="comment" name="comment"
+                           placeholder="Comments about the question qualities. Bonus will be granted for good questions.">
+                </div>
+                <div class="col-md-6 col-md-offset-3">
+                    <button type="submit" class="btn btn-lg btn-block btn-primary">Submit Answer
+                    </button>
+                </div>
             </div>
         </form>
     </div>
@@ -102,5 +117,7 @@
 <script src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'autoassess/js/star-rating.min.js' %}"></script>
+<script src="{% static 'autoassess/js/question_submit.js' %}"></script>
+<script src="{% static 'autoassess/js/different_stage.js' %}"></script>
 </body>
 </html>
