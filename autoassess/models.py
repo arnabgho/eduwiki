@@ -53,7 +53,7 @@ class WikiQuestionAnswer(Document):
     # Later: generate random workerId for normal visitors? This is not needed for the mturk test. You are not going to
     # have a lot of users off mturk anyway
     workerId = StringField(required=True)
-    assignmentId = StringField(required=True)
+    assignmentId = StringField(required=True, unique=True)
     hitId = StringField()
     turkSubmitTo = StringField()
 
@@ -61,6 +61,10 @@ class WikiQuestionAnswer(Document):
     topic_confidence = IntField(min_value=-1, max_value=5)
     question_confidence = IntField(min_value=-1, max_value=5)
     comment = StringField()
+
+    # time delta in milliseconds
+    topic_confidence_time_delta = IntField()
+    submit_time_delta = IntField()
 
 
 def load_questions(topic):

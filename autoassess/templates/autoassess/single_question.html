@@ -37,7 +37,7 @@
                     {% else %}
                         <div class="btn btn-primary">
                             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                            Worker Id = {{ workerId }}
+                            Your Worker Id = {{ workerId }}
                         </div>
                     {% endifequal %}
                 {% endif %}
@@ -55,7 +55,7 @@
                 <label for="topic_confidence">
                     <span class="text-warning">Topic Knowledge Level</span> <span
                         class="text-danger">[REQUIRED]</span>
-                    (How well do you know about the topic <i class="text-info">{{ search_term }}</i>?)
+                    (How confident are you to answer a <i>BEGINNER</i> question about <span class="text-info">{{ search_term }}</span>?)
                 </label>
 
                 <input type="number" required="required" class="rating" data-size="sm"

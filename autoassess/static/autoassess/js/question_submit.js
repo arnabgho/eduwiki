@@ -7,15 +7,23 @@ $(document).ready(function () {
 
     var eduwiki_server_success = false;
     question_answer_form.submit(function (e) {
-        if (eduwiki_server_success){
+        if (eduwiki_server_success) {
             return 0;
+            // default form submission behavior
         }
         e.preventDefault();
+
+
+        var submit_time = Date.now();
+
         var form_data = $(this).serializeArray();
         var form_dict = {};
         for (var i = 0; i < form_data.length; i++) {
             form_dict[form_data[i].name] = form_data[i].value;
         }
+
+        form_dict['submit_time_delta'] = (submit_time - start_time).toString();
+        form_dict['topic_confidence_time_delta'] = (topic_confidence_time - start_time).toString();
 
         $.ajax({
             url: $(this).attr('eduwiki_action'),
@@ -34,7 +42,8 @@ $(document).ready(function () {
                 question_answer_form.submit();
             },
             error: function (xhr) {
-                alert("SERVER Error: The answer is not successfully posted, please try again later.");
+                alert("SERVER Error: The answer is not successfully posted, please try again later. " +
+                    "Report to the webmaster if this occurs all the time.");
             }
         });
     });

@@ -9,6 +9,7 @@ from .models import *
 import json
 import answer_handler
 
+
 @xframe_options_exempt
 def single_question(request):
     """
@@ -89,15 +90,6 @@ def question_submit(request):
     request_data.pop("csrfmiddlewaretoken", None)
 
     answer_handler.save_answer(request_data)
-
-
-    # ==== submit data to mturk website ====
-    # turkSubmitTo = request_data['turkSubmitTo']
-    # result = requests.request("POST", turkSubmitTo + '/mturk/externalSubmit', data=turk_submit_data)
-
-
-
-
 
     # return HttpResponse(result.text)
     return HttpResponse(json.dumps(response_data), content_type="application/json")

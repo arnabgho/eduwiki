@@ -3,6 +3,7 @@ __author__ = 'moonkey'
 from models import *
 import datetime
 
+
 def check_answer_correctness(question_id, ans):
     try:
         question = WikiQuestion.objects(id=question_id)[0]
@@ -29,8 +30,46 @@ def save_answer(ans_data):
     question_confidence = ans_data.pop('question_confidence', -1)
     comment = ans_data.pop('comment', "")
 
-    for question_id in ans_data:
-        wiki_question = WikiQuestion.objects(id=question_id)[0]
+    topic_confidence_time_delta = ans_data.pop('topic_confidence_time_delta', -1)
+    submit_time_delta = ans_data.pop('submit_time_delta', -1)
+
+    ans_data_keys = ans_data.keys()
+    # Note there is supposed to be ONLY ONE element in ans_data now !!! !!!
+    if len(ans_data_keys) != 1:
+        raise ValueError("The form has redudant data that are not allowed.")
+
+    question_id = ans_data_keys[0]
+
+    wiki_question = WikiQuestion.objects(id=question_id)[0]
+
+    old_ans_retrieval = WikiQuestionAnswer.objects(assignmentId=assignmentId)
+    if old_ans_retrieval:
+        old_ans = old_ans_retrieval[0]
+        try:
+            old_ans.update(
+                question=wiki_question,
+                topic=wiki_question.topic,
+                time=datetime.datetime.now(),
+
+                answer=int(ans_data[question_id]),
+                correctness=check_answer_correctness(question_id, ans_data[question_id]),
+
+                hitId=hitId,
+                assignmentId=assignmentId,
+                workerId=workerId,
+                turkSubmitTo=turkSubmitTo,
+
+                topic_confidence=int(topic_confidence),
+                question_confidence=int(question_confidence),
+                comment=comment,
+
+                submit_time_delta=int(submit_time_delta),
+                topic_confidence_time_delta=int(topic_confidence_time_delta),
+            )
+        except Exception, e:
+            print str(e)
+            raise e
+    else:
         wiki_ans = WikiQuestionAnswer(
             question=wiki_question,
             topic=wiki_question.topic,
@@ -46,7 +85,14 @@ def save_answer(ans_data):
 
             topic_confidence=int(topic_confidence),
             question_confidence=int(question_confidence),
-            comment=comment
+            comment=comment,
+
+            submit_time_delta=int(submit_time_delta),
+            topic_confidence_time_delta=int(topic_confidence_time_delta),
         )
-        wiki_ans.save()
+        try:
+            wiki_ans.save()
+        except NotUniqueError, e:
+            print str(e)
+    return True
 
