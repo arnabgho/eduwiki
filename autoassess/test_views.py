@@ -58,14 +58,18 @@ def single_question(request):
     try:
         try:
             # the search term may not corresponds to a wikipedia entry
-            wiki_topic = search_wikipage.get_wikipage(search_term).title
+            try:
+                wiki_topic = search_wikipage.get_wikipage(search_term).title
+            except:
+                # if connecting to wikipedia server fails
+                wiki_topic = search_term
             questions = [load_question(wiki_topic)]
         except IndexError as e:
             # this is the error it will raise if no questions is founded
             # if there is not questions for this topic in the database
             # then generate and save
             questions = diagnose.diagnose(search_term, depth=1)
-            save_questions(questions)
+            save_questions_with_prereqs(questions)
     except DisambiguationError as dis:
         raise dis
 

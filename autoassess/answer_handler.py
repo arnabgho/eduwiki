@@ -95,4 +95,3 @@ def save_answer(ans_data):
         except NotUniqueError, e:
             print str(e)
     return True
-

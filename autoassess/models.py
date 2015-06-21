@@ -26,7 +26,7 @@ class WikiQuestion(Document):
 
     # for question generation
     # TODO:: load questions with version (latest by default)
-    version = StringField()
+    version = FloatField()
 
 
 class Prereq(Document):
@@ -67,7 +67,7 @@ class WikiQuestionAnswer(Document):
     submit_time_delta = IntField()
 
 
-def load_questions(topic):
+def load_questions_with_prereqs(topic):
     questions = [load_question(topic)]
     try:
         prereqs = Prereq.objects.filter(topic=topic)[0].prereqs
@@ -75,11 +75,12 @@ def load_questions(topic):
             questions.append(load_question(topic=pre))
     except Exception:
         # error loading prereqs
+        # just return the question related to the topic
         pass
     return questions
 
 
-def save_questions(questions, force=True):
+def save_questions_with_prereqs(questions, force=True):
     """
     :param questions: topics of later questions are prereqs for the topic for the first question
     :return:
@@ -118,7 +119,7 @@ def load_question(topic, version=None):
     """
     try:
         if version is None:
-            wiki_question = WikiQuestion.objects(topic=topic)[0]
+            wiki_question = WikiQuestion.objects(topic=topic).order_by("-version")[0]
         else:
             wiki_question = WikiQuestion.objects(topic=topic, version=version)[0]
         question = {
@@ -136,6 +137,8 @@ def load_question(topic, version=None):
                 'correct': True if idx == wiki_question['correct_answer'] else False,
                 'idx': idx,
             })
+
+        # Random shuffle, so the answers' order is different from time to time
         random.shuffle(possible_answers)
         question['choices'] = possible_answers
     except Exception as e:
@@ -143,7 +146,7 @@ def load_question(topic, version=None):
     return question
 
 
-def save_question(question, force=True):
+def save_question(question, force=True, version=None):
     """
     Note there is a mismatch between "load" and "save.
     We may saved questions with different types, but in "load",
@@ -152,9 +155,11 @@ def save_question(question, force=True):
     :param force:
     :return:
     """
+
     old_questions = WikiQuestion.objects.filter(
         topic=question['topic'],
-        type=question['type']
+        type=question['type'],
+        version=version
     )
     if old_questions:
         if force:
@@ -166,6 +171,8 @@ def save_question(question, force=True):
             topic=question['topic'],
             type=question['type'],
         )
+    if version:
+        wiki_question.version = version
 
     wiki_question.question_text = question['question_text']
     wiki_question.choices = [a['text'] for a in question['choices']]
