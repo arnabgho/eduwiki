@@ -5,12 +5,13 @@ from diagnose import quesgen_sentstruct
 from diagnose.util import wikipedia
 from diagnose.util.nlp_util import NlpUtil
 
+
 def test_sentence_extraction():
     # topic_max = 5
     # topics = []
     # with open("../../../random/topics/topic.txt", "rU") as topic_file:
     # topic_num = 0
-    #     cat_line = False
+    # cat_line = False
     #     for t in topic_file.readlines():
     #         if topic_num >= topic_max:
     #             break
@@ -108,7 +109,6 @@ def draw_sentence_syntree(sentence):
     nlutil = NlpUtil()
     parsed_sentence = nlutil.parsing(sentence)
     parsed_sentence.draw()
-
 
 
 # TODO:: deal with the unicode issue, deal with the redirect, (inside the code)

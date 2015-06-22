@@ -42,12 +42,12 @@ def create_hit_question(question_url, sandbox=True):
                                        title=title,
                                        description=description,
                                        keywords=keywords,
-                                       duration=timedelta(minutes=50),  # larger than 30 secs
+                                       duration=timedelta(minutes=30),  # larger than 30 secs
                                        lifetime=timedelta(days=3),
-                                       reward=0.01)  # in USD
+                                       reward=0.2)  # in USD
     result = hit_create_result[0] if hit_create_result[0].IsValid == 'True' else None
     if not result:
-        print "ERROR: Failed to create HIT."
+        raise ValueError("ERROR: Failed to create HIT.")
     return result
 
 
