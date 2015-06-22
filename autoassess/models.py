@@ -28,6 +28,9 @@ class WikiQuestion(Document):
     # TODO:: load questions with version (latest by default)
     version = FloatField()
 
+    def __unicode__(self):
+        return str(self.topic) + ":" + str(self.question_text)
+
 
 class Prereq(Document):
     """
@@ -35,6 +38,9 @@ class Prereq(Document):
     """
     topic = StringField(required=True)
     prereqs = ListField(StringField())
+
+    def __unicode__(self):
+        return str(self.topic) + ":" + str(self.prereqs)
 
 
 class WikiQuestionAnswer(Document):
@@ -65,6 +71,9 @@ class WikiQuestionAnswer(Document):
     # time delta in milliseconds
     topic_confidence_time_delta = IntField()
     submit_time_delta = IntField()
+
+    def __unicode__(self):
+        return str(self.topic) + ":" + str(self.workerId)
 
 
 def load_questions_with_prereqs(topic):
