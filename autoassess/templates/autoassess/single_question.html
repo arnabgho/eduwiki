@@ -95,12 +95,58 @@
                 <div class="form-group">
                     <label for="question_confidence">
                         <span class="text-warning">Question Answer Confidence</span> <span class="text-danger">[REQUIRED]</span>
-                        (How sure are you about the answer?)
+                        (How sure are you about the answer for this specific question?)
                     </label>
                     <input type="number" required="required" class="rating" data-size="sm"
                            step="1" min="0" max="5"
                            name="question_confidence" id="question_confidence">
                 </div>
+
+                {# Start of feedback for the two ratings #}
+                <hr>
+                <div class="form-group">
+                    Are the two ratings a lot more overhead, compared to only one rating about question answer
+                    confidence?
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="rating_overhead" value="True" required="required">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="rating_overhead" value="False" required="required">
+                            No
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    Do you find the above two ratings confusing?
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="rating_confusion" value="True" required="required">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="rating_confusion" value="False" required="required">
+                            No
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="comment_temp">
+                        <span class="text-warning">
+                            Explain your understanding of the differences between the two ratings.
+                        </span>
+                        <span class="text-danger">[REQUIRED]</span>
+                    </label>
+                    <input type="text" class="form-control" name="comment_temp" id="comment_temp" required="required">
+                </div>
+                <hr>
+                {# End of feedback for the two ratings #}
+
                 <div class="form-group">
                     <label for="comment">
                         <span class="text-warning">Comments about question quality</span> [Optional] </label>
@@ -112,6 +158,7 @@
                     <input type="text" class="form-control" id="comment" name="comment"
                            placeholder="Bonus will be granted for good questions.">
                 </div>
+
                 <div class="col-md-6 col-md-offset-3">
                     <button type="submit" class="btn btn-lg btn-block btn-primary">Submit Answer
                     </button>

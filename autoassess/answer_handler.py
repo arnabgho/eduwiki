@@ -21,6 +21,7 @@ def save_answer(ans_data):
     if not ans_data:
         return
 
+    # ##### Extract fields
     hitId = ans_data.pop('hitId')
     assignmentId = ans_data.pop('assignmentId')
     workerId = ans_data.pop('workerId')
@@ -33,6 +34,16 @@ def save_answer(ans_data):
     topic_confidence_time_delta = ans_data.pop('topic_confidence_time_delta', -1)
     submit_time_delta = ans_data.pop('submit_time_delta', -1)
 
+    # ##### Temporary fields
+    rating_overhead = ans_data.pop("rating_overhead", None)
+    rating_confusion = ans_data.pop("rating_confusion", None)
+    comment_temp = ans_data.pop("comment_temp", None)
+
+    comment = "Rating Overhead:" + str(rating_overhead) + "\nRating Confusion:" + str(
+        rating_confusion) + "\nRating Comment:" + str(comment_temp) + "\nComment:" + str(comment)
+
+
+    # ####################################
     ans_data_keys = ans_data.keys()
     # Note there is supposed to be ONLY ONE element in ans_data now !!! !!!
     if len(ans_data_keys) != 1:
