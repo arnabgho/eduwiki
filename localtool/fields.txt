@@ -1,0 +1,14 @@
+question
+topic
+time
+answer
+correctness
+workerId
+assignmentId
+hitId
+turkSubmitTo
+topic_confidence
+question_confidence
+comment
+topic_confidence_time_delta
+submit_time_delta
