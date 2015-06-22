@@ -47,4 +47,7 @@ atlassian-ide-plugin.xml
 com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
+
+# local files
 localtool/mturk_config.xml
+localtool/wiki_question_answer.csv
