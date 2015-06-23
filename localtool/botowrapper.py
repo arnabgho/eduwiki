@@ -38,13 +38,13 @@ def create_hit_question(question_url, sandbox=True):
 
     # --------------- CREATE THE HIT -------------------
     hit_create_result = mtc.create_hit(question=external_question,
-                                       max_assignments=3,
+                                       max_assignments=2,
                                        title=title,
                                        description=description,
                                        keywords=keywords,
                                        duration=timedelta(minutes=30),  # larger than 30 secs
                                        lifetime=timedelta(days=3),
-                                       reward=0.2)  # in USD
+                                       reward=0.4)  # in USD
     result = hit_create_result[0] if hit_create_result[0].IsValid == 'True' else None
     if not result:
         raise ValueError("ERROR: Failed to create HIT.")
