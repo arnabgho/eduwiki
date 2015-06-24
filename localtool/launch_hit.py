@@ -58,4 +58,4 @@ def create_for_experiment(topic_file_name="experiment_topics.txt",
 
 
 if __name__ == "__main__":
-    create_for_experiment(topic_max_idx=1, sandbox=False, visit_question_generation_link=False)
+    create_for_experiment(topic_max_idx=1, sandbox=True, visit_question_generation_link=False)

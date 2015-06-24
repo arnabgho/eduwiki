@@ -13,6 +13,7 @@ import nltk
 import os
 from util.nlp_util import NlpUtil
 import sys
+
 QUESTION_TYPE_WHAT_IS = 'WHAT_IS'
 QUESTION_TYPE_WHY_IS = 'WHY_IS'
 
@@ -246,12 +247,18 @@ def topic_regex(topic=""):
     try:
         processed_topic_tokens = util.nlp_util.ProcessedText(topic_tokens)
         stemmed_tokens = processed_topic_tokens.stemmed_tokens
+        or_tokens = []
+        for idx in range(0, len(stemmed_tokens)):
+            or_token = \
+                '(' + processed_topic_tokens.stemmed_tokens[idx] + '|' \
+                + processed_topic_tokens.original_tokens[idx] + ')'
+            or_tokens.append(or_token)
     except UnicodeDecodeError:  # non-ascii characters like in "L'Hôpital's rule"
-        stemmed_tokens = topic_tokens
+        or_tokens = topic_tokens
         # TODO:: deal with the
         # if directly code them with unicode(t,'utf-8'), it will not match the original ascii-coded string
 
-    topic_reg = '.*'.join(stemmed_tokens)
+    topic_reg = '.*'.join(or_tokens)
     topic_reg = '(?i)' + topic_reg
     return topic_reg
 
@@ -290,7 +297,7 @@ def extract_verbal_phrase(sentence, topic):
         # or_token = [original_token, stemmed_token + "*"]
 
         # if not original_token.islower():
-        #     or_token += [t.lower() for t in or_token]
+        # or_token += [t.lower() for t in or_token]
 
         or_tokens.append(or_token)
     # topic_word_nodes = ['(* << /' + "|".join(s) + "/)" for s in or_tokens]

@@ -31,6 +31,8 @@ def generate_eduwiki_link():
         r = requests.get(link)
         if r:
             print "good_link"
+        else:
+            print "bad_link"
 
 
 if __name__ == "__main__":
