@@ -69,6 +69,10 @@ class WikiQuestionAnswer(Document):
     comment = StringField()
     comment_guess = StringField()
 
+    is_reasonable_question = BooleanField()
+    grammatical_errors = ListField(IntField())
+    semantic_errors = ListField(IntField())
+
     # time delta in milliseconds
     topic_confidence_time_delta = IntField()
     submit_time_delta = IntField()

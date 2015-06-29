@@ -89,7 +89,7 @@
                     <tr>
                         <td/>
                         {# <input type="radio" name="{{ question.topic }}" value="{{ answer.correct }}"> #}
-                        <input type="radio" name="{{ question.id }}" value="{{ answer.idx }}"
+                        <input type="radio" name="question_answer_{{ question.id }}" value="{{ answer.idx }}"
                                required="required">
                         <td><span class="text-success"><b>({{ forloop.counter }}) </b></span>{{ answer.text }}</td>
                     </tr>
@@ -171,8 +171,7 @@
             {% for answer in question.choices %}
                 <div class="checkbox-inline">
                     {#                    <label>#}
-                    <input type="checkbox" name="grammatical_errors" value="{{ answer.idx }}"
-                           required="required">
+                    <input type="checkbox" name="grammatical_errors_{{ answer.idx }}" value="{{ answer.idx }}">
                     ({{ forloop.counter }})
                     {#                    </label>#}
                 </div>
@@ -190,8 +189,7 @@
             {% for answer in question.choices %}
                 <div class="checkbox-inline">
                     {#                    <label>#}
-                    <input type="checkbox" name="grammatical_errors" value="{{ answer.idx }}"
-                           required="required">
+                    <input type="checkbox" name="semantic_errors_{{ answer.idx }}" value="{{ answer.idx }}">
                     ({{ forloop.counter }})
                     {#                    </label>#}
                 </div>

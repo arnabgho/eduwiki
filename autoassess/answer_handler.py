@@ -35,22 +35,31 @@ def save_answer(ans_data):
     topic_confidence_time_delta = ans_data.pop('topic_confidence_time_delta', -1)
     submit_time_delta = ans_data.pop('submit_time_delta', -1)
 
-    # ##### Temporary fields
-    # rating_overhead = ans_data.pop("rating_overhead", None)
-    # rating_confusion = ans_data.pop("rating_confusion", None)
-    # comment_temp = ans_data.pop("comment_temp", None)
-    #
-    # if rating_confusion is not None or rating_confusion is not None or comment_temp is not None:
-    #     comment = "Rating Overhead:" + str(rating_overhead) + "\nRating Confusion:" + str(
-    #         rating_confusion) + "\nRating Comment:" + str(comment_temp) + "\nComment:" + str(comment)
+    is_reasonable_question = ans_data.pop('is_reasonable_question', None)
+    if is_reasonable_question == 'True':
+        is_reasonable_question = True
+    elif is_reasonable_question == 'False':
+        is_reasonable_question = False
+    else:
+        is_reasonable_question = None
+
+    grammatical_errors = []
+    for idx in range(0, 4):
+        if ans_data.pop('grammatical_errors_' + str(idx), None):
+            grammatical_errors.append(idx)
+    semantic_errors = []
+    for idx in range(0, 4):
+        if ans_data.pop('semantic_errors_'+str(idx), None):
+            semantic_errors.append(idx)
 
     # ####################################
+
     ans_data_keys = ans_data.keys()
     # Note there is supposed to be ONLY ONE element in ans_data now !!! !!!
     if len(ans_data_keys) != 1:
         raise ValueError("The form has redudant data that are not allowed.")
 
-    question_id = ans_data_keys[0]
+    question_id = ans_data_keys[0].strip('question_answer_')
 
     wiki_question = WikiQuestion.objects(id=question_id)[0]
 
@@ -63,8 +72,8 @@ def save_answer(ans_data):
                 topic=wiki_question.topic,
                 time=datetime.datetime.now(),
 
-                answer=int(ans_data[question_id]),
-                correctness=check_answer_correctness(question_id, ans_data[question_id]),
+                answer=int(ans_data['question_answer_'+question_id]),
+                correctness=check_answer_correctness(question_id, ans_data['question_answer_'+question_id]),
 
                 hitId=hitId,
                 assignmentId=assignmentId,
@@ -75,11 +84,14 @@ def save_answer(ans_data):
                 question_confidence=int(question_confidence),
                 comment=comment,
                 comment_guess=comment_guess,
+                is_reasonable_question=is_reasonable_question,
+                grammatical_errors=grammatical_errors,
+                semantic_errors=semantic_errors,
 
                 submit_time_delta=int(submit_time_delta),
                 topic_confidence_time_delta=int(topic_confidence_time_delta),
             )
-        except Exception, e:
+        except Exception as e:
             print str(e)
             raise e
     else:
@@ -100,6 +112,9 @@ def save_answer(ans_data):
             question_confidence=int(question_confidence),
             comment=comment,
             comment_guess=comment_guess,
+            is_reasonable_question=is_reasonable_question,
+            grammatical_errors=grammatical_errors,
+            semantic_errors=semantic_errors,
 
             submit_time_delta=int(submit_time_delta),
             topic_confidence_time_delta=int(topic_confidence_time_delta),
