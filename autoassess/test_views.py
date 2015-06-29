@@ -3,12 +3,11 @@ __author__ = 'moonkey'
 from django.shortcuts import render, redirect, Http404, HttpResponse
 from diagnose.util.wikipedia import DisambiguationError
 from diagnose import diagnose
-from diagnose import search_wikipage
+from diagnose.util.wikipedia_util import WikipediaWrapper
 from django.views.decorators.clickjacking import xframe_options_exempt
 from .models import *
 import json
 import answer_handler
-
 
 @xframe_options_exempt
 def single_question(request):
@@ -20,7 +19,10 @@ def single_question(request):
     &assignmentId=ASSIGNMENT_ID_NOT_AVAILABLE
     &hitId=3RKHNXPHGVV4TMFBNBL8TQP4MT8KU9
     ======= Question form ========
-    GET /autoassess/single_question?q=Reinforcement+learning&assignmentId=34X6J5FLPTYJCTZ6EJ6T7UOKHE0QJI&hitId=3RKHNXPHGVV4TMFBNBL8TQP4MT8KU9&workerId=AE5VGQ7G4FKI&turkSubmitTo=https%3A%2F%2Fworkersandbox.mturk.com
+    GET /autoassess/single_question?q=Reinforcement+learning
+    &assignmentId=34X6J5FLPTYJCTZ6EJ6T7UOKHE0QJI
+    &hitId=3RKHNXPHGVV4TMFBNBL8TQP4MT8KU9
+    &workerId=AE5VGQ7G4FKI&turkSubmitTo=https%3A%2F%2Fworkersandbox.mturk.com
     """
     request_data = {}
     if request.method == 'GET':
@@ -59,7 +61,7 @@ def single_question(request):
         try:
             # the search term may not corresponds to a wikipedia entry
             try:
-                wiki_topic = search_wikipage.get_wikipage(search_term).title
+                wiki_topic = WikipediaWrapper.page(search_term).title
             except:
                 # if connecting to wikipedia server fails
                 wiki_topic = search_term
@@ -68,7 +70,7 @@ def single_question(request):
             # this is the error it will raise if no questions is founded
             # if there is not questions for this topic in the database
             # then generate and save
-            questions = diagnose.diagnose(search_term, depth=1)
+            questions = diagnose.diagnose(search_term)
             save_questions_with_prereqs(questions)
     except DisambiguationError as dis:
         raise dis

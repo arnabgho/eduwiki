@@ -30,18 +30,19 @@ def save_answer(ans_data):
     topic_confidence = ans_data.pop('topic_confidence', -1)
     question_confidence = ans_data.pop('question_confidence', -1)
     comment = ans_data.pop('comment', "")
+    comment_guess = ans_data.pop('comment_guess', "")
 
     topic_confidence_time_delta = ans_data.pop('topic_confidence_time_delta', -1)
     submit_time_delta = ans_data.pop('submit_time_delta', -1)
 
     # ##### Temporary fields
-    rating_overhead = ans_data.pop("rating_overhead", None)
-    rating_confusion = ans_data.pop("rating_confusion", None)
-    comment_temp = ans_data.pop("comment_temp", None)
-
-    comment = "Rating Overhead:" + str(rating_overhead) + "\nRating Confusion:" + str(
-        rating_confusion) + "\nRating Comment:" + str(comment_temp) + "\nComment:" + str(comment)
-
+    # rating_overhead = ans_data.pop("rating_overhead", None)
+    # rating_confusion = ans_data.pop("rating_confusion", None)
+    # comment_temp = ans_data.pop("comment_temp", None)
+    #
+    # if rating_confusion is not None or rating_confusion is not None or comment_temp is not None:
+    #     comment = "Rating Overhead:" + str(rating_overhead) + "\nRating Confusion:" + str(
+    #         rating_confusion) + "\nRating Comment:" + str(comment_temp) + "\nComment:" + str(comment)
 
     # ####################################
     ans_data_keys = ans_data.keys()
@@ -73,6 +74,7 @@ def save_answer(ans_data):
                 topic_confidence=int(topic_confidence),
                 question_confidence=int(question_confidence),
                 comment=comment,
+                comment_guess=comment_guess,
 
                 submit_time_delta=int(submit_time_delta),
                 topic_confidence_time_delta=int(topic_confidence_time_delta),
@@ -97,6 +99,7 @@ def save_answer(ans_data):
             topic_confidence=int(topic_confidence),
             question_confidence=int(question_confidence),
             comment=comment,
+            comment_guess=comment_guess,
 
             submit_time_delta=int(submit_time_delta),
             topic_confidence_time_delta=int(topic_confidence_time_delta),

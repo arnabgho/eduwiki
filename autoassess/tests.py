@@ -2,7 +2,6 @@ from diagnose.prereq import direct_prereq_generator
 # Create your tests here.
 topics = []
 from diagnose import quesgen_sentstruct
-from diagnose.util import wikipedia
 from diagnose.util.nlp_util import NlpUtil
 
 
@@ -99,10 +98,10 @@ def generate_eduwiki_link():
 
 def test_setentence_syntree():
     # draw_sentence_syntree("Reinforcement learning is known.")
-    # draw_sentence_syntree("Reinforcement learning is known to be great.")
-    draw_sentence_syntree("In the operations research and control literature, "
-                          "the field where MAIN_TOPIC methods are studied "
-                          "is called approximate dynamic programming.")
+    draw_sentence_syntree("Reinforcement learning is an area of machine learning")
+    # draw_sentence_syntree("Reinforcement learning is an area of machine learning inspired by behaviorist psychology, "
+    #                       "concerned with how software agents ought to take actions in an environment "
+    #                       "so as to maximize some notion of cumulative reward.")
 
 
 def draw_sentence_syntree(sentence):

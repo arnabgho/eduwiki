@@ -2,7 +2,6 @@
 __author__ = 'moonkey'
 
 import re
-from util import wikipedia
 import random
 import util.nlp_util
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
@@ -13,6 +12,8 @@ import nltk
 import os
 from util.nlp_util import NlpUtil
 import sys
+from util.wikipedia_util import WikipediaWrapper
+
 
 QUESTION_TYPE_WHAT_IS = 'WHAT_IS'
 QUESTION_TYPE_WHY_IS = 'WHY_IS'
@@ -20,7 +21,7 @@ QUESTION_TYPE_WHY_IS = 'WHY_IS'
 
 def generate_question(prereq_tree):
     # wrong name: question_text should be question_stem or question_stem_text
-    question_generated = generate_question_stem(prereq_tree)
+    question_generated = generate_question_stem(prereq_tree['wikipage'])
     question_stem = question_generated['stem']
     correct_answer = question_generated['answer']
 
@@ -31,24 +32,24 @@ def generate_question(prereq_tree):
         'correct_answer': correct_answer
     }
 
-    distractors = generate_distractors(prereq_tree)
+    distractors = generate_distractors_from_prereqs(prereq_tree)
     question['distractors'] = distractors
 
     return format_question(question)
 
 
-def generate_question_stem(prereq_tree):
-    question_sentences = question_sentence_generator(prereq_tree['wikipage'])
+def generate_question_stem(wikipage):
+    question_sentences = question_sentence_generator(wikipage)
 
     question_generated = None
 
-    logged_sentences = []
+    # logged_sentences = []
     for question_sent in question_sentences:
         try:
-            logged_sentences.append(question_sent)
+            # logged_sentences.append(question_sent)
             # print >> sys.stderr, "question_sent:"+question_sent
             question_generated = question_from_single_sentence(
-                question_sent, prereq_tree['wikipage'].title)
+                question_sent, wikipage.title)
             if question_generated['stem'] and question_generated['answer']:
                 break
         except Exception:
@@ -59,7 +60,7 @@ def generate_question_stem(prereq_tree):
     return question_generated
 
 
-def generate_distractors(prereq_tree):
+def generate_distractors_from_prereqs(prereq_tree):
     distractors = []
     for child in prereq_tree['children']:
         sentences = topic_mentioning_sentence_generator(child['wikipage'])
@@ -75,20 +76,20 @@ def generate_distractors(prereq_tree):
     return distractors
 
 
+def generate_distractors_same_categories(wikipage):
+    # TODO::
+    # wikipage = wikipedia.page()
+    # cats = wikipage.categories
+    # wikipedia.page()
+    pass
+
+
 def topic_mentioning_sentence_generator(wikipage):
-    content = wikipage.content
-    nlutil = NlpUtil()
-    sentences = nlutil.punkt_tokenize(content)
-
-    # TODO:: filter sentences with the key word (stemming matching here, not later?)
-    # return {"filtered": " ", original_topic_form:" "}
-
-    # sentences = [s for s in sentences if wikipage.title.lower() in s.lower()]
+    sentences = WikipediaWrapper.article_sentences(wikipage)
     topic_re = re.compile(topic_regex(wikipage.title))
     # sentences = [s for s in sentences if topic_re.search(s)]
 
     for s in sentences:
-        # if wikipage.title.lower() in s.lower():
         if topic_re.search(s):
             if '\n' not in s.strip('\n'):  # TODO:: see below
                 yield s
@@ -291,13 +292,13 @@ def extract_verbal_phrase(sentence, topic):
 
         or_token = [stemmed_token + "*"]
         # TODO:: (test) the following seems to be the same as the above line
-        # if stemmed_token == original_token:
-        # or_token = [stemmed_token + "*"]
-        # else:
-        # or_token = [original_token, stemmed_token + "*"]
+        if stemmed_token in original_token:
+            or_token = [stemmed_token + "*"]
+        else:
+            or_token = [original_token, stemmed_token + "*"]
 
-        # if not original_token.islower():
-        # or_token += [t.lower() for t in or_token]
+        if not original_token.islower():
+            or_token += [t.lower() for t in or_token]
 
         or_tokens.append(or_token)
     # topic_word_nodes = ['(* << /' + "|".join(s) + "/)" for s in or_tokens]
@@ -313,7 +314,7 @@ def extract_verbal_phrase(sentence, topic):
     # only root sentence NP considered
     topic_NP = '/NP*/ << ' + topic_words_sequence + ' > (S > ROOT)'
 
-    # print >> sys.stderr, topic_NP
+    print >> sys.stderr, topic_NP
     # for them to be sisters, should be better than "VP , NP"
     following_VP = 'VP $,, (' + topic_NP + ')'
 

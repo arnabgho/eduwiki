@@ -1,20 +1,20 @@
-from util import wikipedia
 import prereq
 import quesgen
 import unicodedata
 
 
-def diagnose(search_term, depth=2, num_prereq=3):
+def diagnose(search_term, generate_prereq_question=False, num_prereq=3):
     # find prereq tree
-    prereq_tree = prereq.find_prereq_tree(search_term, depth=depth, num_prereq=num_prereq)
+    prereq_tree = prereq.find_prereq_tree(search_term, depth=2, num_prereq=num_prereq)
 
     # generate question
     topic_question = quesgen.generate_question(prereq_tree)
 
     prereq_questions = []
-    # for child in prereq_tree['children']:
-    # child_question = quesgen.generate_question(child)
-    #     prereq_questions.append(child_question)
+    if generate_prereq_question:
+        for child in prereq_tree['children']:
+            child_question = quesgen.generate_question(child)
+            prereq_questions.append(child_question)
     questions = [topic_question] + prereq_questions
 
     # print questions
@@ -39,7 +39,7 @@ def diagnose(search_term, depth=2, num_prereq=3):
 #
 #     # get the topic and the names of its prereq links
 #     main_topic = WikiEducate(normal(search_term))
-#     prereq_names = main_topic.linked_wiki_term_generator(num_prereq)
+#     prereq_names = main_topic.sequential_linked_terms(num_prereq)
 #     topic_name = main_topic.page.title
 #
 #     # create a knowledge tree (dict) which will be recursively built
@@ -50,7 +50,7 @@ def diagnose(search_term, depth=2, num_prereq=3):
 #     # distractor is generated from the definition of the first few linked items
 #     topic_text = main_topic.page.summary  # main_topic.plain_text_summary(1)
 #     description = main_topic.return_what_is()
-#     distractor_names = main_topic.linked_wiki_term_generator(num_prereq)
+#     distractor_names = main_topic.sequential_linked_terms(num_prereq)
 #     distractors = []
 #     for i in range(0, 3):
 #         distractor_name = normal(distractor_names[i])

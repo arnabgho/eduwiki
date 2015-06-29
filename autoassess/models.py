@@ -67,6 +67,7 @@ class WikiQuestionAnswer(Document):
     topic_confidence = IntField(min_value=-1, max_value=5)
     question_confidence = IntField(min_value=-1, max_value=5)
     comment = StringField()
+    comment_guess = StringField()
 
     # time delta in milliseconds
     topic_confidence_time_delta = IntField()

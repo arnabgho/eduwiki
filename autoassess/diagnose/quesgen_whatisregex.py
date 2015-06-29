@@ -1,7 +1,6 @@
 __author__ = 'moonkey'
 
 import re
-from util import wikipedia
 import random
 
 QUESTION_TYPE_WHAT_IS = 'WHAT_IS'

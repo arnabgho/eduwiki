@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect
 from diagnose.util.wikipedia import DisambiguationError
 from diagnose import diagnose
-from diagnose import search_wikipage
 from .models import *
 from answer_handler import *
-
+from diagnose.util.wikipedia_util import WikipediaWrapper
 
 def index(request):
     return search_page(request)
@@ -31,21 +30,25 @@ def quiz(request):
     force_generating_new = False
     if 'f' in request.GET and bool(request.GET['f']):
         force_generating_new = True
+    generate_prereq_question = False
+    if 'pre' in request.GET and bool(request.GET['pre']):
+        generate_prereq_question = True
+        print 'generate_pre_question'
 
     try:
         if not force_generating_new:
             try:
                 # the search term may not corresponds to a wikipedia entry
-                wiki_topic = search_wikipage.get_wikipage(search_term).title
+                wiki_topic = WikipediaWrapper.page(search_term).title
                 questions = load_questions_with_prereqs(wiki_topic)
             except IndexError as e:
                 # this is the error it will raise if no questions is founded
                 # if there is not questions for this topic in the database
                 # then generate and save
-                questions = diagnose.diagnose(search_term)
+                questions = diagnose.diagnose(search_term, generate_prereq_question=generate_prereq_question)
                 save_questions_with_prereqs(questions)
         else:
-            questions = diagnose.diagnose(search_term)
+            questions = diagnose.diagnose(search_term, generate_prereq_question=generate_prereq_question)
             save_questions_with_prereqs(questions)
     except DisambiguationError as dis:
         return disambiguation(request, dis)
@@ -88,7 +91,7 @@ def learn(request):
         main_topic = user_answers['main_topic']
         response_data['topics'].append({
             'title': main_topic,
-            'wikipage': search_wikipage.get_wikipage(main_topic),
+            'wikipage': WikipediaWrapper.page(main_topic),  # in the template a summary section is used
             'is_main_topic': True
         })
         # user_answers.pop('main_topic')
@@ -117,7 +120,7 @@ def learn(request):
         response_data['topics'].append(
             {
                 'title': topic,
-                'wikipage': search_wikipage.get_wikipage(topic)
+                'wikipage': WikipediaWrapper.page(topic)
             })
     print topics_to_learn
     print response_data

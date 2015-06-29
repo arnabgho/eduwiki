@@ -10,6 +10,8 @@ import traceback
 # TODO:: test loading the parsers and tokenizers globally, i.e., the following
 # load the tokenizers and the parsers in the module, and then just use the global object in NlpUtil
 
+from nltk.corpus import wordnet
+
 
 def load_punkt_tokenizer():
     # print >> sys.stderr, "loading tokenizer"
@@ -21,7 +23,7 @@ def load_stanford_parser():
     # os.environ['STANFORD_PARSER'] = os.path.join(
     # os.path.expanduser('~'), 'stanford-parser/stanford-parser.jar')
     # os.environ['STANFORD_MODELS'] = os.path.join(
-    #     os.path.expanduser('~'), 'stanford-parser/stanford-parser-3.5.2-models.jar')
+    # os.path.expanduser('~'), 'stanford-parser/stanford-parser-3.5.2-models.jar')
     os.environ['STANFORD_PARSER'] = os.path.join(
         '/opt/stanford-parser/stanford-parser.jar')
     os.environ['STANFORD_MODELS'] = os.path.join(
@@ -199,6 +201,45 @@ class ProcessedText:
             return stemmed_tokens
         else:
             return None
+
+    @staticmethod
+    def morphify(word, org_pos, target_pos):
+        """
+        morph a word
+        http://stackoverflow.com/questions/27852969/how-to-list-all-the-forms-of-a-word-using-nltk-in-python
+        :param word:
+        :param org_pos:
+        :param target_pos:
+        :return:
+        """
+        # TODO::
+        synsets = wordnet.synsets(word, target_pos)
+        # Word not found
+        if not synsets:
+            return []
+
+        # Get all  lemmas of the word
+        lemmas = [l for s in synsets \
+                  for l in s.lemmas() if s.name().split('.')[1] == org_pos]
+
+        # Get related forms
+        derivationally_related_forms = [(l, l.derivationally_related_forms()) \
+                                        for l in lemmas]
+
+        # filter only the targeted pos
+        related_lemmas = [l for drf in derivationally_related_forms \
+                          for l in drf[1] if l.synset().name().split('.')[1] == target_pos]
+
+        # Extract the words from the lemmas
+        words = [l.name() for l in related_lemmas]
+        len_words = len(words)
+
+        # Build the result in the form of a list containing tuples (word, probability)
+        result = [(w, float(words.count(w)) / len_words) for w in set(words)]
+        result.sort(key=lambda w: -w[1])
+
+        # return all the possibilities sorted by probability
+        return result
 
 
 def test():

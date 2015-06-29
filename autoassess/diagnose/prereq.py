@@ -1,9 +1,7 @@
 __author__ = 'moonkey'
 
-from util import wikipedia
 import re
-import search_wikipage
-
+from util.wikipedia_util import WikipediaWrapper
 
 def direct_prereq_generator(wikipage, num):
     """
@@ -15,53 +13,7 @@ def direct_prereq_generator(wikipage, num):
     # TODO:: the heuristic actually needs to be changed
     # for example, we can measure the similarity (BOW)
     # return content_categories(wikipage, num)
-    return linked_wiki_term_generator(wikipage, num)
-
-
-def content_categories(wikipage, num):
-    """
-    request categories, and remove the hidden/tracking categories which are not content categories
-    :param wikipage:
-    :param num:
-    :return:
-    """
-    # TODO:: http://www.mediawiki.org/wiki/API:Categorymembers
-    categories = wikipage.content_categories
-    print categories
-    prereqs = []
-    for cat in categories:
-        if 'articles that' in cat.lower():
-            continue
-        prereqs.append(cat)
-    return prereqs
-
-
-def linked_wiki_term_generator(wikipage, num):
-    """
-    :param num: the number of linked texts to return
-    :return: list(strings), the first few texts that have a wikipedia hyper link
-    """
-    # TODO:: use the iwlinks to get the first few links!
-    # internal_links = wikipage.internal_links
-    w_text = wikipage.wikitext()
-    wikilink_rx = re.compile(r'\[\[([^|\]]*\|)?([^\]]+)\]\]')
-    # link_array = []
-    for m in wikilink_rx.finditer(w_text):
-        # if len(link_array) >= num:
-        #     break
-        if m.group(1) is not None:
-            if "Image" in m.group(1) or "Template" in m.group(1) or \
-                            "File" in m.group(1):
-                continue
-            link = m.group(1)[:-1]
-            yield link
-        else:
-            if "Image" in m.group(2) or "Template" in m.group(2) or \
-                            "File" in m.group(2):
-                continue
-            link = m.group(2)
-            yield link
-    # return link_array
+    return WikipediaWrapper.sequential_linked_terms(wikipage, num)
 
 
 def find_prereq_tree(topic, depth=1, num_prereq=3):
@@ -74,7 +26,7 @@ def find_prereq_tree(topic, depth=1, num_prereq=3):
         topic = topic[0:topic.find('#')]
 
 
-    wikipage = search_wikipage.get_wikipage(topic)
+    wikipage = WikipediaWrapper.page(topic)
 
     # set a max depth and branching factor as a fail-safe
     max_prereq_tree_depth = 6
@@ -121,7 +73,7 @@ def prereq_stat(wikipage, terms):
 
     suggested_terms = []
     for t in terms:
-        results, suggestion = wikipedia.search(t, results=1, suggestion=True)
+        results, suggestion = WikipediaWrapper.search(t, results=1, suggestion=True)
         suggested_term = suggestion or results[0]
         suggested_terms.append(suggested_term)
     terms = suggested_terms

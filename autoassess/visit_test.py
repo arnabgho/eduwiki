@@ -5,6 +5,7 @@ import requests
 
 def generate_eduwiki_link():
     topic_max = 200
+    start = 100
     topics = []
     with open("../../../random/topics/topic.txt", "rU") as topic_file:
         topic_num = 0
@@ -24,7 +25,9 @@ def generate_eduwiki_link():
             else:
                 cat_line = True
 
-    for t in topics:
+    for idx, t in enumerate(topics):
+        if idx < start:
+            continue
         print "visiting topic:" + t
         a = t.replace(' ', '+')
         link = "https://crowdtutor.info/autoassess/quiz/?q=" + a + "&f=T"

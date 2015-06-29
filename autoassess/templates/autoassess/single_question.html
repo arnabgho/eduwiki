@@ -17,161 +17,231 @@
 <body>
 
 <div class="row">
-    {#            <h2>&nbsp;&nbsp;&nbsp;&nbsp;The prerequisites are:</h2>#}
-    {#            <br>#}
+{#            <h2>&nbsp;&nbsp;&nbsp;&nbsp;The prerequisites are:</h2>#}
+{#            <br>#}
 
-    <div class="col-sm-10 col-sm-offset-1">
-        <h2 class="text-info text-center">{{ search_term }}</h2>
+<div class="col-sm-10 col-sm-offset-1">
+<h2 class="text-info text-center">{{ search_term }}</h2>
 
-        <form role="form" action="{{ turkSubmitTo }}/mturk/externalSubmit" method="post"
-              eduwiki_action="{% url 'question_submit' %}"
-              name="question_answer_form" id="question_answer_form">
-            {#        <form role="form" action="{% url 'question_submit' %}" method="get">#}
-            <div class="text-center">
-                {% if assignmentId %}
-                    {% ifequal assignmentId "ASSIGNMENT_ID_NOT_AVAILABLE" %}
-                        <div class="btn btn-primary">
-                            <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
-                            Preview Mode
-                        </div>
-                    {% else %}
-                        <div class="btn btn-primary">
-                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                            Your Worker Id = {{ workerId }}
-                        </div>
-                    {% endifequal %}
-                {% endif %}
+<form role="form" action="{{ turkSubmitTo }}/mturk/externalSubmit" method="post"
+      eduwiki_action="{% url 'question_submit' %}"
+      name="question_answer_form" id="question_answer_form">
+{#        <form role="form" action="{% url 'question_submit' %}" method="get">#}
+<div class="text-center">
+    {% if assignmentId %}
+        {% ifequal assignmentId "ASSIGNMENT_ID_NOT_AVAILABLE" %}
+            <div class="btn btn-primary">
+                <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+                Preview Mode
             </div>
-
-            {% csrf_token %}
-            {#        Meta Information about the HIT #}
-            <input name="assignmentId" value="{{ assignmentId }}" hidden="hidden">
-            <input name="hitId" value="{{ hitId }}" hidden="hidden">
-            <input name="workerId" value="{{ workerId }}" hidden="hidden">
-            <input name="turkSubmitTo" value="{{ turkSubmitTo }}" hidden="hidden">
-            <input name="main_topic" value="{{ search_term }}" hidden="hidden">
-
-            <div class="form-group">
-                <label for="topic_confidence">
-                    <span class="text-warning">Topic Knowledge Level</span> <span
-                        class="text-danger">[REQUIRED]</span>
-                    (How confident are you to answer a <i>BEGINNER</i> question about <span
-                        class="text-info">{{ search_term }}</span>?)
-                </label>
-
-                <input type="number" required="required" class="rating" data-size="sm"
-                       step="1" min="0" max="5"
-                       name="topic_confidence" id="topic_confidence">
+        {% else %}
+            <div class="btn btn-primary">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                Your Worker Id = {{ workerId }}
             </div>
-            {#       Information to show before the user select topic confidence #}
-            <div id="pre_topic_confidence" class="alert alert-info alert-dismissable">
-                The rest of the form (including the submit button) will show up after you select your "Topic
-                Knowledge Level".
-                {#                Note the topic confidence is not changeable after your selection.#}
+        {% endifequal %}
+    {% endif %}
+</div>
 
-            </div>
+{% csrf_token %}
+{#        Meta Information about the HIT #}
+<input name="assignmentId" value="{{ assignmentId }}" hidden="hidden">
+<input name="hitId" value="{{ hitId }}" hidden="hidden">
+<input name="workerId" value="{{ workerId }}" hidden="hidden">
+<input name="turkSubmitTo" value="{{ turkSubmitTo }}" hidden="hidden">
+<input name="main_topic" value="{{ search_term }}" hidden="hidden">
 
-            {#        Questions for the HIT #}
-            <div id="after_topic_confidence" hidden="hidden">
-                {% for question in quiz %}
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4>{{ question.question_text }}
-                            </h4>
-                        </div>
-                        <table class="table">
-                            {% for answer in question.choices %}
-                                <tr>
-                                    <td/>
-                                    {# <input type="radio" name="{{ question.topic }}" value="{{ answer.correct }}"> #}
-                                    <input type="radio" name="{{ question.id }}" value="{{ answer.idx }}"
-                                           required="required">
-                                    <td>{{ answer.text }}</td>
-                                </tr>
-                            {% endfor %}
-                        </table>
-                    </div>
-                {% endfor %}
-                <div class="form-group">
-                    <label for="question_confidence">
-                        <span class="text-warning">Question Answer Confidence</span> <span class="text-danger">[REQUIRED]</span>
-                        (How sure are you about the answer for this specific question?)
-                    </label>
-                    <input type="number" required="required" class="rating" data-size="sm"
-                           step="1" min="0" max="5"
-                           name="question_confidence" id="question_confidence">
-                </div>
+<div class="form-group" id="topic_confidence_region">
+    <label for="topic_confidence">
+        <span class="text-warning">Topic Knowledge Level</span> <span
+            class="text-danger">[REQUIRED]</span>
+        (How likely do you think you can get it right when asked a question about <span
+            class="text-info">{{ search_term }}</span>?)
+    </label>
 
-                {# Start of feedback for the two ratings #}
-                <hr>
-                <div class="form-group">
-                    Are the above two ratings a lot more overhead, compared to only one rating about question answer
-                    confidence?
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="rating_overhead" value="True" required="required">
-                            Yes
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="rating_overhead" value="False" required="required">
-                            No
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    Do you find the above two ratings confusing?
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="rating_confusion" value="True" required="required">
-                            Yes
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="rating_confusion" value="False" required="required">
-                            No
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="comment_temp">
-                        <span class="text-warning">
-                            Explain your understanding of the differences between the two ratings.
-                        </span>
-                        <span class="text-danger">[REQUIRED]</span>
-                    </label>
-                    <input type="text" class="form-control" name="comment_temp" id="comment_temp" required="required">
-                </div>
-                <hr>
-                {# End of feedback for the two ratings #}
+    <input type="number" required="required" data-size="sm"
+           step="1" min="0" max="5"
+           name="topic_confidence" id="topic_confidence">
+</div>
+{#       Information to show before the user select topic confidence #}
+<div id="pre_topic_confidence" class="alert alert-info alert-dismissable">
+    <b>Knowledge of the topic is not at all required. It's fine (and even preferred) if you do not know
+        anything about the possibly unusual topic.</b>
+    <br>
+    The rest of the form (including the submit button) will show up after you select your "Topic
+    Knowledge Level".
+    {#                Note the topic confidence is not changeable after your selection.#}
+</div>
 
-                <div class="form-group">
-                    <label for="comment">
-                        <span class="text-warning">Comments about question quality</span> [Optional] </label>
+{#        Questions for the HIT #}
 
-                    <div class="help-block">
-                        Things like: Problematic question stem, multiple right answers, no right answers, obvious
-                        right/wrong answers
-                    </div>
-                    <input type="text" class="form-control" id="comment" name="comment"
-                           placeholder="Bonus will be granted for good questions.">
-                </div>
-
-                <div class="col-md-6 col-md-offset-3">
-                    <button type="submit" class="btn btn-lg btn-block btn-primary">Submit Answer
-                    </button>
-                </div>
-            </div>
-        </form>
+<div id="after_topic_confidence" hidden="hidden">
+    <div><b><span class="text-warning">Choose the most proper answer(s) for the following question(s).</span></b>
     </div>
+    {% for question in quiz %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>{{ question.question_text }}
+                </h4>
+            </div>
+            <table class="table">
+                {% for answer in question.choices %}
+                    <tr>
+                        <td/>
+                        {# <input type="radio" name="{{ question.topic }}" value="{{ answer.correct }}"> #}
+                        <input type="radio" name="{{ question.id }}" value="{{ answer.idx }}"
+                               required="required">
+                        <td><span class="text-success"><b>({{ forloop.counter }}) </b></span>{{ answer.text }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% endfor %}
+
+    {# Start of feedback for the two ratings #}
+    {#                <hr>#}
+    {#                <div class="form-group">#}
+    {#                    Are the two ratings a lot more overhead, compared to only one rating about question answer#}
+    {#                    confidence?#}
+    {#                    <div class="radio">#}
+    {#                        <label>#}
+    {#                            <input type="radio" name="rating_overhead" value="True" required="required">#}
+    {#                            Yes#}
+    {#                        </label>#}
+    {#                    </div>#}
+    {#                    <div class="radio">#}
+    {#                        <label>#}
+    {#                            <input type="radio" name="rating_overhead" value="False" required="required">#}
+    {#                            No#}
+    {#                        </label>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#                <div class="form-group">#}
+    {#                    Do you find the above two ratings confusing?#}
+    {#                    <div class="radio">#}
+    {#                        <label>#}
+    {#                            <input type="radio" name="rating_confusion" value="True" required="required">#}
+    {#                            Yes#}
+    {#                        </label>#}
+    {#                    </div>#}
+    {#                    <div class="radio">#}
+    {#                        <label>#}
+    {#                            <input type="radio" name="rating_confusion" value="False" required="required">#}
+    {#                            No#}
+    {#                        </label>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#                <div class="form-group">#}
+    {#                    <label for="comment_temp">#}
+    {#                        <span class="text-warning">#}
+    {#                            Explain your understanding of the differences between the two ratings.#}
+    {#                        </span>#}
+    {#                        <span class="text-danger">[REQUIRED]</span>#}
+    {#                    </label>#}
+    {#                    <input type="text" class="form-control" name="comment_temp" id="comment_temp" required="required">#}
+    {#                </div>#}
+    {#                <hr>#}
+    {# End of feedback for the two ratings #}
+    <div class="form-group">
+        <label class="control-label">
+            Is this question <span class="text-warning">a reasonable question</span> to ask about {{ search_term }}?
+        </label>
+        <br>
+
+        <div class="radio-inline">
+            <label>
+                <input type="radio" name="is_reasonable_question" value="True" required="required">
+                Yes
+            </label>
+        </div>
+        <div class="radio-inline">
+            <label>
+                <input type="radio" name="is_reasonable_question" value="False" required="required">
+                No
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label">
+            Which answers are with obvious <span class="text-warning">grammatical errors</span>?
+            (Example: We is ..., An apple are ...)
+        </label>
+        <br>
+        {% for question in quiz %}
+            {% for answer in question.choices %}
+                <div class="checkbox-inline">
+                    {#                    <label>#}
+                    <input type="checkbox" name="grammatical_errors" value="{{ answer.idx }}"
+                           required="required">
+                    ({{ forloop.counter }})
+                    {#                    </label>#}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+    <div class="form-group">
+        <label class="control-label">
+            Which answers are with obvious <span class="text-warning">semantic errors</span>?
+            (Example: Newton's method is a mathematician.)
+        </label>
+        <br>
+        {% for question in quiz %}
+            {% for answer in question.choices %}
+                <div class="checkbox-inline">
+                    {#                    <label>#}
+                    <input type="checkbox" name="grammatical_errors" value="{{ answer.idx }}"
+                           required="required">
+                    ({{ forloop.counter }})
+                    {#                    </label>#}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+
+    <div class="form-group">
+        <label for="comment_guess">
+            What <span class="text-warning">other clues</span> did you use to get the answer?
+            {#            <span class="text-danger">[REQUIRED]</span>#}
+        </label>
+        <input type="text" class="form-control" id="comment_guess" name="comment_guess"
+               placeholder="Which answer is obviously correct or wrong for you? Why?" required="required">
+    </div>
+    <div class="form-group">
+        <label for="question_confidence">
+            <span class="text-warning">Question Answer Confidence</span>
+            {#            <span class="text-danger">[REQUIRED]</span>#}
+            (How sure are you about the answer for this specific question?)
+        </label>
+        <input type="number" required="required" class="rating" data-size="sm"
+               step="1" min="0" max="5"
+               name="question_confidence" id="question_confidence">
+    </div>
+    <div class="form-group">
+        <label for="comment">
+            <span class="text-warning">Additional Comments</span> [Optional] </label>
+
+        <div class="help-block">
+            Things like: Wrong question to ask about {{ search_term }}, multiple right answers, no right answer.
+        </div>
+        <input type="text" class="form-control" id="comment" name="comment"
+               placeholder="Bonus will be granted for comments helpful for improving question quality.">
+    </div>
+
+    <div class="col-md-6 col-md-offset-3">
+        <button type="submit" class="btn btn-lg btn-block btn-primary" id="submit_answer" name="submit_answer">
+            Submit Answer
+        </button>
+    </div>
+</div>
+</form>
+</div>
 </div>
 
 <script src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'autoassess/js/star-rating.min.js' %}"></script>
 <script src="{% static 'autoassess/js/question_submit.js' %}"></script>
+<script src="{% static 'autoassess/js/rating_setting.js' %}"></script>
 <script src="{% static 'autoassess/js/different_stage.js' %}"></script>
 </body>
 </html>
