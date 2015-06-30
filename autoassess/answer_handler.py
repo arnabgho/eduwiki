@@ -59,7 +59,7 @@ def save_answer(ans_data):
     if len(ans_data_keys) != 1:
         raise ValueError("The form has redudant data that are not allowed.")
 
-    question_id = str(ans_data_keys[0].strip('question_answer_'))
+    question_id = str(ans_data_keys[0].lstrip('question_answer_'))
 
     wiki_question = WikiQuestion.objects(id=question_id)[0]
 
