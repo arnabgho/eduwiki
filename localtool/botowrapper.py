@@ -24,11 +24,11 @@ def connect_mturk(sandbox=True):
     return mtc
 
 
-def create_hit_question(question_url, sandbox=True):
+def create_hit_question(question_url, sandbox=True, max_assignments=2):
     mtc = connect_mturk(sandbox=sandbox)
 
     # --------------- META INFO -------------------
-    external_question = ExternalQuestion(external_url=question_url, frame_height=800)
+    external_question = ExternalQuestion(external_url=question_url, frame_height=900)
 
     title = 'Inspect multiple-choice question qualities'
     description = 'Answer the multiple-choice questions of various topics, and inspect the qualities of them. ' \
@@ -38,13 +38,13 @@ def create_hit_question(question_url, sandbox=True):
 
     # --------------- CREATE THE HIT -------------------
     hit_create_result = mtc.create_hit(question=external_question,
-                                       max_assignments=2,
+                                       max_assignments=max_assignments,
                                        title=title,
                                        description=description,
                                        keywords=keywords,
                                        duration=timedelta(minutes=30),  # larger than 30 secs
                                        lifetime=timedelta(days=3),
-                                       reward=0.4)  # in USD
+                                       reward=0.1)  # in USD
     result = hit_create_result[0] if hit_create_result[0].IsValid == 'True' else None
     if not result:
         raise ValueError("ERROR: Failed to create HIT.")

@@ -123,4 +123,5 @@ def save_answer(ans_data):
             wiki_ans.save()
         except NotUniqueError, e:
             print str(e)
+            raise e
     return True

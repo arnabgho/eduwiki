@@ -2,24 +2,27 @@ __author__ = 'moonkey'
 
 from botowrapper import *
 import requests
+import os.path
 
 
-def create_hit_for_topic(topic, sandbox=True):
+def create_hit_for_topic(topic, sandbox=True, max_assignments=2):
     return create_hit_question(
         question_url="https://crowdtutor.info/autoassess/single_question?q=" + str(topic),
-        sandbox=sandbox
+        sandbox=sandbox,
+        max_assignments=max_assignments
     )
 
 
 def create_for_experiment(topic_file_name="experiment_topics.txt",
-                          topic_max_idx=5, start_idx=0,
-                          sandbox=True, visit_question_generation_link=True):
+                          topic_max_num=5, start_idx=0,
+                          sandbox=True, visit_question_generation_link=True,
+                          max_assignments=2):
     topics = []
     with open(topic_file_name, "rU") as topic_file:
         topic_num = 0
         cat_line = False
         for t in topic_file.readlines():
-            if topic_num >= topic_max_idx:
+            if topic_num >= topic_max_num:
                 break
             if cat_line:
                 cat_line = False
@@ -33,7 +36,17 @@ def create_for_experiment(topic_file_name="experiment_topics.txt",
             else:
                 cat_line = True
 
-    output_file = open(topic_file_name + ".out.txt", "w")
+    sandbox_prefix = 'sandbox_' if sandbox else ""
+    if not os.path.exists(sandbox_prefix + topic_file_name + ".out.txt"):
+        output_file = open(sandbox_prefix + topic_file_name + ".out.txt", "w")
+    else:
+        for idx in range(0, 100):
+            if not os.path.exists(sandbox_prefix + topic_file_name + "_" + str(idx) + ".out.txt"):
+                continue
+            else:
+                output_file = open(sandbox_prefix + topic_file_name + "_" + str(idx) + ".out.txt", "w")
+                break
+
     for idx, t in enumerate(topics):
         if idx < start_idx:
             continue
@@ -46,7 +59,7 @@ def create_for_experiment(topic_file_name="experiment_topics.txt",
                 print "bad_link"
                 continue  # skip HIT creation for this question
         try:
-            create_hit_result = create_hit_for_topic(t, sandbox=sandbox)
+            create_hit_result = create_hit_for_topic(t, sandbox=sandbox, max_assignments=max_assignments)
             creat_hit_info = t + " : " + str(create_hit_result.HITId)
             print creat_hit_info
             output_file.write(creat_hit_info + "\n")
@@ -58,4 +71,5 @@ def create_for_experiment(topic_file_name="experiment_topics.txt",
 
 
 if __name__ == "__main__":
-    create_for_experiment(topic_max_idx=1, sandbox=True, visit_question_generation_link=False)
+    create_for_experiment(topic_max_num=3, sandbox=True, visit_question_generation_link=False,
+                          max_assignments=3)
