@@ -61,7 +61,7 @@ def save_answer(ans_data):
 
     question_id = str(ans_data_keys[0].strip('question_answer_'))
 
-    wiki_question = WikiQuestion.objects(id=question_id)[0]
+    wiki_question = WikiQuestion.objects(id=ObjectId(question_id))[0]
 
     old_ans_retrieval = WikiQuestionAnswer.objects(assignmentId=assignmentId)
     if old_ans_retrieval:
