@@ -43,7 +43,7 @@ $(document).ready(function () {
             },
             error: function (xhr) {
                 alert("SERVER Error: The answer is not successfully posted, please try again later. " +
-                    "Report to the webmaster if this occurs all the time." + xhr.error());
+                    "Report to the webmaster if this occurs all the time." + xhr.responseText);
             }
         });
     });
