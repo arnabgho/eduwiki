@@ -100,8 +100,8 @@ def save_answer(ans_data):
             topic=wiki_question.topic,
             time=datetime.datetime.now(),
 
-            answer=int(ans_data[question_id]),
-            correctness=check_answer_correctness(question_id, ans_data[question_id]),
+            answer=int(ans_data['question_answer_'+question_id]),
+            correctness=check_answer_correctness(question_id, ans_data['question_answer_'+question_id]),
 
             hitId=hitId,
             assignmentId=assignmentId,
