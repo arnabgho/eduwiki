@@ -98,7 +98,7 @@ def generate_eduwiki_link():
 
 def test_setentence_syntree():
     # draw_sentence_syntree("Reinforcement learning is known.")
-    draw_sentence_syntree("Reinforcement learning is an area of machine learning")
+    draw_sentence_syntree("Random forests are regarded as a statistical process for estimating the relationships among variables.")
     # draw_sentence_syntree("Reinforcement learning is an area of machine learning inspired by behaviorist psychology, "
     #                       "concerned with how software agents ought to take actions in an environment "
     #                       "so as to maximize some notion of cumulative reward.")

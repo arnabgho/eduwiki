@@ -37,6 +37,7 @@ def create_for_experiment(topic_file_name="experiment_topics.txt",
                 cat_line = True
 
     sandbox_prefix = 'sandbox_' if sandbox else ""
+    output_file = None
     if not os.path.exists(sandbox_prefix + topic_file_name + ".out.txt"):
         output_file = open(sandbox_prefix + topic_file_name + ".out.txt", "w")
     else:
@@ -46,6 +47,9 @@ def create_for_experiment(topic_file_name="experiment_topics.txt",
             else:
                 output_file = open(sandbox_prefix + topic_file_name + "_" + str(idx) + ".out.txt", "w")
                 break
+    if not output_file:
+        print "No output file; Quitting..."
+        return
 
     for idx, t in enumerate(topics):
         if idx < start_idx:

@@ -3,7 +3,7 @@ __author__ = 'moonkey'
 import re
 from util.wikipedia_util import WikipediaWrapper
 
-def direct_prereq_generator(wikipage, num):
+def direct_prereq_generator(wikipage):
     """
     Based on the guess that the first few terms with wikipedia link
     will turn out to be background knowledge
@@ -13,7 +13,7 @@ def direct_prereq_generator(wikipage, num):
     # TODO:: the heuristic actually needs to be changed
     # for example, we can measure the similarity (BOW)
     # return content_categories(wikipage, num)
-    return WikipediaWrapper.sequential_linked_terms(wikipage, num)
+    return WikipediaWrapper.sequential_linked_terms(wikipage)
 
 
 def find_prereq_tree(topic, depth=1, num_prereq=3):
@@ -35,7 +35,7 @@ def find_prereq_tree(topic, depth=1, num_prereq=3):
     num_prereq = min(num_prereq, max_num_prereq_per_node)
 
     # get the topic and the names of its prereq links
-    prereq_names = direct_prereq_generator(wikipage, num_prereq)
+    prereq_names = direct_prereq_generator(wikipage)
 
     # create a knowledge tree (dict) which will be recursively built
     prereqs = []
