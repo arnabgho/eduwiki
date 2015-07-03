@@ -455,6 +455,7 @@ class WikipediaPage(object):
 
         return self._html
 
+    @property
     def wikitext(self):
         """
         Get full page as wiki text.

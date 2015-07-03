@@ -1,4 +1,4 @@
-from util.quesgen_util import *
+from ..util.quesgen_util import *
 
 
 def generate_distractors_from_prereqs(prereq_tree, tenses=[]):

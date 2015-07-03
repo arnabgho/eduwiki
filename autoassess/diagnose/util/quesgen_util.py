@@ -22,14 +22,16 @@ def topic_cleaning(topic=""):
 
 def topic_regex(topic=""):
     """
-    only for topic mentioning sentence selection, as the syntax of tree matching is different.
+    only for topic mentioning sentence selection, as the syntax of
+    tree matching is different.
     :param topic:
     :return:
     """
     topic = topic_cleaning(topic)
 
     # Separate linked terms to tokens, like in "Karush–Kuhn–Tucker conditions"
-    topic = re.sub(r"[-–_]+", ' ', topic, re.UNICODE)  # note '-' is ascii while '–' is not
+    topic = re.sub(r"[-–_]+", ' ', topic, re.UNICODE)
+    # note '-' is ascii while '–' is not
 
     topic_tokens = nltk.word_tokenize(topic)
     try:
@@ -41,10 +43,11 @@ def topic_regex(topic=""):
                 '(' + processed_topic_tokens.stemmed_tokens[idx] + '|' \
                 + processed_topic_tokens.original_tokens[idx] + ')'
             or_tokens.append(or_token)
-    except UnicodeDecodeError:  # non-ascii characters like in "L'Hôpital's rule"
+    except UnicodeDecodeError:  # non-ascii characters in "L'Hôpital's rule"
         or_tokens = topic_tokens
         # TODO:: deal with the
-        # if directly code them with unicode(t,'utf-8'), it will not match the original ascii-coded string
+        # if directly code them with unicode(t,'utf-8'),
+        # it will not match the original ascii-coded string
 
     topic_reg = '.*'.join(or_tokens)
     topic_reg = '(?i)' + topic_reg
@@ -66,7 +69,8 @@ def extract_verbal_phrase(sentence, topic):
     topic_tokens = nltk.word_tokenize(topic)
 
 
-    # or_tokens = [[t, t.lower()] if not t.islower() else [t] for t in topic_tokens]
+    # or_tokens = [[t, t.lower()] if not t.islower() else [t]
+    # for t in topic_tokens]
     # Stemmed topic tokens added
     # TODO:: add initials like KKT(hard) or GDP(easy)
     or_tokens = []
@@ -94,7 +98,8 @@ def extract_verbal_phrase(sentence, topic):
     topic_word_nodes = ['(* << i@/' + "|".join(s) + "/)" for s in or_tokens]
 
     topic_words_sequence = '( ' + ' .. '.join(topic_word_nodes) + ' )'
-    # for topic "A B C", "." would result in "A.B.C" which means A are directly followed by both B and C, which is false,
+    # for topic "A B C", "." would result in "A.B.C" which means A
+    # are directly followed by both B and C, which is false,
     # change into "..",
 
     # ###
@@ -119,12 +124,5 @@ def topic_mentioning_sentence_generator(wikipage):
 
     for s in sentences:
         if topic_re.search(s):
-            if '\n' not in s.strip('\n'):  # TODO:: see below
+            if '\n' not in s.strip('\n'):
                 yield s
-
-                # TODO:: only take sentences from certain parts, ignore "reference" "external links" etc.
-                # fast hack for wrongly tokenized sentence,
-                # for example with section information "=== Tree bagging ===" in it
-                # this should not occur for the well organized offline sentences
-                # Also we should not give them all up, but preprocess them better before sentence tokenization
-                # only take sentences from certain parts, ignore "reference" "external links" etc.

@@ -39,7 +39,7 @@ def diagnose(search_term, generate_prereq_question=False, num_prereq=3):
 #
 #     # get the topic and the names of its prereq links
 #     main_topic = WikiEducate(normal(search_term))
-#     prereq_names = main_topic.sequential_linked_terms(num_prereq)
+#     prereq_names = main_topic.linked_terms(num_prereq)
 #     topic_name = main_topic.page.title
 #
 #     # create a knowledge tree (dict) which will be recursively built
@@ -50,7 +50,7 @@ def diagnose(search_term, generate_prereq_question=False, num_prereq=3):
 #     # distractor is generated from the definition of the first few linked items
 #     topic_text = main_topic.page.summary  # main_topic.plain_text_summary(1)
 #     description = main_topic.return_what_is()
-#     distractor_names = main_topic.sequential_linked_terms(num_prereq)
+#     distractor_names = main_topic.linked_terms(num_prereq)
 #     distractors = []
 #     for i in range(0, 3):
 #         distractor_name = normal(distractor_names[i])

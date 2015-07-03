@@ -1,12 +1,12 @@
 __author__ = 'moonkey'
 
-import util.nlp_util
+from ..util import nlp_util
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.preprocessing import normalize
 import networkx as nx
 
-from util.nlp_util import NlpUtil
-from util.quesgen_util import *
+from ..util.nlp_util import NlpUtil
+from ..util.quesgen_util import *
 
 
 def generate_question_stem(wikipage):
@@ -37,7 +37,7 @@ def lex_pagerank(sentences):
     :param sentences:
     :return:
     """
-    stemmed_pair = [util.nlp_util.ProcessedText(text=sent) for sent in sentences]
+    stemmed_pair = [nlp_util.ProcessedText(text=sent) for sent in sentences]
     stemmed_sentences = [NlpUtil.untokenize(s.stemmed_tokens) for s in stemmed_pair]
     if len(stemmed_sentences) < 1:
         return None

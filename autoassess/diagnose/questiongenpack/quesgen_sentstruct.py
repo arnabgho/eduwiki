@@ -1,18 +1,14 @@
 # coding=utf-8
 __author__ = 'moonkey'
 
-import re
 import random
-import util.nlp_util
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.preprocessing import normalize
 import networkx as nx
 import numpy
 import nltk
 import os
-from util.nlp_util import NlpUtil
 import sys
-from util.wikipedia_util import WikipediaWrapper
 from question_stem_gen import *
 from distractorgen import *
 
@@ -38,6 +34,7 @@ def generate_question(prereq_tree):
     question['distractors'] = distractors
 
     return format_question(question)
+
 
 def format_question(question):
     possible_answers = [{'text': question['correct_answer'], 'correct': True}]

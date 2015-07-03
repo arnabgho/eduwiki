@@ -1,10 +1,6 @@
+from autoassess.diagnose.questiongenpack import quesgen_sentstruct
+
 __author__ = 'moonkey'
-
-import re
-
-import random
-import quesgen_whatisregex
-import quesgen_sentstruct
 
 QUESTION_TYPE_WHAT_IS = 'WHAT_IS'
 QUESTION_TYPE_WHY_IS = 'WHY_IS'

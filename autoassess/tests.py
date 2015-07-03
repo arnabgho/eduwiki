@@ -1,7 +1,6 @@
-from diagnose.prereq import direct_prereq_generator
+from autoassess.diagnose.questiongenpack import quesgen_sentstruct
 # Create your tests here.
 topics = []
-from diagnose import quesgen_sentstruct
 from diagnose.util.nlp_util import NlpUtil
 
 
