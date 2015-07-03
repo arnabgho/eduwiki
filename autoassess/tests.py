@@ -1,4 +1,4 @@
-from autoassess.diagnose.questiongenpack import quesgen_sentstruct
+from autoassess.diagnose.quesgen import quesgen_sentstruct
 # Create your tests here.
 topics = []
 from diagnose.util.nlp_util import NlpUtil

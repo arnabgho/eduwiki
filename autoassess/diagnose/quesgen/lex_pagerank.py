@@ -1,12 +1,12 @@
 __author__ = 'moonkey'
 
-from ..util import nlp_util
+from autoassess.diagnose.util import nlp_util
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.preprocessing import normalize
 import networkx as nx
 
-from ..util.nlp_util import NlpUtil
-from ..util.quesgen_util import *
+from autoassess.diagnose.util.nlp_util import NlpUtil
+from autoassess.diagnose.util.quesgen_util import *
 
 
 def generate_question_stem(wikipage):
@@ -31,7 +31,7 @@ def generate_question_stem(wikipage):
     return question_generated
 
 
-def rank_sentences_textrank(sentences):
+def lex_pagerank(sentences):
     """
     TODO:: this may not necessarily be separated from getting topic_mentioning sentences
     :param sentences:

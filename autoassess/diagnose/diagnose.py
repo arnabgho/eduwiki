@@ -1,5 +1,5 @@
 import prereq
-import quesgen
+import quesgen_wrapper
 import unicodedata
 
 
@@ -8,12 +8,12 @@ def diagnose(search_term, generate_prereq_question=False, num_prereq=3):
     prereq_tree = prereq.find_prereq_tree(search_term, depth=2, num_prereq=num_prereq)
 
     # generate question
-    topic_question = quesgen.generate_question(prereq_tree)
+    topic_question = quesgen_wrapper.generate_question(prereq_tree)
 
     prereq_questions = []
     if generate_prereq_question:
         for child in prereq_tree['children']:
-            child_question = quesgen.generate_question(child)
+            child_question = quesgen_wrapper.generate_question(child)
             prereq_questions.append(child_question)
     questions = [topic_question] + prereq_questions
 

@@ -2,7 +2,6 @@
 __author__ = 'moonkey'
 
 import re
-import random
 import nlp_util
 import nltk
 from nlp_util import NlpUtil

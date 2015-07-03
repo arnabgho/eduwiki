@@ -2,15 +2,10 @@
 __author__ = 'moonkey'
 
 import random
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
-from sklearn.preprocessing import normalize
-import networkx as nx
-import numpy
-import nltk
-import os
-import sys
-from question_stem_gen import *
-from distractorgen import *
+
+from autoassess.diagnose.quesgen.stem.question_stem_gen import *
+from autoassess.diagnose.quesgen.distractor.distractor_prereq import *
+from autoassess.diagnose.quesgen.distractor.distractor_samecat import *
 
 QUESTION_TYPE_WHAT_IS = 'WHAT_IS'
 QUESTION_TYPE_WHY_IS = 'WHY_IS'
@@ -30,7 +25,9 @@ def generate_question(prereq_tree):
         'correct_answer': correct_answer
     }
 
-    distractors = generate_distractors_from_prereqs(prereq_tree, stem_tenses)
+    # distractors = generate_distractors_prereqs(prereq_tree, stem_tenses)
+    distractors = generate_distractors_same_categories(
+        prereq_tree['wikipage'], stem_tenses)
     question['distractors'] = distractors
 
     return format_question(question)
