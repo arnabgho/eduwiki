@@ -39,7 +39,7 @@ def single_question(request):
         raise Http404
     search_term = request_data['q']
 
-    version = DEFAULT_QUESTION_VERSION
+    version = MTURK_QUESTION_VERSION
     if 'v' in request_data:
         if request_data['v'] == 'c':
             version = CURRENT_QUESTION_VERSION

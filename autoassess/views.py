@@ -7,7 +7,7 @@ from diagnose.util.wikipedia_util import WikipediaWrapper
 from question_db import *
 
 from diagnose.verison_list import CURRENT_QUESTION_VERSION
-from diagnose.verison_list import DEFAULT_QUESTION_VERSION
+from diagnose.verison_list import DIAGNOSE_QUESTION_VERSION
 
 def index(request):
     return search_page(request)
@@ -46,7 +46,7 @@ def quiz(request):
         generate_prereq_question = True
         print 'generate_pre_question'
 
-    version = DEFAULT_QUESTION_VERSION
+    version = DIAGNOSE_QUESTION_VERSION
     if 'v' in request_data:
         if request_data['v'] == 'c':
             version = CURRENT_QUESTION_VERSION
