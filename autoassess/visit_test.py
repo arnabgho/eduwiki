@@ -43,4 +43,4 @@ def generate_eduwiki_link(local=True, topic_max=200, start=0):
 
 
 if __name__ == "__main__":
-    generate_eduwiki_link(local=True, start=17)
+    generate_eduwiki_link(local=True, start=0, topic_max=10)

@@ -40,11 +40,8 @@ STANFORD_PARSER = load_stanford_parser()
 
 class NlpUtil:
     def __init__(self):
-        # print >> sys.stderr, "loading NlpUtil()"
         self.tokenizer = PUNKT_TOKENIZER
         self.parser = STANFORD_PARSER
-        # self.tokenizer = None
-        # self.parser = None
 
     def _load_tokenizer(self):
         try:
@@ -69,7 +66,7 @@ class NlpUtil:
         except Exception:
             raise Exception
 
-    def punkt_tokenize(self, text):
+    def sent_tokenize(self, text):
         """
         NLTK sentence tokenizer
         http://www.nltk.org/_modules/nltk/tokenize/punkt.html
@@ -79,17 +76,16 @@ class NlpUtil:
         :param text:
         :return:
         """
-        if not self.tokenizer:
-            self._load_tokenizer()
-        sentences = self.tokenizer.tokenize(text)
+        # if not self.tokenizer:
+        #     self._load_tokenizer()
+        # sentences = self.tokenizer.tokenize(text)
+        sentences = nltk.sent_tokenize(text)
         return sentences
 
     def parsing(self, text):
         if not self.parser:
             self._load_parser()
         tokens = nltk.word_tokenize(text)
-        # print >> sys.stderr, tokens
-        # tagged = nltk.pos_tag(tokens)
         try:
             parsed = self.parser.parse(tokens).next()
         except Exception, err:
@@ -125,7 +121,9 @@ class NlpUtil:
             '-LRB- ': '(',
             ' -RRB-': ')',
             '-LSB- ': '[',
-            ' -RSB-': ']'
+            ' -RSB-': ']',
+            '-LCB- ': '{',
+            ' -RCB-': '}'
         }
         for i, j in dic.iteritems():
             text = text.replace(i, j)

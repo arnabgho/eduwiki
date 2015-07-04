@@ -122,7 +122,7 @@ class WikipediaWrapper:
         # if type(wikipage) is wikipedia.WikipediaPage:
         # content = wikipage.content
         nlutil = NlpUtil()
-        # sentences = nlutil.punkt_tokenize(content)
+        # sentences = nlutil.sent_tokenize(content)
         if type(wikipage) is not WikipediaArticle:
             pass
         else:
@@ -131,7 +131,7 @@ class WikipediaWrapper:
                         and WikipediaWrapper.useful_section(section.title):
                     paragraphs = section.contents.split("\n")
                     for para in paragraphs:
-                        para_sentences = nlutil.punkt_tokenize(para)
+                        para_sentences = nlutil.sent_tokenize(para)
                         sentences += para_sentences
                         for sent in para_sentences:
                             yield sent

@@ -1,8 +1,7 @@
 __author__ = 'moonkey'
 
 import re
-import random
-
+from common import *
 QUESTION_TYPE_WHAT_IS = 'WHAT_IS'
 QUESTION_TYPE_WHY_IS = 'WHY_IS'
 
@@ -27,22 +26,6 @@ def generate_question_what_is(prereq_tree):
     question['distractors'] = distractors
 
     return format_question(question)
-
-
-def format_question(question):
-    possible_answers = [{'text': question['correct_answer'], 'correct': True}]
-
-    for d in question['distractors']:
-        possible_answers.append({'text': d, 'correct': False})
-
-    random.shuffle(possible_answers)
-    formated_question = {
-        'topic': question['topic'],
-        'question_text': question['question_text'],
-        'choices': possible_answers,
-        'type': question['type']
-    }
-    return formated_question
 
 
 def return_what_is(wikipage):

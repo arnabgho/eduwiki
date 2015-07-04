@@ -1,7 +1,7 @@
 # coding=utf-8
 __author__ = 'moonkey'
 
-import random
+from common import *
 
 from autoassess.diagnose.quesgen.stem.question_stem_gen import *
 from autoassess.diagnose.quesgen.distractor.distractor_prereq import *
@@ -11,39 +11,49 @@ QUESTION_TYPE_WHAT_IS = 'WHAT_IS'
 QUESTION_TYPE_WHY_IS = 'WHY_IS'
 
 
-def generate_question(prereq_tree):
+def generate_question_sentstruct(prereq_tree):
     # wrong name: question_text should be question_stem or question_stem_text
     question_generated = generate_question_stem(prereq_tree['wikipage'])
     question_stem = question_generated['stem']
     correct_answer = question_generated['answer']
     stem_tenses = question_generated['tenses']
 
+    distractors = generate_distractors_prereqs(prereq_tree, stem_tenses)
     question = {
         'topic': prereq_tree['wikipage'].title,
         'type': QUESTION_TYPE_WHAT_IS,
         'question_text': question_stem,
-        'correct_answer': correct_answer
+        'correct_answer': correct_answer,
+        'distractors': distractors
     }
-
-    # distractors = generate_distractors_prereqs(prereq_tree, stem_tenses)
-    distractors = generate_distractors_same_categories(
-        prereq_tree['wikipage'], stem_tenses)
-    question['distractors'] = distractors
 
     return format_question(question)
 
 
-def format_question(question):
-    possible_answers = [{'text': question['correct_answer'], 'correct': True}]
+def generate_question_samecat(prereq_tree):
+    # wrong name: question_text should be question_stem or question_stem_text
+    question_generated = generate_question_stem(prereq_tree['wikipage'])
+    question_stem = question_generated['stem']
+    correct_answer = question_generated['answer']
+    stem_tenses = question_generated['tenses']
 
-    for d in question['distractors']:
-        possible_answers.append({'text': d, 'correct': False})
+    # distractors = generate_distractors_prereqs(prereq_tree, stem_tenses)
+    distractors = generate_distractors_samecat(
+        prereq_tree['wikipage'], stem_tenses)
 
-    random.shuffle(possible_answers)
-    formated_question = {
-        'topic': question['topic'],
-        'question_text': question['question_text'],
-        'choices': possible_answers,
-        'type': question['type']
+    extracted = extract_same_part(question_stem, [correct_answer]+distractors)
+    if extracted:
+        question_stem = extracted[0]
+        correct_answer = extracted[1][0]
+        distractors = extracted[1][1:]
+
+    question = {
+        'topic': prereq_tree['wikipage'].title,
+        'type': QUESTION_TYPE_WHAT_IS,
+        'question_text': question_stem,
+        'correct_answer': correct_answer,
+        'distractors': distractors
     }
-    return formated_question
+    return format_question(question)
+
+

@@ -7,7 +7,7 @@ from collections import defaultdict
 import random
 
 
-def generate_distractors_same_categories(wikipage, tenses=[], max_num=3):
+def generate_distractors_samecat(wikipage, tenses=[], max_num=3):
     distractors = []
 
     for p_id in page_ids_of_samecategory(wikipage):

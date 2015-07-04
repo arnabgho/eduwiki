@@ -1,9 +1,13 @@
 from django.shortcuts import render, redirect
+
 from diagnose.util.wikipedia import DisambiguationError
 from diagnose import diagnose
-from .models import *
 from answer_handler import *
 from diagnose.util.wikipedia_util import WikipediaWrapper
+from question_db import *
+
+from diagnose.verison_list import CURRENT_QUESTION_VERSION
+from diagnose.verison_list import DEFAULT_QUESTION_VERSION
 
 def index(request):
     return search_page(request)
@@ -22,34 +26,63 @@ def quiz(request):
     The intro view\n
     Requires Input: a search term in request.GET["q"].
     """
+    
+    request_data = {}
+    if request.method == 'GET':
+        request_data = request.GET
+    elif request.method == 'POST':
+        request_data = request.POST
     response_data = {}
-    if 'q' not in request.GET or not request.GET['q']:
+    
+    if 'q' not in request_data or not request_data['q']:
         return redirect('index')
-    search_term = request.GET['q']
+    search_term = request_data['q']
 
     force_generating_new = False
-    if 'f' in request.GET and bool(request.GET['f']):
+    if 'f' in request_data and bool(request_data['f']):
         force_generating_new = True
     generate_prereq_question = False
-    if 'pre' in request.GET and bool(request.GET['pre']):
+    if 'pre' in request_data and bool(request_data['pre']):
         generate_prereq_question = True
         print 'generate_pre_question'
 
+    version = DEFAULT_QUESTION_VERSION
+    if 'v' in request_data:
+        if request_data['v'] == 'c':
+            version = CURRENT_QUESTION_VERSION
+        else:
+            version = float(request_data['v'])
+
     try:
+        questions = None
         if not force_generating_new:
             try:
                 # the search term may not corresponds to a wikipedia entry
                 wiki_topic = WikipediaWrapper.page(search_term).title
-                questions = load_questions_with_prereqs(wiki_topic)
+                questions = load_diagnose_question_set(
+                    wiki_topic,
+                    version=version)
             except IndexError as e:
                 # this is the error it will raise if no questions is founded
                 # if there is not questions for this topic in the database
                 # then generate and save
-                questions = diagnose.diagnose(search_term, generate_prereq_question=generate_prereq_question)
-                save_questions_with_prereqs(questions)
-        else:
-            questions = diagnose.diagnose(search_term, generate_prereq_question=generate_prereq_question)
-            save_questions_with_prereqs(questions)
+                pass
+                # questions = diagnose.diagnose(
+                #     search_term,
+                #     generate_prereq_question=generate_prereq_question)
+                # save_diagnose_question_set(
+                #     questions,
+                #     question_version=CURRENT_QUESTION_VERSION,
+                #     force=True)
+        if not questions:
+            questions = diagnose.diagnose(
+                search_term,
+                generate_prereq_question=generate_prereq_question,
+                version=version)
+            save_diagnose_question_set(
+                questions=questions,
+                version=version,
+                force=True)
     except DisambiguationError as dis:
         return disambiguation(request, dis)
 
@@ -61,7 +94,8 @@ def quiz(request):
 
 def disambiguation(request, dis=[]):
     """
-    The search term may not corresponds to multiple terms, ask the user to select the exact term
+    The search term may not corresponds to multiple terms, ask the user
+    to select the exact term
     :param request:
     :param dis: the object of the DisambiguationError
     :return: a page with multiple related terms returned by Wikipedia API
@@ -91,7 +125,8 @@ def learn(request):
         main_topic = user_answers['main_topic']
         response_data['topics'].append({
             'title': main_topic,
-            'wikipage': WikipediaWrapper.page(main_topic),  # in the template a summary section is used
+            'wikipage': WikipediaWrapper.page(main_topic),
+            # in the template a summary section is used
             'is_main_topic': True
         })
         # user_answers.pop('main_topic')
@@ -104,7 +139,8 @@ def learn(request):
         if ques_id == 'main_topic':
             continue
         try:
-            if not check_answer_correctness(question_id=ques_id, ans=user_answers[ques_id]):
+            if not check_answer_correctness(question_id=ques_id,
+                                            ans=user_answers[ques_id]):
                 topic = WikiQuestion.objects(id=ques_id)[0].topic
                 if topic.lower() == main_topic.lower():
                     continue
@@ -112,9 +148,10 @@ def learn(request):
                     topics_to_learn.append(topic)
         except:
             continue
-        
-        # if user_answers[ques_id] == 'False' and ques_id.lower() != main_topic.lower():
-        # topics_to_learn.append(ques_id)
+
+            # if user_answers[ques_id] == 'False' \
+            # and ques_id.lower() != main_topic.lower():
+            # topics_to_learn.append(ques_id)
 
     for topic in topics_to_learn:
         response_data['topics'].append(
@@ -127,7 +164,7 @@ def learn(request):
     return render(request, 'autoassess/learn.html', response_data)
 
 
-# (Deprecated) saving this just in case.
+# (Deprecated) saving this just in case I will need to use it again
 # tree = json.loads(prereq_tree, object_hook=recurhook)
 #
 # def recurhook(d):
@@ -138,7 +175,7 @@ def learn(request):
 # """
 # if d['children']:
 # # d['children'] = json.loads(d['children'], recurhook)
-#         children = []
+# children = []
 #         for child in d['children']:
 #             children.append(json.loads(child, object_hook=recurhook))
 #         d['children'] = children

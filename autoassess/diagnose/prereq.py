@@ -16,12 +16,12 @@ def direct_prereq_generator(wikipage):
     return WikipediaWrapper.linked_terms(wikipage)
 
 
-def find_prereq_tree(topic, depth=1, num_prereq=3):
+def find_prereq_tree(topic, depth, num_prereq=3):
     # find the exact page of the topic
     # This only happens at the root node, because all the rest are wiki links
 
     if topic.startswith("wikt") or topic.startswith("wikitionary"):
-        raise ValueError("wikitionary terms not supported")
+        return None
     elif '#' in topic:
         # for links containing section like
         # "Euclidean group#Direct_and_indirect_isometries"
@@ -78,7 +78,8 @@ def find_prereq_tree(topic, depth=1, num_prereq=3):
 #
 #     suggested_terms = []
 #     for t in terms:
-#         results, suggestion = WikipediaWrapper.search(t, results=1, suggestion=True)
+#         results, suggestion = WikipediaWrapper.search(
+#               t, results=1, suggestion=True)
 #         suggested_term = suggestion or results[0]
 #         suggested_terms.append(suggested_term)
 #     terms = suggested_terms

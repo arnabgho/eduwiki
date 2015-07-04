@@ -5,9 +5,11 @@ from diagnose.util.wikipedia import DisambiguationError
 from diagnose import diagnose
 from diagnose.util.wikipedia_util import WikipediaWrapper
 from django.views.decorators.clickjacking import xframe_options_exempt
-from .models import *
+from question_db import *
 import json
 import answer_handler
+
+from diagnose.verison_list import *
 
 @xframe_options_exempt
 def single_question(request):
@@ -31,9 +33,18 @@ def single_question(request):
         request_data = request.POST
 
     response_data = {}
+
+    ####### read data from request
     if 'q' not in request_data or not request_data['q']:
         raise Http404
     search_term = request_data['q']
+
+    version = DEFAULT_QUESTION_VERSION
+    if 'v' in request_data:
+        if request_data['v'] == 'c':
+            version = CURRENT_QUESTION_VERSION
+        else:
+            version = float(request_data['v'])
 
     if 'assignmentId' not in request_data:
         # user visiting mode not from mturk
@@ -56,22 +67,30 @@ def single_question(request):
             response_data['hitId'] = hitId
             response_data['workerId'] = workerId
             response_data['turkSubmitTo'] = turkSubmitTo
+    ############################
 
     try:
         try:
             # the search term may not corresponds to a wikipedia entry
             try:
                 wiki_topic = WikipediaWrapper.page(search_term).title
-            except:
+            except Exception as e:
                 # if connecting to wikipedia server fails
                 wiki_topic = search_term
-            questions = [load_question(wiki_topic)]
+            questions = [load_question(wiki_topic, version=version)]
         except IndexError as e:
             # this is the error it will raise if no questions is founded
             # if there is not questions for this topic in the database
             # then generate and save
-            questions = diagnose.diagnose(search_term)
-            save_questions_with_prereqs(questions)
+            questions = diagnose.diagnose(
+                search_term,
+                generate_prereq_question=False,
+                num_prereq=3,
+                version=version)
+            save_diagnose_question_set(
+                questions,
+                version=version,
+                force=True)
     except DisambiguationError as dis:
         raise dis
 
