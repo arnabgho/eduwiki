@@ -52,6 +52,8 @@ class WikipediaArticle(Document):
         except Exception as e:
             raise e
 
+    def __str__(self):
+        return str(self.title)
     # ########################################################
     # # Deprecated fields that are not used, only reserved  ##
     # ########################################################
