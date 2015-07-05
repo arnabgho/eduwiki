@@ -45,7 +45,7 @@ def create_for_experiment(topic_filename,
         for idx in range(0, 100):
             filename = sandbox_prefix + topic_filename \
                 + "_" + str(idx) + ".out.txt"
-            if not os.path.exists(filename):
+            if os.path.exists(filename):
                 continue
             else:
                 output_file = open(filename, "w")
@@ -82,6 +82,7 @@ if __name__ == "__main__":
     create_for_experiment(
         topic_filename="90_topics.txt",
         sandbox=True,
-        topic_max_num=3, max_assignments=3,
+        topic_max_num=10, start_idx=0,
+        max_assignments=5,
         visit_question_generation_link=False
     )

@@ -62,7 +62,8 @@ def expire_hit(question_hit_id, sandbox=True):
 
 def test():
     result = create_hit_question(
-        question_url="https://crowdtutor.info/autoassess/single_question?q=Reinforcement+learning",
+        question_url="https://crowdtutor.info/autoassess"
+                     + "/single_question?q=Reinforcement+learning",
         sandbox=True)
     print result
 
