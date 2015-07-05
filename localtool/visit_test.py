@@ -2,8 +2,7 @@ __author__ = 'moonkey'
 
 import requests
 
-
-def generate_eduwiki_link(local=True, topic_max=200, start=0):
+def generate_eduwiki_link(version, local=True, topic_max=200, start=0):
     topics = []
     with open("../../../random/topics/topic.txt", "rU") as topic_file:
         topic_num = 0
@@ -32,15 +31,17 @@ def generate_eduwiki_link(local=True, topic_max=200, start=0):
         if idx < start:
             continue
         print "visiting topic:" + t
-        a = t.replace(' ', '+')
+        temp = t.replace(' ', '+')
 
-        link = dn + "/autoassess/quiz/?q=" + a + "&f=T"
+        link = dn + "/autoassess/quiz/?q=" + temp + \
+                    "&v=" + str(version)
         r = requests.get(link)
         if r:
             print idx, "good_link"
         else:
-            print idx, "bad_link"
+            print idx, "bad_link >>>>>>>>>>>>>>>>>>>>>>>>>"
 
 
 if __name__ == "__main__":
-    generate_eduwiki_link(local=False, start=0, topic_max=10)
+    generate_eduwiki_link(version=0.2,
+                          local=False, start=182, topic_max=200)

@@ -236,7 +236,7 @@ class NlpUtil:
 
         while type(verb_node[0]) is not str and 'VP' in verb_node.label():
             # TODO:: this while loop is basically nonsense, as basically only 'VB*' can be the 0th child of 'VP'
-            verb_node = verbal_tree[0]
+            verb_node = verb_node[0]
 
         # TODO:: may be write this in a for loop??
         if 'MD' in verb_node.label():
