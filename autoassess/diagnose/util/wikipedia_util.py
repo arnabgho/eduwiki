@@ -167,8 +167,13 @@ def test_wiki_util():
         print cat, WikipediaWrapper.pages_from_category(cat)
 
 
+def remove_article(title):
+    page = WikipediaWrapper.page(title=title)
+    page.delete()
+
+
 if __name__ == '__main__':
     from mongoengine import connect
 
     connect('eduwiki_db', host='localhost')
-    test_wiki_util()
+    # test_wiki_util()

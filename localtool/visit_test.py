@@ -2,9 +2,11 @@ __author__ = 'moonkey'
 
 import requests
 
-def generate_eduwiki_link(version, local=True, topic_max=200, start=0):
+def generate_eduwiki_link(version, local=True,
+                          topic_max=200, start=0,
+                          filename="../../../random/topics/topic.txt"):
     topics = []
-    with open("../../../random/topics/topic.txt", "rU") as topic_file:
+    with open(filename, "rU") as topic_file:
         topic_num = 0
         cat_line = False
         for t in topic_file.readlines():
@@ -43,5 +45,10 @@ def generate_eduwiki_link(version, local=True, topic_max=200, start=0):
 
 
 if __name__ == "__main__":
-    generate_eduwiki_link(version=0.2,
-                          local=False, start=0, topic_max=200)
+    # generate_eduwiki_link(version=0.2,
+    #                       local=False, start=0, topic_max=200)
+
+    generate_eduwiki_link(
+        version=0.2, local=False,
+        start=0, topic_max=100,
+        filename="../../../random/topics/no_distractor_topics.txt")
