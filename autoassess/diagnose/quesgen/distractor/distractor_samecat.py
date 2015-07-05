@@ -24,6 +24,7 @@ def generate_distractors_samecat(wikipage, tenses=[], max_num=3):
             distractors.append(distractor)
             if len(distractors) >= max_num:
                 break
+
     return distractors
 
 

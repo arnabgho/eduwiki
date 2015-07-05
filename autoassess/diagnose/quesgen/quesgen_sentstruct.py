@@ -30,7 +30,7 @@ def generate_question_sentstruct(prereq_tree):
     return format_question(question)
 
 
-def generate_question_samecat(prereq_tree):
+def generate_question_samecat(prereq_tree, distractor_num=3):
     # wrong name: question_text should be question_stem or question_stem_text
     question_generated = generate_question_stem(prereq_tree['wikipage'])
     question_stem = question_generated['stem']
@@ -41,7 +41,10 @@ def generate_question_samecat(prereq_tree):
     distractors = generate_distractors_samecat(
         prereq_tree['wikipage'], stem_tenses)
 
-    extracted = extract_same_part(question_stem, [correct_answer]+distractors)
+    if len(distractors) < distractor_num:
+        raise ValueError("Only "+str(len(distractors))+" generated.")
+
+    extracted = extract_same_part(question_stem, [correct_answer] + distractors)
     if extracted:
         question_stem = extracted[0]
         correct_answer = extracted[1][0]
