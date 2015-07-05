@@ -94,11 +94,18 @@ class WikipediaWrapper:
     def save_page(wikipage):
         wt_parsed = wtp.parse(wikipage.wikitext)
         categories = []
+
+        #### parse categories from wikilinks
+        cat_link_started = False  # the category links may not be the last few
         for link in reversed(wt_parsed.wikilinks):
             if link.target.startswith("Category:"):
-                categories.append(link.target.lstrip("Category:"))
+                cat_link_started = True
+                categories.append(link.target.replace("Category:", ""))
             else:
-                break
+                if cat_link_started:
+                    break
+        ####
+
         new_article = WikipediaArticle(
             title=wikipage.title,
             pageid=int(wikipage.pageid),
