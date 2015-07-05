@@ -165,7 +165,8 @@ class NlpUtil:
                     return verbal_tree
                 target_sp_form = target_tenses[2]
                 original_sp_form = original_tenses[2]
-                if target_sp_form != original_sp_form and 'be' == pattern.en.lemma(original_verb):
+                if target_sp_form != original_sp_form \
+                        and 'be' == pattern.en.lemma(original_verb):
                     # find NPs in the same level
                     parent_vp = verb_node.parent()
                     if "VP" in parent_vp.label():
@@ -183,7 +184,7 @@ class NlpUtil:
 
                         # #####################################
                         def get_np_child(node):
-                            if node is None or type(node) is str:
+                            if node is None or type(node) is str or unicode:
                                 return None
                             for child in node:
                                 if 'NP' or 'NN' in child.label():
@@ -191,7 +192,7 @@ class NlpUtil:
                             return None
 
                         def has_nn_child(node):
-                            if node is None or type(node) is str:
+                            if node is None or type(node) is str or unicode:
                                 return False
                             for child in node:
                                 if 'NN' in child.label():
@@ -201,7 +202,6 @@ class NlpUtil:
                         ######################################
 
                         for np in following_nps:
-                            # TODO:: modify the singular/plural forms of noun phrases!
                             np_to_modify = np
                             while not has_nn_child(np_to_modify):
                                 np_to_modify = get_np_child(np_to_modify)
@@ -214,11 +214,14 @@ class NlpUtil:
                                             and child[0] is not 'the' \
                                             and target_sp_form == 'plural':
                                         to_remove.append(child)
-                                    if 'NN' in child.label():
+                                    if 'NN' or 'CD' in child.label():
+                                        #TODO:: deal with the work
                                         if target_sp_form == 'plural':
-                                            child[0] = pattern.en.pluralize(child[0])
+                                            child[0] = pattern.en.pluralize(
+                                                child[0])
                                         else:
-                                            child[0] = pattern.en.singularize(child[0])
+                                            child[0] = pattern.en.singularize(
+                                                child[0])
                                 for t in to_remove:
                                     np_to_modify.remove(t)
 

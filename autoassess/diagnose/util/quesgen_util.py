@@ -9,14 +9,18 @@ import sys
 from wikipedia_util import WikipediaWrapper
 
 
-def topic_cleaning(topic=""):
+def topic_remove_bracket(topic=""):
     if not topic:
         return None
     # Remove the string inside the brackets like in "Intersection (set theory)"
     topic = re.sub(r'\([^)]*\)', '', topic)
-    topic.strip(" ")
-
+    topic = topic.strip(" ")
     return topic
+
+
+def espace_slash(text):
+    text = text.replace("/", "\/")
+    return text
 
 
 def topic_regex(topic=""):
@@ -26,7 +30,7 @@ def topic_regex(topic=""):
     :param topic:
     :return:
     """
-    topic = topic_cleaning(topic)
+    topic = topic_remove_bracket(topic)
 
     # Separate linked terms to tokens, like in "Karush–Kuhn–Tucker conditions"
     topic = re.sub(r"[-–_]+", ' ', topic, re.UNICODE)
@@ -64,14 +68,16 @@ def extract_verbal_phrase(sentence, topic):
 
     # print >> sys.stderr, "parsed_sentence" + str(parsed_sentence)
     # matching  certain patterns that are suitable for question generation.
-    topic = topic_cleaning(topic)
+    topic = topic_remove_bracket(topic)
+    topic = espace_slash(topic)
     topic_tokens = nltk.word_tokenize(topic)
 
 
     # or_tokens = [[t, t.lower()] if not t.islower() else [t]
     # for t in topic_tokens]
-    # Stemmed topic tokens added
     # TODO:: add initials like KKT(hard) or GDP(easy)
+
+    # to match tokens or their stemmed version
     or_tokens = []
     processed_topic_tokens = nlp_util.ProcessedText(topic_tokens)
     pt = processed_topic_tokens
@@ -80,13 +86,15 @@ def extract_verbal_phrase(sentence, topic):
         original_token = pt.original_tokens[idx]
         stemmed_token = pt.stemmed_tokens[idx]
 
-        or_token = [stemmed_token + "*"]
-        # TODO:: (test) the following seems to be the same as the above line
+        # or_token = [stemmed_token + "*"]
+        # the following is not the same as the above line
+        # not true if there are cases where stemming is not only truncating
         if stemmed_token in original_token:
             or_token = [stemmed_token + "*"]
         else:
             or_token = [original_token, stemmed_token + "*"]
 
+        # TODO:: (test) seems to be not useful, as we are using i@ later
         if not original_token.islower():
             or_token += [t.lower() for t in or_token]
 
