@@ -1,0 +1,108 @@
+
+Math
+Singular value decomposition
+Eigenvalues and eigenvectors
+Invertible matrix
+Rigid transformation
+Euclidean plane isometry
+Riemannian manifold
+Real Analysis
+Pseudovector
+Ordinary differential equation
+Ellipse
+
+History & Literature & Philosophy
+William Shakespeare
+Existentialism
+Boston Tea Party
+Crusades
+Gothic architecture
+Anglo-Saxons
+Renaissance
+Thirty Years' War
+Silk Road
+Middle Ages
+
+Computer Science & Programming etc.
+Path tracing
+Optimal control
+PID controller
+Django (web framework)
+Camera resectioning
+Apache Hadoop
+CUDA
+Simultaneous localization and mapping
+Distributed hash table
+Semantic Web
+
+Economics & Finance
+Capital asset pricing model
+Natural monopoly
+Hedge Fund
+Venture capital
+High-frequency trading
+Industrial organization
+Bertrand competition
+Public good
+Gini coefficient
+Gross Domestic Product
+
+Machine Learning & Stats
+Reinforcement Learning
+Random forest
+Latent Dirichlet allocation
+Newton's method
+Convex function
+Deep learning
+Moment-generating function
+Karush-Kuhn-Tucker conditions
+Gaussian process
+Word Embedding
+
+Physics
+Theory of relativity
+Light scattering
+Types of volcanic eruptions
+Newton's law of universal gravitation
+Curvilinear motion
+Acceleration
+Alternating current
+Momentum
+Simple harmonic motion
+First law of thermodynamics
+
+Chemistry
+Ionic bonding
+Neutralization (chemistry)
+Redox
+Flame test
+Reducing agent
+Periodic table
+Single displacement reaction
+Chemical equation
+Electrolysis
+Hydrolysis
+
+Biology
+DNA
+Plasmolysis
+Prokaryote
+Eukaryote
+Cell (biology)
+Protein
+Protein biosynthesis
+Amino acid
+Condensation reaction
+Nucleic acid
+
+Geography
+Scandinavia
+Elevation
+Humid continental climate
+Ecliptic
+Monsoon
+Contour line
+Glacier
+Debris flow
+Continental drift
+Urban heat island

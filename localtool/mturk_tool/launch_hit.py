@@ -1,9 +1,7 @@
 __author__ = 'moonkey'
 
 import os.path
-
 import requests
-
 from localtool.mturk_tool.botowrapper import *
 
 
@@ -16,7 +14,7 @@ def create_hit_for_topic(topic, sandbox=True, max_assignments=2):
     )
 
 
-def create_for_experiment(topic_filename="experiment_topics.txt",
+def create_for_experiment(topic_filename,
                           topic_max_num=5, start_idx=0,
                           sandbox=True, visit_question_generation_link=True,
                           max_assignments=2):
@@ -81,6 +79,9 @@ def create_for_experiment(topic_filename="experiment_topics.txt",
 
 
 if __name__ == "__main__":
-    create_for_experiment(topic_max_num=3, sandbox=True,
-                          visit_question_generation_link=False,
-                          max_assignments=3)
+    create_for_experiment(
+        topic_filename="90_topics.txt",
+        sandbox=True,
+        topic_max_num=3, max_assignments=3,
+        visit_question_generation_link=False
+    )

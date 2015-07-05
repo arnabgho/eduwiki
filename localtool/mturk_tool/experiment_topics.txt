@@ -4,8 +4,8 @@ Reinforcement Learning
 Random forest
 Latent Dirichlet allocation
 Newton's method
-convex function
-deep learning
+Convex function
+Deep learning
 Moment-generating function
 Karush-Kuhn-Tucker conditions
 Gaussian process
