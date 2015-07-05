@@ -1,0 +1,88 @@
+{ "topic" : "Karush–Kuhn–Tucker conditions" }
+{ "topic" : "Recurrent neural network" }
+{ "topic" : "Derivative" }
+{ "topic" : "Integration by substitution" }
+{ "topic" : "PID controller" }
+{ "topic" : "Quicksort" }
+{ "topic" : "Firewall (computing)" }
+{ "topic" : "Autoregressive integrated moving average" }
+{ "topic" : "Newton's law of universal gravitation" }
+{ "topic" : "First law of thermodynamics" }
+{ "topic" : "Kinetic energy" }
+{ "topic" : "Superposition principle" }
+{ "topic" : "Specular reflection" }
+{ "topic" : "Total internal reflection" }
+{ "topic" : "Electric potential" }
+{ "topic" : "Chemistry" }
+{ "topic" : "Single displacement reaction" }
+{ "topic" : "Cell (biology)" }
+{ "topic" : "Active transport" }
+{ "topic" : "Mendelian inheritance" }
+{ "topic" : "Polyploid" }
+{ "topic" : "Boston Tea Party" }
+{ "topic" : "Gothic architecture" }
+#########################################
+
+Distance-vector routing protocol
+Alternating current
+Ocean gyre
+
+Active transport
+#########################################
+
+visiting topic:Dimensionality reduction
+16 bad_link
+
+visiting topic:Conic section
+31 bad_link
+visiting topic:Cross product
+47 bad_link
+visiting topic:Path tracing
+49 bad_link
+visiting topic:Segmentation fault
+59 bad_link
+visiting topic:Null pointer
+61 bad_link
+visiting topic:Transmission Control Protocol
+66 bad_link
+visiting topic:Distance-vector routing protocol
+69 bad_link
+
+、、、、、、、、、、、、、、、、、、、、、
+79 bad_link >>>>>>>>>>>>>>>>>>>>>>>>>
+visiting topic:Acceleration
+89 bad_link >>>>>>>>>>>>>>>>>>>>>>>>>
+visiting topic:Alternating current
+90 bad_link >>>>>>>>>>>>>>>>>>>>>>>>>
+visiting topic:Power (physics)
+105 bad_link >>>>>>>>>>>>>>>>>>>>>>>>>
+visiting topic:Rutherford model
+121 bad_link >>>>>>>>>>>>>>>>>>>>>>>>>
+visiting topic:Bohr model
+122 bad_link >>>>>>>>>>>>>>>>>>>>>>>>>
+visiting topic:Photoelectric Effect
+125 bad_link >>>>>>>>>>>>>>>>>>>>>>>>>
+visiting topic:Functional group
+140 bad_link >>>>>>>>>>>>>>>>>>>>>>>>>
+visiting topic:Nucleic acid
+151 bad_link >>>>>>>>>>>>>>>>>>>>>>>>>
+visiting topic:Cholesterol
+153 bad_link >>>>>>>>>>>>>>>>>>>>>>>>>
+visiting topic:Adenosine triphosphate
+161 bad_link >>>>>>>>>>>>>>>>>>>>>>>>>
+visiting topic:Photosynthesis
+162 bad_link >>>>>>>>>>>>>>>>>>>>>>>>>
+visiting topic:Meiosis
+167 bad_link >>>>>>>>>>>>>>>>>>>>>>>>>
+visiting topic:Chromosome
+168 bad_link >>>>>>>>>>>>>>>>>>>>>>>>>
+visiting topic:Genetic engineering
+174 bad_link >>>>>>>>>>>>>>>>>>>>>>>>>
+visiting topic:Ocean gyre
+181 bad_link >>>>>>>>>>>>>>>>>>>>>>>>>
+visiting topic:Ecliptic
+184 bad_link >>>>>>>>>>>>>>>>>>>>>>>>>
+visiting topic:Monsoon
+185 bad_link >>>>>>>>>>>>>>>>>>>>>>>>>
+visiting topic:Anglo-Saxons
+199 bad_link >>>>>>>>>>>>>>>>>>>>>>>>>

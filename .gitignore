@@ -49,5 +49,5 @@ crashlytics.properties
 crashlytics-build.properties
 
 # local files
-localtool/mturk_config.xml
+localtool/mturk_tool/mturk_config.xml
 localtool/wiki_question_answer.csv

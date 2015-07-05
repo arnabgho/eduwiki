@@ -1,24 +1,27 @@
 __author__ = 'moonkey'
 
-from botowrapper import *
-import requests
 import os.path
+
+import requests
+
+from localtool.mturk_tool.botowrapper import *
 
 
 def create_hit_for_topic(topic, sandbox=True, max_assignments=2):
     return create_hit_question(
-        question_url="https://crowdtutor.info/autoassess/single_question?q=" + str(topic),
+        question_url="https://crowdtutor.info/autoassess/single_question?q="
+                     + str(topic),
         sandbox=sandbox,
         max_assignments=max_assignments
     )
 
 
-def create_for_experiment(topic_file_name="experiment_topics.txt",
+def create_for_experiment(topic_filename="experiment_topics.txt",
                           topic_max_num=5, start_idx=0,
                           sandbox=True, visit_question_generation_link=True,
                           max_assignments=2):
     topics = []
-    with open(topic_file_name, "rU") as topic_file:
+    with open(topic_filename, "rU") as topic_file:
         topic_num = 0
         cat_line = False
         for t in topic_file.readlines():
@@ -38,14 +41,16 @@ def create_for_experiment(topic_file_name="experiment_topics.txt",
 
     sandbox_prefix = 'sandbox_' if sandbox else ""
     output_file = None
-    if not os.path.exists(sandbox_prefix + topic_file_name + ".out.txt"):
-        output_file = open(sandbox_prefix + topic_file_name + ".out.txt", "w")
+    if not os.path.exists(sandbox_prefix + topic_filename + ".out.txt"):
+        output_file = open(sandbox_prefix + topic_filename + ".out.txt", "w")
     else:
         for idx in range(0, 100):
-            if not os.path.exists(sandbox_prefix + topic_file_name + "_" + str(idx) + ".out.txt"):
+            filename = sandbox_prefix + topic_filename \
+                + "_" + str(idx) + ".out.txt"
+            if not os.path.exists(filename):
                 continue
             else:
-                output_file = open(sandbox_prefix + topic_file_name + "_" + str(idx) + ".out.txt", "w")
+                output_file = open(filename, "w")
                 break
     if not output_file:
         print "No output file; Quitting..."
@@ -63,7 +68,8 @@ def create_for_experiment(topic_file_name="experiment_topics.txt",
                 print "bad_link"
                 continue  # skip HIT creation for this question
         try:
-            create_hit_result = create_hit_for_topic(t, sandbox=sandbox, max_assignments=max_assignments)
+            create_hit_result = create_hit_for_topic(
+                t, sandbox=sandbox, max_assignments=max_assignments)
             creat_hit_info = t + " : " + str(create_hit_result.HITId)
             print creat_hit_info
             output_file.write(creat_hit_info + "\n")
@@ -75,5 +81,6 @@ def create_for_experiment(topic_file_name="experiment_topics.txt",
 
 
 if __name__ == "__main__":
-    create_for_experiment(topic_max_num=3, sandbox=True, visit_question_generation_link=False,
+    create_for_experiment(topic_max_num=3, sandbox=True,
+                          visit_question_generation_link=False,
                           max_assignments=3)
