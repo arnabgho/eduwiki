@@ -81,7 +81,7 @@ def create_for_experiment(topic_filename,
 if __name__ == "__main__":
     create_for_experiment(
         topic_filename="experiment_data/90_topics.txt",
-        sandbox=False,
+        sandbox=True,
         topic_max_idx=50, start_idx=10,
         max_assignments=5,
         visit_question_generation_link=False
