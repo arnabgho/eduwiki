@@ -1,0 +1,3 @@
+Singular value decomposition : 3RQVKZ7ZRJI7EVZPLXMTJ2PQXPH72E
+Eigenvalues and eigenvectors : 3BFNCI9LYJPWZDV8PX0Y2CUI33H73P
+Invertible matrix : 3PUV2Q8SV33HJH0VV3IQKN2QD6XDBF

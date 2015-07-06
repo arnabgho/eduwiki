@@ -2,7 +2,7 @@ __author__ = 'moonkey'
 
 import os.path
 import requests
-from localtool.mturk_tool.botowrapper import *
+from botowrapper import *
 
 
 def create_hit_for_topic(topic, sandbox=True, max_assignments=2):
@@ -15,15 +15,15 @@ def create_hit_for_topic(topic, sandbox=True, max_assignments=2):
 
 
 def create_for_experiment(topic_filename,
-                          topic_max_num=5, start_idx=0,
+                          topic_max_idx=5, start_idx=0,
                           sandbox=True, visit_question_generation_link=True,
                           max_assignments=2):
     topics = []
     with open(topic_filename, "rU") as topic_file:
-        topic_num = 0
+        topic_idx = 0
         cat_line = False
         for t in topic_file.readlines():
-            if topic_num >= topic_max_num:
+            if topic_idx >= topic_max_idx:
                 break
             if cat_line:
                 cat_line = False
@@ -33,7 +33,7 @@ def create_for_experiment(topic_filename,
             t = t.strip('\n')
             if t.replace(" ", "") != "":
                 topics.append(t)
-                topic_num += 1
+                topic_idx += 1
             else:
                 cat_line = True
 
@@ -80,9 +80,9 @@ def create_for_experiment(topic_filename,
 
 if __name__ == "__main__":
     create_for_experiment(
-        topic_filename="90_topics.txt",
-        sandbox=True,
-        topic_max_num=10, start_idx=0,
+        topic_filename="experiment_data/90_topics.txt",
+        sandbox=False,
+        topic_max_idx=50, start_idx=10,
         max_assignments=5,
         visit_question_generation_link=False
     )
