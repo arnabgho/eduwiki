@@ -89,7 +89,7 @@ def load_question(topic, version):
             })
 
         # Random shuffle, the answer order will be different from time to time
-        random.shuffle(possible_answers)
+        # random.shuffle(possible_answers)
         question['choices'] = possible_answers
     except Exception as e:
         raise e
