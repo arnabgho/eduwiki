@@ -82,7 +82,7 @@ if __name__ == "__main__":
     create_for_experiment(
         topic_filename="experiment_data/90_topics.txt",
         sandbox=True,
-        topic_max_idx=50, start_idx=10,
-        max_assignments=5,
+        topic_max_idx=1, start_idx=0,
+        max_assignments=1,
         visit_question_generation_link=False
     )

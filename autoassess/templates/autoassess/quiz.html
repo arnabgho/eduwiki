@@ -4,7 +4,9 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-10"><h1>
-                You searched for <span class="alert-success">{{ search_term }}</span>, let's see what you know about
+                You searched for <span
+                    class="alert-success">{{ search_term }}</span>, let's see
+                what you know about
                 some related topics.
             </h1></div>
         </div>
@@ -14,7 +16,8 @@
 
             <div class="col-sm-10 col-sm-offset-1">
                 <form role="quiz" action="/autoassess/learn/" method="get">
-                    <input name="main_topic" value="{{ search_term }}" hidden="hidden">
+                    <input name="main_topic" value="{{ search_term }}"
+                           hidden="hidden">
                     {% for question in quiz %}
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -26,7 +29,9 @@
                                     <tr>
                                         <td/>
                                         {# <input type="radio" name="{{ question.topic }}" value="{{ answer.correct }}">#}
-                                        <input type="radio" name="{{ question.id }}" value="{{ answer.idx }}">
+                                        <input type="radio"
+                                               name="{{ question.id }}"
+                                               value="{{ answer.idx }}">
                                         <td>{{ answer.text }}</td>
                                     </tr>
                                 {% endfor %}
@@ -34,10 +39,47 @@
                         </div>
                     {% endfor %}
                     <div class="col-md-6 col-md-offset-3">
-                        <button type="submit" class="btn btn-lg btn-block btn-primary">Move on to Learning Things
+                        <button type="submit"
+                                class="btn btn-lg btn-block btn-primary">Move on
+                            to Learning Things
                         </button>
                     </div>
                 </form>
+            </div>
+
+            <div class="col-sm-12">
+                <table class="table">
+                    <tr>
+                        <th>Topic</th>
+                        <th>answer</th>
+                        <th>correctness</th>
+                        <th>topic_confidence</th>
+                        <th>question_confidence</th>
+                        <th>is_reasonable_question</th>
+                        <th>grammatical_errors</th>
+                        <th>semantic_errors</th>
+                        <th>comment_guess</th>
+                        <th>topic_confidence_time_delta</th>
+                        <th>submit_time_delta</th>
+                        <th>comment</th>
+                    </tr>
+                    {% for ans in answers %}
+                        <tr>
+                            <td>ans.topic</td>
+                            <td>ans.correctness</td>
+                            <td>ans.topic_confidence</td>
+                            <td>ans.question_confidence</td>
+                            <td>ans.is_reasonable_question</td>
+                            <td>ans.grammatical_errors</td>
+                            <td>ans.semantic_errors</td>
+                            <td>ans.comment_guess</td>
+                            <td>ans.topic_confidence_time_delta</td>
+                            <td>ans.submit_time_delta</td>
+                            <td>ans.comment</td>
+                        </tr>
+
+                    {% endfor %}
+                </table>
             </div>
         </div>
         <div class="row">

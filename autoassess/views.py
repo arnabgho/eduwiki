@@ -86,6 +86,15 @@ def quiz(request):
     except DisambiguationError as dis:
         return disambiguation(request, dis)
 
+    #display feedback answers
+    if 'fb' in request_data and bool(request_data['fb']):
+        all_answers = []
+        for ques in questions:
+            answers = WikiQuestionAnswer.objects(question=ques)
+            all_answers += [a for a in answers]
+        response_data['answers'] = all_answers
+
+
     response_data['quiz'] = questions
     response_data['search_term'] = search_term
 
