@@ -74,10 +74,10 @@
                             <td>{{ ans.is_reasonable_question }}</td>
                             <td>{{ ans.grammatical_errors }}</td>
                             <td>{{ ans.semantic_errors }}</td>
-                            <td>{{ ans.comment_guess }}</td>
+                            <td>{{ ans.comment_guess | safe }}</td>
                             <td>{{ ans.topic_confidence_time_delta }}</td>
                             <td>{{ ans.submit_time_delta }}</td>
-                            <td>{{ ans.comment }}</td>
+                            <td>{{ ans.comment | safe }}</td>
                         </tr>
 
                     {% endfor %}

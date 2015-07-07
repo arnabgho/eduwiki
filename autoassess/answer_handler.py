@@ -140,7 +140,7 @@ def answer_stats(answers):
     stats = {}
     for key in answers[0]:
         if key in ['comment', 'comment_guess']:
-            stats[key] = "\n".join([a[key] for a in answers if key in a])
+            stats[key] = "<br>".join([a[key] for a in answers if key in a])
         elif key in [
             'topic_confidence',
             'question_confidence',
