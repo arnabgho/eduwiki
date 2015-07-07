@@ -1,7 +1,8 @@
 __author__ = 'moonkey'
-
+from __future__ import division
 from models import *
 import datetime
+from collections import Counter
 
 
 def check_answer_correctness(question_id, ans):
@@ -32,7 +33,8 @@ def save_answer(ans_data):
     comment = ans_data.pop('comment', "")
     comment_guess = ans_data.pop('comment_guess', "")
 
-    topic_confidence_time_delta = ans_data.pop('topic_confidence_time_delta', -1)
+    topic_confidence_time_delta = ans_data.pop('topic_confidence_time_delta',
+                                               -1)
     submit_time_delta = ans_data.pop('submit_time_delta', -1)
 
     is_reasonable_question = ans_data.pop('is_reasonable_question', None)
@@ -49,7 +51,7 @@ def save_answer(ans_data):
             grammatical_errors.append(idx)
     semantic_errors = []
     for idx in range(0, 4):
-        if ans_data.pop('semantic_errors_'+str(idx), None):
+        if ans_data.pop('semantic_errors_' + str(idx), None):
             semantic_errors.append(idx)
 
     # ####################################
@@ -72,8 +74,9 @@ def save_answer(ans_data):
                 topic=wiki_question.topic,
                 time=datetime.datetime.now(),
 
-                answer=int(ans_data['question_answer_'+question_id]),
-                correctness=check_answer_correctness(question_id, ans_data['question_answer_'+question_id]),
+                answer=int(ans_data['question_answer_' + question_id]),
+                correctness=check_answer_correctness(question_id, ans_data[
+                    'question_answer_' + question_id]),
 
                 hitId=hitId,
                 assignmentId=assignmentId,
@@ -100,8 +103,9 @@ def save_answer(ans_data):
             topic=wiki_question.topic,
             time=datetime.datetime.now(),
 
-            answer=int(ans_data['question_answer_'+question_id]),
-            correctness=check_answer_correctness(question_id, ans_data['question_answer_'+question_id]),
+            answer=int(ans_data['question_answer_' + question_id]),
+            correctness=check_answer_correctness(question_id, ans_data[
+                'question_answer_' + question_id]),
 
             hitId=hitId,
             assignmentId=assignmentId,
@@ -125,3 +129,34 @@ def save_answer(ans_data):
             print str(e)
             raise e
     return True
+
+
+def answer_stats(answers):
+    # ans/correct/tc/qc/GE/SE/guess/tt/st/comment
+    if len(answers) == 0:
+        return None
+    stats = {}
+    for key in answers[0]:
+        if key == 'comment':
+            stats[key] = "||".join([a[key] for a in answers if key in a])
+        elif key == 'guess_comment':
+            stats[key] = "||".join([a[key] for a in answers if key in a])
+        elif key in [
+            'topic_confidence',
+            'question_confidence',
+            'topic_confidence_time_delta',
+            'submit_time_delta'
+        ]:
+            li = [a[key] for a in answers if key in a]
+            stats[key] = sum(li) / len(li)
+        elif key in ['grammatical_errors', 'semantic_errors']:
+            lili = [a[key] for a in answers if key in a]
+            merged_li = []
+            for li in lili:
+                merged_li.extend(li)
+            stats[key] = Counter(merged_li)
+        else:
+            stats[key] = Counter([a[key] for a in answers if key in a])
+
+
+    return stats

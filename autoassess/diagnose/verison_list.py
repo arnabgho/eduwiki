@@ -1,7 +1,7 @@
 __author__ = 'moonkey'
 
 
-#########################################
+# ########################################
 ##########    LIST         ##############
 #########################################
 # regular expression matching to generation questions and distractors
@@ -19,6 +19,5 @@ RANDOM_CATEGORICAL_DISTRACTOR = 0.2
 #########################################
 CURRENT_QUESTION_VERSION = RANDOM_CATEGORICAL_DISTRACTOR
 
-
-DIAGNOSE_QUESTION_VERSION = CURRENT_QUESTION_VERSION # None
-MTURK_QUESTION_VERSION = CURRENT_QUESTION_VERSION # None
+DIAGNOSE_QUESTION_VERSION = CURRENT_QUESTION_VERSION  # None
+MTURK_QUESTION_VERSION = CURRENT_QUESTION_VERSION  # None

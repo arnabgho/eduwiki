@@ -93,6 +93,9 @@ def quiz(request):
             answers = WikiQuestionAnswer.objects(question=ques['id'])
             if answers:
                 all_answers += [a for a in answers]
+        stats = answer_stats(all_answers)
+        if stats:
+            all_answers = [stats] + all_answers
         response_data['answers'] = all_answers
 
 
