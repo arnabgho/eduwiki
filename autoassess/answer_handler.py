@@ -1,5 +1,7 @@
-__author__ = 'moonkey'
 from __future__ import division
+
+__author__ = 'moonkey'
+
 from models import *
 import datetime
 from collections import Counter
