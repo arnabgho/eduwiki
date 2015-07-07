@@ -8,10 +8,12 @@ import nltk_tgrep
 import sys
 import traceback
 # TODO:: test loading the parsers and tokenizers globally, i.e., the following
-# load the tokenizers and the parsers in the module, and then just use the global object in NlpUtil
+# load the tokenizers and the parsers in the module, and then just use
+# the global object in NlpUtil
 
 from nltk.corpus import wordnet
 import pattern.en
+from collections import Counter
 
 
 def load_punkt_tokenizer():
@@ -24,7 +26,8 @@ def load_stanford_parser():
     # os.environ['STANFORD_PARSER'] = os.path.join(
     # os.path.expanduser('~'), 'stanford-parser/stanford-parser.jar')
     # os.environ['STANFORD_MODELS'] = os.path.join(
-    # os.path.expanduser('~'), 'stanford-parser/stanford-parser-3.5.2-models.jar')
+    # os.path.expanduser('~'),
+    # 'stanford-parser/stanford-parser-3.5.2-models.jar')
     os.environ['STANFORD_PARSER'] = os.path.join(
         '/opt/stanford-parser/stanford-parser.jar')
     os.environ['STANFORD_MODELS'] = os.path.join(
@@ -46,7 +49,8 @@ class NlpUtil:
     def _load_tokenizer(self):
         try:
             if not self.tokenizer:
-                self.tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
+                self.tokenizer = nltk.data.load(
+                    'tokenizers/punkt/english.pickle')
                 return True
         except:
             raise Exception
@@ -61,7 +65,8 @@ class NlpUtil:
             os.environ['STANFORD_MODELS'] = os.path.join(
                 '/opt/stanford-parser/stanford-parser-3.5.2-models.jar')
             self.parser = nltk.parse.stanford.StanfordParser(
-                model_path="edu/stanford/nlp/models/lexparser/englishPCFG.ser.gz")
+                model_path="edu/stanford/nlp/models"
+                           "/lexparser/englishPCFG.ser.gz")
             return True
         except Exception:
             raise Exception
@@ -71,13 +76,13 @@ class NlpUtil:
         NLTK sentence tokenizer
         http://www.nltk.org/_modules/nltk/tokenize/punkt.html
         The algorithm for this tokenizer is described in::
-            Kiss, Tibor and Strunk, Jan (2006): Unsupervised Multilingual Sentence
-            Boundary Detection.  Computational Linguistics 32: 485-525.
+        Kiss, Tibor and Strunk, Jan (2006): Unsupervised Multilingual Sentence
+        Boundary Detection.  Computational Linguistics 32: 485-525.
         :param text:
         :return:
         """
         # if not self.tokenizer:
-        #     self._load_tokenizer()
+        # self._load_tokenizer()
         # sentences = self.tokenizer.tokenize(text)
         sentences = nltk.sent_tokenize(text)
         return sentences
@@ -102,7 +107,8 @@ class NlpUtil:
             sent_tree = nltk.tree.ParentedTree.convert(sent_tree)
         matched_positions = nltk_tgrep.tgrep_positions(sent_tree, pattern)
 
-        # TODO:: insepct other functions, is there a result like in regex where each parts are separated?
+        # TODO:: insepct other functions, is there a result like
+        # in regex where each parts are separated?
         return matched_positions
 
     @classmethod
@@ -112,7 +118,9 @@ class NlpUtil:
     @staticmethod
     def untokenize(tokens):
         sentence = "".join(
-            [" " + i if not i.startswith("'") and i not in string.punctuation else i for i in tokens]).strip()
+            [" " + i
+             if not i.startswith("'") and i not in string.punctuation
+             else i for i in tokens]).strip()
         return sentence
 
     @staticmethod
@@ -140,10 +148,29 @@ class NlpUtil:
             possible_tenses = pattern.en.tenses(sent_verb)
             # "was" can match both person 1 and 3
             if possible_tenses:
-                tenses = max(possible_tenses)
-                # 'PRESENT'>'PAST'; 'person': 3>2>1>'None';
-
+                tenses = NlpUtil.heuristic_tenses(possible_tenses)
         return tenses
+
+    @staticmethod
+    def heuristic_tenses(tenses_list):
+        if len(tenses_list) == 1:
+            return tenses_list[0]
+        result = []
+        for idx in range(0, len(tenses_list[0])):
+            idx_elements = [t[idx] for t in tenses_list]
+            count_list = Counter(idx_elements).most_common()
+            max_count = count_list[0][1]
+            max_elements = [c[0] for c in count_list if c[1] == max_count]
+            if len(max_elements) == 1:
+                heuristic_element = max_elements[0]
+            else:
+                heuristic_element = max(max_elements)
+                if idx == 2:
+                    heuristic_element = 'plural'  # > 'singular'
+            result.append(heuristic_element)
+
+        # 'PRESENT'>'PAST'; 'person': 3>2>1>'None';
+        return tuple(result)
 
     @staticmethod
     def match_sentence_tense(verbal_tree, target_tenses):
@@ -159,7 +186,8 @@ class NlpUtil:
             if conjugated_verb != original_verb:
                 verb_node[0] = conjugated_verb
                 try:
-                    original_tenses = max(pattern.en.tenses(original_verb))
+                    original_tenses = NlpUtil.heuristic_tenses(
+                        pattern.en.tenses(original_verb))
                 except Exception as e:
                     print e
                     return verbal_tree
@@ -184,7 +212,8 @@ class NlpUtil:
 
                         # #####################################
                         def get_np_child(node):
-                            if node is None or type(node) is str or unicode:
+                            if node is None or type(node) is str \
+                                    or type(node) is unicode:
                                 return None
                             for child in node:
                                 if 'NP' or 'NN' in child.label():
@@ -192,14 +221,15 @@ class NlpUtil:
                             return None
 
                         def has_nn_child(node):
-                            if node is None or type(node) is str or unicode:
+                            if node is None or type(node) is str \
+                                    or type(node) is unicode:
                                 return False
                             for child in node:
                                 if 'NN' in child.label():
                                     return True
                             return False
 
-                        ######################################
+                        # #####################################
 
                         for np in following_nps:
                             np_to_modify = np
@@ -215,7 +245,7 @@ class NlpUtil:
                                             and target_sp_form == 'plural':
                                         to_remove.append(child)
                                     if 'NN' or 'CD' in child.label():
-                                        #TODO:: deal with the work
+                                        # TODO:: deal with the work
                                         if target_sp_form == 'plural':
                                             child[0] = pattern.en.pluralize(
                                                 child[0])
@@ -238,7 +268,8 @@ class NlpUtil:
         verb_node = verbal_tree
 
         while type(verb_node[0]) is not str and 'VP' in verb_node.label():
-            # TODO:: this while loop is basically nonsense, as basically only 'VB*' can be the 0th child of 'VP'
+            # TODO:: this while loop is basically nonsense,
+            # as basically only 'VB*' can be the 0th child of 'VP'
             verb_node = verb_node[0]
 
         # TODO:: may be write this in a for loop??
@@ -254,16 +285,19 @@ class NlpUtil:
             # def morphify(word, org_pos, target_pos):
             # """
             # morph a word based on rules
-            # http://stackoverflow.com/questions/27852969/how-to-list-all-the-forms-of-a-word-using-nltk-in-python
+            # http://stackoverflow.com/questions/27852969
+            # /how-to-list-all-the-forms-of-a-word-using-nltk-in-python
 
 
 class ProcessedText:
     """
     Maybe use nltk.stem.wordnet.WordNetLemmatizer instead of PorterStemmer.
-    As stemmer semms just truncate the last parts, 'wolves' to 'wolv' not 'wolf'.
-    But we will need to specify pos tag, like lemmatize('running'[,'n']) will be 'running'
-     when lemmatize('running', 'v') will be 'run'. This is not what we want,
-     like we want 'hypothesis test' to be matched with 'hypothesis testing'.
+    As stemmer semms just truncate the last parts,
+    'wolves' to 'wolv' not 'wolf'.
+    But we will need to specify pos tag, like lemmatize('running'[,'n']) will
+     be 'running' when lemmatize('running', 'v') will be 'run'.
+    This is not what we want, like we want 'hypothesis test'
+     to be matched with 'hypothesis testing'.
     """
 
     def __init__(self, text):
@@ -287,16 +321,20 @@ class ProcessedText:
         if not self.stemmed_tokens:
             self._stemming()
         # to lower case and remove stop words
-        self.processed_tokens = [t.lower() for t in self.stemmed_tokens if t.lower() not in stopwords]
+        self.processed_tokens = [
+            t.lower() for t in self.stemmed_tokens
+            if t.lower() not in stopwords]
 
     def _stemming(self, stemmer=nltk.stem.PorterStemmer()):
         if not self.original_tokens:
             return None
         try:
-            self.stemmed_tokens = [stemmer.stem(t) for t in self.original_tokens]
+            self.stemmed_tokens = [stemmer.stem(t)
+                                   for t in self.original_tokens]
         except UnicodeDecodeError as e:
             raise e
-            # self.stemmed_tokens = [stemmer.stem(unicode(t, 'utf-8')) for t in self.original_tokens]
+            # self.stemmed_tokens = \
+            # [stemmer.stem(unicode(t, 'utf-8')) for t in self.original_tokens]
 
     @staticmethod
     def stemming(text, stemmer=nltk.stem.PorterStemmer()):
@@ -311,16 +349,18 @@ class ProcessedText:
 
         if not text:
             return None
-        if type(text) is str or unicode:
+        if type(text) is str or type(text) is unicode:
             original_tokens = nltk.word_tokenize(text)
         elif type(text) is list:  # tokens
             original_tokens = text
         else:
             original_tokens = None
 
-        stemmed_tokens = [stemmer.stem(t.lower()) for t in original_tokens if t.lower() not in stopwords]
+        stemmed_tokens = [
+            stemmer.stem(t.lower()) for t in original_tokens
+            if t.lower() not in stopwords]
 
-        if type(text) is str or unicode:
+        if type(text) is str or type(text) is unicode:
             stemmed_str = NlpUtil.untokenize(stemmed_tokens)
             return stemmed_str
         elif type(text) is list:
@@ -332,7 +372,8 @@ class ProcessedText:
 def test():
     nlutil = NlpUtil()
 
-    sentence = "At eight o'clock on Thursday morning Arthur didn't feel very good. I am good."
+    sentence = "At eight o'clock on Thursday morning " \
+               "Arthur didn't feel very good. I am good."
     tags = nlutil.pos_tag(sentence)
     print tags
 
