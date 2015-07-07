@@ -154,8 +154,9 @@ def answer_stats(answers):
             merged_li = []
             for li in lili:
                 merged_li.extend(li)
-            stats[key] = Counter(merged_li)
+            stats[key] = Counter(merged_li).most_common()
         else:
-            stats[key] = Counter([a[key] for a in answers if key in a])
+            stats[key] = Counter(
+                [a[key] for a in answers if key in a]).most_common()
 
     return stats
