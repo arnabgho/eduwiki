@@ -87,7 +87,7 @@ def quiz(request):
         return disambiguation(request, dis)
 
     #display feedback answers
-    if 'fb' in request_data and bool(request_data['fb']):
+    if not('nfb' in request_data and bool(request_data['nfb'])):
         all_answers = []
         for ques in questions:
             answers = WikiQuestionAnswer.objects(question=ques['id'])
