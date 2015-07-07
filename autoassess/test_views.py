@@ -21,10 +21,7 @@ def single_question(request):
     &assignmentId=ASSIGNMENT_ID_NOT_AVAILABLE
     &hitId=3RKHNXPHGVV4TMFBNBL8TQP4MT8KU9
     ======= Question form ========
-    GET /autoassess/single_question?q=Reinforcement+learning
-    &assignmentId=34X6J5FLPTYJCTZ6EJ6T7UOKHE0QJI
-    &hitId=3RKHNXPHGVV4TMFBNBL8TQP4MT8KU9
-    &workerId=AE5VGQ7G4FKI&turkSubmitTo=https%3A%2F%2Fworkersandbox.mturk.com
+    GET
     """
     request_data = {}
     if request.method == 'GET':
