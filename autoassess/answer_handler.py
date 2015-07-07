@@ -139,10 +139,8 @@ def answer_stats(answers):
         return None
     stats = {}
     for key in answers[0]:
-        if key == 'comment':
-            stats[key] = "||".join([a[key] for a in answers if key in a])
-        elif key == 'guess_comment':
-            stats[key] = "||".join([a[key] for a in answers if key in a])
+        if key in ['comment', 'comment_guess']:
+            stats[key] = "\n".join([a[key] for a in answers if key in a])
         elif key in [
             'topic_confidence',
             'question_confidence',
@@ -159,6 +157,5 @@ def answer_stats(answers):
             stats[key] = Counter(merged_li)
         else:
             stats[key] = Counter([a[key] for a in answers if key in a])
-
 
     return stats
