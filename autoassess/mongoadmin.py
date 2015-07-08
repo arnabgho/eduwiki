@@ -3,7 +3,7 @@ __author__ = 'moonkey'
 from mongonaut.sites import MongoAdmin
 
 # Import your custom models
-from .models import *
+from models import *
 
 
 WikiQuestion.mongoadmin = MongoAdmin()

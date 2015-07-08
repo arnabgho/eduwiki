@@ -7,7 +7,7 @@ from diagnose.util.wikipedia_util import WikipediaWrapper
 from django.views.decorators.clickjacking import xframe_options_exempt
 from question_db import *
 import json
-import answer_handler
+import answer_db
 
 from diagnose.verison_list import *
 
@@ -111,7 +111,7 @@ def question_submit(request):
 
     request_data.pop("csrfmiddlewaretoken", None)
 
-    answer_handler.save_answer(request_data)
+    answer_db.save_answer(request_data)
 
     # return HttpResponse(result.text)
     return HttpResponse(json.dumps(response_data), content_type="application/json")

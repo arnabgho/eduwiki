@@ -1,7 +1,7 @@
 from autoassess.diagnose.quesgen import quesgen_sentstruct
 # Create your tests here.
 topics = []
-from diagnose.util.nlp_util import NlpUtil
+from autoassess.diagnose.util.nlp_util import NlpUtil
 
 
 def test_sentence_extraction():
@@ -42,7 +42,8 @@ def test_sentence_extraction():
     #         sentfile.write((sent[1]+"\n").encode("utf-8"))
 
     sentences = []
-    with open("../../../random/topics/sentences.txt", "r") as sentfile:
+    with open("../../../random/topics/../../../../random/topics/sentences.txt",
+              "r") as sentfile:
         is_sent = True
         sent_tuple = [None, None]
         for sent in sentfile.readlines():
@@ -62,13 +63,14 @@ def test_sentence_extraction():
             continue
         print "====================="
         print "Sentence:" + sent[0]
-        question = quesgen_sentstruct.question_from_single_sentence(sent[0], sent[1])
+        question = quesgen_sentstruct.question_from_single_sentence(
+            sent[0], sent[1])
         print "Question:" + str(question['stem'])
         print "Answer:" + str(question['answer'])
 
 
 def generate_eduwiki_link():
-    csvfile = open("../../../random/new.csv", "rU")
+    csvfile = open("../../../random/../../../../random/new.csv", "rU")
     for c in csvfile.readlines():
         topic = c.split(",")[0]
         # print topic
@@ -85,7 +87,7 @@ def generate_eduwiki_link():
     # edufile.write(line + "\n")
     # edufile.close()
 
-    linkfile = open("../../../random/link.csv", "w")
+    linkfile = open("../../../random/../../../../random/link.csv", "w")
     for t in topics:
         a = t.replace(' ', '+')
         link = "https://eduwiki.ml/autoassess/quiz/?q=" + a
@@ -95,9 +97,10 @@ def generate_eduwiki_link():
     csvfile.close()
 
 
-def test_setentence_syntree():
+def test_sentence_syntree():
     # draw_sentence_syntree("Reinforcement learning is known.")
-    draw_sentence_syntree("Random forests are ensemble classifiers that consists of classifiers.")
+    draw_sentence_syntree(
+        "Random forests are ensemble classifiers that consists of classifiers.")
 
 
 def draw_sentence_syntree(sentence):
@@ -111,5 +114,5 @@ def draw_sentence_syntree(sentence):
 
 if __name__ == '__main__':
     # test_sentence_extraction()
-    test_setentence_syntree()
+    test_sentence_syntree()
 

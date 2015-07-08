@@ -30,8 +30,11 @@ class WikiQuestion(Document):
     # for question generation
     version = FloatField(required=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return str(self.topic) + ":" + str(self.question_text)
+
+    def __unicode__(self):
+        return unicode(self.__str__())
 
 
 class Prereq(Document):
@@ -43,8 +46,11 @@ class Prereq(Document):
 
     version = FloatField()
 
-    def __unicode__(self):
+    def __str__(self):
         return str(self.topic) + ":" + str(self.prereqs)
+
+    def __unicode__(self):
+        return unicode(self.__str__())
 
 
 class WikiQuestionAnswer(Document):
@@ -82,5 +88,8 @@ class WikiQuestionAnswer(Document):
     topic_confidence_time_delta = IntField()
     submit_time_delta = IntField()
 
-    def __unicode__(self):
+    def __str__(self):
         return str(self.topic) + ":" + str(self.workerId)
+
+    def __unicode__(self):
+        return unicode(self.__str__())

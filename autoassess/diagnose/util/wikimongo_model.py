@@ -8,14 +8,26 @@ class WikiLink(EmbeddedDocument):
     target = StringField(required=True)
     text = StringField()
 
+    def __str__(self):
+        return str(self.target)
 
-class WikipediaSection(EmbeddedDocument):
-    sections = ListField(
-        EmbeddedDocumentField("self"))
-    title = StringField()
-    level = IntField()
-    contents = StringField()
-    wikilinks = ListField(EmbeddedDocumentField(WikiLink))
+    def __unicode__(self):
+        return unicode(self.__str__())
+
+
+# class WikipediaSection(EmbeddedDocument):
+#     # sections = ListField(
+#     #     EmbeddedDocumentField("self"))
+#     title = StringField()
+#     level = IntField()
+#     contents = StringField()
+#     wikilinks = ListField(EmbeddedDocumentField(WikiLink))
+#
+#     def __str__(self):
+#         return str(self.title)
+#
+#     def __unicode__(self):
+#         return unicode(self.__str__())
 
 
 class WikipediaArticle(Document):
@@ -54,6 +66,9 @@ class WikipediaArticle(Document):
 
     def __str__(self):
         return str(self.title)
+
+    def __unicode__(self):
+        return unicode(self.__str__())
     # ########################################################
     # # Deprecated fields that are not used, only reserved  ##
     # ########################################################
@@ -79,6 +94,11 @@ class WikiCategorylinks(Document):
     cl_to = StringField()  # category str
     cl_type = StringField()
 
+    def __str__(self):
+        return str(self.cl_from)+'>'+str(self.cl_to)
+
+    def __unicode__(self):
+        return unicode(self.__str__())
 
 # class WikiPageId(Document):
 #     page_title = StringField()

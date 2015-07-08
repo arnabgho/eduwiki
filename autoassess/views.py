@@ -2,12 +2,13 @@ from django.shortcuts import render, redirect
 
 from diagnose.util.wikipedia import DisambiguationError
 from diagnose import diagnose
-from answer_handler import *
-from diagnose.util.wikipedia_util import WikipediaWrapper
 from question_db import *
-
+from answer_db import *
+from diagnose.util.wikipedia_util import WikipediaWrapper
 from diagnose.verison_list import CURRENT_QUESTION_VERSION
 from diagnose.verison_list import DIAGNOSE_QUESTION_VERSION
+from answer_analysis import answer_stat
+
 
 def index(request):
     return search_page(request)
@@ -93,9 +94,9 @@ def quiz(request):
             answers = WikiQuestionAnswer.objects(question=ques['id'])
             if answers:
                 all_answers += [a for a in answers]
-        stats = answer_stats(all_answers)
-        if stats:
-            all_answers = [stats] + all_answers
+        stat = answer_stat(all_answers)
+        if stat:
+            all_answers = [stat] + all_answers
         response_data['answers'] = all_answers
 
 

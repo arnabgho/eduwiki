@@ -50,6 +50,6 @@ crashlytics-build.properties
 
 # local files
 localtool/mturk_tool/mturk_config.xml
-localtool/export_results/wiki_question_answer.csv
-localtool/export_results/wiki_question_answer.xls
+localtool/server_sync/export_results/wiki_question_answer.csv
+localtool/server_sync/export_results/wiki_question_answer.xls
 localtool/wiki_question_answer.csv
