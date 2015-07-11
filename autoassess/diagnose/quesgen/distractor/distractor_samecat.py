@@ -11,12 +11,12 @@ def generate_distractors_samecat(wikipage, tenses=[], max_num=3):
     distractors = []
 
     for p_id in page_ids_of_samecategory(wikipage):
-        page = WikipediaWrapper.page(pageid=p_id)
-        sentences = topic_mentioning_sentence_generator(page)
+        sim_page = WikipediaWrapper.page(pageid=p_id)
+        sentences = topic_mentioning_sentence_generator(sim_page)
         distractor = None
         for sentence in sentences:
             distractor = distractor_from_single_sentence(
-                sentence, page.title, tenses)
+                sentence, sim_page.title, tenses, original_topic=wikipage.title)
             if distractor:
                 break
 

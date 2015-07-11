@@ -13,5 +13,6 @@ def generate_question(prereq_tree, version=None):
         return quesgen_sentstruct.generate_question_sentstruct(prereq_tree)
     if version == RANDOM_CATEGORICAL_DISTRACTOR:
         return quesgen_sentstruct.generate_question_samecat(prereq_tree)
-
+    if version == WORD2VEC_CATEGORICAL_DISTRACTOR:
+        return quesgen_sentstruct.generate_question_samecat(prereq_tree)
     return None

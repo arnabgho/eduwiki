@@ -2,6 +2,9 @@ from autoassess.diagnose.quesgen import quesgen_sentstruct
 # Create your tests here.
 topics = []
 from autoassess.diagnose.util.nlp_util import NlpUtil
+import nltk
+import textblob
+from textblob.np_extractors import ConllExtractor, FastNPExtractor
 
 
 def test_sentence_extraction():
@@ -10,8 +13,8 @@ def test_sentence_extraction():
     # with open("../../../random/topics/topic.txt", "rU") as topic_file:
     # topic_num = 0
     # cat_line = False
-    #     for t in topic_file.readlines():
-    #         if topic_num >= topic_max:
+    # for t in topic_file.readlines():
+    # if topic_num >= topic_max:
     #             break
     #         if cat_line:
     #             cat_line = False
@@ -99,15 +102,19 @@ def generate_eduwiki_link():
 
 def test_sentence_syntree():
     # draw_sentence_syntree("Reinforcement learning is known.")
-    draw_sentence_syntree(
-        "Random forests are ensemble classifiers that consists of classifiers.")
+    return draw_sentence_syntree(
+        "Random forest are a machine learning technique for regression and classification problems, which produces a prediction model in the form of an ensemble of weak prediction models, typically decision trees.")
 
 
 def draw_sentence_syntree(sentence):
     nlutil = NlpUtil()
     parsed_sentence = nlutil.parsing(sentence)
+    # parsed_sentence = nltk.pos_tag(nltk.sent_tokenize(sentence))
+    # parsed_sentence = nltk.ne_chunk(parsed_sentence)
+    # for l in parsed_sentence.leaves():
+    # l = l.replace("_", " ")
     parsed_sentence.draw()
-
+    return parsed_sentence
 
 # TODO:: deal with the unicode issue, deal with the redirect, (inside the code)
 # TODO:: find the positions of the manually selected prereqs. (here)
@@ -115,4 +122,3 @@ def draw_sentence_syntree(sentence):
 if __name__ == '__main__':
     # test_sentence_extraction()
     test_sentence_syntree()
-

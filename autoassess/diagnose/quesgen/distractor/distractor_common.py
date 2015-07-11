@@ -1,13 +1,16 @@
 __author__ = 'moonkey'
 
-from ...util.quesgen_util import *
+# from ...util.quesgen_util import *
+from autoassess.diagnose.util.quesgen_util import *
 
 
-def distractor_from_single_sentence(sentence, topic, tenses=[]):
+def distractor_from_single_sentence(
+        sentence, topic, tenses=[], original_topic=None):
     distractors = distractors_from_single_sentence(sentence, topic, tenses)
     if distractors:
         for distractor in distractors:
-            if is_heuristically_good_distractor(distractor):
+            if is_heuristically_good_distractor(
+                    distractor, original_topic=original_topic):
                 return distractor
     return None
 
@@ -16,25 +19,26 @@ def distractors_from_single_sentence(sentence, topic, tenses=[]):
     """
     :param sentence:
     :param topic:
-    :return:
+    :return: usually there is only one matched positions, thus one distractors,
+            in rare cases, there might be multiple distractors
     """
     parsed_sentence, matched_positions = extract_verbal_phrase(sentence, topic)
     if matched_positions:
         # distractors = []
         for matched_pos in matched_positions:
             # matched_pos = matched_positions[0]
-            matched_VP = parsed_sentence[matched_pos]
+            matched_vp = parsed_sentence[matched_pos]
             # match tenses here:
             if tenses:
-                matched_VP = NlpUtil.match_sentence_tense(matched_VP, tenses)
+                matched_vp = NlpUtil.match_sentence_tense(matched_vp, tenses)
 
-            distractor = NlpUtil.untokenize(matched_VP.leaves())
+            distractor = NlpUtil.untokenize(matched_vp.leaves())
             distractor = NlpUtil.revert_penntreebank_symbols(distractor)
 
             yield distractor
 
 
-def is_heuristically_good_distractor(distractor):
+def is_heuristically_good_distractor(distractor, original_topic=None):
     """
     Token numbers > 5,
     :param distractor: distractor phrase
@@ -44,4 +48,11 @@ def is_heuristically_good_distractor(distractor):
     tokens = nltk.word_tokenize(distractor)
     if len(tokens) < 5:
         is_good_distractor = False
+
+    if original_topic:
+        original_topic_re = re.compile(topic_regex(original_topic))
+        if original_topic_re.search(distractor):
+            is_good_distractor = False
+
+
     return is_good_distractor

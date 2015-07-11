@@ -14,6 +14,9 @@ import traceback
 from nltk.corpus import wordnet
 import pattern.en
 from collections import Counter
+import textblob
+from textblob.np_extractors import FastNPExtractor, ConllExtractor
+import re
 
 
 def load_punkt_tokenizer():
@@ -39,12 +42,14 @@ def load_stanford_parser():
 
 PUNKT_TOKENIZER = load_punkt_tokenizer()
 STANFORD_PARSER = load_stanford_parser()
+NP_EXTRACTOR = FastNPExtractor()
 
 
 class NlpUtil:
     def __init__(self):
         self.tokenizer = PUNKT_TOKENIZER
         self.parser = STANFORD_PARSER
+        self.np_extractor = NP_EXTRACTOR
 
     def _load_tokenizer(self):
         try:
@@ -71,7 +76,8 @@ class NlpUtil:
         except Exception:
             raise Exception
 
-    def sent_tokenize(self, text):
+    @staticmethod
+    def sent_tokenize(text):
         """
         NLTK sentence tokenizer
         http://www.nltk.org/_modules/nltk/tokenize/punkt.html
@@ -90,9 +96,33 @@ class NlpUtil:
     def parsing(self, text):
         if not self.parser:
             self._load_parser()
-        tokens = nltk.word_tokenize(text)
+
         try:
+            # chunk noun phrases to improve the performance of parsing
+            blob = textblob.TextBlob(text, np_extractor=self.np_extractor)
+            chunked_nps = {}
+            for np in blob.noun_phrases:
+                source = set(re.findall('(?i)' + np, text))
+                for s in source:
+                    target = s.replace(" ", "_")
+                    text = text.replace(np, target)
+                    chunked_nps.update({target: s})
+
+            tokens = nltk.word_tokenize(text)
+            # actually parsing
             parsed = self.parser.parse(tokens).next()
+
+            # get the original noun phrases back
+            for leaf_idx in range(0, len(parsed.leaves())):
+                leaf_position = parsed.leaf_treeposition(leaf_idx)
+                parent_position = tuple(
+                    list(leaf_position)[:len(leaf_position) - 1])
+                # if parsed[leaf_position] in chunked_nps:
+                #     parsed[parent_position][0] = chunked_nps[
+                #         parsed[leaf_position]]
+                if '_' in parsed[leaf_position]:
+                    parsed[parent_position][0] = parsed[
+                        leaf_position].replace("_", " ")
         except Exception, err:
             # print >> sys.stderr, "the sentence cannot be parsed"
             print >> sys.stderr, str(err)
@@ -102,10 +132,10 @@ class NlpUtil:
         return parsed
 
     @staticmethod
-    def tgrep_positions(sent_tree, pattern):
+    def tgrep_positions(sent_tree, match_pattern):
         if type(sent_tree) is not nltk.tree.ParentedTree:
             sent_tree = nltk.tree.ParentedTree.convert(sent_tree)
-        matched_positions = nltk_tgrep.tgrep_positions(sent_tree, pattern)
+        matched_positions = nltk_tgrep.tgrep_positions(sent_tree, match_pattern)
 
         # TODO:: insepct other functions, is there a result like
         # in regex where each parts are separated?
@@ -212,8 +242,7 @@ class NlpUtil:
 
                         # #####################################
                         def get_np_child(node):
-                            if node is None or type(node) is str \
-                                    or type(node) is unicode:
+                            if node is None or type(node) in [str, unicode]:
                                 return None
                             for child in node:
                                 if 'NP' or 'NN' in child.label():
@@ -221,8 +250,7 @@ class NlpUtil:
                             return None
 
                         def has_nn_child(node):
-                            if node is None or type(node) is str \
-                                    or type(node) is unicode:
+                            if node is None or type(node) in [str, unicode]:
                                 return False
                             for child in node:
                                 if 'NN' in child.label():
@@ -232,14 +260,14 @@ class NlpUtil:
                         # #####################################
 
                         for np in following_nps:
-                            np_to_modify = np
-                            while not has_nn_child(np_to_modify):
-                                np_to_modify = get_np_child(np_to_modify)
-                                if np_to_modify is None:
+                            major_np = np
+                            while not has_nn_child(major_np):
+                                major_np = get_np_child(major_np)
+                                if major_np is None:
                                     break
-                            if np_to_modify:
+                            if major_np:
                                 to_remove = []
-                                for child in np_to_modify:
+                                for child in reversed(major_np):
                                     if 'DT' == child.label() \
                                             and child[0] is not 'the' \
                                             and target_sp_form == 'plural':
@@ -253,7 +281,7 @@ class NlpUtil:
                                             child[0] = pattern.en.singularize(
                                                 child[0])
                                 for t in to_remove:
-                                    np_to_modify.remove(t)
+                                    major_np.remove(t)
 
         return verbal_tree
 

@@ -13,11 +13,13 @@ SENTENCE_STRUCTURE = 0.1
 # using topic from same categories as distractors
 RANDOM_CATEGORICAL_DISTRACTOR = 0.2
 
+# using topic with similar embedded vectors
+WORD2VEC_CATEGORICAL_DISTRACTOR = 0.22
 
 #########################################
 ##########    SETTINGS     ##############
 #########################################
-CURRENT_QUESTION_VERSION = RANDOM_CATEGORICAL_DISTRACTOR
+CURRENT_QUESTION_VERSION = WORD2VEC_CATEGORICAL_DISTRACTOR
 
 DIAGNOSE_QUESTION_VERSION = CURRENT_QUESTION_VERSION  # None
 MTURK_QUESTION_VERSION = CURRENT_QUESTION_VERSION  # None

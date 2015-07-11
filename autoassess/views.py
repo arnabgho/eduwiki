@@ -91,13 +91,16 @@ def quiz(request):
     if not('nfb' in request_data and bool(request_data['nfb'])):
         all_answers = []
         for ques in questions:
-            answers = WikiQuestionAnswer.objects(question=ques['id'])
-            if answers:
-                all_answers += [a for a in answers]
-        stat = answer_stat(all_answers)
-        if stat:
-            all_answers = [stat] + all_answers
-        response_data['answers'] = all_answers
+            if 'id' in ques:
+                answers = WikiQuestionAnswer.objects(question=ques['id'])
+                if answers:
+                    question_answers = [a for a in answers]
+                    stat = answer_stat(question_answers)
+                    if stat:
+                        question_answers = [stat] + question_answers
+                    all_answers += question_answers
+        if all_answers:
+            response_data['answers'] = all_answers
 
 
     response_data['quiz'] = questions

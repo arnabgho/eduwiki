@@ -1,8 +1,13 @@
 from __future__ import division
+
 __author__ = 'moonkey'
 
 from collections import Counter
 from models import *
+from sklearn import linear_model
+from sklearn.linear_model import LinearRegression
+import numpy as np
+import statsmodels.api as sm
 
 
 def answer_stat(answers):
@@ -13,10 +18,9 @@ def answer_stat(answers):
     for key in answers[0]:
         if key == 'topic':
             stats[key] = Counter([a[key] for a in answers if key in a])
-            if len(stats[key]) != 1:
+            if len(stats[key]) == 1:
                 stats[key] = answers[0][key]
-
-        if key in ['comment', 'comment_guess']:
+        elif key in ['comment', 'comment_guess']:
             stats[key] = "<br>".join([a[key] for a in answers if key in a])
         elif key in [
             'topic_confidence',
@@ -26,6 +30,9 @@ def answer_stat(answers):
         ]:
             li = [a[key] for a in answers if key in a]
             stats[key] = sum(li) / len(li)
+        elif key == 'correctness':
+            li = [a[key] for a in answers if key in a]
+            stats[key] = li.count(True) / len(li)
         elif key in ['grammatical_errors', 'semantic_errors']:
             lili = [a[key] for a in answers if key in a]
             merged_li = []
@@ -47,6 +54,17 @@ def db_answer_stats():
         stat = answer_stat(answers)
         stats.append(stat)
     return stats
+
+
+def stats_linear_regression(x, y):
+
+    sm_fit = sm.OLS(y, sm.add_constant(x)).fit()
+    print sm_fit.summary()
+
+    lr = LinearRegression()
+    lr.fit(np.array(x)[:, np.newaxis], np.array(y))
+    return lr
+
 
 if __name__ == "__main__":
     from mongoengine import connect
