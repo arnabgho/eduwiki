@@ -1,7 +1,8 @@
 from autoassess.diagnose.quesgen import quesgen_sentstruct
 # Create your tests here.
+from autoassess.diagnose.util.NLPU.preprocess import NlpUtil
+
 topics = []
-from autoassess.diagnose.util.nlp_util import NlpUtil
 import nltk
 import textblob
 from textblob.np_extractors import ConllExtractor, FastNPExtractor

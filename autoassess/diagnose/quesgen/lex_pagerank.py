@@ -1,34 +1,11 @@
+from autoassess.diagnose.util.NLPU.preprocess import ProcessedText
+
 __author__ = 'moonkey'
 
-from autoassess.diagnose.util import nlp_util
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
-from sklearn.preprocessing import normalize
+from sklearn.feature_extraction.text import CountVectorizer
 import networkx as nx
 
-from autoassess.diagnose.util.nlp_util import NlpUtil
 from autoassess.diagnose.util.quesgen_util import *
-
-
-def generate_question_stem(wikipage):
-    question_sentences = question_sentence_generator(wikipage)
-
-    question_generated = None
-
-    # logged_sentences = []
-    for question_sent in question_sentences:
-        try:
-            # logged_sentences.append(question_sent)
-            # print >> sys.stderr, "question_sent:"+question_sent
-            question_generated = question_from_single_sentence(
-                question_sent, wikipage.title)
-            if question_generated['stem'] and question_generated['answer']:
-                break
-        except Exception:
-            continue
-
-    if not question_generated:
-        raise ValueError("No question generated")
-    return question_generated
 
 
 def lex_pagerank(sentences):
@@ -37,7 +14,7 @@ def lex_pagerank(sentences):
     :param sentences:
     :return:
     """
-    stemmed_pair = [nlp_util.ProcessedText(text=sent) for sent in sentences]
+    stemmed_pair = [ProcessedText(text=sent) for sent in sentences]
     stemmed_sentences = [NlpUtil.untokenize(s.stemmed_tokens) for s in stemmed_pair]
     if len(stemmed_sentences) < 1:
         return None
@@ -73,45 +50,67 @@ def lex_pagerank(sentences):
     return top_sentences
 
 
-def question_sentence_generator(wikipage):
-    sentences = topic_mentioning_sentence_generator(wikipage)
-    # sentences = lex_pagerank(sentences)
-    return sentences
-
-
-def question_from_single_sentence(sentence, topic):
-    # TODO:: the topic might be too redundant to match any sentence,
-    # like "Short (finance)", inspect on this a little more.
-    # Maybe just remove "(*)".
-
-    parsed_sentence, matched_positions = extract_verbal_phrase(sentence, topic)
-    # print >> sys.stderr, matched_positions
-    if matched_positions:
-        matched_pos = matched_positions[0]
-        matched_VP = parsed_sentence[matched_pos]
-
-        answer = NlpUtil.untokenize(matched_VP.leaves())
-
-        orginal_verbal_phrase = parsed_sentence[matched_pos]
-        parsed_sentence[matched_pos] = nltk.tree.ParentedTree.fromstring("(VP ________)")
-        stem = NlpUtil.untokenize(parsed_sentence.leaves())
-
-        parsed_sentence[matched_pos] = orginal_verbal_phrase
-
-        answer = NlpUtil.revert_penntreebank_symbols(answer)
-        stem = NlpUtil.revert_penntreebank_symbols(stem)
-
-        # ######## To match the tenses of the question stem and the distractors
-        tenses = NlpUtil.find_sentence_tenses(parsed_sentence, matched_pos)
-    else:
-        answer = None
-        stem = None
-        tenses = None
-
-    question_stem = {
-        'stem': stem,
-        'answer': answer,
-        'tenses': tenses,
-    }
-
-    return question_stem
+# def generate_question_stem(wikipage):
+#     question_sentences = question_sentence_generator(wikipage)
+#
+#     question_generated = None
+#
+#     # logged_sentences = []
+#     for question_sent in question_sentences:
+#         try:
+#             # logged_sentences.append(question_sent)
+#             # print >> sys.stderr, "question_sent:"+question_sent
+#             question_generated = question_from_single_sentence(
+#                 question_sent, wikipage.title)
+#             if question_generated['stem'] and question_generated['answer']:
+#                 break
+#         except Exception:
+#             continue
+#
+#     if not question_generated:
+#         raise ValueError("No question generated")
+#     return question_generated
+#
+#
+# def question_sentence_generator(wikipage):
+#     sentences = topic_mentioning_sentence_generator(wikipage)
+#     # sentences = lex_pagerank(sentences)
+#     return sentences
+#
+#
+# def question_from_single_sentence(sentence, topic):
+#     # TODO:: the topic might be too redundant to match any sentence,
+#     # like "Short (finance)", inspect on this a little more.
+#     # Maybe just remove "(*)".
+#
+#     parsed_sentence, matched_positions = extract_verbal_phrase(sentence, topic)
+#     # print >> sys.stderr, matched_positions
+#     if matched_positions:
+#         matched_pos = matched_positions[0]
+#         matched_VP = parsed_sentence[matched_pos]
+#
+#         answer = NlpUtil.untokenize(matched_VP.leaves())
+#
+#         orginal_verbal_phrase = parsed_sentence[matched_pos]
+#         parsed_sentence[matched_pos] = nltk.tree.ParentedTree.fromstring("(VP ________)")
+#         stem = NlpUtil.untokenize(parsed_sentence.leaves())
+#
+#         parsed_sentence[matched_pos] = orginal_verbal_phrase
+#
+#         answer = NlpUtil.revert_penntreebank_symbols(answer)
+#         stem = NlpUtil.revert_penntreebank_symbols(stem)
+#
+#         # ######## To match the tenses of the question stem and the distractors
+#         tenses = tense_match.find_sentence_tenses(parsed_sentence, matched_pos)
+#     else:
+#         answer = None
+#         stem = None
+#         tenses = None
+#
+#     question_stem = {
+#         'stem': stem,
+#         'answer': answer,
+#         'tenses': tenses,
+#     }
+#
+#     return question_stem

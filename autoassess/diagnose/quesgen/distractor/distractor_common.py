@@ -2,7 +2,7 @@ __author__ = 'moonkey'
 
 # from ...util.quesgen_util import *
 from autoassess.diagnose.util.quesgen_util import *
-
+from autoassess.diagnose.util.NLPU import tense_match
 
 def distractor_from_single_sentence(
         sentence, topic, tenses=[], original_topic=None):
@@ -30,7 +30,8 @@ def distractors_from_single_sentence(sentence, topic, tenses=[]):
             matched_vp = parsed_sentence[matched_pos]
             # match tenses here:
             if tenses:
-                matched_vp = NlpUtil.match_sentence_tense(matched_vp, tenses)
+                matched_vp = tense_match.match_sentence_tense(
+                    matched_vp, tenses)
 
             distractor = NlpUtil.untokenize(matched_vp.leaves())
             distractor = NlpUtil.revert_penntreebank_symbols(distractor)

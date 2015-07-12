@@ -1,10 +1,10 @@
 # coding=utf-8
+from autoassess.diagnose.util.NLPU.preprocess import NlpUtil, ProcessedText
+
 __author__ = 'moonkey'
 
 import re
-import nlp_util
 import nltk
-from nlp_util import NlpUtil
 import sys
 from wikipedia_util import WikipediaWrapper
 
@@ -38,7 +38,7 @@ def topic_regex(topic=""):
 
     topic_tokens = nltk.word_tokenize(topic)
     try:
-        processed_topic_tokens = nlp_util.ProcessedText(topic_tokens)
+        processed_topic_tokens = ProcessedText(topic_tokens)
         stemmed_tokens = processed_topic_tokens.stemmed_tokens
         or_tokens = []
         for idx in range(0, len(stemmed_tokens)):
@@ -79,7 +79,7 @@ def extract_verbal_phrase(sentence, topic):
 
     # to match tokens or their stemmed version
     or_tokens = []
-    processed_topic_tokens = nlp_util.ProcessedText(topic_tokens)
+    processed_topic_tokens = ProcessedText(topic_tokens)
     pt = processed_topic_tokens
     # print >> sys.stderr, "processed_tokens:" + str(pt.stemmed_tokens)
     for idx in range(0, len(topic_tokens)):

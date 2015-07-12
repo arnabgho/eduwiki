@@ -1,12 +1,12 @@
+from autoassess.diagnose.util.NLPU.preprocess import ProcessedText
+
 __author__ = 'moonkey'
 
-from autoassess.diagnose.util import nlp_util
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
-from sklearn.preprocessing import normalize
+from sklearn.feature_extraction.text import CountVectorizer
 import networkx as nx
 
-from autoassess.diagnose.util.nlp_util import NlpUtil
 from autoassess.diagnose.util.quesgen_util import *
+from autoassess.diagnose.util.NLPU import tense_match
 
 
 def generate_question_stem(wikipage):
@@ -37,7 +37,7 @@ def rank_sentences_textrank(sentences):
     :param sentences:
     :return:
     """
-    stemmed_pair = [nlp_util.ProcessedText(text=sent) for sent in sentences]
+    stemmed_pair = [ProcessedText(text=sent) for sent in sentences]
     stemmed_sentences = [NlpUtil.untokenize(s.stemmed_tokens) for s in stemmed_pair]
     if len(stemmed_sentences) < 1:
         return None
@@ -102,7 +102,7 @@ def question_from_single_sentence(sentence, topic):
         stem = NlpUtil.revert_penntreebank_symbols(stem)
 
         # ######## To match the tenses of the question stem and the distractors
-        tenses = NlpUtil.find_sentence_tenses(parsed_sentence, matched_pos)
+        tenses = tense_match.find_sentence_tenses(parsed_sentence, matched_pos)
     else:
         answer = None
         stem = None

@@ -1,12 +1,12 @@
+from autoassess.diagnose.util.NLPU import str_util
+from autoassess.diagnose.util.NLPU.preprocess import NlpUtil
+
 __author__ = 'moonkey'
 
 import wikipedia
-import str_util
 import re
-from nlp_util import NlpUtil
 from wikimongo_model import WikipediaArticle, WikiLink, WikiCategorylinks
 import wikitextparser as wtp
-import time
 
 
 class WikipediaWrapper:
