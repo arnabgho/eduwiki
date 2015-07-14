@@ -1,0 +1,78 @@
+Question Confidence v.s. Topic Confidence
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.264
+Model:                            OLS   Adj. R-squared:                  0.250
+Method:                 Least Squares   F-statistic:                     19.03
+Date:                Wed, 08 Jul 2015   Prob (F-statistic):           5.98e-05
+Time:                        16:24:22   Log-Likelihood:                -49.516
+No. Observations:                  55   AIC:                             103.0
+Df Residuals:                      53   BIC:                             107.0
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [95.0% Conf. Int.]
+------------------------------------------------------------------------------
+const          1.2619      0.290      4.359      0.000         0.681     1.843
+x1             0.5915      0.136      4.362      0.000         0.320     0.864
+==============================================================================
+Omnibus:                        0.694   Durbin-Watson:                   1.597
+Prob(Omnibus):                  0.707   Jarque-Bera (JB):                0.803
+Skew:                           0.226   Prob(JB):                        0.669
+Kurtosis:                       2.618   Cond. No.                         9.11
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+Correct Rate v.s. Topic Confidence
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.008
+Model:                            OLS   Adj. R-squared:                 -0.011
+Method:                 Least Squares   F-statistic:                    0.4289
+Date:                Wed, 08 Jul 2015   Prob (F-statistic):              0.515
+Time:                        16:24:22   Log-Likelihood:                -3.6715
+No. Observations:                  55   AIC:                             11.34
+Df Residuals:                      53   BIC:                             15.36
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [95.0% Conf. Int.]
+------------------------------------------------------------------------------
+const          0.5216      0.126      4.146      0.000         0.269     0.774
+x1             0.0386      0.059      0.655      0.515        -0.080     0.157
+==============================================================================
+Omnibus:                        2.578   Durbin-Watson:                   2.209
+Prob(Omnibus):                  0.276   Jarque-Bera (JB):                2.477
+Skew:                          -0.492   Prob(JB):                        0.290
+Kurtosis:                       2.664   Cond. No.                         9.11
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+Correct Rate v.s. Question Confidence
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.217
+Model:                            OLS   Adj. R-squared:                  0.202
+Method:                 Least Squares   F-statistic:                     14.69
+Date:                Wed, 08 Jul 2015   Prob (F-statistic):           0.000337
+Time:                        16:24:22   Log-Likelihood:                 2.8361
+No. Observations:                  55   AIC:                            -1.672
+Df Residuals:                      53   BIC:                             2.342
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [95.0% Conf. Int.]
+------------------------------------------------------------------------------
+const          0.1694      0.117      1.449      0.153        -0.065     0.404
+x1             0.1744      0.045      3.833      0.000         0.083     0.266
+==============================================================================
+Omnibus:                        2.381   Durbin-Watson:                   2.259
+Prob(Omnibus):                  0.304   Jarque-Bera (JB):                1.835
+Skew:                          -0.281   Prob(JB):                        0.399
+Kurtosis:                       2.304   Cond. No.                         10.9
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.

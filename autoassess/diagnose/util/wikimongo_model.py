@@ -16,8 +16,8 @@ class WikiLink(EmbeddedDocument):
 
 
 # class WikipediaSection(EmbeddedDocument):
-#     # sections = ListField(
-#     #     EmbeddedDocumentField("self"))
+# # sections = ListField(
+# #     EmbeddedDocumentField("self"))
 #     title = StringField()
 #     level = IntField()
 #     contents = StringField()
@@ -41,7 +41,6 @@ class WikipediaArticle(Document):
     pageid = IntField()
     title = StringField(unique=True)
 
-
     wikitext = StringField()  # with links etc.
     content = StringField()
     summary = StringField()
@@ -51,24 +50,6 @@ class WikipediaArticle(Document):
 
     # sections = ListField(EmbeddedDocumentField(WikipediaSection))
     # sections = ListField(StringField())
-    @property
-    def sections(self):
-
-        try:
-            if not hasattr(self, '_sections'):
-                wp_parsed = wtp.parse(self.content)
-                self._sections = wp_parsed.sections
-                for sect in self._sections:
-                    sect.title = sect.title.strip(" ")
-            return self._sections
-        except Exception as e:
-            raise e
-
-    def __str__(self):
-        return str(self.title)
-
-    def __unicode__(self):
-        return unicode(self.__str__())
     # ########################################################
     # # Deprecated fields that are not used, only reserved  ##
     # ########################################################
@@ -88,6 +69,25 @@ class WikipediaArticle(Document):
     # url = URLField()
     # parent_id = IntField()
 
+    @property
+    def sections(self):
+
+        try:
+            if not hasattr(self, '_sections'):
+                wp_parsed = wtp.parse(self.content)
+                self._sections = wp_parsed.sections
+                for sect in self._sections:
+                    sect.title = sect.title.strip(" ")
+            return self._sections
+        except Exception as e:
+            raise e
+
+    def __str__(self):
+        return str(self.title)
+
+    def __unicode__(self):
+        return unicode(self.__str__())
+
 
 class WikiCategorylinks(Document):
     cl_from = IntField()  # page_id
@@ -95,13 +95,15 @@ class WikiCategorylinks(Document):
     cl_type = StringField()
 
     def __str__(self):
-        return str(self.cl_from)+'>'+str(self.cl_to)
+        return str(self.cl_from) + '>' + str(self.cl_to)
 
     def __unicode__(self):
         return unicode(self.__str__())
 
-# class WikiPageId(Document):
-#     page_title = StringField()
+
+class WikiPageId(Document):
+    id = IntField(primary_key=True)
+    page_title = StringField()
 
 # class WikiKnowledgeNode(Document):
 # """

@@ -94,11 +94,11 @@ if __name__ == "__main__":
     # visit_eduwiki_link(version=0.2,
     # local=False, start=0, topic_max=200)
 
-    # visit_eduwiki_link(
-    #     version=0.2, local=False,
-    #     start=0, topic_max=100,
-    #     filename="../../../random/topics/no_distractor_topics.txt")
-    print_eduwiki_links(
-        version=0.2, local=False,
-        start=0, topic_max=200,
+    visit_eduwiki_link(
+        version=0.22, local=True,
+        start=0, topic_max=100,
         filename="../mturk_tool/experiment_data/experiment_topics.txt")
+    # print_eduwiki_links(
+    #     version=0.2, local=False,
+    #     start=0, topic_max=200,
+    #     filename="../mturk_tool/experiment_data/experiment_topics.txt")

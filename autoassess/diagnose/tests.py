@@ -1,6 +1,6 @@
 from autoassess.diagnose.quesgen import quesgen_sentstruct
 # Create your tests here.
-from autoassess.diagnose.util.NLPU.preprocess import NlpUtil
+from autoassess.diagnose.util.NLPU.preprocess import ProcessUtil
 
 topics = []
 import nltk
@@ -16,7 +16,7 @@ def test_sentence_extraction():
     # cat_line = False
     # for t in topic_file.readlines():
     # if topic_num >= topic_max:
-    #             break
+    # break
     #         if cat_line:
     #             cat_line = False
     #             print "Cat:" + t
@@ -103,12 +103,20 @@ def generate_eduwiki_link():
 
 def test_sentence_syntree():
     # draw_sentence_syntree("Reinforcement learning is known.")
+    # "A matrix_differential_equation contains more than one function
+    # stacked into vector form with a matrix relating the functions to
+    #  their derivatives."
     return draw_sentence_syntree(
-        "Random forest are a machine learning technique for regression and classification problems, which produces a prediction model in the form of an ensemble of weak prediction models, typically decision trees.")
+        "A matrix differential equation contains more than one function "
+        "stacked into vector form with a matrix relating the functions to "
+        "their derivatives "
+        "where Apache Hadoop does not support support vector machines, "
+        "no matter how long it is gonna take."
+    )
 
 
 def draw_sentence_syntree(sentence):
-    nlutil = NlpUtil()
+    nlutil = ProcessUtil()
     parsed_sentence = nlutil.parsing(sentence)
     # parsed_sentence = nltk.pos_tag(nltk.sent_tokenize(sentence))
     # parsed_sentence = nltk.ne_chunk(parsed_sentence)

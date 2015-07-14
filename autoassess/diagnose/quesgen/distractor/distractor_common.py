@@ -4,6 +4,7 @@ __author__ = 'moonkey'
 from autoassess.diagnose.util.quesgen_util import *
 from autoassess.diagnose.util.NLPU import tense_match
 
+
 def distractor_from_single_sentence(
         sentence, topic, tenses=[], original_topic=None):
     distractors = distractors_from_single_sentence(sentence, topic, tenses)
@@ -33,8 +34,8 @@ def distractors_from_single_sentence(sentence, topic, tenses=[]):
                 matched_vp = tense_match.match_sentence_tense(
                     matched_vp, tenses)
 
-            distractor = NlpUtil.untokenize(matched_vp.leaves())
-            distractor = NlpUtil.revert_penntreebank_symbols(distractor)
+            distractor = ProcessUtil.untokenize(matched_vp.leaves())
+            distractor = ProcessUtil.revert_penntreebank_symbols(distractor)
 
             yield distractor
 
@@ -54,6 +55,5 @@ def is_heuristically_good_distractor(distractor, original_topic=None):
         original_topic_re = re.compile(topic_regex(original_topic))
         if original_topic_re.search(distractor):
             is_good_distractor = False
-
 
     return is_good_distractor

@@ -2,6 +2,8 @@ __author__ = 'moonkey'
 
 import random
 
+QUESTION_TYPE_WHAT_IS = 'WHAT_IS'
+QUESTION_TYPE_WHY_IS = 'WHY_IS'
 
 def format_question(question):
     possible_answers = [{'text': question['correct_answer'], 'correct': True}]

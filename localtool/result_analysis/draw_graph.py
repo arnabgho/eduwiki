@@ -1,7 +1,7 @@
 __author__ = 'moonkey'
 
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
+# from mpl_toolkits.mplot3d import Axes3D
 
 from bokeh.plotting import *
 from bokeh.models import Range1d, HoverTool
@@ -105,5 +105,5 @@ if __name__ == "__main__":
     from mongoengine import connect
 
     connect('eduwiki_db', host='localhost')
-    # draw_stats()
-    html_stats()
+    draw_stats()
+    # html_stats()

@@ -1,5 +1,5 @@
 # coding=utf-8
-from autoassess.diagnose.util.NLPU.preprocess import NlpUtil, ProcessedText
+from autoassess.diagnose.util.NLPU.preprocess import ProcessUtil, ProcessedText
 
 __author__ = 'moonkey'
 
@@ -58,7 +58,7 @@ def topic_regex(topic=""):
 
 
 def extract_verbal_phrase(sentence, topic):
-    nlutil = NlpUtil()
+    nlutil = ProcessUtil()
 
     # print >> sys.stderr, "pre nlutil.parsing()"
     parsed_sentence = nlutil.parsing(sentence)
@@ -95,25 +95,29 @@ def extract_verbal_phrase(sentence, topic):
             or_token = [original_token, stemmed_token + "*"]
 
         # TODO:: (test) seems to be not useful, as we are using i@ later
-        if not original_token.islower():
-            or_token += [t.lower() for t in or_token]
+        # if not original_token.islower():
+        # or_token += [t.lower() for t in or_token]
 
         or_tokens.append(or_token)
-    # topic_word_nodes = ['(* << /' + "|".join(s) + "/)" for s in or_tokens]
 
-    # TODO:: (test) easier way to match while ignoring the case
-    topic_word_nodes = ['(* << i@/' + "|".join(s) + "/)" for s in or_tokens]
-
-    topic_words_sequence = '( ' + ' .. '.join(topic_word_nodes) + ' )'
-    # for topic "A B C", "." would result in "A.B.C" which means A
+    # {DONE}:for topic "A B C", "." would result in "A.B.C" which means A
     # are directly followed by both B and C, which is false,
     # change into "..",
 
+    # topic_word_nodes = ['(* << i@/' + "|".join(s) + "/)" for s in or_tokens]
+    # topic_words_sequence = '( ' + ' .. '.join(topic_word_nodes) + ' )'
     # ###
     # only root sentence NP considered
-    topic_NP = '/NP*/ << ' + topic_words_sequence + ' > (S > ROOT)'
+    # topic_NP = '/NP*/ << ' + topic_words_sequence + ' > (S > ROOT)'
 
-    print >> sys.stderr, topic_NP
+    topic_word_nodes = ['<< i@/' + "|".join(s) + "/" for s in or_tokens]
+    topic_words_sequence = ' '.join(topic_word_nodes)
+    # ###
+    # only root sentence NP considered
+    topic_NP = '/NP*/ ' + topic_words_sequence + ' > (S > ROOT)'
+
+    print "Sentence:", sentence
+    print "Topic NP:", topic_NP
     # for them to be sisters, should be better than "VP , NP"
     following_VP = 'VP $,, (' + topic_NP + ')'
 

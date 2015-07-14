@@ -1,21 +1,16 @@
 from autoassess.diagnose.util.NLPU import str_util
-from autoassess.diagnose.util.NLPU.preprocess import NlpUtil
+from autoassess.diagnose.util.NLPU.preprocess import ProcessUtil
 
 __author__ = 'moonkey'
 
 import wikipedia
-import re
-from wikimongo_model import WikipediaArticle, WikiLink, WikiCategorylinks
+from wikimongo_model import *
 import wikitextparser as wtp
 
 
 class WikipediaWrapper:
     def __init__(self):
         pass
-
-    # summary: in "learn()", in the template a summary section is used
-    # title
-    # (wikitext?) in return_what_is?
 
     @staticmethod
     def search(query, results=1, suggestion=True):
@@ -95,7 +90,7 @@ class WikipediaWrapper:
         wt_parsed = wtp.parse(wikipage.wikitext)
         categories = []
 
-        #### parse categories from wikilinks
+        # ### parse categories from wikilinks
         cat_link_started = False  # the category links may not be the last few
         for link in reversed(wt_parsed.wikilinks):
             if link.target.startswith("Category:"):
@@ -104,7 +99,7 @@ class WikipediaWrapper:
             else:
                 if cat_link_started:
                     break
-        ####
+        # ###
 
         new_article = WikipediaArticle(
             title=wikipage.title,
@@ -128,7 +123,7 @@ class WikipediaWrapper:
         sentences = []
         # if type(wikipage) is wikipedia.WikipediaPage:
         # content = wikipage.content
-        nlutil = NlpUtil()
+        nlutil = ProcessUtil()
         # sentences = nlutil.sent_tokenize(content)
         if type(wikipage) is not WikipediaArticle:
             pass
@@ -159,6 +154,22 @@ class WikipediaWrapper:
         page_ids = [l.cl_from for l in cat_links]
         return page_ids
 
+    @staticmethod
+    def page_title_from_id(page_id):
+        try:
+            page_id_doc = WikiPageId.objects(id=int(page_id))[0]
+            page_title = page_id_doc.page_title
+        except Exception as e:
+            print "Cannot retrieve title for page id:", page_id
+            print e
+            page = WikipediaWrapper.page(pageid=page_id)
+            page_title = page.title
+        page_title = page_title.replace("_", " ")
+        page_title = page_title.replace(u"\u2013", " ")
+        page_title = page_title.replace("-", " ")
+
+        return page_title
+
 
 def test_wiki_util():
     page = WikipediaWrapper.page(title="Reinforcement learning")
@@ -176,4 +187,4 @@ if __name__ == '__main__':
     from mongoengine import connect
 
     connect('eduwiki_db', host='localhost')
-    # test_wiki_util()
+    test_wiki_util()

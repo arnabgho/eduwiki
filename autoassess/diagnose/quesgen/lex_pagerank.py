@@ -15,7 +15,7 @@ def lex_pagerank(sentences):
     :return:
     """
     stemmed_pair = [ProcessedText(text=sent) for sent in sentences]
-    stemmed_sentences = [NlpUtil.untokenize(s.stemmed_tokens) for s in stemmed_pair]
+    stemmed_sentences = [ProcessUtil.untokenize(s.stemmed_tokens) for s in stemmed_pair]
     if len(stemmed_sentences) < 1:
         return None
     if type(stemmed_sentences[0]) is list:  # tokens to text
@@ -89,16 +89,16 @@ def lex_pagerank(sentences):
 #         matched_pos = matched_positions[0]
 #         matched_VP = parsed_sentence[matched_pos]
 #
-#         answer = NlpUtil.untokenize(matched_VP.leaves())
+#         answer = ProcessUtil.untokenize(matched_VP.leaves())
 #
 #         orginal_verbal_phrase = parsed_sentence[matched_pos]
 #         parsed_sentence[matched_pos] = nltk.tree.ParentedTree.fromstring("(VP ________)")
-#         stem = NlpUtil.untokenize(parsed_sentence.leaves())
+#         stem = ProcessUtil.untokenize(parsed_sentence.leaves())
 #
 #         parsed_sentence[matched_pos] = orginal_verbal_phrase
 #
-#         answer = NlpUtil.revert_penntreebank_symbols(answer)
-#         stem = NlpUtil.revert_penntreebank_symbols(stem)
+#         answer = ProcessUtil.revert_penntreebank_symbols(answer)
+#         stem = ProcessUtil.revert_penntreebank_symbols(stem)
 #
 #         # ######## To match the tenses of the question stem and the distractors
 #         tenses = tense_match.find_sentence_tenses(parsed_sentence, matched_pos)

@@ -10,15 +10,16 @@ from textblob.np_extractors import FastNPExtractor, ConllExtractor
 import nltk
 import nltk.parse.stanford
 import string
+from nltk.tree import Tree
 
 
 def load_punkt_tokenizer():
-    # print >> sys.stderr, "loading tokenizer"
+    print >> sys.stderr, "loading tokenizer"
     return nltk.data.load('tokenizers/punkt/english.pickle')
 
 
 def load_stanford_parser():
-    # print >> sys.stderr, "loading stanford_parser"
+    print >> sys.stderr, "loading stanford_parser"
     # os.environ['STANFORD_PARSER'] = os.path.join(
     # os.path.expanduser('~'), 'stanford-parser/stanford-parser.jar')
     # os.environ['STANFORD_MODELS'] = os.path.join(
@@ -33,12 +34,17 @@ def load_stanford_parser():
     return parser
 
 
+def load_np_extractor():
+    print >> sys.stderr, "loading noun phrase extractor"
+    return ConllExtractor()
+
+
 PUNKT_TOKENIZER = load_punkt_tokenizer()
 STANFORD_PARSER = load_stanford_parser()
-NP_EXTRACTOR = FastNPExtractor()
+NP_EXTRACTOR = load_np_extractor()
 
 
-class NlpUtil:
+class ProcessUtil:
     def __init__(self):
         self.tokenizer = PUNKT_TOKENIZER
         self.parser = STANFORD_PARSER
@@ -94,13 +100,13 @@ class NlpUtil:
             # chunk noun phrases to improve the performance of parsing
             blob = textblob.TextBlob(text, np_extractor=self.np_extractor)
             chunked_nps = {}
+            print "Extracted NPs:", blob.noun_phrases
             for np in blob.noun_phrases:
                 source = set(re.findall('(?i)' + np, text))
                 for s in source:
                     target = s.replace(" ", "_")
                     text = text.replace(np, target)
                     chunked_nps.update({target: s})
-
             tokens = nltk.word_tokenize(text)
             # actually parsing
             parsed = self.parser.parse(tokens).next()
@@ -110,12 +116,35 @@ class NlpUtil:
                 leaf_position = parsed.leaf_treeposition(leaf_idx)
                 parent_position = tuple(
                     list(leaf_position)[:len(leaf_position) - 1])
+                # grandparent_position = tuple(
+                #     list(leaf_position)[:len(leaf_position) - 2])
+
+                new_node = parsed[leaf_position].replace("_", " ")
+                parsed[parent_position][0] = new_node
+                # more strict substitution rules
                 # if parsed[leaf_position] in chunked_nps:
                 # parsed[parent_position][0] = chunked_nps[
                 # parsed[leaf_position]]
-                if '_' in parsed[leaf_position]:
-                    parsed[parent_position][0] = parsed[
-                        leaf_position].replace("_", " ")
+
+                # if '_' in parsed[leaf_position]:
+                # word_list = parsed[leaf_position].split("_")
+                #     if len(word_list) == 1:
+                #         new_node = Tree.fromstring("(NN " + word_list[0] + ")")
+                #         parsed[parent_position][0] = new_node
+                #     else:
+                #         node_str = "(NP "
+                #         for idx in range(0, len(word_list) - 1):
+                #             node_str += "(JJ " + word_list[idx] + ")"
+                #         node_str += "(" + parsed[parent_position].label() + \
+                #                     " " + word_list[-1] + ")"
+                #         node_str += ")"
+                #         new_node = Tree.fromstring(node_str)
+                #         parsed[parent_position] = new_node
+                #         Tree.insert()
+                # "an o_d_e" will be (NP (DT an) (NP (JJ o) (JJ d) (NN e)))
+                # which was supposed to be
+                # (NP (DT an) (JJ o) (JJ d) (NN e))
+
         except Exception, err:
             # print >> sys.stderr, "the sentence cannot be parsed"
             print >> sys.stderr, str(err)
@@ -178,7 +207,7 @@ class ProcessedText:
             self.original_tokens = nltk.word_tokenize(text)
         elif type(text) is list:
             self.original_tokens = text
-            self.original_text = NlpUtil.untokenize(text)
+            self.original_text = ProcessUtil.untokenize(text)
 
         self.stemmed_tokens = None
         self.processed_tokens = None
@@ -233,7 +262,7 @@ class ProcessedText:
             if t.lower() not in stopwords]
 
         if type(text) is str or type(text) is unicode:
-            stemmed_str = NlpUtil.untokenize(stemmed_tokens)
+            stemmed_str = ProcessUtil.untokenize(stemmed_tokens)
             return stemmed_str
         elif type(text) is list:
             return stemmed_tokens
@@ -242,7 +271,7 @@ class ProcessedText:
 
 
 def test():
-    nlutil = NlpUtil()
+    nlutil = ProcessUtil()
 
     sentence = "At eight o'clock on Thursday morning " \
                "Arthur didn't feel very good. I am good."
