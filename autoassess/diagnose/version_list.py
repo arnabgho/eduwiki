@@ -15,11 +15,16 @@ RANDOM_CATEGORICAL_DISTRACTOR = 0.2
 
 # using topic with similar embedded vectors
 WORD2VEC_CATEGORICAL_DISTRACTOR = 0.22
+SKIPTHOUGHT_SIM_DISTRACTOR = 0.23
 
+
+
+#########################################
 #########################################
 ##########    SETTINGS     ##############
 #########################################
-CURRENT_QUESTION_VERSION = WORD2VEC_CATEGORICAL_DISTRACTOR
+#########################################
+CURRENT_QUESTION_VERSION = SKIPTHOUGHT_SIM_DISTRACTOR
 
 DIAGNOSE_QUESTION_VERSION = CURRENT_QUESTION_VERSION  # None
 MTURK_QUESTION_VERSION = CURRENT_QUESTION_VERSION  # None

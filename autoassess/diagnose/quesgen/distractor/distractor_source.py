@@ -71,6 +71,10 @@ def similar_pages_of_samecat(wikipage):
     """
     page_ids = page_ids_of_same_category(wikipage=wikipage, cat_count=False)
     page_titles = [WikipediaWrapper.page_title_from_id(pid) for pid in page_ids]
+
+    page_titles = [p for p in page_titles if p is not None]
+    # in case the page title is not successfully retrieved, like the pageid is
+    # no longer there.
     similar_pages = sent_sim.sort_docs_by_similarity(
         doc0=wikipage.title, doc_list=page_titles,
         sim_func=sent_sim.word2vec_n_sim)

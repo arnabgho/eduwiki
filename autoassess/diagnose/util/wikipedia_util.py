@@ -162,8 +162,12 @@ class WikipediaWrapper:
         except Exception as e:
             print "Cannot retrieve title for page id:", page_id
             print e
-            page = WikipediaWrapper.page(pageid=page_id)
-            page_title = page.title
+            try:
+                page = WikipediaWrapper.page(pageid=page_id)
+                page_title = page.title
+            except Exception as e:
+                print e
+                page_title = None
         page_title = page_title.replace("_", " ")
         page_title = page_title.replace(u"\u2013", " ")
         page_title = page_title.replace("-", " ")

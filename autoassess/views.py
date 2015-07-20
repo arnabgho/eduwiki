@@ -5,8 +5,8 @@ from diagnose import diagnose
 from question_db import *
 from answer_db import *
 from diagnose.util.wikipedia_util import WikipediaWrapper
-from diagnose.verison_list import CURRENT_QUESTION_VERSION
-from diagnose.verison_list import DIAGNOSE_QUESTION_VERSION
+from diagnose.version_list import CURRENT_QUESTION_VERSION
+from diagnose.version_list import DIAGNOSE_QUESTION_VERSION
 from answer_analysis import answer_stat
 
 

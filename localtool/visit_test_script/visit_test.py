@@ -37,7 +37,7 @@ def visit_eduwiki_link(version, local=True,
         temp = t.replace(' ', '+')
 
         link = dn + "/autoassess/quiz/?q=" + temp + \
-               "&v=" + str(version)
+               "&v=" + str(version) + "&f=T"
         r = requests.get(link)
         if r:
             print idx, "good_link"
@@ -95,8 +95,8 @@ if __name__ == "__main__":
     # local=False, start=0, topic_max=200)
 
     visit_eduwiki_link(
-        version=0.22, local=True,
-        start=0, topic_max=100,
+        version=0.23, local=True,
+        start=0, topic_max=50,
         filename="../mturk_tool/experiment_data/experiment_topics.txt")
     # print_eduwiki_links(
     #     version=0.2, local=False,

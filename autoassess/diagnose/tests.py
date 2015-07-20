@@ -106,12 +106,10 @@ def test_sentence_syntree():
     # "A matrix_differential_equation contains more than one function
     # stacked into vector form with a matrix relating the functions to
     #  their derivatives."
+    # "where Apache Hadoop does not support support vector machines, "
+    # "no matter how long it is gonna take."
     return draw_sentence_syntree(
-        "A matrix differential equation contains more than one function "
-        "stacked into vector form with a matrix relating the functions to "
-        "their derivatives "
-        "where Apache Hadoop does not support support vector machines, "
-        "no matter how long it is gonna take."
+        "SVM is a machine learning method."
     )
 
 

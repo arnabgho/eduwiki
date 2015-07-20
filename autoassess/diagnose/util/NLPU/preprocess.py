@@ -36,7 +36,7 @@ def load_stanford_parser():
 
 def load_np_extractor():
     print >> sys.stderr, "loading noun phrase extractor"
-    return ConllExtractor()
+    return FastNPExtractor()
 
 
 PUNKT_TOKENIZER = load_punkt_tokenizer()

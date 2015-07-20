@@ -9,7 +9,7 @@ from question_db import *
 import json
 import answer_db
 
-from diagnose.verison_list import *
+from diagnose.version_list import *
 
 @xframe_options_exempt
 def single_question(request):
