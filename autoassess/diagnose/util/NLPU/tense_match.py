@@ -104,27 +104,36 @@ def match_sentence_tense(verbal_tree, target_tenses):
                                 break
                         if major_np:
                             to_remove = []
+                            np_changed = False
                             for child in reversed(major_np):
                                 if 'DT' == child.label() \
                                         and child[0] is not 'the' \
                                         and target_sp_form == 'plural':
                                     to_remove.append(child)
-                                if 'NN' or 'CD' in child.label():
+                                if 'NN' in child.label() \
+                                        or 'CD' in child.label():
                                     # TODO:: deal with the work
-                                    if target_sp_form == 'plural':
-                                        child[0] = pattern.en.pluralize(
-                                            child[0])
-                                    else:
-                                        child[0] = pattern.en.singularize(
-                                            child[0])
+                                    # TODO:: add articles or determines?
+                                    if not np_changed:
+                                        if target_sp_form == 'plural':
+                                            child[0] = pattern.en.pluralize(
+                                                child[0])
+                                        else:
+                                            child[0] = pattern.en.singularize(
+                                                child[0])
+                                        # the last noun is replace, job done
+                                        np_changed = True
+
                             for t in to_remove:
                                 major_np.remove(t)
 
     return verbal_tree
 
 
-def find_verb_node_in_VP(verbal_tree, priority='verb'):
+def find_verb_node_in_VP(verbal_tree, priority='first'):
     """
+    @:param priority: 'first' for Verb or MD whichever to be morphed,
+    'exact_verb' for the exact Verb [Not implemented]
     @return: the VB or the MD, whichever to be morphed
     """
 

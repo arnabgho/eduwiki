@@ -4,7 +4,7 @@ from autoassess.diagnose.util.wikipedia_util import WikipediaWrapper
 from collections import defaultdict
 import random
 from sys import maxint
-from autoassess.diagnose.util.NLPU import sent_sim
+from autoassess.diagnose.util.NLPU import doc_sim
 
 
 def page_ids_of_same_category(wikipage, max_num=maxint, cat_count=False):
@@ -62,9 +62,8 @@ def count_rank(xs):
     return sorted_xs
 
 
-def similar_pages_of_samecat(wikipage):
+def similar_page_titles_of_samecat(wikipage):
     """
-
     :param wikipage:
     :return: page titles of pages with shared category,
                 ranked by title similarity
@@ -75,7 +74,7 @@ def similar_pages_of_samecat(wikipage):
     page_titles = [p for p in page_titles if p is not None]
     # in case the page title is not successfully retrieved, like the pageid is
     # no longer there.
-    similar_pages = sent_sim.sort_docs_by_similarity(
+    similar_pages = doc_sim.sort_docs_by_similarity(
         doc0=wikipage.title, doc_list=page_titles,
-        sim_func=sent_sim.word2vec_n_sim)
+        sim_func=doc_sim.word2vec_n_sim)
     return similar_pages

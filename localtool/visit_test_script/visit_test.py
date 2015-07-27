@@ -96,7 +96,7 @@ if __name__ == "__main__":
 
     visit_eduwiki_link(
         version=0.23, local=True,
-        start=0, topic_max=50,
+        start=0, topic_max=150,
         filename="../mturk_tool/experiment_data/experiment_topics.txt")
     # print_eduwiki_links(
     #     version=0.2, local=False,

@@ -1,7 +1,7 @@
 __author__ = 'moonkey'
 
-import re
-from util.wikipedia_util import WikipediaWrapper
+from ..util.wikipedia_util import WikipediaWrapper
+
 
 def direct_prereq_generator(wikipage):
     """
@@ -25,9 +25,8 @@ def find_prereq_tree(topic, depth, num_prereq=3):
     elif '#' in topic:
         # for links containing section like
         # "Euclidean group#Direct_and_indirect_isometries"
-        #TODO:: find the exact section of the page
+        # TODO:: find the exact section of the page
         topic = topic[0:topic.find('#')]
-
 
     wikipage = WikipediaWrapper.page(topic)
 
@@ -37,7 +36,7 @@ def find_prereq_tree(topic, depth, num_prereq=3):
     depth = min(depth, max_prereq_tree_depth)
     num_prereq = min(num_prereq, max_num_prereq_per_node)
 
-    #### create a knowledge tree (dict) which will be recursively built ###
+    # ### create a knowledge tree (dict) which will be recursively built ###
     prereqs = []
 
     # run for num_children if depth left
@@ -64,36 +63,36 @@ def find_prereq_tree(topic, depth, num_prereq=3):
     return prereq_tree
 
 
-# def prereq_stat(wikipage, terms):
-#     """
-#     Get some stats of certain terms in a wikipage,
-#     to get sense of the prerequisites
-#     :param wikipage:
-#     :param terms:
-#     :return:
-#     """
-#     wikitext = wikipage.wikitext
-#     counts = {}
-#     star_pos = {}
-#
-#     suggested_terms = []
-#     for t in terms:
-#         results, suggestion = WikipediaWrapper.search(
-#               t, results=1, suggestion=True)
-#         suggested_term = suggestion or results[0]
-#         suggested_terms.append(suggested_term)
-#     terms = suggested_terms
-#
-#     for t in terms:
-#         star_pos[t] = wikitext.index(t)
-#     for t in enumerate(terms):
-#         if star_pos[t] == -1:
-#             continue
-#         counts[t] = wikitext.count(t)
-#
-#     stats = {
-#         'start_pos': star_pos,
-#         'counts': counts,
-#     }
-#
-#     return stats
+    # def prereq_stat(wikipage, terms):
+    #     """
+    #     Get some stats of certain terms in a wikipage,
+    #     to get sense of the prerequisites
+    #     :param wikipage:
+    #     :param terms:
+    #     :return:
+    #     """
+    #     wikitext = wikipage.wikitext
+    #     counts = {}
+    #     star_pos = {}
+    #
+    #     suggested_terms = []
+    #     for t in terms:
+    #         results, suggestion = WikipediaWrapper.search(
+    #               t, results=1, suggestion=True)
+    #         suggested_term = suggestion or results[0]
+    #         suggested_terms.append(suggested_term)
+    #     terms = suggested_terms
+    #
+    #     for t in terms:
+    #         star_pos[t] = wikitext.index(t)
+    #     for t in enumerate(terms):
+    #         if star_pos[t] == -1:
+    #             continue
+    #         counts[t] = wikitext.count(t)
+    #
+    #     stats = {
+    #         'start_pos': star_pos,
+    #         'counts': counts,
+    #     }
+    #
+    #     return stats

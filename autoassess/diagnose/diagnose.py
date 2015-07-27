@@ -1,6 +1,5 @@
-import prereq
+from prereqsearch import prereq_early_terms
 import quesgen_wrapper
-import unicodedata
 
 
 def diagnose(search_term, generate_prereq_question=False, num_prereq=3,
@@ -9,8 +8,9 @@ def diagnose(search_term, generate_prereq_question=False, num_prereq=3,
     depth = 1
     if generate_prereq_question:
         depth = 2
-    prereq_tree = prereq.find_prereq_tree(search_term, depth=depth,
-                                          num_prereq=num_prereq)
+    prereq_tree = prereq_early_terms.find_prereq_tree(
+        search_term, depth=depth,
+        num_prereq=num_prereq)
 
     # generate question
     topic_question = quesgen_wrapper.generate_question(

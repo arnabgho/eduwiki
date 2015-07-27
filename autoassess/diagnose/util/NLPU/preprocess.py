@@ -9,69 +9,92 @@ import textblob
 from textblob.np_extractors import FastNPExtractor, ConllExtractor
 import nltk
 import nltk.parse.stanford
+import nltk.tag.stanford
 import string
-from nltk.tree import Tree
-
-
-def load_punkt_tokenizer():
-    print >> sys.stderr, "loading tokenizer"
-    return nltk.data.load('tokenizers/punkt/english.pickle')
+import itertools
 
 
 def load_stanford_parser():
     print >> sys.stderr, "loading stanford_parser"
-    # os.environ['STANFORD_PARSER'] = os.path.join(
-    # os.path.expanduser('~'), 'stanford-parser/stanford-parser.jar')
-    # os.environ['STANFORD_MODELS'] = os.path.join(
-    # os.path.expanduser('~'),
-    # 'stanford-parser/stanford-parser-3.5.2-models.jar')
-    os.environ['STANFORD_PARSER'] = os.path.join(
-        '/opt/stanford-parser/stanford-parser.jar')
-    os.environ['STANFORD_MODELS'] = os.path.join(
-        '/opt/stanford-parser/stanford-parser-3.5.2-models.jar')
+
+    stanford_parser_path = '/opt/stanford-parser/stanford-parser.jar'
+    env_stanford_parser = os.environ.get('STANFORD_PARSER', "")
+    if stanford_parser_path not in env_stanford_parser:
+        os.environ['STANFORD_PARSER'] = \
+            stanford_parser_path  # + ";" + env_stanford_parser
+
+    stanford_model_path = \
+        '/opt/stanford-parser/stanford-parser-3.5.2-models.jar'
+    env_stanford_model = os.environ.get('STANFORD_MODELS', "")
+    if stanford_model_path not in env_stanford_model:
+        os.environ['STANFORD_MODELS'] = \
+            stanford_model_path  # + ";" + env_stanford_model
+
     parser = nltk.parse.stanford.StanfordParser(
-        model_path="edu/stanford/nlp/models/lexparser/englishPCFG.ser.gz")
+        model_path="edu/stanford/nlp/models/lexparser/englishPCFG.ser.gz"
+    )
     return parser
+
+
+def load_stanford_pos_tagger():
+    print >> sys.stderr, "loading stanford pos tagger"
+    try:
+        path_to_model = \
+            '/opt/stanford-postagger/models/english-bidirectional-distsim.tagger'
+        path_to_jar = '/opt/stanford-postagger/stanford-postagger.jar'
+        tagger = nltk.tag.stanford.POSTagger(
+            path_to_model=path_to_model, path_to_jar=path_to_jar)
+        return tagger
+    except Exception as e:
+        print >> sys.stderr, "FAILED: loading stanford pos tagger"
+        print >> sys.stderr, e
+        return None
+
+
+def load_stanford_ner_tagger():
+    print >> sys.stderr, "loading stanford NER tagger"
+    try:
+        path_to_model = \
+            '/opt/stanford-ner/classifiers/all.3class.distsim.crf.ser.gz'
+        path_to_jar = '/opt/stanford-ner/stanford-ner.jar'
+        tagger = nltk.tag.stanford.NERTagger(
+            path_to_model=path_to_model, path_to_jar=path_to_jar)
+        return tagger
+    except Exception as e:
+        print >> sys.stderr, "FAILED: loading stanford NER tagger"
+        print >> sys.stderr, e
+        return None
 
 
 def load_np_extractor():
     print >> sys.stderr, "loading noun phrase extractor"
-    return FastNPExtractor()
+    return ConllExtractor()
 
 
-PUNKT_TOKENIZER = load_punkt_tokenizer()
 STANFORD_PARSER = load_stanford_parser()
 NP_EXTRACTOR = load_np_extractor()
+STANFORD_POS_TAGGER = load_stanford_pos_tagger()
 
 
 class ProcessUtil:
     def __init__(self):
-        self.tokenizer = PUNKT_TOKENIZER
         self.parser = STANFORD_PARSER
         self.np_extractor = NP_EXTRACTOR
-
-    def _load_tokenizer(self):
-        try:
-            if not self.tokenizer:
-                self.tokenizer = nltk.data.load(
-                    'tokenizers/punkt/english.pickle')
-                return True
-        except:
-            raise Exception
+        self.pos_tagger = STANFORD_POS_TAGGER
 
     def _load_parser(self):
         if self.parser:
-            # print >> sys.stderr, 'parser already there'
-            return True
+            return self.parser
         try:
-            os.environ['STANFORD_PARSER'] = os.path.join(
-                '/opt/stanford-parser/stanford-parser.jar')
-            os.environ['STANFORD_MODELS'] = os.path.join(
-                '/opt/stanford-parser/stanford-parser-3.5.2-models.jar')
-            self.parser = nltk.parse.stanford.StanfordParser(
-                model_path="edu/stanford/nlp/models"
-                           "/lexparser/englishPCFG.ser.gz")
-            return True
+            self.parser = load_stanford_parser()
+            # os.environ['STANFORD_PARSER'] = os.path.join(
+            # '/opt/stanford-parser/stanford-parser.jar')
+            # os.environ['STANFORD_MODELS'] = os.path.join(
+            # '/opt/stanford-parser/stanford-parser-3.5.2-models.jar')
+            # self.parser = nltk.parse.stanford.StanfordParser(
+            # model_path="edu/stanford/nlp/models"
+            #                "/lexparser/englishPCFG.ser.gz")
+            return self.parser
         except Exception:
             raise Exception
 
@@ -86,71 +109,91 @@ class ProcessUtil:
         :param text:
         :return:
         """
-        # if not self.tokenizer:
-        # self._load_tokenizer()
-        # sentences = self.tokenizer.tokenize(text)
         sentences = nltk.sent_tokenize(text)
         return sentences
 
-    def parsing(self, text):
+    def parsing(self, text, pre_chunk_nps=True, stanford_pos=False):
+        """
+        :param pre_chunk_nps: this will not "machine learning"
+        """
+
         if not self.parser:
             self._load_parser()
 
         try:
-            # chunk noun phrases to improve the performance of parsing
-            blob = textblob.TextBlob(text, np_extractor=self.np_extractor)
             chunked_nps = {}
-            print "Extracted NPs:", blob.noun_phrases
-            for np in blob.noun_phrases:
-                source = set(re.findall('(?i)' + np, text))
-                for s in source:
-                    target = s.replace(" ", "_")
-                    text = text.replace(np, target)
-                    chunked_nps.update({target: s})
+            if pre_chunk_nps:
+                # chunk noun phrases to improve the performance of parsing
+                blob = textblob.TextBlob(text, np_extractor=self.np_extractor)
+                for np in blob.noun_phrases:
+                    source = set(re.findall('(?i)' + np, text))
+                    for s in source:
+                        target = s.replace(" ", "_")
+                        text = text.replace(np, target)
+                        chunked_nps.update({target: s})
+
             tokens = nltk.word_tokenize(text)
+            print tokens
+
             # actually parsing
-            parsed = self.parser.parse(tokens).next()
+            if stanford_pos and self.pos_tagger:
+                tagged = self.pos_tagger.tag(tokens)
+                if len(tagged) > 1:
+                    print >> sys.stderr, "POS tagger found >1 sentences", tagged
+                    tagged = list(itertools.chain(*tagged))
+                else:
+                    tagged = tagged[0]
+                # "_" will be eliminated in the tagging process
+                print tagged
+                if pre_chunk_nps:
+                    to_update = {}
+                    for np in chunked_nps:
+                        to_update.update(
+                            {np.replace("_", ""): chunked_nps[np]})
+                    chunked_nps.update(to_update)
+
+                parsed = self.parser.tagged_parse(tagged).next()
+            else:
+                parsed = self.parser.parse(tokens).next()
 
             # get the original noun phrases back
             for leaf_idx in range(0, len(parsed.leaves())):
                 leaf_position = parsed.leaf_treeposition(leaf_idx)
                 parent_position = tuple(
                     list(leaf_position)[:len(leaf_position) - 1])
-                # grandparent_position = tuple(
-                #     list(leaf_position)[:len(leaf_position) - 2])
 
                 new_node = parsed[leaf_position].replace("_", " ")
                 parsed[parent_position][0] = new_node
                 # more strict substitution rules
-                # if parsed[leaf_position] in chunked_nps:
-                # parsed[parent_position][0] = chunked_nps[
-                # parsed[leaf_position]]
+                if parsed[leaf_position] in chunked_nps:
+                    parsed[parent_position][0] = chunked_nps[
+                        parsed[leaf_position]]
 
+                # (Deprecated) Trying to recover the parser tree structure
+                # Problematic code:
+                # "an o_d_e" will be (NP (DT an) (NP (JJ o) (JJ d) (NN e)))
+                # which was supposed to be
+                # (NP (DT an) (JJ o) (JJ d) (NN e))
                 # if '_' in parsed[leaf_position]:
                 # word_list = parsed[leaf_position].split("_")
-                #     if len(word_list) == 1:
-                #         new_node = Tree.fromstring("(NN " + word_list[0] + ")")
-                #         parsed[parent_position][0] = new_node
-                #     else:
-                #         node_str = "(NP "
-                #         for idx in range(0, len(word_list) - 1):
-                #             node_str += "(JJ " + word_list[idx] + ")"
-                #         node_str += "(" + parsed[parent_position].label() + \
-                #                     " " + word_list[-1] + ")"
+                # if len(word_list) == 1:
+                # new_node = Tree.fromstring("(NN " + word_list[0] + ")")
+                # parsed[parent_position][0] = new_node
+                # else:
+                # node_str = "(NP "
+                # for idx in range(0, len(word_list) - 1):
+                # node_str += "(JJ " + word_list[idx] + ")"
+                # node_str += "(" + parsed[parent_position].label() + \
+                # " " + word_list[-1] + ")"
                 #         node_str += ")"
                 #         new_node = Tree.fromstring(node_str)
                 #         parsed[parent_position] = new_node
                 #         Tree.insert()
-                # "an o_d_e" will be (NP (DT an) (NP (JJ o) (JJ d) (NN e)))
-                # which was supposed to be
-                # (NP (DT an) (JJ o) (JJ d) (NN e))
 
         except Exception, err:
-            # print >> sys.stderr, "the sentence cannot be parsed"
             print >> sys.stderr, str(err)
             traceback.print_exc(file=sys.stderr)
             return None
-        # print >> sys.stderr, "parsed_tree:" + str(parsed)
         return parsed
 
     @staticmethod

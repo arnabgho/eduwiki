@@ -117,7 +117,6 @@ def extract_verbal_phrase(sentence, topic):
     topic_NP = '/NP*/ ' + topic_words_sequence + ' > (S > ROOT)'
 
     print "Sentence:", sentence
-    print "Topic NP:", topic_NP
     # for them to be sisters, should be better than "VP , NP"
     following_VP = 'VP $,, (' + topic_NP + ')'
 
@@ -125,6 +124,8 @@ def extract_verbal_phrase(sentence, topic):
 
     matched_positions = nlutil.tgrep_positions(parsed_sentence, match_pattern)
 
+    if not matched_positions:
+        print >> sys.stderr, "No matched positions"
     return parsed_sentence, matched_positions
 
 

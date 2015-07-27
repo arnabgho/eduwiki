@@ -3,15 +3,15 @@ __author__ = 'moonkey'
 from autoassess.diagnose.util.quesgen_util import *
 from distractor_common import distractor_from_single_sentence
 from autoassess.diagnose.util.wikipedia_util import WikipediaWrapper
-from distractor_source import similar_pages_of_samecat
-from autoassess.diagnose.util.NLPU.sent_sim import skip_thoughts_n_sim, \
+from distractor_source import similar_page_titles_of_samecat
+from autoassess.diagnose.util.NLPU.doc_sim import skip_thoughts_n_sim, \
     sort_docs_by_similarity
 
 
 def generate_distractors_simcat(wikipage, tenses=[], max_num=3):
     distractors = []
 
-    for p_title in similar_pages_of_samecat(wikipage):
+    for p_title in similar_page_titles_of_samecat(wikipage):
         sim_page = WikipediaWrapper.page(title=p_title)
         sentences = topic_mentioning_sentence_generator(sim_page)
         distractor = None
