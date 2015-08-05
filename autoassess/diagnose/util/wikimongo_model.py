@@ -82,6 +82,19 @@ class WikipediaArticle(Document):
         except Exception as e:
             raise e
 
+    @property
+    def wiki_sections(self):
+
+        try:
+            if not hasattr(self, '_wiki_sections'):
+                wp_parsed = wtp.parse(self.wikitext)
+                self._wiki_sections = wp_parsed.sections
+                for sect in self._wiki_sections:
+                    sect.title = sect.title.strip(" ")
+            return self._wiki_sections
+        except Exception as e:
+            raise e
+
     def __str__(self):
         return str(self.title)
 

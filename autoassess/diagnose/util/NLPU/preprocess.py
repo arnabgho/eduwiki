@@ -1,5 +1,3 @@
-__author__ = 'moonkey'
-
 import os
 import re
 import sys
@@ -12,6 +10,8 @@ import nltk.parse.stanford
 import nltk.tag.stanford
 import string
 import itertools
+
+__author__ = 'moonkey'
 
 
 def load_stanford_parser():

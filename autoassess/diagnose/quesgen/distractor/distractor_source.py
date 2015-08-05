@@ -1,57 +1,16 @@
 __author__ = 'moonkey'
 
 from autoassess.diagnose.util.wikipedia_util import WikipediaWrapper
+from autoassess.diagnose.util.wikipedia_util import page_titles_of_same_category
+from autoassess.diagnose.util import  wikipedia_util
 from collections import defaultdict
-import random
-from sys import maxint
 from autoassess.diagnose.util.NLPU import doc_sim
+from sys import maxint
 
 
 def page_ids_of_same_category(wikipage, max_num=maxint, cat_count=False):
-    cat_page_lists = []
-    for cat in wikipage.categories:
-        cat_page_list = WikipediaWrapper.pages_from_category(cat)
-
-        # remove the wikipage itself
-        if wikipage.pageid in cat_page_list:
-            cat_page_list.remove(wikipage.pageid)
-        cat_page_lists.append(cat_page_list)
-
-    # merge lists
-    page_list = [item for sublist in cat_page_lists for item in sublist]
-    counted_pages = count_rank(page_list)
-
-    if len(counted_pages) <= max_num:
-        if cat_count:
-            return [p for p in counted_pages]
-        else:
-            return [p[0] for p in counted_pages]
-
-    # first pick out pages with more shared categories
-    result = []
-    for p_c in counted_pages:
-        page = p_c[0]
-        count = p_c[1]
-        if count > 1:
-            if cat_count:
-                result.append(p_c)
-            else:
-                result.append(page)
-        else:
-            break
-
-        if len(result) >= max_num:
-            return result
-
-    one_count_pages = counted_pages[len(result):]
-    rest_len = min(max_num - len(result), len(one_count_pages))
-    random_one_count_pages = random.sample(one_count_pages, rest_len)
-    if cat_count:
-        result += random_one_count_pages
-    else:
-        result += [p[0] for p in random_one_count_pages]
-
-    return result
+    return wikipedia_util.page_ids_of_same_category(
+        wikipage, max_num, cat_count)
 
 
 def count_rank(xs):
@@ -68,12 +27,9 @@ def similar_page_titles_of_samecat(wikipage):
     :return: page titles of pages with shared category,
                 ranked by title similarity
     """
-    page_ids = page_ids_of_same_category(wikipage=wikipage, cat_count=False)
-    page_titles = [WikipediaWrapper.page_title_from_id(pid) for pid in page_ids]
 
-    page_titles = [p for p in page_titles if p is not None]
-    # in case the page title is not successfully retrieved, like the pageid is
-    # no longer there.
+    page_titles = page_titles_of_same_category(
+        wikipage, cat_count=False)
     similar_pages = doc_sim.sort_docs_by_similarity(
         doc0=wikipage.title, doc_list=page_titles,
         sim_func=doc_sim.word2vec_n_sim)

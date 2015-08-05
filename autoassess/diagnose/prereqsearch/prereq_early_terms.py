@@ -1,18 +1,15 @@
 __author__ = 'moonkey'
 
 from ..util.wikipedia_util import WikipediaWrapper
+from ..util.wikipedia_util import filter_wikilink
 
 
 def direct_prereq_generator(wikipage):
     """
     Based on the guess that the first few terms with wikipedia link
     will turn out to be background knowledge
-    :param num:
     :return:
     """
-    # TODO:: the heuristic actually needs to be changed
-    # for example, we can measure the similarity (BOW)
-    # return content_categories(wikipage, num)
     return WikipediaWrapper.linked_terms(wikipage)
 
 
@@ -20,14 +17,9 @@ def find_prereq_tree(topic, depth, num_prereq=3):
     # find the exact page of the topic
     # This only happens at the root node, because all the rest are wiki links
 
-    if topic.startswith("wikt") or topic.startswith("wikitionary"):
+    topic = filter_wikilink(topic)
+    if not topic:
         return None
-    elif '#' in topic:
-        # for links containing section like
-        # "Euclidean group#Direct_and_indirect_isometries"
-        # TODO:: find the exact section of the page
-        topic = topic[0:topic.find('#')]
-
     wikipage = WikipediaWrapper.page(topic)
 
     # set a max depth and branching factor as a fail-safe
@@ -64,7 +56,7 @@ def find_prereq_tree(topic, depth, num_prereq=3):
 
 
     # def prereq_stat(wikipage, terms):
-    #     """
+    # """
     #     Get some stats of certain terms in a wikipage,
     #     to get sense of the prerequisites
     #     :param wikipage:
