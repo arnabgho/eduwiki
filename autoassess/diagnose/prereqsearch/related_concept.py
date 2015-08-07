@@ -119,7 +119,7 @@ def sparse_mention_spanning_graph(wikipage):
             # mm for "most mentioned"
             mm_link_counts, alias = most_mentioned_wikilinks(wikipage)
 
-            mm_links = [m[0] for m in mm_link_counts]
+            mm_links = [m[0] for m in mm_link_counts if m[1] > least_mention]
             # mm_counts = [m[1] for m in mm_link_counts]
 
             mention_graph.add_nodes_from(nodes=mm_links, depth=depth)
@@ -158,4 +158,4 @@ if __name__ == "__main__":
 
     connect('eduwiki_db')
 
-    test()
+    test("Ellipse")

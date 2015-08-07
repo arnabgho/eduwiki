@@ -108,7 +108,7 @@ def cleaned_tokens(doc, model, doc_type="topic"):
     return doc_tokens
 
 
-def word2vec_n_sim(doc0, doc_list, doc_type="topic"):
+def word2vec_n_sim(doc0, doc_list, doc_type="topic", verbose=False):
     if not (doc0 and doc_list):
         return None
 
@@ -139,7 +139,8 @@ def word2vec_n_sim(doc0, doc_list, doc_type="topic"):
                 sim = word2vec_model.n_similarity(
                     doc0_tokens, sent_tokens)
             except KeyError as e:
-                print "KeyError:", sent, sent_tokens
+                if verbose:
+                    print "KeyError:", sent, sent_tokens
                 sim = 0.0
             sim_list.append(sim)
         return sim_list
@@ -199,7 +200,7 @@ def skip_thoughts_n_sim(doc0, doc_list, doc_type="sentence"):
 
 
 def sort_docs_by_similarity(doc0, doc_list, sim_func=bow_sim,
-                            remove_sub=True, verbose=True):
+                            remove_sub=True, verbose=False):
     doc_sims = sim_func(doc0, doc_list)
     sim_pairs = zip(doc_list, doc_sims)
     sorted_pairs = sorted(sim_pairs, key=lambda k: k[1], reverse=True)

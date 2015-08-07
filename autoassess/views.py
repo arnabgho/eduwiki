@@ -5,8 +5,7 @@ from diagnose import diagnose
 from question_db import *
 from answer_db import *
 from diagnose.util.wikipedia_util import WikipediaWrapper
-from diagnose.version_list import CURRENT_QUESTION_VERSION
-from diagnose.version_list import DIAGNOSE_QUESTION_VERSION
+from diagnose.version_list import *
 from answer_analysis import answer_stat
 
 
@@ -27,14 +26,14 @@ def quiz(request):
     The intro view\n
     Requires Input: a search term in request.GET["q"].
     """
-    
+
     request_data = {}
     if request.method == 'GET':
         request_data = request.GET
     elif request.method == 'POST':
         request_data = request.POST
     response_data = {}
-    
+
     if 'q' not in request_data or not request_data['q']:
         return redirect('index')
     search_term = request_data['q']
@@ -45,7 +44,6 @@ def quiz(request):
     generate_prereq_question = False
     if 'pre' in request_data and bool(request_data['pre']):
         generate_prereq_question = True
-        print 'generate_pre_question'
 
     version = DIAGNOSE_QUESTION_VERSION
     if 'v' in request_data:
@@ -53,6 +51,13 @@ def quiz(request):
             version = CURRENT_QUESTION_VERSION
         else:
             version = float(request_data['v'])
+
+    set_type = CURRENT_QUESTION_SET
+    if 's' in request_data:
+        if request_data['s'].lower() == 'm':
+            set_type = SET_MENTIONED
+        if request_data['s'].lower() == 'p':
+            set_type = SET_PREREQ
 
     try:
         questions = None
@@ -62,15 +67,16 @@ def quiz(request):
                 wiki_topic = WikipediaWrapper.page(search_term).title
                 questions = load_diagnose_question_set(
                     wiki_topic,
-                    version=version)
+                    version=version,
+                    set_type=set_type)
             except IndexError as e:
                 # this is the error it will raise if no questions is founded
                 # if there is not questions for this topic in the database
                 # then generate and save
-                pass
+                print "Failed to load question for", search_term, e
                 # questions = diagnose.diagnose(
-                #     search_term,
-                #     generate_prereq_question=generate_prereq_question)
+                # search_term,
+                # generate_prereq_question=generate_prereq_question)
                 # save_diagnose_question_set(
                 #     questions,
                 #     question_version=CURRENT_QUESTION_VERSION,
@@ -79,16 +85,18 @@ def quiz(request):
             questions = diagnose.diagnose(
                 search_term,
                 generate_prereq_question=generate_prereq_question,
-                version=version)
+                version=version,
+                set_type=set_type)
             save_diagnose_question_set(
                 questions=questions,
                 version=version,
-                force=True)
-    except DisambiguationError as dis:
+                force=True,
+                set_type=set_type)
+    except DisambiguationError, dis:
         return disambiguation(request, dis)
 
-    #display feedback answers
-    if not('nfb' in request_data and bool(request_data['nfb'])):
+    # display feedback answers
+    if not ('nfb' in request_data and bool(request_data['nfb'])):
         all_answers = []
         for ques in questions:
             if 'id' in ques:
@@ -101,7 +109,6 @@ def quiz(request):
                     all_answers += question_answers
         if all_answers:
             response_data['answers'] = all_answers
-
 
     response_data['quiz'] = questions
     response_data['search_term'] = search_term
@@ -181,19 +188,19 @@ def learn(request):
     return render(request, 'autoassess/learn.html', response_data)
 
 
-# (Deprecated) saving this just in case I will need to use it again
-# tree = json.loads(prereq_tree, object_hook=recurhook)
-#
-# def recurhook(d):
-# """
-# extra code to fix issues with the way json.loads processes this
-# :param d:
-# :return:
-# """
-# if d['children']:
-# # d['children'] = json.loads(d['children'], recurhook)
-# children = []
-#         for child in d['children']:
-#             children.append(json.loads(child, object_hook=recurhook))
-#         d['children'] = children
-#     return d
+    # (Deprecated) saving this just in case I will need to use it again
+    # tree = json.loads(prereq_tree, object_hook=recurhook)
+    #
+    # def recurhook(d):
+    # """
+    # extra code to fix issues with the way json.loads processes this
+    # :param d:
+    # :return:
+    # """
+    # if d['children']:
+    # # d['children'] = json.loads(d['children'], recurhook)
+    # children = []
+    # for child in d['children']:
+    # children.append(json.loads(child, object_hook=recurhook))
+    #         d['children'] = children
+    #     return d

@@ -133,7 +133,6 @@ class ProcessUtil:
                         chunked_nps.update({target: s})
 
             tokens = nltk.word_tokenize(text)
-            print tokens
 
             # actually parsing
             if stanford_pos and self.pos_tagger:
@@ -144,7 +143,7 @@ class ProcessUtil:
                 else:
                     tagged = tagged[0]
                 # "_" will be eliminated in the tagging process
-                print tagged
+
                 if pre_chunk_nps:
                     to_update = {}
                     for np in chunked_nps:

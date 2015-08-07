@@ -4,9 +4,6 @@ from mongoengine import *
 
 # Create your models here.
 
-# TODO:: rewrite all the cached terms to database
-# TODO:: use mongodb... things are so easy
-
 
 class WikiQuestion(Document):
     """
@@ -14,11 +11,15 @@ class WikiQuestion(Document):
     """
     WikiQuestionType = (
         "WHAT_IS",
+        "KEY_ITEM"
         # No other type so far. no need to
     )
     type = StringField(choices=WikiQuestionType)
 
     topic = StringField(required=True)
+
+    quiz_topic = StringField()  # for multiple questions inside one article
+
     question_text = StringField(required=True)  # question_stem
 
     # We can make the options a EmbeddedDocument if needed as we may want to
@@ -53,6 +54,20 @@ class Prereq(Document):
         return unicode(self.__str__())
 
 
+class QuestionSet(Document):
+    set_topic = StringField(required=True)
+    related_topics = ListField(StringField())
+    questions = ListField(ReferenceField(WikiQuestion))
+
+    version = FloatField()
+
+    def __str__(self):
+        return str(self.set_topic) + ":" + str(self.related_topics)
+
+    def __unicode__(self):
+        return unicode(self.__str__())
+
+
 class WikiQuestionAnswer(Document):
     """
     to record mturk answers
@@ -62,12 +77,15 @@ class WikiQuestionAnswer(Document):
     topic = StringField()
     time = DateTimeField()
 
-    answer = IntField(
-        required=True)  # corresponds to choices indices in the WikiQuestion
-    correctness = BooleanField()  # fast way to retrieve correctness, maybe not needed
+    answer = IntField(required=True)
+    # corresponds to choices indices in the WikiQuestion
+    correctness = BooleanField()
+    # fast way to retrieve correctness, maybe not needed
 
     # user info
-    # Later: generate random workerId for normal visitors? This is not needed for the mturk test. You are not going to
+    # TODO:: to track the answers of the normal visitors?
+    # Later: generate random workerId for normal visitors?
+    # This is not needed for the mturk test. You are not going to
     # have a lot of users off mturk anyway
     workerId = StringField(required=True)
     assignmentId = StringField(required=True, unique=True)

@@ -1,8 +1,8 @@
 # coding=utf-8
-from autoassess.diagnose.util.NLPU.preprocess import ProcessUtil, ProcessedText
 
 __author__ = 'moonkey'
 
+from autoassess.diagnose.util.NLPU.preprocess import ProcessUtil, ProcessedText
 import re
 import nltk
 import sys
@@ -57,7 +57,7 @@ def topic_regex(topic=""):
     return topic_reg
 
 
-def extract_verbal_phrase(sentence, topic):
+def extract_verbal_phrase(sentence, topic, verbose=False):
     nlutil = ProcessUtil()
 
     # print >> sys.stderr, "pre nlutil.parsing()"
@@ -116,7 +116,8 @@ def extract_verbal_phrase(sentence, topic):
     # only root sentence NP considered
     topic_NP = '/NP*/ ' + topic_words_sequence + ' > (S > ROOT)'
 
-    print "Sentence:", sentence
+    if verbose:
+        print "Sentence:", sentence
     # for them to be sisters, should be better than "VP , NP"
     following_VP = 'VP $,, (' + topic_NP + ')'
 
@@ -124,7 +125,7 @@ def extract_verbal_phrase(sentence, topic):
 
     matched_positions = nlutil.tgrep_positions(parsed_sentence, match_pattern)
 
-    if not matched_positions:
+    if verbose and not matched_positions:
         print >> sys.stderr, "No matched positions"
     return parsed_sentence, matched_positions
 

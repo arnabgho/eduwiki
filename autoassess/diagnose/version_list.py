@@ -18,6 +18,12 @@ WORD2VEC_CATEGORICAL_DISTRACTOR = 0.22
 SKIPTHOUGHT_SIM_DISTRACTOR = 0.23
 
 
+########################################
+#########      SET TYPE      ###########
+########################################
+SET_PREREQ = "Prereq"
+SET_MENTIONED = "Mentioned"
+
 
 #########################################
 #########################################
@@ -25,8 +31,12 @@ SKIPTHOUGHT_SIM_DISTRACTOR = 0.23
 #########################################
 #########################################
 CURRENT_QUESTION_VERSION = SKIPTHOUGHT_SIM_DISTRACTOR
+CURRENT_QUESTION_SET = SET_MENTIONED
 
+#################
 DIAGNOSE_QUESTION_VERSION = CURRENT_QUESTION_VERSION  # None
 MTURK_QUESTION_VERSION = CURRENT_QUESTION_VERSION  # None
 
 print "Current Question Version:", CURRENT_QUESTION_VERSION
+
+

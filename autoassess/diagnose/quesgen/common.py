@@ -2,8 +2,10 @@ __author__ = 'moonkey'
 
 import random
 
+# Note: keep coherent with '''WikiQuestion.WikiQuestionType'''
 QUESTION_TYPE_WHAT_IS = 'WHAT_IS'
-QUESTION_TYPE_WHY_IS = 'WHY_IS'
+QUESTION_TYPE_MENTIONED_ITEM = "KEY_ITEM"
+
 
 def format_question(question):
     possible_answers = [{'text': question['correct_answer'], 'correct': True}]
@@ -12,13 +14,19 @@ def format_question(question):
         possible_answers.append({'text': d, 'correct': False})
 
     random.shuffle(possible_answers)
-    formated_question = {
-        'topic': question['topic'],
-        'question_text': question['question_text'],
-        'choices': possible_answers,
-        'type': question['type']
-    }
-    return formated_question
+    question['choices'] = possible_answers
+
+    question.pop('distractors', None)
+
+    return question
+
+    # formatted_question = {
+    # 'topic': question['topic'],
+    # 'question_text': question['question_text'],
+    #     'choices': possible_answers,
+    #     'type': question['type']
+    # }
+    # return formatted_question
 
 
 def extract_same_part(stem, answers):
