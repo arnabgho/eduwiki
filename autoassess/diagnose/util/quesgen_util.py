@@ -18,8 +18,9 @@ def topic_remove_bracket(topic=""):
     return topic
 
 
-def espace_slash(text):
+def escape_slash(text):
     text = text.replace("/", "\/")
+    # text = re.escape(text)
     return text
 
 
@@ -34,7 +35,7 @@ def topic_regex(topic=""):
 
     # Separate linked terms to tokens, like in "Karush–Kuhn–Tucker conditions"
     topic = re.sub(r"[-–_]+", ' ', topic, re.UNICODE)
-    # note '-' is ascii while '–' is not
+    # note '-' is ascii while '–' is not, though they look the same.
 
     topic_tokens = nltk.word_tokenize(topic)
     try:
@@ -57,25 +58,40 @@ def topic_regex(topic=""):
     return topic_reg
 
 
-def extract_verbal_phrase(sentence, topic, verbose=False):
-    nlutil = ProcessUtil()
+def match_noun_phrase(sentence, topic, topic_aliases=None, verbose=True):
+    #TODO:: add aliases
+    return match_key_phrase(
+        sentence, topic, phrase_type='NP', verbose=verbose)
 
-    # print >> sys.stderr, "pre nlutil.parsing()"
-    parsed_sentence = nlutil.parsing(sentence)
+
+def match_verbal_phrase(sentence, topic, verbose=False):
+    return match_key_phrase(
+        sentence, topic, phrase_type='VP', verbose=verbose)
+
+
+def match_key_phrase(sentence, topic, phrase_type='VP', verbose=False):
+    process_util = ProcessUtil()
+
+    # print >> sys.stderr, "pre process_util.parsing()"
+    parsed_sentence = process_util.parsing(sentence)
     if not parsed_sentence:
-        # print >> sys.stderr, "no parsed tree returned for extracting VP."
+        if verbose:
+            print >> sys.stderr, "no parsed tree returned for extracting VP."
         return None, None
 
-    # print >> sys.stderr, "parsed_sentence" + str(parsed_sentence)
+    if verbose:
+        print >> sys.stderr, "parsed_sentence" + str(parsed_sentence)
+
     # matching  certain patterns that are suitable for question generation.
     topic = topic_remove_bracket(topic)
-    topic = espace_slash(topic)
+    topic = escape_slash(topic)
     topic_tokens = nltk.word_tokenize(topic)
-
 
     # or_tokens = [[t, t.lower()] if not t.islower() else [t]
     # for t in topic_tokens]
     # TODO:: add initials like KKT(hard) or GDP(easy)
+
+    # TODO:: add aliases here !!!!!!!!!!!
 
     # to match tokens or their stemmed version
     or_tokens = []
@@ -108,22 +124,36 @@ def extract_verbal_phrase(sentence, topic, verbose=False):
     # topic_words_sequence = '( ' + ' .. '.join(topic_word_nodes) + ' )'
     # ###
     # only root sentence NP considered
-    # topic_NP = '/NP*/ << ' + topic_words_sequence + ' > (S > ROOT)'
+    # topic_np = '/NP*/ << ' + topic_words_sequence + ' > (S > ROOT)'
 
     topic_word_nodes = ['<< i@/' + "|".join(s) + "/" for s in or_tokens]
     topic_words_sequence = ' '.join(topic_word_nodes)
-    # ###
-    # only root sentence NP considered
-    topic_NP = '/NP*/ ' + topic_words_sequence + ' > (S > ROOT)'
+
+    # ####################################################
+    ######### Decide which node do we want here #########
+    #####################################################
+
+    topic_np = '/NP*/ ' + topic_words_sequence
+
+    # only root sentence NP considered for VP extraction
+    root_topic_np = topic_np + ' > (S > ROOT)'
 
     if verbose:
         print "Sentence:", sentence
     # for them to be sisters, should be better than "VP , NP"
-    following_VP = 'VP $,, (' + topic_NP + ')'
+    following_vp = 'VP $,, (' + root_topic_np + ')'
 
-    match_pattern = following_VP
+    if phrase_type == 'NP':
+        match_pattern = topic_np
+    elif phrase_type == 'VP':
+        match_pattern = following_vp
+    else:
+        # default
+        match_pattern = following_vp
 
-    matched_positions = nlutil.tgrep_positions(parsed_sentence, match_pattern)
+    matched_positions = process_util.tgrep_positions(
+        parsed_sentence,
+        match_pattern)
 
     if verbose and not matched_positions:
         print >> sys.stderr, "No matched positions"

@@ -93,7 +93,7 @@ class ProcessUtil:
             # '/opt/stanford-parser/stanford-parser-3.5.2-models.jar')
             # self.parser = nltk.parse.stanford.StanfordParser(
             # model_path="edu/stanford/nlp/models"
-            #                "/lexparser/englishPCFG.ser.gz")
+            # "/lexparser/englishPCFG.ser.gz")
             return self.parser
         except Exception:
             raise Exception
@@ -112,6 +112,11 @@ class ProcessUtil:
         sentences = nltk.sent_tokenize(text)
         return sentences
 
+    def np_trunking(self, text):
+        # chunk noun phrases to improve the performance of parsing
+        blob = textblob.TextBlob(text, np_extractor=self.np_extractor)
+        return blob.noun_phrases
+
     def parsing(self, text, pre_chunk_nps=True, stanford_pos=False):
         """
         :param pre_chunk_nps: this will not "machine learning"
@@ -126,7 +131,7 @@ class ProcessUtil:
                 # chunk noun phrases to improve the performance of parsing
                 blob = textblob.TextBlob(text, np_extractor=self.np_extractor)
                 for np in blob.noun_phrases:
-                    source = set(re.findall('(?i)' + np, text))
+                    source = set(re.findall('(?i)' + re.escape(np), text))
                     for s in source:
                         target = s.replace(" ", "_")
                         text = text.replace(np, target)
@@ -168,26 +173,26 @@ class ProcessUtil:
                     parsed[parent_position][0] = chunked_nps[
                         parsed[leaf_position]]
 
-                # (Deprecated) Trying to recover the parser tree structure
-                # Problematic code:
-                # "an o_d_e" will be (NP (DT an) (NP (JJ o) (JJ d) (NN e)))
-                # which was supposed to be
-                # (NP (DT an) (JJ o) (JJ d) (NN e))
-                # if '_' in parsed[leaf_position]:
-                # word_list = parsed[leaf_position].split("_")
-                # if len(word_list) == 1:
-                # new_node = Tree.fromstring("(NN " + word_list[0] + ")")
-                # parsed[parent_position][0] = new_node
-                # else:
-                # node_str = "(NP "
-                # for idx in range(0, len(word_list) - 1):
-                # node_str += "(JJ " + word_list[idx] + ")"
-                # node_str += "(" + parsed[parent_position].label() + \
-                # " " + word_list[-1] + ")"
-                #         node_str += ")"
-                #         new_node = Tree.fromstring(node_str)
-                #         parsed[parent_position] = new_node
-                #         Tree.insert()
+                    # (Deprecated) Trying to recover the parser tree structure
+                    # Problematic code:
+                    # "an o_d_e" will be (NP (DT an) (NP (JJ o) (JJ d) (NN e)))
+                    # which was supposed to be
+                    # (NP (DT an) (JJ o) (JJ d) (NN e))
+                    # if '_' in parsed[leaf_position]:
+                    # word_list = parsed[leaf_position].split("_")
+                    # if len(word_list) == 1:
+                    # new_node = Tree.fromstring("(NN " + word_list[0] + ")")
+                    # parsed[parent_position][0] = new_node
+                    # else:
+                    # node_str = "(NP "
+                    # for idx in range(0, len(word_list) - 1):
+                    # node_str += "(JJ " + word_list[idx] + ")"
+                    # node_str += "(" + parsed[parent_position].label() + \
+                    # " " + word_list[-1] + ")"
+                    # node_str += ")"
+                    # new_node = Tree.fromstring(node_str)
+                    #         parsed[parent_position] = new_node
+                    #         Tree.insert()
 
         except Exception, err:
             print >> sys.stderr, str(err)

@@ -17,8 +17,14 @@ def load_diagnose_question_set(topic, version, set_type="Prereq"):
 
 
 def load_diagnose_question_set_mentioned(topic, version):
-    questions = [load_question(
-        topic, version=version, qtype=QUESTION_TYPE_WHAT_IS)]
+    questions = []
+    try:
+        questions.append(load_question(
+            topic, version=version, qtype=QUESTION_TYPE_WHAT_IS))
+    except Exception as e:
+        print >> sys.stderr, inspect.stack()[0][3]
+        print >> sys.stderr, e
+
     try:
         question_set = QuestionSet.objects(set_topic=topic, version=version)[0]
         for qt in question_set.related_topics:
@@ -28,7 +34,7 @@ def load_diagnose_question_set_mentioned(topic, version):
             print question
             questions.append(question)
     except Exception as e:
-        print inspect.stack()[0][3]
+        print >> sys.stderr, inspect.stack()[0][3]
         print >> sys.stderr, e
     return questions
 

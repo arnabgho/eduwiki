@@ -24,7 +24,8 @@ def generate_question(prereq_tree, version=None):
     return None
 
 
-def generate_item_question(term, aliases, wikipage, version=None):
+def generate_item_question(
+        term, aliases, wikipage, sentence_blacklist=list(), version=None):
     return item_quesgen_simcat.generate_item_question_simcat(
-        term, aliases, wikipage
+        term, aliases, wikipage, sentence_blacklist=sentence_blacklist
     )

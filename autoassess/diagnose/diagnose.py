@@ -1,5 +1,5 @@
 from prereqsearch import prereq_early_terms
-from prereqsearch.related_concept import most_mentioned_wikilinks
+from prereqsearch.related_concept import related_terms_in_article
 import quesgen_wrapper
 from util.wikipedia_util import WikipediaWrapper
 import sys
@@ -66,22 +66,35 @@ def diagnose_mentioned(search_term, generate_prereq_question=False,
     main_article_wikipage = prereq_tree['wikipage']
     prereq_questions = []
     if generate_prereq_question:
-        candidate_topics, alias = most_mentioned_wikilinks(
-            main_article_wikipage, with_count=False)
+        candidate_topics, alias = related_terms_in_article(
+            main_article_wikipage)
         candidate_topics = candidate_topics[:5]
 
         if verbose:
             print "Candidates for", search_term, ":", candidate_topics
 
+        used_sentences = []
         for candidate in candidate_topics:
             try:
+                # TODO:: decide question type for subtopics
+
                 child_question = quesgen_wrapper.generate_item_question(
                     candidate, alias[candidate],
-                    main_article_wikipage)
+                    main_article_wikipage, used_sentences)
+
+                # descriptive questions
                 # child_question = quesgen_wrapper.generate_question(
                 # {'wikipage': WikipediaWrapper.page(candidate)},
                 # version=version)
+                try:
+                    used_sentences.append(child_question['original_sentence'])
+                    child_question.pop('original_sentence', None)
+                except KeyError:
+                    used_sentences.append(
+                        child_question['question_text'].repalce(
+                            '________', child_question['correct_answer']))
                 prereq_questions.append(child_question)
+
             except ValueError, ve:
                 print >> sys.stderr, ve
                 continue

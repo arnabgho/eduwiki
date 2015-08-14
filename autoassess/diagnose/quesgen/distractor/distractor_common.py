@@ -23,7 +23,7 @@ def distractors_from_single_sentence(sentence, topic, tenses=[]):
     :return: usually there is only one matched positions, thus one distractors,
             in rare cases, there might be multiple distractors
     """
-    parsed_sentence, matched_positions = extract_verbal_phrase(sentence, topic)
+    parsed_sentence, matched_positions = match_verbal_phrase(sentence, topic)
     if matched_positions:
         # distractors = []
         for matched_pos in matched_positions:

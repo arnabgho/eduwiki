@@ -83,7 +83,7 @@ def lex_pagerank(sentences):
 #     # like "Short (finance)", inspect on this a little more.
 #     # Maybe just remove "(*)".
 #
-#     parsed_sentence, matched_positions = extract_verbal_phrase(sentence, topic)
+#     parsed_sentence, matched_positions = match_verbal_phrase(sentence, topic)
 #     # print >> sys.stderr, matched_positions
 #     if matched_positions:
 #         matched_pos = matched_positions[0]

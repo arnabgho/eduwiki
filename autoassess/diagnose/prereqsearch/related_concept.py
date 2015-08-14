@@ -4,7 +4,10 @@ from autoassess.diagnose.util.wikipedia_util import WikipediaWrapper
 from autoassess.diagnose.util.wikipedia_util import page_titles_of_same_category
 from autoassess.diagnose.util.wikipedia_util import filter_wikilink
 from autoassess.diagnose.util.wikipedia_util import count_rank
+
 from autoassess.diagnose.util.quesgen_util import topic_remove_bracket
+from autoassess.diagnose.util.quesgen_util import topic_regex
+
 import re
 import sys
 import operator
@@ -12,9 +15,26 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 
-def related_term_generator(wikipage):
-    return wikipage
+def related_terms_in_article(wikipage):
+    mm_links, alias = most_mentioned_wikilinks(wikipage, with_count=False)
+    related_terms = []
+    for l in mm_links:
+        if len(related_terms) > 5:
+            break
 
+        # to deal with "Markov", "Markov Model"
+
+        # Supposedly remove more broad concept, and add more detailed ones
+        related_terms = [x for x in related_terms if x not in l]
+        to_add_l = True
+        for already_added_link in related_terms:
+            if l in already_added_link:
+                to_add_l = False
+                break
+        if to_add_l:
+            related_terms.append(l)
+
+    return related_terms, alias
 
 # def find_related_terms(wikipage):
 # # find overlapps in wikilinks and same category links
@@ -44,14 +64,24 @@ def most_mentioned_wikilinks(wikipage, with_count=True):
         if l.target not in alias:
             alias[l.target] = set()
 
-        # alias[l.target].add(l.target)
-        alias[l.target].add(topic_remove_bracket(l.target))
         if l.text is not None:
             alias[l.target].add(l.text)
 
+        title_contained_in_alias = False
+        title_form_topic = topic_remove_bracket(l.target)
+        for al in alias[l.target]:
+            if title_form_topic in al:
+                title_contained_in_alias = True
+                break
+        if not title_contained_in_alias:
+            alias[l.target].add(title_form_topic)
+        # "Software agent" will not be added, if "agent" is present,
+        # as a short name covers all.
+
         # add abbreviations to alias
         # the abbreviations should appear in "(xxx)" following the link term
-        to_add_als = []
+        # like "MDP", "GloVe"
+        abbr_als = []
         for al in alias[l.target]:
             abbr_pattern = "" + re.escape(al) + " \(([\w-]+?)\)"  # K-K-T???
 
@@ -61,9 +91,9 @@ def most_mentioned_wikilinks(wikipage, with_count=True):
                 continue
             abbr_match = abbr_matches.group(1)
             if re.search('.*'.join(abbr_match), al, re.IGNORECASE):
-                to_add_als.append(abbr_match)
-                # print >> sys.stderr, abbr_match, l.target
-        for al in to_add_als:
+                abbr_als.append(abbr_match)
+
+        for al in abbr_als:
             alias[l.target].add(al)
 
     # get numbers of mention of each link target and their alias
@@ -71,16 +101,27 @@ def most_mentioned_wikilinks(wikipage, with_count=True):
     for l in alias:
         term_count[l] = 0
         for al in alias[l]:
-            al_pattern = '\W' + re.escape(al)
-            # + '\W'  # "s" for plurals may appear
+            al_pattern = re.escape(al)
+            if len(al) <= 2:
+                al_pattern = '\b' + al_pattern + '\b'
+            # + '\b'  # "s" for plurals may appear
             term_count[l] += len(re.findall(
                 al_pattern, wikipage.content, re.IGNORECASE))
 
-    # TODO::
-    # topics within quotes, meaning bold font, should be treated
-    # as more important than others.
-    # But they are not necessarily wikilinks
-    # generate questions within the article?
+    # when "Markov", "Markov model"show up together
+    # count(Markov) -= count(Markov model)
+    try:
+        for l in alias:
+            for other_l in alias:
+                if other_l == l:
+                    continue
+                if topic_remove_bracket(
+                        other_l).lower() in topic_remove_bracket(l).lower():
+                    term_count[other_l] -= term_count[l]
+    except Exception as e:
+        print >> sys.stderr, e
+    # TODO:: when Markov, Markov model, Hidden Markov model show up together
+
 
     # get high number mention topics
     most_mentioned = sorted(

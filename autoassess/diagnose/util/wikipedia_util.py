@@ -131,11 +131,37 @@ class WikipediaWrapper:
         if type(wikipage) is not WikipediaArticle:
             pass
         else:
-            for section in wikipage.sections:
-                if section.level == 0 or 2 \
-                        and is_content_sections(section.title):
+            for section_idx, section in enumerate(wikipage.sections):
+                # make sure same content will not be visited repeatedly
+                if section_idx != 0:
+                    last_section_level = wikipage.sections[
+                        section_idx - 1].level
+                    if last_section_level < section.level:
+                        continue
+
+                if is_content_sections(section.title):
                     paragraphs = section.contents.split("\n")
-                    for para in paragraphs:
+
+                    former_unfinished_para = ""
+                    for para_idx, para in enumerate(paragraphs):
+                        para = para.strip()
+                        if para == '':
+                            continue
+                        if para.startswith("=="):
+                            continue  # skip this paragraph
+
+                        # if para.endswith(",") or para.endswith(":") or \
+                        # para.endswith(';') or para[-1].isalnum():
+                        # missing equations will cause sentences to be broken
+                        # also lists will be separated.
+                        # TODO:: BTW, how would the list be tokenized?
+                        if not para.endswith("."):
+                            former_unfinished_para += para
+                            continue
+                        else:
+                            para = former_unfinished_para + para
+                            former_unfinished_para = ""
+
                         para_sentences = nlutil.sent_tokenize(para)
                         sentences += para_sentences
                         for sent in para_sentences:
@@ -196,9 +222,12 @@ def filter_wikilink(topic, ignore_cat=False):
 
 
 def is_content_sections(section_name):
+    if section_name == '':  # for the first section
+        return True
+
     section_name = section_name.lower()
     uninformative_sections = [
-        'references', 'see also', 'external links', 'notes']
+        'references', 'see also', 'external links']  # , 'notes']
 
     for us in uninformative_sections:
         if us in section_name or section_name in us:

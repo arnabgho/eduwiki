@@ -4,12 +4,13 @@ from autoassess.diagnose.util.quesgen_util import *
 from autoassess.diagnose.util.NLPU import tense_match
 
 
-def generate_question_stem(wikipage):
+def generate_question_stem(wikipage, verbose=False):
     question_sentences = question_sentence_generator(wikipage)
 
     question_generated = None
 
     # logged_sentences = []
+
     for question_sent in question_sentences:
         try:
             # logged_sentences.append(question_sent)
@@ -18,7 +19,9 @@ def generate_question_stem(wikipage):
                 question_sent, wikipage.title)
             if question_generated['stem'] and question_generated['answer']:
                 break
-        except Exception:
+        except Exception as e:
+            if verbose:
+                print >> sys.stderr, e
             continue
 
     if not question_generated:
@@ -37,25 +40,24 @@ def question_from_single_sentence(sentence, topic):
     # like "Short (finance)", inspect on this a little more.
     # Maybe just remove "(*)".
 
-    parsed_sentence, matched_positions = extract_verbal_phrase(sentence, topic)
-    # print >> sys.stderr, matched_positions
+    parsed_sentence, matched_positions = match_verbal_phrase(sentence, topic)
     if matched_positions:
         matched_pos = matched_positions[0]
-        matched_VP = parsed_sentence[matched_pos]
+        matched_vp = parsed_sentence[matched_pos]
 
-        answer = ProcessUtil.untokenize(matched_VP.leaves())
+        answer = ProcessUtil.untokenize(matched_vp.leaves())
 
-        orginal_verbal_phrase = parsed_sentence[matched_pos]
+        original_vp = parsed_sentence[matched_pos]
         parsed_sentence[matched_pos] = nltk.tree.ParentedTree.fromstring(
             "(VP ________)")
         stem = ProcessUtil.untokenize(parsed_sentence.leaves())
 
-        parsed_sentence[matched_pos] = orginal_verbal_phrase
+        parsed_sentence[matched_pos] = original_vp
 
         answer = ProcessUtil.revert_penntreebank_symbols(answer)
         stem = ProcessUtil.revert_penntreebank_symbols(stem)
 
-        # ######## To match the tenses of the question stem and the distractors
+        # To match the tenses of the question stem and the distractors ########
         tenses = tense_match.find_sentence_tenses(parsed_sentence, matched_pos)
     else:
         answer = None
