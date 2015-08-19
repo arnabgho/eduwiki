@@ -21,7 +21,7 @@ def item_distractor_generator(topic, exact_alias):
             distractor = distractor.capitalize()
         else:
             # by default the phrases will not be capitalized
-            distractor[0] = distractor[0].lower()
+            distractor = distractor[0].lower() + distractor[1:]
 
         # noun_form = "singular" or "plural"
         noun_form = get_noun_form(exact_alias)

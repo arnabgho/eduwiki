@@ -1,7 +1,7 @@
 __author__ = 'moonkey'
 
 
-# ########################################
+#########################################
 ##########    LIST         ##############
 #########################################
 # regular expression matching to generation questions and distractors
@@ -30,12 +30,13 @@ SET_MENTIONED = "Mentioned"
 ##########    SETTINGS     ##############
 #########################################
 #########################################
-CURRENT_QUESTION_VERSION = SKIPTHOUGHT_SIM_DISTRACTOR
+CURRENT_QUESTION_VERSION = WORD2VEC_CATEGORICAL_DISTRACTOR
 CURRENT_QUESTION_SET = SET_MENTIONED
+WITH_PREREQ = True
 
 #################
-DIAGNOSE_QUESTION_VERSION = WORD2VEC_CATEGORICAL_DISTRACTOR # CURRENT_QUESTION_VERSION  # None
-MTURK_QUESTION_VERSION = CURRENT_QUESTION_VERSION  # None
+DIAGNOSE_QUESTION_VERSION = CURRENT_QUESTION_VERSION
+MTURK_QUESTION_VERSION = CURRENT_QUESTION_VERSION
 
 print "Current Question Version:", CURRENT_QUESTION_VERSION
 

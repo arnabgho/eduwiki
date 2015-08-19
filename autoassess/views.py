@@ -41,16 +41,13 @@ def quiz(request):
     force_generating_new = False
     if 'f' in request_data and bool(request_data['f']):
         force_generating_new = True
-    generate_prereq_question = False
-    if 'pre' in request_data and bool(request_data['pre']):
-        generate_prereq_question = True
 
-    version = DIAGNOSE_QUESTION_VERSION
-    if 'v' in request_data:
-        if request_data['v'] == 'c':
-            version = CURRENT_QUESTION_VERSION
-        else:
-            version = float(request_data['v'])
+    generate_prereq_question = WITH_PREREQ
+    if 'pre' in request_data:
+        if request_data['pre'].lower() == 't':
+            generate_prereq_question = True
+        elif request_data['pre'].lower() == 'f':
+            generate_prereq_question = False
 
     set_type = CURRENT_QUESTION_SET
     if 's' in request_data:
@@ -58,6 +55,13 @@ def quiz(request):
             set_type = SET_MENTIONED
         if request_data['s'].lower() == 'p':
             set_type = SET_PREREQ
+
+    version = DIAGNOSE_QUESTION_VERSION
+    if 'v' in request_data:
+        if request_data['v'] == 'c':
+            version = CURRENT_QUESTION_VERSION
+        else:
+            version = float(request_data['v'])
 
     try:
         questions = None

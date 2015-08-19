@@ -3,6 +3,7 @@ __author__ = 'moonkey'
 import requests
 import codecs
 
+
 def visit_eduwiki_link(version, local=True,
                        topic_max=200, start=0,
                        filename="../../../random/topics/topic.txt"):
@@ -99,6 +100,6 @@ if __name__ == "__main__":
     #     start=0, topic_max=50,
     #     filename="../mturk_tool/experiment_data/experiment_topics.txt")
     print_eduwiki_links(
-        version=0.23, local=True,
+        version=0.22, local=True,
         start=0, topic_max=50,
         filename="../mturk_tool/experiment_data/experiment_topics.txt")
