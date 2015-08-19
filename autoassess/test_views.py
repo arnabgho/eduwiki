@@ -140,6 +140,27 @@ def multiple_questions_submit(request):
                         content_type="application/json")
 
 
+@xframe_options_exempt
+def multiple_questions_single_update(request):
+    request_data = {}
+    if request.method == 'GET':
+        request_data = request.GET.dict()
+    elif request.method == 'POST':
+        request_data = request.POST.dict()
+    response_data = {}
+
+    # This is not used here for now
+    main_topic = request_data.pop('main_topic')
+
+    request_data.pop("csrfmiddlewaretoken", None)
+
+    answer_db.save_or_update_question_answer(request_data)
+
+    # return HttpResponse(result.text)
+    return HttpResponse(json.dumps(response_data),
+                        content_type="application/json")
+
+
 def multiple_questions(request):
     """
 

@@ -25,6 +25,7 @@
 
 <form role="form" action="{{ turkSubmitTo }}/mturk/externalSubmit" method="post"
       eduwiki_action="{% url 'multiple_questions_submit' %}"
+      eduwiki_update_action="{% url 'multiple_questions_single_update' %}"
       name="question_answer_form" id="question_answer_form">
 {#        <form role="form" action="{% url 'single_question_submit' %}" method="get">#}
 <div class="text-center">
@@ -119,6 +120,6 @@
 
 <script src="{% static 'autoassess/js/time_management.js' %}"></script>
 <script src="{% static 'autoassess/js/multiple_questions_submit.js' %}"></script>
-
+<script src="{% static 'autoassess/js/update_answer.js' %}"></script>
 </body>
 </html>

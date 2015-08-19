@@ -129,7 +129,7 @@ class QuizAnswers(Document):
 
     # user identification
     workerId = StringField(required=True)
-    assignmentId = StringField(required=True, unique=True)
+    assignmentId = StringField(required=True, unique_with=['workerId'])
 
     # note this may contain multiple answers for each question
     # if the question answer has been modified

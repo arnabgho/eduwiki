@@ -22,6 +22,8 @@ urlpatterns = patterns(
         name='multiple_questions'),
     url(r'^multiple_questions_submit$', test_views.multiple_questions_submit,
         name='multiple_questions_submit'),
+    url(r'^multiple_questions_single_update$', test_views.multiple_questions_single_update,
+        name='multiple_questions_single_update'),
 )
 
 if settings.DEBUG:
