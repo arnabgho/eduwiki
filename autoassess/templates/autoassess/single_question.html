@@ -24,9 +24,9 @@
 <h2 class="text-info text-center">{{ search_term }}</h2>
 
 <form role="form" action="{{ turkSubmitTo }}/mturk/externalSubmit" method="post"
-      eduwiki_action="{% url 'question_submit' %}"
+      eduwiki_action="{% url 'single_question_submit' %}"
       name="question_answer_form" id="question_answer_form">
-{#        <form role="form" action="{% url 'question_submit' %}" method="get">#}
+{#        <form role="form" action="{% url 'single_question_submit' %}" method="get">#}
 <div class="text-center">
     {% if assignmentId %}
         {% ifequal assignmentId "ASSIGNMENT_ID_NOT_AVAILABLE" %}
@@ -245,7 +245,8 @@
 <script src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'autoassess/js/star-rating.min.js' %}"></script>
-<script src="{% static 'autoassess/js/question_submit.js' %}"></script>
+<script src="{% static 'autoassess/js/time_management.js' %}"></script>
+<script src="{% static 'autoassess/js/single_question_submit.js' %}"></script>
 <script src="{% static 'autoassess/js/rating_setting.js' %}"></script>
 <script src="{% static 'autoassess/js/different_stage.js' %}"></script>
 </body>

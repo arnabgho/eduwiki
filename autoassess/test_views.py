@@ -11,6 +11,7 @@ import answer_db
 
 from diagnose.version_list import *
 
+
 @xframe_options_exempt
 def single_question(request):
     """
@@ -31,7 +32,7 @@ def single_question(request):
 
     response_data = {}
 
-    ####### read data from request
+    # ###### read data from request
     if 'q' not in request_data or not request_data['q']:
         raise Http404
     search_term = request_data['q']
@@ -98,7 +99,7 @@ def single_question(request):
 
 
 @xframe_options_exempt
-def question_submit(request):
+def single_question_submit(request):
     request_data = {}
     if request.method == 'GET':
         request_data = request.GET.dict()
@@ -114,4 +115,122 @@ def question_submit(request):
     answer_db.save_answer(request_data)
 
     # return HttpResponse(result.text)
-    return HttpResponse(json.dumps(response_data), content_type="application/json")
+    return HttpResponse(
+        json.dumps(response_data), content_type="application/json")
+
+
+@xframe_options_exempt
+def multiple_questions_submit(request):
+    request_data = {}
+    if request.method == 'GET':
+        request_data = request.GET.dict()
+    elif request.method == 'POST':
+        request_data = request.POST.dict()
+    response_data = {}
+
+    # This is not used here for now
+    main_topic = request_data.pop('main_topic')
+
+    request_data.pop("csrfmiddlewaretoken", None)
+
+    answer_db.save_answers(request_data)
+
+    # return HttpResponse(result.text)
+    return HttpResponse(json.dumps(response_data),
+                        content_type="application/json")
+
+
+def multiple_questions(request):
+    """
+
+    :param request:
+    :return:
+    """
+    request_data = {}
+    if request.method == 'GET':
+        request_data = request.GET
+    elif request.method == 'POST':
+        request_data = request.POST
+
+    response_data = {}
+
+    # ###### read data from request
+    if 'q' not in request_data or not request_data['q']:
+        raise Http404
+    search_term = request_data['q']
+
+    version = MTURK_QUESTION_VERSION
+    if 'v' in request_data:
+        if request_data['v'] == 'c':
+            version = CURRENT_QUESTION_VERSION
+        else:
+            version = float(request_data['v'])
+
+    set_type = CURRENT_QUESTION_SET
+    if 's' in request_data:
+        if request_data['s'].lower() == 'm':
+            set_type = SET_MENTIONED
+        if request_data['s'].lower() == 'p':
+            set_type = SET_PREREQ
+
+    if 'assignmentId' not in request_data:
+        # user visiting mode not from mturk
+        response_data['assignmentId'] = None
+        response_data['hitId'] = None
+    else:
+        assignmentId = request_data['assignmentId'].strip(" ")
+        hitId = request_data['hitId']
+
+        if "ASSIGNMENT_ID_NOT_AVAILABLE" == assignmentId:
+            # preview mode
+            response_data['assignmentId'] = assignmentId
+            response_data['hitId'] = hitId
+        else:
+            # question form mode
+            workerId = request_data['workerId']
+            turkSubmitTo = request_data['turkSubmitTo']
+
+            response_data['assignmentId'] = assignmentId
+            response_data['hitId'] = hitId
+            response_data['workerId'] = workerId
+            response_data['turkSubmitTo'] = turkSubmitTo
+    ############################
+
+    try:
+        try:
+            # the search term may not corresponds to a wikipedia entry
+            #TODO:: change this to google site search with the title in it
+            try:
+                quiz_topic = WikipediaWrapper.page(search_term).title
+            except Exception as e:
+                # if connecting to wikipedia server fails
+                quiz_topic = search_term
+            questions, quiz_id = load_diagnose_question_set(
+                quiz_topic, version=version, set_type=set_type,
+                with_meta_info=True)
+
+            response_data['quiz_id'] = quiz_id
+
+        except IndexError as e:
+            # this is the error it will raise if no questions is founded
+            # if there is not questions for this topic in the database
+            # then generate and save
+            questions = diagnose.diagnose(
+                search_term,
+                generate_prereq_question=False,
+                num_prereq=3,
+                version=version,
+                set_type=set_type)
+            save_diagnose_question_set(
+                questions,
+                version=version,
+                force=True,
+                set_type=set_type)
+    except DisambiguationError as dis:
+        raise dis
+
+    response_data['quiz'] = questions
+    response_data['search_term'] = search_term
+
+
+    return render(request, 'autoassess/multiple_questions.html', response_data)

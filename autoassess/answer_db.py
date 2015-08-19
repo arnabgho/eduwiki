@@ -29,14 +29,17 @@ def save_answer(ans_data):
     workerId = ans_data.pop('workerId')
     turkSubmitTo = ans_data.pop('turkSubmitTo')
 
+    # ######## FOR THE WHOLE QUIZ
     topic_confidence = ans_data.pop('topic_confidence', -1)
-    question_confidence = ans_data.pop('question_confidence', -1)
+    topic_confidence_time_delta = ans_data.pop(
+        'topic_confidence_time_delta', -1)
     comment = ans_data.pop('comment', "")
-    comment_guess = ans_data.pop('comment_guess', "")
-
-    topic_confidence_time_delta = ans_data.pop('topic_confidence_time_delta',
-                                               -1)
     submit_time_delta = ans_data.pop('submit_time_delta', -1)
+
+
+    # #### question specific
+    question_confidence = ans_data.pop('question_confidence', -1)
+    comment_guess = ans_data.pop('comment_guess', "")
 
     is_reasonable_question = ans_data.pop('is_reasonable_question', None)
     if is_reasonable_question == 'True':
@@ -62,8 +65,7 @@ def save_answer(ans_data):
     if len(ans_data_keys) != 1:
         raise ValueError("The form has redudant data that are not allowed.")
 
-    question_id = str(ans_data_keys[0].lstrip('question_answer_'))
-
+    question_id = ans_data_keys[0][len('question_answer_'):]
     wiki_question = WikiQuestion.objects(id=question_id)[0]
 
     old_ans_retrieval = WikiQuestionAnswer.objects(assignmentId=assignmentId)
@@ -130,5 +132,121 @@ def save_answer(ans_data):
             print str(e)
             raise e
     return True
+
+
+def save_answers(ans_data):
+    if not ans_data:
+        return
+
+    # ##### Extract fields
+    hitId = ans_data.pop('hitId')
+    assignmentId = ans_data.pop('assignmentId')
+    workerId = ans_data.pop('workerId')
+    turkSubmitTo = ans_data.pop('turkSubmitTo')
+
+
+    # ######## FOR THE WHOLE QUIZ
+    # topic_confidence = ans_data.pop('topic_confidence', -1)
+    # topic_confidence_time_delta = ans_data.pop(
+    #     'topic_confidence_time_delta', -1)
+    comment = ans_data.pop('comment', "")
+    submit_time_delta = ans_data.pop('submit_time_delta', -1)
+
+    # TODO:: check validity
+    quiz_id = ans_data.pop('quiz_id', '')
+    # just use the submit_time_delta??
+    # quiz_time_delta = ans_data.pop('quiz_time_delta', 0)
+    # is the order reflected in the form element order??
+    # question_order = ans_data.pop('question_order', None)
+
+    quiz = QuestionSet.objects(id=quiz_id)[0]
+
+    quiz_answers = QuizAnswers(
+        quiz=quiz,
+        workerId=workerId,
+        assignmentId=assignmentId,
+
+        quiz_submit_time=datetime.datetime.now(),
+        quiz_time_delta=int(submit_time_delta),
+        comment=comment
+    )
+    quiz_final_answers = []
+
+    # ## All the left keys are question specific keys
+    ans_data_keys = ans_data.keys()
+
+    # ## get all the questions ids that are with an answer
+    question_ids = [k[len("question_answer_"):] for k in ans_data_keys if
+                    k.startswith("question_answer_")]
+
+    for question_id in question_ids:
+
+        wiki_question = WikiQuestion.objects(id=question_id)[0]
+
+        # # in fact all the question answers should be able to be retrieved
+        old_ans_retrieval = WikiQuestionAnswer.objects(
+            question=wiki_question,
+            assignmentId=assignmentId,
+            workerId=workerId,
+            answer=int(ans_data['question_answer_' + question_id]),
+        )
+
+        if old_ans_retrieval:
+            wiki_ans = old_ans_retrieval[0]
+        else:
+            wiki_ans = WikiQuestionAnswer(
+                question=wiki_question,
+                topic=wiki_question.topic,
+                time=datetime.datetime.now(),
+
+                answer=int(ans_data['question_answer_' + question_id]),
+                correctness=check_answer_correctness(
+                    question_id, ans_data['question_answer_' + question_id]),
+
+                hitId=hitId,
+                assignmentId=assignmentId,
+                workerId=workerId,
+                turkSubmitTo=turkSubmitTo,
+
+                submit_time_delta=int(submit_time_delta),
+
+            )
+
+            wiki_ans.save()
+            # ##  SKIP for now: get other attributes for each question,
+            # like confidence, time
+        quiz_final_answers.append(wiki_ans)
+
+    quiz_answers['quiz_final_answers'] = quiz_final_answers
+
+    #TODO:: question_order
+
+    quiz_answers.save()
+
+    return True
+
+
+def save_or_update_question_answer():
+    #TODO:: quiz_answer_procedure
+    pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

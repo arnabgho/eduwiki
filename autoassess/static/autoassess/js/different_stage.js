@@ -2,12 +2,9 @@
  * Created by moonkey on 6/19/15.
  */
 
-var start_time = new Date();
 var topic_confidence_time = new Date();
 
 $(document).ready(function () {
-    start_time = Date.now();
-
     var topic_confidence_bar = $('#topic_confidence');
     var topic_cofidence_region = $('#topic_confidence_region');
     var after_topic_confidence = $('#after_topic_confidence');

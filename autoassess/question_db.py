@@ -9,14 +9,16 @@ import inspect
 QUESTION_SET_TYPE = ("Prereq", "Mentioned", "Related")
 
 
-def load_diagnose_question_set(topic, version, set_type="Prereq"):
+def load_diagnose_question_set(
+        topic, version, set_type="Prereq", with_meta_info=False):
     if set_type == "Prereq":
         return load_diagnose_question_set_prereqs(topic, version)
     elif set_type == "Mentioned":
-        return load_diagnose_question_set_mentioned(topic, version)
+        return load_diagnose_question_set_mentioned(
+            topic, version, with_meta_info=with_meta_info)
 
 
-def load_diagnose_question_set_mentioned(topic, version):
+def load_diagnose_question_set_mentioned(topic, version, with_meta_info=False):
     questions = []
     try:
         questions.append(load_question(
@@ -27,16 +29,22 @@ def load_diagnose_question_set_mentioned(topic, version):
 
     try:
         question_set = QuestionSet.objects(set_topic=topic, version=version)[0]
+
+        question_set_id = question_set.id
+
         for qt in question_set.related_topics:
             question = load_question(
                 topic=qt, version=version,
                 quiz_topic=topic, qtype=QUESTION_TYPE_MENTIONED_ITEM)
             print question
             questions.append(question)
+        if not with_meta_info:
+            return questions
+        else:
+            return questions, question_set_id
     except Exception as e:
         print >> sys.stderr, inspect.stack()[0][3]
         print >> sys.stderr, e
-    return questions
 
 
 def load_diagnose_question_set_prereqs(topic, version):
@@ -78,28 +86,27 @@ def save_diagnose_question_set_mentioned(questions, version, force=False):
     topics = [q['topic'] for q in questions]
     # Warning: !!! the first topic is the main_topic
     main_topic = topics[0]
+    tosave_q_set = None
     if len(topics) > 1:
         appended_topics = topics
         if main_topic in appended_topics:
             appended_topics.remove(main_topic)
         mentioned_topics = appended_topics
-
         old_q_set = QuestionSet.objects.filter(
             set_topic=main_topic, version=version)
-        if old_q_set:
-            if not force:
-                return False
+        if old_q_set and force:
             tosave_q_set = old_q_set[0]
         else:
             tosave_q_set = QuestionSet(set_topic=main_topic, version=version)
 
-        tosave_q_set.related_topics = mentioned_topics
-        # ListField([StringField(p) for p in prereqs])
-        tosave_q_set.save()
+        if tosave_q_set:
+            tosave_q_set.related_topics = mentioned_topics
+            tosave_q_set.save()
 
     for q in questions:
         save_question(q, version=version, force=force, quiz_topic=main_topic)
-    return True
+
+    return tosave_q_set
 
 
 def save_diagnose_question_set_prereqs(questions, version, force=False):

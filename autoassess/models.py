@@ -54,20 +54,6 @@ class Prereq(Document):
         return unicode(self.__str__())
 
 
-class QuestionSet(Document):
-    set_topic = StringField(required=True)
-    related_topics = ListField(StringField())
-    questions = ListField(ReferenceField(WikiQuestion))
-
-    version = FloatField()
-
-    def __str__(self):
-        return str(self.set_topic) + ":" + str(self.related_topics)
-
-    def __unicode__(self):
-        return unicode(self.__str__())
-
-
 class WikiQuestionAnswer(Document):
     """
     to record mturk answers
@@ -88,7 +74,8 @@ class WikiQuestionAnswer(Document):
     # This is not needed for the mturk test. You are not going to
     # have a lot of users off mturk anyway
     workerId = StringField(required=True)
-    assignmentId = StringField(required=True, unique=True)
+    assignmentId = StringField(required=True)
+    # assignmentId: unique=True. does not hold for quizzes situation
     hitId = StringField()
     turkSubmitTo = StringField()
 
@@ -111,3 +98,46 @@ class WikiQuestionAnswer(Document):
 
     def __unicode__(self):
         return unicode(self.__str__())
+
+
+class QuestionSet(Document):
+    set_topic = StringField(required=True)
+
+    # for automatically generated question  sets
+    related_topics = ListField(StringField())
+
+    # for questions that are composed into one quiz
+    questions = ListField(ReferenceField(WikiQuestion))
+
+    version = FloatField()
+
+    def __str__(self):
+        return str(self.set_topic) + ":" + str(self.related_topics)
+
+    def __unicode__(self):
+        return unicode(self.__str__())
+
+
+class QuizAnswers(Document):
+    """
+    Record a list of answers for a quiz (question set)
+    """
+    quiz = ReferenceField(QuestionSet, required=True)
+    # in case the question order differs from person to person,
+    # it will be recorded here
+    question_order = ListField(ReferenceField(WikiQuestion))
+
+    # user identification
+    workerId = StringField(required=True)
+    assignmentId = StringField(required=True, unique=True)
+
+    # note this may contain multiple answers for each question
+    # if the question answer has been modified
+    quiz_answer_procedure = ListField(ReferenceField(WikiQuestionAnswer))
+    quiz_final_answers = ListField(ReferenceField(WikiQuestionAnswer))
+
+    quiz_submit_time = DateTimeField()
+    # time delta in milliseconds
+    quiz_time_delta = IntField()
+
+    comment = StringField()  # For additional information
