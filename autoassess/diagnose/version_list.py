@@ -23,7 +23,7 @@ SKIPTHOUGHT_SIM_DISTRACTOR = 0.23
 ########################################
 SET_PREREQ = "Prereq"
 SET_MENTIONED = "Mentioned"
-
+SET_SELF_DEFINED = "Self-defined"
 
 #########################################
 #########################################
