@@ -12,107 +12,131 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'main.css' %}" rel="stylesheet">
-    <link href="{% static 'autoassess/css/star-rating.min.css' %}" media="all" rel="stylesheet" type="text/css">
+    <link href="{% static 'autoassess/css/star-rating.min.css' %}" media="all"
+          rel="stylesheet" type="text/css">
 </head>
 <body>
 
 <div class="row">
-{#            <h2>&nbsp;&nbsp;&nbsp;&nbsp;The prerequisites are:</h2>#}
-{#            <br>#}
+    {#            <h2>&nbsp;&nbsp;&nbsp;&nbsp;The prerequisites are:</h2>#}
+    {#            <br>#}
 
-<div class="col-sm-10 col-sm-offset-1">
-<h2 class="text-info text-center">{{ search_term }}</h2>
+    <div class="col-sm-10 col-sm-offset-1">
+        <h2 class="text-info text-center">{{ search_term }}</h2>
 
-<form role="form" action="{{ turkSubmitTo }}/mturk/externalSubmit" method="post"
-      eduwiki_action="{% url 'multiple_questions_submit' %}"
-      eduwiki_update_action="{% url 'multiple_questions_single_update' %}"
-      name="question_answer_form" id="question_answer_form">
-{#        <form role="form" action="{% url 'single_question_submit' %}" method="get">#}
-<div class="text-center">
-    {% if assignmentId %}
-        {% ifequal assignmentId "ASSIGNMENT_ID_NOT_AVAILABLE" %}
-            <div class="btn btn-primary">
-                <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
-                Preview Mode
+        <form role="form" action="{{ turkSubmitTo }}/mturk/externalSubmit"
+              method="post"
+              eduwiki_action="{% url 'multiple_questions_submit' %}"
+              eduwiki_update_action="{% url 'multiple_questions_single_update' %}"
+              name="question_answer_form" id="question_answer_form">
+            {#        <form role="form" action="{% url 'single_question_submit' %}" method="get">#}
+            <div class="text-center">
+                {% if assignmentId %}
+                    {% ifequal assignmentId "ASSIGNMENT_ID_NOT_AVAILABLE" %}
+                        <div class="btn btn-primary">
+                            <span class="glyphicon glyphicon-file"
+                                  aria-hidden="true"></span>
+                            Preview Mode
+                        </div>
+                    {% else %}
+                        <div class="btn btn-primary">
+                            <span class="glyphicon glyphicon-user"
+                                  aria-hidden="true"></span>
+                            Your Worker Id = {{ workerId }}
+                        </div>
+                    {% endifequal %}
+                {% endif %}
             </div>
-        {% else %}
-            <div class="btn btn-primary">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                Your Worker Id = {{ workerId }}
+
+            {% csrf_token %}
+            {#        Meta Information about the HIT #}
+            <input name="assignmentId" value="{{ assignmentId }}"
+                   hidden="hidden">
+            <input name="hitId" value="{{ hitId }}" hidden="hidden">
+            <input name="workerId" value="{{ workerId }}" hidden="hidden">
+            <input name="turkSubmitTo" value="{{ turkSubmitTo }}"
+                   hidden="hidden">
+            <input name="main_topic" value="{{ search_term }}" hidden="hidden">
+            <input name="quiz_id" value="{{ quiz_id }}" hidden="hidden">
+
+            {#       Information to show before the user select topic confidence #}
+            <div id="pre_topic_confidence"
+                 class="alert alert-info alert-dismissable">
+                <b>Please choose the knowledge level carefully.
+                    Knowledge of the topic is not at all required. It's fine
+                    (and even preferred) if you do not know
+                    anything about the possibly unusual topic. </b>
+                <br>
+                The rest of the form (including the submit button) will show up
+                after you select your "Topic
+                Knowledge Level".
+                {#                Note the topic confidence is not changeable after your selection.#}
             </div>
-        {% endifequal %}
-    {% endif %}
-</div>
 
-{% csrf_token %}
-{#        Meta Information about the HIT #}
-<input name="assignmentId" value="{{ assignmentId }}" hidden="hidden">
-<input name="hitId" value="{{ hitId }}" hidden="hidden">
-<input name="workerId" value="{{ workerId }}" hidden="hidden">
-<input name="turkSubmitTo" value="{{ turkSubmitTo }}" hidden="hidden">
-<input name="main_topic" value="{{ search_term }}" hidden="hidden">
-<input name="quiz_id" value="{{ quiz_id }}" hidden="hidden">
+            {#        Questions for the HIT #}
 
-{#       Information to show before the user select topic confidence #}
-<div id="pre_topic_confidence" class="alert alert-info alert-dismissable">
-    <b>Please choose the knowledge level carefully.
-        Knowledge of the topic is not at all required. It's fine (and even preferred) if you do not know
-        anything about the possibly unusual topic. </b>
-    <br>
-    The rest of the form (including the submit button) will show up after you select your "Topic
-    Knowledge Level".
-    {#                Note the topic confidence is not changeable after your selection.#}
-</div>
-
-{#        Questions for the HIT #}
-
-<div id="after_topic_confidence">
-{#    hidden="hidden">#}
-    <div class="h3"><b><span class="text-warning">Choose the most proper answer(s) for the following question(s).</span></b>
-    </div>
-    {% for question in quiz %}
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4>{{ question.question_text }}
-                </h4>
-            </div>
-            <table class="table">
-                {% for answer in question.choices %}
-                    <tr>
-                        <td/>
-                        {# <input type="radio" name="{{ question.topic }}" value="{{ answer.correct }}"> #}
-                        <input type="radio" name="question_answer_{{ question.id }}" value="{{ answer.idx }}"
-                               required="required">
-                        <td><span class="text-success"><b>({{ forloop.counter }}) </b></span>{{ answer.text }}</td>
-                    </tr>
+            <div id="after_topic_confidence">
+                {#    hidden="hidden">#}
+                <div class="h3"><b><span class="text-warning">Choose the most proper answer(s) for the following question(s).</span></b>
+                </div>
+                {% for question in quiz %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4>{{ question.question_text }}
+                            </h4>
+                        </div>
+                        <table class="table">
+                            {% for answer in question.choices %}
+                                <tr>
+                                    <td/>
+                                    {# <input type="radio" name="{{ question.topic }}" value="{{ answer.correct }}"> #}
+                                    <input type="radio"
+                                           name="question_answer_{{ question.id }}"
+                                           value="{{ answer.idx }}"
+                                           required="required">
+                                    <td><span
+                                            class="text-success"><b>({{ forloop.counter }}) </b></span>{{ answer.text }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
                 {% endfor %}
-            </table>
-        </div>
-    {% endfor %}
 
 
 
-    <div class="form-group">
-        <label for="comment">
-            <span class="text-warning">Additional Comments</span> [Optional] </label>
-        <input type="text" class="form-control" id="comment" name="comment"
-               placeholder="Anything wrong with the questions? How can we improve the question quality? How can we improve this HIT?">
+                <div class="form-group">
+                    <label for="comment">
+                        <span class="text-warning">Additional Comments</span>
+                        [Optional] </label>
+                    <input type="text" class="form-control" id="comment"
+                           name="comment"
+                           placeholder="Anything wrong with the questions? How can we improve the question quality? How can we improve this HIT?">
+                </div>
+
+                <div class="col-md-6 col-md-offset-3">
+                    <button type="submit"
+                            class="btn btn-lg btn-block btn-primary"
+                            id="submit_answer" name="submit_answer">
+                        Submit Answer
+                    </button>
+                </div>
+            </div>
+        </form>
     </div>
-
-    <div class="col-md-6 col-md-offset-3">
-        <button type="submit" class="btn btn-lg btn-block btn-primary" id="submit_answer" name="submit_answer">
-            Submit Answer
-        </button>
-    </div>
-</div>
-</form>
-</div>
 </div>
 
 <div id="error_info">
 
 </div>
 
+<script>
+    var question_order = [
+        {% for question in quiz %}
+            "{{  question.id }}",
+        {% endfor %}];
+
+</script>
 
 <script src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>

@@ -22,6 +22,7 @@ $(document).ready(function () {
             form_dict[form_data[i].name] = form_data[i].value;
         }
 
+        form_dict['question_order'] = JSON.stringify(question_order);
         form_dict['submit_time_delta'] = (submit_time - start_time).toString();
 //        form_dict['topic_confidence_time_delta'] = (topic_confidence_time - start_time).toString();
 

@@ -4,7 +4,8 @@ __author__ = 'moonkey'
 
 from models import *
 import datetime
-
+import sys
+import ast
 
 def check_answer_correctness(question_id, ans):
     try:
@@ -157,7 +158,8 @@ def save_answers(ans_data):
     # just use the submit_time_delta??
     # quiz_time_delta = ans_data.pop('quiz_time_delta', 0)
     # is the order reflected in the form element order??
-    # question_order = ans_data.pop('question_order', None)
+    question_order = ast.literal_eval(ans_data.pop('question_order', '[]'))
+    question_order = [WikiQuestion.objects(id=q)[0] for q in question_order]
 
     quiz = QuestionSet.objects(id=quiz_id)[0]
 
@@ -172,6 +174,9 @@ def save_answers(ans_data):
         quiz_answers.comment = comment
         quiz_answers.quiz_submit_time = datetime.datetime.now()
         quiz_answers.quiz_time_delta = int(submit_time_delta)
+        if question_order and question_order != quiz_answers['question_order']:
+            print >> sys.stderr, "question order does not match"
+            quiz_answers['question_order'] = question_order
     else:
         quiz_answers = QuizAnswers(
             quiz=quiz,
@@ -180,7 +185,9 @@ def save_answers(ans_data):
 
             quiz_submit_time=datetime.datetime.now(),
             quiz_time_delta=int(submit_time_delta),
-            comment=comment
+            comment=comment,
+
+            question_order=question_order,
         )
     quiz_final_answers = []
 
@@ -205,7 +212,7 @@ def save_answers(ans_data):
 
         wiki_ans = None
         if old_ans_retrieval:
-            last_old_ans = old_ans_retrieval[len(old_ans_retrieval)-1]
+            last_old_ans = old_ans_retrieval[len(old_ans_retrieval) - 1]
             if last_old_ans['answer'] == int(
                     ans_data['question_answer_' + question_id]):
                 wiki_ans = last_old_ans
@@ -259,6 +266,9 @@ def save_or_update_question_answer(ans_data):
     comment = ans_data.pop('comment', "")
     submit_time_delta = ans_data.pop('submit_time_delta', -1)
 
+    question_order = ast.literal_eval(ans_data.pop('question_order', '[]'))
+    question_order = [WikiQuestion.objects(id=q)[0] for q in question_order]
+
     # TODO:: check validity
     quiz_id = ans_data.pop('quiz_id', '')
     # just use the submit_time_delta??
@@ -277,13 +287,16 @@ def save_or_update_question_answer(ans_data):
     if old_quiz_answers_retrieval:
         quiz_answers = old_quiz_answers_retrieval[0]
         quiz_answers['comment'] = comment
+        if question_order:
+            quiz_answers['question_order'] = question_order
     else:
         quiz_answers = QuizAnswers(
             quiz=quiz,
             workerId=workerId,
             assignmentId=assignmentId,
             comment=comment,
-            quiz_answer_procedure=[]
+            quiz_answer_procedure=[],
+            question_order=question_order
         )
 
     # ## get the questions id that are specified to update
@@ -304,7 +317,7 @@ def save_or_update_question_answer(ans_data):
 
         wiki_ans = None
         if old_ans_retrieval:
-            last_old_ans = old_ans_retrieval[len(old_ans_retrieval)-1]
+            last_old_ans = old_ans_retrieval[len(old_ans_retrieval) - 1]
             if last_old_ans['answer'] == int(
                     ans_data['question_answer_' + question_id]):
                 wiki_ans = last_old_ans
@@ -337,24 +350,3 @@ def save_or_update_question_answer(ans_data):
     quiz_answers.save()
 
     return True
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

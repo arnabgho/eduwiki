@@ -9,11 +9,19 @@ $(document).ready(function () {
 
     var last_submit_time = start_time;
 
+    var no_question_order = true;
+
     all_radio_inputs.change(function () {
         var form_data = question_answer_form.serializeArray();
         var form_dict = {};
         for (var i = 0; i < form_data.length; i++) {
             form_dict[form_data[i].name] = form_data[i].value;
+        }
+
+        // The first time of submitting, the question order should be recorded
+
+        if (no_question_order) {
+            form_dict['question_order'] = JSON.stringify(question_order);
         }
 
         // identifier for the question to update
@@ -34,6 +42,7 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (response) {
                 // Nothing needs to be done for the intermediate results
+                no_question_order = false;
             },
             error: function (xhr) {
                 alert(
@@ -42,9 +51,5 @@ $(document).ready(function () {
                 $('#error_info').html(xhr.responseText);
             }
         });
-
-
     });
-
-
 });

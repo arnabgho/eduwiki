@@ -253,5 +253,6 @@ def multiple_questions(request):
     response_data['quiz'] = questions
     response_data['search_term'] = search_term
 
+    response_data['question_order'] = [str(q['id']) for q in questions]
 
     return render(request, 'autoassess/multiple_questions.html', response_data)
