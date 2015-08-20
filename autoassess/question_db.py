@@ -10,22 +10,31 @@ QUESTION_SET_TYPE = ("Prereq", "Mentioned", "Related")
 
 
 def load_diagnose_question_set(
-        topic, version, set_type="Prereq", with_meta_info=False):
+        topic, version, set_type="Prereq",
+        with_meta_info=False,
+        topical_first_question=True):
     if set_type == "Prereq":
         return load_diagnose_question_set_prereqs(topic, version)
     elif set_type == "Mentioned":
         return load_diagnose_question_set_mentioned(
-            topic, version, with_meta_info=with_meta_info)
+            topic, version,
+            with_meta_info=with_meta_info,
+            topical_first_question=topical_first_question)
 
 
-def load_diagnose_question_set_mentioned(topic, version, with_meta_info=False):
+def load_diagnose_question_set_mentioned(
+        topic, version,
+        with_meta_info=False,
+        topical_first_question=True):
     questions = []
-    try:
-        questions.append(load_question(
-            topic, version=version, qtype=QUESTION_TYPE_WHAT_IS))
-    except Exception as e:
-        print >> sys.stderr, inspect.stack()[0][3]
-        print >> sys.stderr, e
+    if topical_first_question:
+        try:
+
+            questions.append(load_question(
+                topic, version=version, qtype=QUESTION_TYPE_WHAT_IS))
+        except Exception as e:
+            print >> sys.stderr, inspect.stack()[0][3]
+            print >> sys.stderr, e
 
     try:
         question_set = QuestionSet.objects(set_topic=topic, version=version)[0]

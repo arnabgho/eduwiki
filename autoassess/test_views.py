@@ -228,7 +228,8 @@ def multiple_questions(request):
                 quiz_topic = search_term
             questions, quiz_id = load_diagnose_question_set(
                 quiz_topic, version=version, set_type=set_type,
-                with_meta_info=True)
+                with_meta_info=True,
+                topical_first_question=False)
 
             response_data['quiz_id'] = quiz_id
 
