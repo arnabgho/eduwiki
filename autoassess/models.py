@@ -11,14 +11,17 @@ class WikiQuestion(Document):
     """
     WikiQuestionType = (
         "WHAT_IS",
-        "KEY_ITEM"
+        "KEY_ITEM",
+
+        "MANUAL",
         # No other type so far. no need to
     )
     type = StringField(choices=WikiQuestionType)
 
     topic = StringField(required=True)
 
-    quiz_topic = StringField()  # for multiple questions inside one article
+    # for multiple questions inside one article
+    quiz_topic = StringField()
 
     question_text = StringField(required=True)  # question_stem
 
@@ -30,6 +33,11 @@ class WikiQuestion(Document):
 
     # for question generation
     version = FloatField(required=True)
+
+    # Added to cope with the case where the question has multiple right choices
+    # i.e. multiple-choices rather than single-choice
+    is_multiple_choice = BooleanField()  # by default is false (single-choice)
+    multiple_correct_answers = ListField(IntField(required=True))
 
     def __str__(self):
         return str(self.topic) + ":" + str(self.question_text)
@@ -112,7 +120,8 @@ class QuestionSet(Document):
     version = FloatField()
 
     def __str__(self):
-        return str(self.set_topic) + ":" + str(self.related_topics)
+        return str(self.set_topic) + " version=" + str(self.version) + \
+               ":" + str(self.related_topics)
 
     def __unicode__(self):
         return unicode(self.__str__())
@@ -141,3 +150,9 @@ class QuizAnswers(Document):
     quiz_time_delta = IntField()
 
     comment = StringField()  # For additional information
+
+    def __str__(self):
+        return str(self.quiz) + str(self.workerId)
+
+    def __unicode__(self):
+        return unicode(self.__str__())

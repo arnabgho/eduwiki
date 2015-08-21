@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head lang="en">
+    <title>
+        EduWiki Prototype
+    </title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'main.css' %}" rel="stylesheet">
+    <link href="{% static 'autoassess/css/star-rating.min.css' %}" media="all"
+          rel="stylesheet" type="text/css">
+</head>
+<body>
+
+
+<div class="col-lg-10 col-lg-offset-1">
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td>
+                Question set
+            </td>
+            <td>
+                Set Id
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for set in all_manual_sets %}
+            <tr>
+                <td>
+                    <a href="{% url 'edit_manual_question_set' %}?id={{ set.id }}">{{ set }}</a>
+                </td>
+                <td>{{ set.id }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if success %}
+        <div class="alert alert-success alert-dismissable">
+            The question set <b>{{ question_set.id }}</b> has been successfully
+            saved.
+        </div>
+    {% endif %}
+    <form role="form" action="{% url 'edit_manual_question_set' %}"
+          method="post"
+          name="question_set_form" id="question_set_form">
+        {% csrf_token %}
+        <div class="row">
+            <div class="form-group col-lg-4">
+                <label for="set_topic">Set Topic</label>
+                <input type="text" class="form-control" id="set_topic"
+                       name="set_topic"
+                       placeholder="set_topic"
+                       value="{{ question_set.set_topic }}">
+            </div>
+            <div class="form-group col-lg-4">
+                <label for="version">Version</label>
+                <select class="form-control" id="version" name="version">
+                    {#                    {% if question_set %}#}
+                    {#                        <option value="{{ question_set.version }}">MANUALLY#}
+                    {#                            ADDED#}
+                    {#                        </option>#}
+                    {#                    {% else %}#}
+                    <option value="-1.0">MANUALLY ADDED</option>
+                    {#                    {% endif %}#}
+                </select>
+            </div>
+            <div class="form-group col-lg-4">
+                <label for="id">Question Set ID</label>
+                <input type="text" class="form-control" id="set_topic"
+                       name="id"
+                       placeholder="id"
+                       value="{{ question_set.id }}">
+            </div>
+        </div>
+        <div class="row col-lg-offset-1">
+            <label for="random_shuffle">Question Random Shuffle</label>
+            <input type="checkbox" id="random_shuffle" name="random_shuffle">
+
+        </div>
+        {% if question_ids %}
+            {% for question_id in question_ids %}
+                <label for="question{{ forloop.counter0 }}">Question {{ forloop.counter0 }}</label>
+                <input type="text" class="form-control"
+                       id="question{{ forloop.counter0 }}"
+                       name="question{{ forloop.counter0 }}"
+                       value="{{ question_id }}">
+            {% endfor %}
+        {% endif %}
+        {#        A few extra question blanks for adding new questions into the questions set #}
+        <div class="col-md-6 col-md-offset-3">
+            <button type="submit"
+                    class="btn btn-lg btn-block btn-primary"
+                    id="edit_question_set" name="edit_question_set">
+                Edit Question Set
+            </button>
+        </div>
+    </form>
+</body>
+</html>

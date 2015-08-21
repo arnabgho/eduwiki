@@ -161,6 +161,7 @@ def multiple_questions_single_update(request):
                         content_type="application/json")
 
 
+@xframe_options_exempt
 def multiple_questions(request):
     """
 

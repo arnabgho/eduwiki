@@ -9,3 +9,6 @@ from models import *
 WikiQuestion.mongoadmin = MongoAdmin()
 WikiQuestionAnswer.mongoadmin = MongoAdmin()
 Prereq.mongoadmin = MongoAdmin()
+
+QuizAnswers.mongoadmin = MongoAdmin()
+QuestionSet.mongoadmin = MongoAdmin()

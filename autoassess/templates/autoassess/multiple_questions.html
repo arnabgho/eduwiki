@@ -82,7 +82,7 @@
                 {% for question in quiz %}
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h4>{{ question.question_text }}
+                            <h4>{{ question.question_text | safe }}
                             </h4>
                         </div>
                         <table class="table">
@@ -94,8 +94,9 @@
                                            name="question_answer_{{ question.id }}"
                                            value="{{ answer.idx }}"
                                            required="required">
-                                    <td><span
-                                            class="text-success"><b>({{ forloop.counter }}) </b></span>{{ answer.text }}
+                                    <td>
+                                        <span class="text-success"><b>({{ forloop.counter }}) </b></span>
+                                        {{ answer.text | safe }}
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -145,5 +146,12 @@
 <script src="{% static 'autoassess/js/time_management.js' %}"></script>
 <script src="{% static 'autoassess/js/multiple_questions_submit.js' %}"></script>
 <script src="{% static 'autoassess/js/update_answer.js' %}"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 </body>
 </html>

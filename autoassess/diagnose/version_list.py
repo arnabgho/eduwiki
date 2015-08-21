@@ -18,6 +18,8 @@ WORD2VEC_CATEGORICAL_DISTRACTOR = 0.22
 SKIPTHOUGHT_SIM_DISTRACTOR = 0.23
 
 
+MANUALLY_ADDED = -1.0
+
 ########################################
 #########      SET TYPE      ###########
 ########################################
@@ -39,5 +41,5 @@ DIAGNOSE_QUESTION_VERSION = CURRENT_QUESTION_VERSION
 MTURK_QUESTION_VERSION = CURRENT_QUESTION_VERSION
 
 print "Current Question Version:", CURRENT_QUESTION_VERSION
-
+print "Current Set Type:", CURRENT_QUESTION_SET
 
