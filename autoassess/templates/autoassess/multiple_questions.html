@@ -80,6 +80,7 @@
                 <div class="h3"><b><span class="text-warning">Choose the most proper answer(s) for the following question(s).</span></b>
                 </div>
                 {% for question in quiz %}
+                    <input name="choice_order_{{ question.id }}" id="choice_order_{{ question.id }}" value="{{ question.choice_order }}" hidden="">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4>{{ question.question_text | safe }}
@@ -88,13 +89,13 @@
                         <table class="table">
                             {% for answer in question.choices %}
                                 <tr>
-                                    <td/>
+                                    <td>
                                     {# <input type="radio" name="{{ question.topic }}" value="{{ answer.correct }}"> #}
                                     <input type="radio"
                                            name="question_answer_{{ question.id }}"
                                            value="{{ answer.idx }}"
                                            required="required">
-                                    <td>
+{#                                    <td/><td>#}
                                         <span class="text-success"><b>({{ forloop.counter }}) </b></span>
                                         {{ answer.text | safe }}
                                     </td>

@@ -10,7 +10,7 @@ import json
 import answer_db
 
 from diagnose.version_list import *
-
+import string
 
 @xframe_options_exempt
 def single_question(request):
@@ -112,7 +112,7 @@ def single_question_submit(request):
 
     request_data.pop("csrfmiddlewaretoken", None)
 
-    answer_db.save_answer(request_data)
+    answer_db.save_single_answer(request_data)
 
     # return HttpResponse(result.text)
     return HttpResponse(
@@ -181,12 +181,6 @@ def multiple_questions(request):
         raise Http404
     search_term = request_data['q']
 
-    version = MTURK_QUESTION_VERSION
-    if 'v' in request_data:
-        if request_data['v'] == 'c':
-            version = CURRENT_QUESTION_VERSION
-        else:
-            version = float(request_data['v'])
 
     set_type = CURRENT_QUESTION_SET
     if 's' in request_data:
@@ -195,10 +189,23 @@ def multiple_questions(request):
         if request_data['s'].lower() == 'p':
             set_type = SET_PREREQ
 
+    version = MTURK_QUESTION_VERSION
+    if 'v' in request_data:
+        if request_data['v'] == 'c':
+            version = CURRENT_QUESTION_VERSION
+        else:
+            version = float(request_data['v'])
+
+    if version < 0:
+        set_type = SET_SELF_DEFINED
+
     if 'assignmentId' not in request_data:
         # user visiting mode not from mturk
-        response_data['assignmentId'] = None
         response_data['hitId'] = None
+
+        response_data['assignmentId'] = "EDUWIKI_"+id_generator()
+        response_data['workerId'] = "EDUWIKI_"+id_generator()
+        response_data['turkSubmitTo'] = '/'
     else:
         assignmentId = request_data['assignmentId'].strip(" ")
         hitId = request_data['hitId']
@@ -229,7 +236,7 @@ def multiple_questions(request):
                 quiz_topic = search_term
             questions, quiz_id = load_diagnose_question_set(
                 quiz_topic, version=version, set_type=set_type,
-                with_meta_info=True)
+                with_meta_info=True, question_shuffle=True)
 
             response_data['quiz_id'] = quiz_id
 
@@ -257,3 +264,7 @@ def multiple_questions(request):
     response_data['question_order'] = [str(q['id']) for q in questions]
 
     return render(request, 'autoassess/multiple_questions.html', response_data)
+
+
+def id_generator(size=10, chars=string.ascii_uppercase + string.digits):
+    return ''.join(random.choice(chars) for _ in range(size))

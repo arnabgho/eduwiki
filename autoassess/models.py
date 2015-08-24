@@ -101,6 +101,9 @@ class WikiQuestionAnswer(Document):
     topic_confidence_time_delta = IntField()
     submit_time_delta = IntField()
 
+    # track the choice orders in case they are randomly shuffled
+    choice_order = ListField(IntField())
+
     def __str__(self):
         return str(self.topic) + ":" + str(self.workerId)
 

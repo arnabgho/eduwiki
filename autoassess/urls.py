@@ -28,9 +28,9 @@ urlpatterns = patterns(
         test_views.multiple_questions_single_update,
         name='multiple_questions_single_update'),
 
-    url(r'^add_question$', add_question_view.add_question, name='add_question'),
-    url(r'^add_question_submit$', add_question_view.add_question_submit,
-        name='add_question_submit'),
+    url(r'^edit_question$', add_question_view.edit_question, name='edit_question'),
+    url(r'^edit_question_submit$', add_question_view.edit_question_submit,
+        name='edit_question_submit'),
 
     url(r'^edit_manual_question_set$',
         edit_question_set.edit_manual_question_set,

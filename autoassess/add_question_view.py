@@ -3,13 +3,19 @@ from answer_db import *
 from diagnose.version_list import *
 
 
-def add_question(request):
+def edit_question(request):
     request_data = {}
     if request.method == 'GET':
         request_data = request.GET.dict()
     elif request.method == 'POST':
         request_data = request.POST.dict()
     response_data = {}
+
+    # ## Retrieve all the question sets that are manually added
+    manual_questions = WikiQuestion.objects(version=MANUALLY_ADDED)
+    response_data['all_manual_questions'] = manual_questions
+    ### End
+
 
     question = None
     id = request_data.get('id', None)
@@ -59,15 +65,23 @@ def add_question(request):
         else:
             if not question_text:
                 question_text = question.question_text
-            question.update(
-                type=type,
-                topic=topic,
-                quiz_topic=quiz_topic,
-                question_text=question_text,
-                # choices=choices,
-                correct_answer=correct_answer,
-                version=version
-            )
+
+            question.type = type
+            question.topic = topic
+            question.quiz_topic = quiz_topic
+            question.question_text = question_text
+            question.choices = choices
+            question.correct_answer = correct_answer
+            question.version = version
+            # question.update(
+            #     type=type,
+            #     topic=topic,
+            #     quiz_topic=quiz_topic,
+            #     question_text=question_text,
+            #     choices=choices,
+            #     correct_answer=correct_answer,
+            #     version=version
+            # )
 
         question.save()
 
@@ -96,5 +110,5 @@ def add_question(request):
     return render(request, 'test_pages/add_question.html', response_data)
 
 
-def add_question_submit(request):
-    return add_question(request)
+def edit_question_submit(request):
+    return edit_question(request)

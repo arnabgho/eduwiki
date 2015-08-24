@@ -1,5 +1,6 @@
 
 Machine Learning & Stats
+Artificial neural network
 Reinforcement Learning
 Random forest
 Latent Dirichlet allocation

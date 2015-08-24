@@ -25,6 +25,7 @@ MANUALLY_ADDED = -1.0
 ########################################
 SET_PREREQ = "Prereq"
 SET_MENTIONED = "Mentioned"
+# for manually composed question sets
 SET_SELF_DEFINED = "Self-defined"
 
 #########################################
@@ -32,7 +33,7 @@ SET_SELF_DEFINED = "Self-defined"
 ##########    SETTINGS     ##############
 #########################################
 #########################################
-CURRENT_QUESTION_VERSION = WORD2VEC_CATEGORICAL_DISTRACTOR
+CURRENT_QUESTION_VERSION = SKIPTHOUGHT_SIM_DISTRACTOR
 CURRENT_QUESTION_SET = SET_MENTIONED
 WITH_PREREQ = True
 

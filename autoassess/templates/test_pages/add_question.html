@@ -16,13 +16,39 @@
           rel="stylesheet" type="text/css">
 </head>
 <body>
-{% if success %}
-    <div class="alert alert-success alert-dismissable">
-        The question <b>{{ question.id }}</b> has been successfully saved.
-    </div>
-{% endif %}
 <div class="col-lg-10 col-lg-offset-1">
-    <form role="form" action="{% url 'add_question_submit' %}"
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td>
+                Question
+            </td>
+            <td>
+                Id
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for q in all_manual_questions %}
+            <tr>
+                <td>
+                    <a href="{% url 'edit_question' %}?id={{ q.id }}">{{ q }}</a>
+                </td>
+                <td>{{ q.id }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+    {% if success %}
+        <div class="alert alert-success alert-dismissable">
+            The question <b>{{ question.id }}</b> has been successfully saved.
+        </div>
+    {% endif %}
+
+
+    <form role="form" action="{% url 'edit_question_submit' %}"
           method="post"
           name="question_add_form" id="question_add_form">
 

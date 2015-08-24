@@ -50,7 +50,8 @@ def diagnose_prereq_tree(search_term, generate_prereq_question=False,
 def diagnose_mentioned(search_term, generate_prereq_question=False,
                        num_prereq=3,
                        version=None,
-                       verbose=True):
+                       verbose=True,
+                       extra_question_in_text=False):
     # depth = 1
     # if generate_prereq_question:
     # depth = 2
@@ -64,7 +65,7 @@ def diagnose_mentioned(search_term, generate_prereq_question=False,
         prereq_tree, version=version)
 
     main_article_wikipage = prereq_tree['wikipage']
-    prereq_questions = []
+    child_questions = []
     if generate_prereq_question:
         candidate_topics, alias = related_terms_in_article(
             main_article_wikipage)
@@ -73,31 +74,39 @@ def diagnose_mentioned(search_term, generate_prereq_question=False,
         if verbose:
             print "Candidates for", search_term, ":", candidate_topics
 
-        used_sentences = []
-        for candidate in candidate_topics:
-            try:
-                # TODO:: decide question type for subtopics
-
-                child_question = quesgen_wrapper.generate_item_question(
-                    candidate, alias[candidate],
-                    main_article_wikipage, used_sentences)
-
-                # descriptive questions
-                # child_question = quesgen_wrapper.generate_question(
-                # {'wikipage': WikipediaWrapper.page(candidate)},
-                # version=version)
+        if extra_question_in_text:
+            used_sentences = []
+            for candidate in candidate_topics:
                 try:
-                    used_sentences.append(child_question['original_sentence'])
-                    child_question.pop('original_sentence', None)
-                except KeyError:
-                    used_sentences.append(
-                        child_question['question_text'].repalce(
-                            '________', child_question['correct_answer']))
-                prereq_questions.append(child_question)
+                    # TODO:: decide question type for subtopics
 
-            except ValueError, ve:
-                print >> sys.stderr, ve
-                continue
-    questions = [topic_question] + prereq_questions
+                    child_question = quesgen_wrapper.generate_item_question(
+                        candidate, alias[candidate],
+                        main_article_wikipage, used_sentences)
+
+                    # descriptive questions
+                    # child_question = quesgen_wrapper.generate_question(
+                    # {'wikipage': WikipediaWrapper.page(candidate)},
+                    # version=version)
+                    try:
+                        used_sentences.append(
+                            child_question['original_sentence'])
+                        child_question.pop('original_sentence', None)
+                    except KeyError:
+                        used_sentences.append(
+                            child_question['question_text'].repalce(
+                                '________', child_question['correct_answer']))
+                    child_questions.append(child_question)
+
+                except ValueError, ve:
+                    print >> sys.stderr, ve
+                    continue
+        else:
+            for candidate in candidate_topics:
+                candidate_page = WikipediaWrapper.page(candidate)
+                child_question = quesgen_wrapper.generate_question(
+                    {'wikipage': candidate_page}, version=version)
+                child_questions.append(child_question)
+    questions = [topic_question] + child_questions
 
     return questions

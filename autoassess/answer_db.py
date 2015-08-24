@@ -7,6 +7,7 @@ import datetime
 import sys
 import ast
 
+
 def check_answer_correctness(question_id, ans):
     try:
         question = WikiQuestion.objects(id=question_id)[0]
@@ -20,7 +21,7 @@ def check_answer_correctness(question_id, ans):
         raise ValueError("No corresponding question found for the answer.")
 
 
-def save_answer(ans_data):
+def save_single_answer(ans_data):
     if not ans_data:
         return
 
@@ -198,9 +199,15 @@ def save_answers(ans_data):
     question_ids = [k[len("question_answer_"):] for k in ans_data_keys if
                     k.startswith("question_answer_")]
 
-    for question_id in question_ids:
+    for wiki_question in question_order:
+        question_id = str(wiki_question.id)
 
-        wiki_question = WikiQuestion.objects(id=question_id)[0]
+        if question_id not in question_ids:
+            print >> sys.stderr, "Question answer missing:", question_id
+            continue
+
+        choice_order = ast.literal_eval(
+                ans_data['choice_order_' + question_id])
 
         # # in fact all the question answers should be able to be retrieved
         old_ans_retrieval = WikiQuestionAnswer.objects(
@@ -211,6 +218,7 @@ def save_answers(ans_data):
         )
 
         wiki_ans = None
+
         if old_ans_retrieval:
             last_old_ans = old_ans_retrieval[len(old_ans_retrieval) - 1]
             if last_old_ans['answer'] == int(
@@ -226,6 +234,8 @@ def save_answers(ans_data):
                 answer=int(ans_data['question_answer_' + question_id]),
                 correctness=check_answer_correctness(
                     question_id, ans_data['question_answer_' + question_id]),
+
+                choice_order=choice_order,
 
                 hitId=hitId,
                 assignmentId=assignmentId,
@@ -256,10 +266,10 @@ def save_or_update_question_answer(ans_data):
         return False
 
     # ##### Extract fields
-    hitId = ans_data.pop('hitId')
-    assignmentId = ans_data.pop('assignmentId')
-    workerId = ans_data.pop('workerId')
-    turkSubmitTo = ans_data.pop('turkSubmitTo')
+    hitId = ans_data.pop('hitId', "")
+    assignmentId = ans_data.pop('assignmentId', "")
+    workerId = ans_data.pop('workerId', "")
+    turkSubmitTo = ans_data.pop('turkSubmitTo', "")
 
 
     # ######## FOR THE WHOLE QUIZ
@@ -308,6 +318,9 @@ def save_or_update_question_answer(ans_data):
 
         wiki_question = WikiQuestion.objects(id=question_id)[0]
 
+        choice_order = ast.literal_eval(
+                ans_data['choice_order_' + question_id])
+
         # # in fact all the question answers should be able to be retrieved
         old_ans_retrieval = WikiQuestionAnswer.objects(
             question=wiki_question,
@@ -332,6 +345,8 @@ def save_or_update_question_answer(ans_data):
                 correctness=check_answer_correctness(
                     question_id, ans_data['question_answer_' + question_id]),
 
+                choice_order=choice_order,
+
                 hitId=hitId,
                 assignmentId=assignmentId,
                 workerId=workerId,
@@ -342,6 +357,7 @@ def save_or_update_question_answer(ans_data):
             )
 
             wiki_ans.save()
+            wiki_ans.reload()
             # ##  SKIP for now: get other attributes for each question,
             # like confidence, time
         assert wiki_ans
