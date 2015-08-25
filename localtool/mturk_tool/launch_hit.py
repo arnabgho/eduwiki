@@ -5,16 +5,17 @@ import requests
 from botowrapper import *
 
 
-def create_hit_for_topic(topic, sandbox=True, max_assignments=2):
+def create_hit_for_topic(topic, version, sandbox=True, max_assignments=2,
+                         reward=0.1):
     return create_hit_question(
-        question_url="https://crowdtutor.info/autoassess/single_question?q="
-                     + str(topic),
+        question_url="https://crowdtutor.info/autoassess/multiple_questions?q="
+                     + str(topic) + "&v=" + str(version),
         sandbox=sandbox,
-        max_assignments=max_assignments
-    )
+        max_assignments=max_assignments,
+        reward=reward)
 
 
-def create_for_experiment(topic_filename,
+def create_for_experiment(topic_filename, version,
                           topic_max_idx=5, start_idx=0,
                           sandbox=True, visit_question_generation_link=True,
                           max_assignments=2):
@@ -44,7 +45,7 @@ def create_for_experiment(topic_filename,
     else:
         for idx in range(0, 100):
             filename = sandbox_prefix + topic_filename \
-                + "_" + str(idx) + ".out.txt"
+                       + "_" + str(idx) + ".out.txt"
             if os.path.exists(filename):
                 continue
             else:
@@ -67,7 +68,8 @@ def create_for_experiment(topic_filename,
                 continue  # skip HIT creation for this question
         try:
             create_hit_result = create_hit_for_topic(
-                t, sandbox=sandbox, max_assignments=max_assignments)
+                t, version=version,
+                sandbox=sandbox, max_assignments=max_assignments)
             creat_hit_info = t + " : " + str(create_hit_result.HITId)
             print creat_hit_info
             output_file.write(creat_hit_info + "\n")
@@ -79,10 +81,22 @@ def create_for_experiment(topic_filename,
 
 
 if __name__ == "__main__":
-    create_for_experiment(
-        topic_filename="experiment_data/90_topics.txt",
-        sandbox=True,
-        topic_max_idx=1, start_idx=0,
-        max_assignments=1,
-        visit_question_generation_link=False
-    )
+    # ##############
+    # Before running the script, make sure you have changed
+    # the url template in create_hit_for_topic() correctly!
+    # the payment reward !!!!!
+
+    # also pay attention to the version
+    # ALWAYS test in sandbox before doing real experiments
+    ###############
+
+    # create_for_experiment(
+    #     topic_filename="experiment_data/90_topics.txt",
+    #     sandbox=True,
+    #     topic_max_idx=1, start_idx=0,
+    #     max_assignments=1,
+    #     visit_question_generation_link=False
+    # )
+    create_hit_for_topic(
+        "Artificial neural network", version=-1.0, sandbox=True,
+        max_assignments=5, reward=1.0)

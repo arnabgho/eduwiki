@@ -11,6 +11,11 @@ import statsmodels.api as sm
 
 
 def answer_stat(answers):
+    """
+    show the following fields when viewing answered questions
+    :param answers:
+    :return:
+    """
     # ans/correct/tc/qc/GE/SE/guess/tt/st/comment
     if len(answers) == 0:
         return None
@@ -47,6 +52,10 @@ def answer_stat(answers):
 
 
 def db_answer_stats():
+    """
+    wrapper for answer_stat()
+    :return:
+    """
     answered_questions = WikiQuestionAnswer.objects().distinct('question')
     stats = []
     for question in answered_questions:
@@ -57,7 +66,6 @@ def db_answer_stats():
 
 
 def stats_linear_regression(x, y):
-
     sm_fit = sm.OLS(y, sm.add_constant(x)).fit()
     print sm_fit.summary()
 

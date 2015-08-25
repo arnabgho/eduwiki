@@ -3,7 +3,7 @@ from django.conf import settings
 
 from autoassess import views
 from autoassess import test_views
-from autoassess import add_question_view
+from autoassess import edit_question_view
 from autoassess import edit_question_set
 
 urlpatterns = patterns(
@@ -28,8 +28,8 @@ urlpatterns = patterns(
         test_views.multiple_questions_single_update,
         name='multiple_questions_single_update'),
 
-    url(r'^edit_question$', add_question_view.edit_question, name='edit_question'),
-    url(r'^edit_question_submit$', add_question_view.edit_question_submit,
+    url(r'^edit_question$', edit_question_view.edit_question, name='edit_question'),
+    url(r'^edit_question_submit$', edit_question_view.edit_question_submit,
         name='edit_question_submit'),
 
     url(r'^edit_manual_question_set$',
