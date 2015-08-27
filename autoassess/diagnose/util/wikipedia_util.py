@@ -9,6 +9,7 @@ import wikitextparser as wtp
 from collections import defaultdict
 import random
 from sys import maxint
+import sys
 
 
 class WikipediaWrapper:
@@ -195,6 +196,24 @@ class WikipediaWrapper:
 
         return page_title
 
+    @staticmethod
+    def page_ids_links_here(page_title):
+        try:
+            page_title = page_title.replace(" ", "_")
+            pagelink_objs = Pagelinks.objects(to=page_title)
+            pl_from_list = []
+            if pagelink_objs:
+                pl_from_list = [obj.pl_from for obj in pagelink_objs]
+                # for obj in pagelink_objs:
+                #     pl_from = obj.pl_from
+                #     pl_from_list.append(pl_from)
+            else:
+                raise ValueError("No Pagelinks found for" + page_title)
+            return pl_from_list
+        except Exception as e:
+            print >> sys.stderr, e
+            return None
+
 
 def filter_wikilink(topic, ignore_cat=False):
     if not topic:
@@ -217,7 +236,10 @@ def filter_wikilink(topic, ignore_cat=False):
     if ignore_cat and topic.startswith("Category:"):
         return None
 
-    topic = topic.capitalize()
+    # sometimes the wikilink is not properly capitalized
+    # NOTE there is a risk ignored here: the true title might not be capitalized
+    # which is rare.
+    topic = topic[0].capitalize()+topic[1:]
     return topic
 
 

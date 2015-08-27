@@ -5,7 +5,7 @@
 <html>
 <head>
     <title>
-        EduWiki Prototype
+        EduWiki Prototype - Question Editing
     </title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,30 +17,6 @@
 </head>
 <body>
 <div class="col-lg-10 col-lg-offset-1">
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <td>
-                Question
-            </td>
-            <td>
-                Id
-            </td>
-        </tr>
-        </thead>
-        <tbody>
-        {% for q in all_manual_questions %}
-            <tr>
-                <td>
-                    <a href="{% url 'edit_question' %}?id={{ q.id }}">{{ q }}</a>
-                </td>
-                <td>{{ q.id }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-
     {% if success %}
         <div class="alert alert-success alert-dismissable">
             The question <b>{{ question.id }}</b> has been successfully saved.
@@ -136,6 +112,29 @@
             </button>
         </div>
     </form>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td>
+                Question
+            </td>
+            <td>
+                Id
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for q in all_manual_questions %}
+            <tr>
+                <td>
+                    <a href="{% url 'edit_question' %}?id={{ q.id }}">{{ q }}</a>
+                </td>
+                <td>{{ q.id }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
 
 <script src="{% static 'js/jquery-2.1.1.min.js' %}"></script>

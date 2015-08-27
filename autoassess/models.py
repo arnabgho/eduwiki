@@ -40,7 +40,7 @@ class WikiQuestion(Document):
     multiple_correct_answers = ListField(IntField(required=True))
 
     def __str__(self):
-        return str(self.topic) + ":" + str(self.question_text)
+        return unicode(self.topic) + ":" + unicode(self.question_text)
 
     def __unicode__(self):
         return unicode(self.__str__())

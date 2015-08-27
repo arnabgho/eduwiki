@@ -18,7 +18,7 @@ class WikiLink(EmbeddedDocument):
 # class WikipediaSection(EmbeddedDocument):
 # # sections = ListField(
 # #     EmbeddedDocumentField("self"))
-#     title = StringField()
+# title = StringField()
 #     level = IntField()
 #     contents = StringField()
 #     wikilinks = ListField(EmbeddedDocumentField(WikiLink))
@@ -117,6 +117,11 @@ class WikiCategorylinks(Document):
 class WikiPageId(Document):
     id = IntField(primary_key=True)
     page_title = StringField()
+
+
+class Pagelinks(Document):
+    pl_from = IntField()
+    to = StringField()
 
 # class WikiKnowledgeNode(Document):
 # """

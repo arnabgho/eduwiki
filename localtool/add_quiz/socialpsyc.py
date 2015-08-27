@@ -6,7 +6,7 @@ from autoassess.models import *
 
 def read_social_psych_quiz(quiz_xml):
     """
-    A one-time function for adding some social psychology quizzes into the db
+    A one-time function for adding some social psychology questions into the db
     :param quiz_xml:
     :return:
     """

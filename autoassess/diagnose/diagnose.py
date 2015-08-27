@@ -69,16 +69,21 @@ def diagnose_mentioned(search_term, generate_prereq_question=False,
     if generate_prereq_question:
         candidate_topics, alias = related_terms_in_article(
             main_article_wikipage)
-        candidate_topics = candidate_topics[:5]
+        # candidate_topics = candidate_topics[:5]
+        #TODO:: make this a parameter
+        candidate_question_max = 5
+        candidate_question_count = 0
 
         if verbose:
-            print "Candidates for", search_term, ":", candidate_topics
+            print "Candidates for", search_term, ":", \
+                candidate_topics[:candidate_question_max]
 
         if extra_question_in_text:
             used_sentences = []
             for candidate in candidate_topics:
                 try:
-                    # TODO:: decide question type for subtopics
+                    # TODO:: intelligently decide question type for subtopics
+                    # as in some case item question is better, and vice versa.
 
                     child_question = quesgen_wrapper.generate_item_question(
                         candidate, alias[candidate],
@@ -97,16 +102,27 @@ def diagnose_mentioned(search_term, generate_prereq_question=False,
                             child_question['question_text'].repalce(
                                 '________', child_question['correct_answer']))
                     child_questions.append(child_question)
+                    candidate_question_count += 1
 
+                    if candidate_question_count >= candidate_question_max:
+                        break
                 except ValueError, ve:
                     print >> sys.stderr, ve
                     continue
         else:
             for candidate in candidate_topics:
-                candidate_page = WikipediaWrapper.page(candidate)
+                try:
+                    candidate_page = WikipediaWrapper.page(candidate)
+                except Exception as e:
+                    print "Cannot load page for question generation:", e
+                    continue
+
                 child_question = quesgen_wrapper.generate_question(
                     {'wikipage': candidate_page}, version=version)
                 child_questions.append(child_question)
+                candidate_question_count += 1
+                if candidate_question_count >= candidate_question_max:
+                    break
     questions = [topic_question] + child_questions
 
     return questions

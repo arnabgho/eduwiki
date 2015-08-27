@@ -1,3 +1,5 @@
+from __future__ import division
+
 __author__ = 'moonkey'
 
 from autoassess.diagnose.util.wikipedia_util import WikipediaWrapper
@@ -13,10 +15,27 @@ import sys
 import operator
 import networkx as nx
 import matplotlib.pyplot as plt
+import collections
+
+from sklearn.feature_extraction.dict_vectorizer import DictVectorizer
+from sklearn.cluster import DBSCAN, KMeans
+import math
+
+# [Future]TODO:: Factors to be included that are relevant to "good" subtopics
+# categorical, mentioning (times, linkage),
+# section title, emphasizing ''',
+
+# Some way is needed for both signifying sharing similarity,
+# and also RULING OUT too general concepts
 
 
 def related_terms_in_article(wikipage):
-    mm_links, alias = most_mentioned_wikilinks(wikipage, with_count=False)
+    """
+
+    :param wikipage:
+    :return:
+    """
+    mm_links, aliases = most_mentioned_wikilinks(wikipage, with_count=False)
     related_terms = []
     for l in mm_links:
         if len(related_terms) > 5:
@@ -34,7 +53,8 @@ def related_terms_in_article(wikipage):
         if to_add_l:
             related_terms.append(l)
 
-    return related_terms, alias
+    return related_terms, aliases
+
 
 # def find_related_terms(wikipage):
 # # find overlapps in wikilinks and same category links
@@ -54,9 +74,18 @@ def related_terms_in_article(wikipage):
 def most_mentioned_wikilinks(wikipage, with_count=True):
     alias = {}
 
+    main_topic = filter_wikilink(wikipage.title)
     wikilinks = wikipage.wikilinks
     for idx, l in enumerate(wikilinks):
-        wikilinks[idx].target = filter_wikilink(l.target, ignore_cat=True)
+        target = filter_wikilink(l.target, ignore_cat=True)
+
+        # filter disambiguous links : 'Social psychology'
+        # contains "Social Psychology (journal)"
+        if target and topic_remove_bracket(
+                target).lower() == topic_remove_bracket(main_topic).lower():
+            target = None
+
+        wikilinks[idx].target = target
 
     wikilinks = [l for l in wikilinks if l.target is not None]
 
@@ -133,6 +162,101 @@ def most_mentioned_wikilinks(wikipage, with_count=True):
     return most_mentioned, alias
 
 
+def list_overlapping(a, b):
+    a_multiset = collections.Counter(a)
+    b_multiset = collections.Counter(b)
+
+    overlap = list((a_multiset & b_multiset).elements())
+    # a_remainder = list((a_multiset - b_multiset).elements())
+    # b_remainder = list((b_multiset - a_multiset).elements())
+    # print overlap, a_remainder, b_remainder
+
+    return overlap
+
+
+def similarly_covered_topics(wikipage, with_count=False):
+    link_to_main = WikipediaWrapper.page_ids_links_here(wikipage.title)
+
+    mm_links, aliases = most_mentioned_wikilinks(wikipage, with_count=True)
+    mm_link_titles = [m[0] for m in mm_links]
+
+    links_here_dict = {}
+    for title in mm_link_titles:
+        try:
+            link_to_title = WikipediaWrapper.page_ids_links_here(title)
+            links_here_dict.update({title: link_to_title})
+        except Exception as e:
+            pass
+
+    # calculate coverage overlap
+    link_overlap = {}
+    for title in links_here_dict:
+        overlap_sim = len(list_overlapping(
+            links_here_dict[title], link_to_main))
+        overlap_sim /= math.exp(len(links_here_dict[title]) / len(link_to_main))
+
+        link_overlap.update(
+            {title: overlap_sim}
+        )
+
+    mostly_together_linked = sorted(
+        link_overlap.items(), key=operator.itemgetter(1), reverse=True)
+
+    if not with_count:
+        mostly_together_linked = [m[0] for m in mostly_together_linked]
+
+    return mostly_together_linked, aliases
+
+
+def similar_concpet_by_clustering_bag_of_links_to_here(wikipage):
+    link_to_main = WikipediaWrapper.page_ids_links_here(wikipage.title)
+    mm_links, aliases = most_mentioned_wikilinks(wikipage, with_count=True)
+    mm_link_titles = [m[0] for m in mm_links]
+
+    links_here_dict = {}
+    for title in mm_link_titles:
+        try:
+            link_to_title = WikipediaWrapper.page_ids_links_here(title)
+            links_here_dict.update({title: link_to_title})
+        except Exception as e:
+            pass
+
+    return cluster_bag_of_links_to_here(links_here_dict)
+
+
+def cluster_bag_of_links_to_here(links_here_dict):
+    # convert it to bags of links-to-here (B-O-L)
+    #
+    # for title in links_here_dict:
+    title_list = []
+    feature_dict_list = []
+    for title in links_here_dict:
+        title_list.append(title)
+        links = links_here_dict[title]
+        feature_dict = collections.Counter(links)  # {1435:1, 235345:1, ...}
+        feature_dict_list.append(feature_dict)
+    vec = DictVectorizer()
+    bol_mtx = vec.fit_transform(feature_dict_list).toarray()
+    print bol_mtx.shape
+
+    # TODO::
+    # DBSCAN might be the best for this
+    # but it is good for data with similar density, which does not hold here
+    # db = DBSCAN(eps=10, min_samples=3)
+    # clusters = db.fit_predict(bol_mtx)
+
+    kmeans = KMeans(
+        init='k-means++',
+        n_clusters=int(math.sqrt(len(title_list))),
+        n_init=10)
+    clusters = kmeans.fit_predict(bol_mtx)
+
+    cluster_set = collections.Counter(clusters)
+    print cluster_set
+    clusters = [(title_list[idx], c) for idx, c in enumerate(clusters)]
+    return clusters
+
+
 def sparse_mention_spanning_graph(wikipage):
     """
     To get a graph for the mentions
@@ -191,7 +315,18 @@ def sparse_mention_spanning_graph(wikipage):
 
 def test(topic="Reinforcement learning"):
     page = WikipediaWrapper.page(topic)
-    sparse_mention_spanning_graph(page)
+
+    clusters = similar_concpet_by_clustering_bag_of_links_to_here(page)
+    print clusters
+
+    # referred_links, aliases = most_mentioned_wikilinks(page, with_count=True)
+    # referring_links, aliases = similarly_covered_topics(page, with_count=True)
+    # print referred_links
+    # print referring_links
+
+
+
+    # sparse_mention_spanning_graph(page)
 
 
 if __name__ == "__main__":
@@ -199,4 +334,5 @@ if __name__ == "__main__":
 
     connect('eduwiki_db')
 
-    test("Ellipse")
+    test()
+    # test("Marketing Strategy")

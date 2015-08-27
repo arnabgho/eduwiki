@@ -33,9 +33,12 @@ def topic_regex(topic=""):
     """
     topic = topic_remove_bracket(topic)
 
-    # Separate linked terms to tokens, like in "Karush–Kuhn–Tucker conditions"
-    topic = re.sub(r"[-–_]+", ' ', topic, re.UNICODE)
+    # 1) Separate linked terms to tokens, like "Karush–Kuhn–Tucker conditions"
+    # 2) remove symbols in the title
+    topic = re.sub(r"[-–_!@#\$%\^&\*\?:;/\\]+", ' ', topic, re.UNICODE)
     # note '-' is ascii while '–' is not, though they look the same.
+
+
 
     topic_tokens = nltk.word_tokenize(topic)
     try:
@@ -84,6 +87,11 @@ def match_key_phrase(sentence, topic, phrase_type='VP', verbose=False):
 
     # matching  certain patterns that are suitable for question generation.
     topic = topic_remove_bracket(topic)
+    # 1) Separate linked terms to tokens, like "Karush–Kuhn–Tucker conditions"
+    # 2) remove symbols in the title
+    topic = re.sub(r"[-–_!@#\$%\^&\*\?:;/\\]+", ' ', topic, re.UNICODE)
+    # note '-' is ascii while '–' is not, though they look the same.
+
     topic = escape_slash(topic)
     topic_tokens = nltk.word_tokenize(topic)
 

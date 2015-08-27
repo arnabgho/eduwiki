@@ -107,7 +107,7 @@ def edit_question(request):
     #     'version': version
     # }
 
-    return render(request, 'test_pages/add_question.html', response_data)
+    return render(request, 'test_pages/edit_question.html', response_data)
 
 
 def edit_question_submit(request):
