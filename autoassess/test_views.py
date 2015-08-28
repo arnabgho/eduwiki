@@ -13,6 +13,18 @@ from diagnose.version_list import *
 import string
 
 @xframe_options_exempt
+def consent_form(request):
+    request_data = {}
+    if request.method == 'GET':
+        request_data = request.GET
+    elif request.method == 'POST':
+        request_data = request.POST
+
+    response_data = {}
+
+    return render(request, 'test_pages/consent_form.html', response_data)
+
+@xframe_options_exempt
 def single_question(request):
     """
     The intro view\n

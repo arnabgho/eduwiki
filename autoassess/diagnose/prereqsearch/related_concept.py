@@ -21,11 +21,11 @@ from sklearn.feature_extraction.dict_vectorizer import DictVectorizer
 from sklearn.cluster import DBSCAN, KMeans
 import math
 
-# [Future]TODO:: Factors to be included that are relevant to "good" subtopics
+# [Future] TODO:: Factors to be included that are relevant to "good" subtopics
 # categorical, mentioning (times, linkage),
 # section title, emphasizing ''',
 
-# Some way is needed for both signifying sharing similarity,
+# [Future] TODO:: Some way is needed for both signifying sharing similarity,
 # and also RULING OUT too general concepts
 
 
@@ -177,6 +177,9 @@ def list_overlapping(a, b):
 def similarly_covered_topics(wikipage, with_count=False):
     link_to_main = WikipediaWrapper.page_ids_links_here(wikipage.title)
 
+    if not link_to_main:
+        return most_mentioned_wikilinks(wikipage, with_count=with_count)
+
     mm_links, aliases = most_mentioned_wikilinks(wikipage, with_count=True)
     mm_link_titles = [m[0] for m in mm_links]
 
@@ -184,7 +187,10 @@ def similarly_covered_topics(wikipage, with_count=False):
     for title in mm_link_titles:
         try:
             link_to_title = WikipediaWrapper.page_ids_links_here(title)
-            links_here_dict.update({title: link_to_title})
+
+            # It is possible that some pages are not retrievable.
+            if link_to_title:
+                links_here_dict.update({title: link_to_title})
         except Exception as e:
             pass
 
@@ -316,15 +322,16 @@ def sparse_mention_spanning_graph(wikipage):
 def test(topic="Reinforcement learning"):
     page = WikipediaWrapper.page(topic)
 
-    clusters = similar_concpet_by_clustering_bag_of_links_to_here(page)
-    print clusters
+    # sparse_mention_spanning_graph(page)
 
-    # referred_links, aliases = most_mentioned_wikilinks(page, with_count=True)
-    # referring_links, aliases = similarly_covered_topics(page, with_count=True)
-    # print referred_links
-    # print referring_links
+    # clusters = similar_concpet_by_clustering_bag_of_links_to_here(page)
 
+    # print clusters
 
+    referred_links, aliases = most_mentioned_wikilinks(page, with_count=True)
+    referring_links, aliases = similarly_covered_topics(page, with_count=True)
+    print referred_links
+    print referring_links
 
     # sparse_mention_spanning_graph(page)
 

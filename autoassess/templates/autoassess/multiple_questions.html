@@ -5,7 +5,7 @@
 <html>
 <head>
     <title>
-        EduWiki Prototype
+        EduWiki Prototype - Multiple Questions
     </title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,7 +17,9 @@
 </head>
 <body>
 
-<div class="row">
+{% include "test_pages/consent_form.html" %}
+
+<div class="row" id="question_area">
     {#            <h2>&nbsp;&nbsp;&nbsp;&nbsp;The prerequisites are:</h2>#}
     {#            <br>#}
 
@@ -64,8 +66,12 @@
                  class="alert alert-info alert-dismissable">
                 <b>
                     Knowledge of the topic is not at all required. It's fine
-                    (and even preferred) if you do not know
-                    anything about the possibly unusual topic. </b>
+                    (and even preferred) if you do not know anything about the
+                    possibly unusual topic.<br>
+                    You will receive <code>$1</code> as the base for participation. You may
+                    receive up to <code>$4</code> as the extra bonus which depends on your
+                    performance.
+                </b>
                 <br>
 
                 {#                Note the topic confidence is not changeable after your selection.#}
@@ -78,7 +84,9 @@
                 <div class="h3"><b><span class="text-warning">Choose the most proper answer(s) for the following question(s).</span></b>
                 </div>
                 {% for question in quiz %}
-                    <input name="choice_order_{{ question.id }}" id="choice_order_{{ question.id }}" value="{{ question.choice_order }}" hidden="">
+                    <input name="choice_order_{{ question.id }}"
+                           id="choice_order_{{ question.id }}"
+                           value="{{ question.choice_order }}" hidden="">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4>{{ question.question_text | safe }}
@@ -88,19 +96,37 @@
                             {% for answer in question.choices %}
                                 <tr>
                                     <td>
-                                    {# <input type="radio" name="{{ question.topic }}" value="{{ answer.correct }}"> #}
-                                    <input type="radio"
-                                           name="question_answer_{{ question.id }}"
-                                           value="{{ answer.idx }}"
-                                           required="required">
-{#                                    <td/><td>#}
+                                        {# <input type="radio" name="{{ question.topic }}" value="{{ answer.correct }}"> #}
+                                        <input type="radio"
+                                               name="question_answer_{{ question.id }}"
+                                               value="{{ answer.idx }}"
+                                               required=""
+                                                >
                                         <span class="text-success"><b>({{ forloop.counter }}) </b></span>
                                         {{ answer.text | safe }}
                                     </td>
                                 </tr>
                             {% endfor %}
+                            <tr>
+                                <td>
+                                    <div class="form-group">
+                                        <label for="comment_{{ question.id }}">
+                                            Please explain your reason (15
+                                            characters minimum)</label>
+                                        <input
+                                                type="text"
+                                                name="comment_{{ question.id }}"
+                                                class="form-control"
+                                                id="comment_{{ question.id }}"
+                                                required=""
+                                                pattern=".{15,}">
+                                    </div>
+                                </td>
+                            </tr>
                         </table>
+
                     </div>
+
                 {% endfor %}
 
 
@@ -143,12 +169,11 @@
 <script src="{% static 'autoassess/js/star-rating.min.js' %}"></script>
 
 <script src="{% static 'autoassess/js/time_management.js' %}"></script>
+<script src="{% static 'autoassess/js/consent_form.js' %}"></script>
 <script src="{% static 'autoassess/js/multiple_questions_submit.js' %}"></script>
 <script src="{% static 'autoassess/js/update_answer.js' %}"></script>
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
-</script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
 <script type="text/javascript"
         src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>

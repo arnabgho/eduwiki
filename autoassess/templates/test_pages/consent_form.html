@@ -1,0 +1,201 @@
+{#<!DOCTYPE html>#}
+{#<html>#}
+{#<head lang="en">#}
+{#    <meta charset="UTF-8">#}
+{#    <title></title>#}
+{##}
+{% load static %}
+{#    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">#}
+{#    <link href="{% static 'main.css' %}" rel="stylesheet">#}
+{#    <link href="{% static 'autoassess/css/star-rating.min.css' %}" media="all"#}
+{#          rel="stylesheet" type="text/css">#}
+{#</head>#}
+{#<body>#}
+<div class="col-lg-10 col-lg-offset-1" id="consent_form_content">
+    <h1>Online Consent Form</h1>
+    This task is part of a research study conducted by Professor Emma Brunskill
+    at
+    Carnegie Mellon University and is funded by Carnegie Mellon University and
+    Microsoft Corporation gift money.
+
+    The purpose of the research is to explore how to combine crowdsourcing and
+    machine learning to make learning more efficient, engaging and effective.
+
+    <h3>Procedures</h3>
+
+    <p>
+        If you choose to participate, you will be asked to be either a tutor or
+        a
+        learner.
+        As a learner, you will be asked to learn a topic of interest or a given
+        topic in our system.
+        We will assess the learning output, for example, by pretests and
+        posttests.
+        As a tutor, you will be asked to give help to the learner by interacting
+        with the learner (such as gathering materials,
+        creating questions etc.). No prior knowledge about any topics is
+        assumed,
+        for either role.
+        The duration of the study will be at least 1 minute and no more than 10
+        hours. You may quit after any activity.
+    </p>
+
+    <h3>Participant Requirements</h3>
+
+    <p>
+        Participation in this study is limited to individuals age 18 and older.
+    </p>
+
+    <h3>Risks</h3>
+
+    <p>
+        The risks and discomfort associated with participation in this study are
+        no
+        greater than those ordinarily encountered in daily life, educational
+        institutions, or during other online activities. As with normal tasks
+        you
+        perform in your normal day-to-day life, you may become bored or tired
+        completing
+        our tasks. There is also a risk of confidentiality being breached.
+    </p>
+
+    <h3>Benefits</h3>
+
+    <p>
+        You may learn something of interest to you during this study, or there
+        may
+        no
+        personal benefit to you from participation, but the knowledge received
+        may
+        be of
+        value to humanity.
+    </p>
+
+    <h3>Compensation & Costs</h3>
+
+    <p>You will receive $1 as the base for participation. You may receive up to
+        $4 as the extra bonus which depends on your performance.
+    </p>
+
+
+    <h3>Confidentiality</h3>
+
+    <p>By participating in this research, you understand and agree that Carnegie
+        Mellon
+        may be required to disclose your consent form, data and other personally
+        identifiable information as required by law, regulation, subpoena or
+        court
+        order. Otherwise, your confidentiality will be maintained in the
+        following
+        manner:
+
+        Your data and consent form will be kept separate. Your consent form will
+        be
+        stored in a locked location on Carnegie Mellon property and will not be
+        disclosed to third parties. By participating, you understand and agree
+        that
+        the
+        data and information gathered during this study may be used by Carnegie
+        Mellon
+        and published and/or disclosed by Carnegie Mellon to others outside of
+        Carnegie
+        Mellon. However, your name, address, contact information and other
+        direct
+        personal identifiers in your consent form will not be mentioned in any
+        such
+        publication or dissemination of the research data and/or results by
+        Carnegie
+        Mellon.
+    </p>
+
+    <h3>Right to Ask Questions & Contact Information</h3>
+
+    <p>
+        If you have any questions about this study, you should feel free to ask
+        them
+        by
+        contacting the Principal Investigator now at<br>
+        Emma Brunskill<br>
+        Assistant Professor<br>
+        Computer Science Department<br>
+        Carnegie Mellon University<br>
+        Gates Hall Complex<br>
+        5000 Forbes Ave<br>
+        Pittsburgh PA 15213<br>
+        412-268-3621<br>
+        ebrunskill@cs.cmu.edu<br>
+
+        If you have questions later, desire additional information, or wish to
+        withdraw
+        your participation please contact the Principal Investigator by mail,
+        phone
+        or
+        e-mail in accordance with the contact information listed above.
+
+        If you have questions pertaining to your rights as a research
+        participant;
+        or to
+        report objections to this study, you should contact the Office of
+        Research
+        integrity and Compliance at Carnegie Mellon University. Email:
+        irb-review@andrew.cmu.edu . Phone: 412-268-1901 or 412-268-5460.
+    </p>
+
+    <p>Voluntary Participation</p>
+    Your participation in this research is voluntary. You may discontinue
+    participation at any time during the research activity.
+
+    <form id="consent_input_form">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" name="eighteen_years_old"
+                       id="eighteen_years_old" required="">
+                <b>I am age 18 or older.</b>
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" name="consent" id="consent" required="">
+                <b>I have read and understand the information above.</b>
+            </label>
+        </div>
+
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" name="want_to_continue"
+                       id="want_to_continue" required="">
+                <b>I want to participate in this research and continue with the
+                    activity.</b>
+            </label>
+        </div>
+        <div id="cannot_leave_warning"
+             class="alert alert-info">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="honor_code"
+                           id="honor_code" required="">
+                    <b>
+                        In accordance with the Honor Code,
+                        all the answers will be my own work,
+                        and I will finish the test in one time,
+                        without leaving the page to
+                        utilize materials on the Internet or elsewhere.
+                    </b>
+                </label>
+            </div>
+        </div>
+        <div class="col-md-6 col-md-offset-3">
+            <button type="submit"
+                    class="btn btn-lg btn-block btn-primary"
+                    id="proceed_to_question" name="proceed_to_question">
+                Proceed to the questions
+            </button>
+        </div>
+    </form>
+</div>
+
+{#<script src="{% static 'js/jquery-2.1.1.min.js' %}"></script>#}
+{#<script src="{% static 'js/bootstrap.min.js' %}"></script>#}
+{##}
+{#</body>#}
+{#</html>#}

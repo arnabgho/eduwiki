@@ -14,6 +14,7 @@ urlpatterns = patterns(
     url(r'^disambiguation/$', views.disambiguation, name='disambiguation'),
     url(r'^learn/$', views.learn, name='learn'),
 
+    url(r'^consent_form$', test_views.consent_form, name='consent_form'),
 
     url(r'^single_question$', test_views.single_question,
         name='single_question'),

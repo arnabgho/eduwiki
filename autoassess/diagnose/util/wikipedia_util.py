@@ -212,7 +212,7 @@ class WikipediaWrapper:
             return pl_from_list
         except Exception as e:
             print >> sys.stderr, e
-            return None
+            return []
 
 
 def filter_wikilink(topic, ignore_cat=False):

@@ -207,7 +207,7 @@ def save_answers(ans_data):
             continue
 
         choice_order = ast.literal_eval(
-                ans_data['choice_order_' + question_id])
+            ans_data['choice_order_' + question_id])
 
         # # in fact all the question answers should be able to be retrieved
         old_ans_retrieval = WikiQuestionAnswer.objects(
@@ -224,6 +224,7 @@ def save_answers(ans_data):
             if last_old_ans['answer'] == int(
                     ans_data['question_answer_' + question_id]):
                 wiki_ans = last_old_ans
+                wiki_ans.comment = ans_data['comment_' + question_id]
 
         if not wiki_ans:
             wiki_ans = WikiQuestionAnswer(
@@ -243,10 +244,10 @@ def save_answers(ans_data):
                 turkSubmitTo=turkSubmitTo,
 
                 submit_time_delta=int(submit_time_delta),
-
+                comment=ans_data['comment_' + question_id],
             )
 
-            wiki_ans.save()
+        wiki_ans.save()
             # ##  SKIP for now: get other attributes for each question,
             # like confidence, time
         assert wiki_ans
@@ -319,7 +320,7 @@ def save_or_update_question_answer(ans_data):
         wiki_question = WikiQuestion.objects(id=question_id)[0]
 
         choice_order = ast.literal_eval(
-                ans_data['choice_order_' + question_id])
+            ans_data['choice_order_' + question_id])
 
         # # in fact all the question answers should be able to be retrieved
         old_ans_retrieval = WikiQuestionAnswer.objects(
@@ -334,7 +335,7 @@ def save_or_update_question_answer(ans_data):
             if last_old_ans['answer'] == int(
                     ans_data['question_answer_' + question_id]):
                 wiki_ans = last_old_ans
-
+                wiki_ans.comment = ans_data['comment_'+question_id]
         if not wiki_ans:
             wiki_ans = WikiQuestionAnswer(
                 question=wiki_question,
@@ -354,10 +355,11 @@ def save_or_update_question_answer(ans_data):
 
                 submit_time_delta=int(submit_time_delta),
 
+                comment=ans_data['comment_'+question_id],
             )
 
-            wiki_ans.save()
-            wiki_ans.reload()
+        wiki_ans.save()
+        wiki_ans.reload()
             # ##  SKIP for now: get other attributes for each question,
             # like confidence, time
         assert wiki_ans
