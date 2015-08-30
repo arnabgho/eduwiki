@@ -98,5 +98,5 @@ if __name__ == "__main__":
     #     visit_question_generation_link=False
     # )
     create_hit_for_topic(
-        "Artificial neural network", version=-1.0, sandbox=True,
+        "Customer satisfaction", version=-1.0, sandbox=True,
         max_assignments=5, reward=1.0)

@@ -1,0 +1,139 @@
+Path tracing,Metropolis light transport,Rendering equation,Unbiased rendering,Subsurface scattering,Radiosity (computer graphics),Scanline rendering,Ambient occlusion,Arnold (software),Caustic (optics),Bidirectional reflectance distribution function
+Optimal control,Pontryagin's minimum principle,I. Michael Ross,Bellman equation,Hamilton–Jacobi–Bellman equation,DIDO (optimal control),Pseudospectral optimal control,Lev Pontryagin,Trajectory optimization,Bellman pseudospectral method,Richard Bellman
+PID controller,Controller (control theory),Overshoot (signal),Marginal stability,Nicolas Minorsky,Nyquist stability criterion,Feed forward (control),Loop gain,Nathaniel B. Nichols,Process variable,Setpoint (control system)
+Django (web framework),Comparison of web application frameworks,Web application framework,Model–view–controller,Object-relational mapping,Web Server Gateway Interface,Hiawatha (web server),Lighttpd,Apress,MongoDB,SQLite
+Camera resectioning,Augmented virtuality,ARToolKit,Mixed reality,Pinhole camera model,Distortion (optics),Direct linear transformation,Camera matrix,Augmented reality,Rotation matrix,Pinhole camera
+Apache Hadoop,Apache Accumulo,Apache Spark,Apache HBase,Nutch,Apache Mahout,Apache Hive,IBM General Parallel File System,Apache Cassandra,Clustered file system,Distributed file system
+CUDA,C++ AMP,OpenACC,Nvidia Tesla,Kepler (microarchitecture),Maxwell (microarchitecture),Fermi (microarchitecture),Nvidia Quadro,Tesla (microarchitecture),OpenCL,GeForce
+Simultaneous localization and mapping,Dieter Fox,Monte Carlo localization,Mobile Robot Programming Toolkit,Wolfram Burgard,Robotic mapping,Particle filter,Autonomous Underwater Vehicle,Structure from motion,Data association,Tactile sensor
+Distributed hash table,BTDigg,BitTorrent (software),Kad network,Friend-to-friend,Anonymous P2P,Gnutella,Overlay network,I2P,Kademlia,Freenet
+Semantic Web,Internet of Things,List of emerging technologies,Resource Description Framework,Web Ontology Language,SPARQL,Linked data,FOAF (software),Turtle (syntax),Semantically-Interlinked Online Communities,Semantic computing
+Segmentation fault,Bus error,General protection fault,Memory protection,Paging,Dangling pointer,Stack overflow,Memory segmentation,Virtual memory,C dynamic memory allocation,Page fault
+Recursion,Catalan number,Fibonacci number,Axiomatic system,Natural number,Self-similarity,Mathematical logic,Mathematical induction,Recurrence relation,Cantor set,Set theory
+Null pointer,Nullable type,Option type,Algol W,Tagged union,ALGOL W,Tagged pointer,C.A.R. Hoare,Tagged architecture,Segmentation fault,C++11
+Quicksort,Introsort,Insertion sort,Selection sort,Timsort,Flashsort,Heapsort,Radix sort,Integer sorting,Merge sort,Bucket sort
+Binary tree,K-ary tree,Binary search tree,Binary heap,2–3 tree,Optimal binary search tree,2–3–4 tree,AA tree,AVL tree,Splay tree,Leaf node
+Domain Name System,Dynamic Host Configuration Protocol,IPv4,User Datagram Protocol,IPv6,Internet Engineering Task Force,Transmission Control Protocol,ICANN,Internet Protocol,.arpa,IP address
+Transmission Control Protocol,User Datagram Protocol,Stream Control Transmission Protocol,Real-time Transport Protocol,Point-to-Point Protocol,IPv4,Explicit Congestion Notification,IPv6,Secure Shell,Internet Protocol,File Transfer Protocol
+Sliding window protocol,Stop-and-wait ARQ,Selective Repeat ARQ,Go-Back-N ARQ,Error control,Acknowledgement (data networks),Acknowledgement_(data_networks),HDLC,Data Link Layer,Data transmission,Protocol (computing)
+Firewall (computing),Network security,Comparison of firewalls,Unified threat management,Virtual firewall,Stateful firewall,Ipfirewall,IPFilter,Personal firewall,Ipchains,NPF (firewall)
+Distance-vector routing protocol,Interior Gateway Routing Protocol,Link-state routing protocol,Babel (protocol),Route poisoning,Routing loop,Routing protocol,Split horizon route advertisement,Computer communication,OSPF,EIGRP
+Capital asset pricing model,Security market line,Arbitrage pricing theory,Modern portfolio theory,Efficient-market hypothesis,Beta (finance),Expected return,Market portfolio,Financial risk,Systematic risk,William F. Sharpe
+Natural monopoly,Fixed cost,Coercive monopoly,Predatory pricing,Public goods,Price-cap regulation,Cost curve,Anti-competitive practices,Barrier to entry,Wealth of Nations,Marginal cost
+Hedge Fund,Short (finance),Global macro,Distressed securities,Long/short equity,Statistical arbitrage,Market neutral,Event-driven investing,Arbitrage,Fixed income arbitrage,Commodity trading advisor
+venture capital,History of private equity and venture capital,Growth capital,Private equity secondary market,Mezzanine capital,Leveraged buyout,Institutional investor,Angel investor,Fund of funds,Private equity,Pension fund
+Autoregressive integrated moving average,Moving-average model,Autoregressive model,Time series analysis,Random walk,Autoregressive moving average model,Autoregressive fractionally integrated moving average,Box-Jenkins,Lag operator,Independent and identically-distributed random variables,SAS (software)
+High-frequency trading,Front running,Statistical arbitrage,Algorithmic trading,Commodity market,Electronic trading platform,2010 Flash Crash,BATS Global Markets,Citadel LLC,Global Electronic Trading Company,Dark liquidity
+Industrial organization,JEL classification codes,Information economics,Market structure,Theory of the firm,Monopsony,Duopoly,Behavioral economics,Microeconomics,Oligopoly,The New Palgrave Dictionary of Economics
+Bertrand competition,Conjectural variation,Cournot model,Aggregative game,Bertrand–Edgeworth model,Stackelberg competition,Antoine Augustin Cournot,Edgeworth paradox,Best response,Product differentiation,Joseph Louis François Bertrand
+Public good,Market failure,Marginal cost,Externality,Private good,Joseph Schumpeter,Club good,Global public good,Rivalry (economics),Common good (economics),Natural monopoly
+Gini coefficient,List of countries by income equality,Income inequality metrics,Lorenz curve,Hoover index,Economic inequality,Atkinson index,Human Poverty Index,Informal sector,List of countries by distribution of wealth,Pareto distribution
+Gross Domestic Product,Purchasing power parity,List of countries by GDP (PPP),List of countries by GDP (PPP) per capita,List of countries by GDP (nominal),List of countries by GDP (nominal) per capita,Consumer price index,Gross national income,CIA World Factbook,List of countries by GDP (PPP) per hour worked,List of countries by GDP sector composition
+Externality,Effective demand,Market failure,Welfare economics,Environmental economics,Utility,Supply and demand,The New Palgrave Dictionary of Economics,Social cost,Concise Encyclopedia of Economics,David R. Henderson
+Long (finance),Position (finance),Underlying,Call option,Put option,Short (finance),Option_(finance),Futures contract,Security (finance),Profit (accounting),Derivative (finance)
+Nash Equilibrium,Forward induction,Correlated equilibrium,Self-confirming equilibrium,Dominance (game theory),Strong Nash equilibrium,Matching pennies,Battle of the sexes (game theory),Repeated game,Trembling hand perfect equilibrium,Epsilon-equilibrium
+Theory of relativity,Time dilation,Gravitational time dilation,Spacetime,Special relativity,Clock,General relativity,Classical mechanics,Einstein field equations,Relativity of simultaneity,Lorentz transformation
+Light scattering,Dynamic light scattering,Static light scattering,Transparent materials,Diffuse reflection,Grain boundaries,Light scattering by particles,Backscattering,Polycrystal,Rayleigh scattering,Mie theory
+Types of volcanic eruptions,Global Volcanism Program,Stratovolcano,Lava dome,Shield volcano,Cinder cone,Pyroclastic flow,Fumarole,Volcanic crater,Galeras,Volcanic Explosivity Index
+Newton's law of universal gravitation,Fictitious force,Alexis Clairaut,Centripetal force,Mechanical explanations of gravitation,Newton's laws of motion,Edmond Halley,Theory of everything,Centrifugal force,Gravitational constant,Philosophiæ Naturalis Principia Mathematica
+Curvilinear motion,Curve,Stone,Angle
+Acceleration,Angular acceleration,Displacement (vector),Angular velocity,Circular motion,Velocity,Newton's laws of motion,Centripetal force,Speed,Frame of reference,Inertia
+Alternating current,Voltage,Direct current,Electrical impedance,Electric current,Transformer,Michael Faraday,Induction motor,Electric charge,Alternator,Electrical conductor
+Momentum,Continuum mechanics,Impulse (physics),Lagrangian mechanics,Hamiltonian mechanics,Frame of reference,Newton's laws of motion,Euler's laws of motion,Potential energy,Angular momentum,Newtonian fluid
+Simple harmonic motion,Pendulum (mathematics),Angular acceleration,Impulse (physics),Displacement (vector),Harmonic oscillator,Damping,Angular frequency,Moment of inertia,Newton's second law,Mechanical equilibrium
+First law of thermodynamics,Fundamental thermodynamic relation,Mechanical equivalent of heat,Quasistatic process,Thermodynamic process,Volume (thermodynamics),Caloric theory,Work (thermodynamics),Thermodynamic system,Intensive and extensive properties,Non-equilibrium thermodynamics
+Perpetual motion,Pathological science,List of topics characterized as pseudoscience,History of perpetual motion machines,First law of thermodynamics,Second law of thermodynamics,Work (thermodynamics),Maxwell's demon,Laws of thermodynamics,Entropy production,Brownian ratchet
+Brownian motion,Annus Mirabilis papers,Einstein relation (kinetic theory),Über die von der molekularkinetischen Theorie der Wärme geforderte Bewegung von in ruhenden Flüssigkeiten suspendierten Teilchen,Paul Lévy (mathematician),Lévy process,Photoelectric effect,Itō diffusion,Martingale (probability theory),Stochastic process,Brownian tree
+Alpha decay,Decay product,Cluster decay,Mass number,Beta decay,Uranium-238,Nuclear force,Americium-241,Alpha particle,Plutonium-238,Helium-4
+Electromagnetic induction,Lenz's law,Eddy current,Ampère's circuital law,Classical electromagnetism,Electromotive force,Oliver Heaviside,Magnetic flux,Faraday's law of induction,Electrical conductor,Joseph Henry
+Magnetic flux,Electric flux,Electromotive force,Gauss's law for magnetism,Gauss's law,Lorentz force,Permittivity,Faraday's law of induction,Weber (unit),Magnetic circuit,Maxwell's equations
+Lenz's law,Faraday's law of induction,Heinrich Lenz,Electromagnetic induction,Inductance,Ferromagnetic,Retarded potential,Superconductors,Maxwell's equations,Tesla (unit),Electromagnetic
+Inductance,Magnetic flux,Electromotive force,Capacitance,Joseph Henry,Lenz's law,Ampère's circuital law,Eddy current,Permeability (electromagnetism),Oliver Heaviside,Electrical impedance
+Ohm's law,Series and parallel circuits,Electromotive force,Lorentz force,Electric potential,Current density,Electrical conductor,Maxwell's equations,Electrical impedance,Coulomb,Norton's theorem
+Work (physics),Couple (mechanics),Virtual work,Circular motion,Equations of motion,Displacement (vector),Centripetal force,Lagrangian mechanics,Newton's laws of motion,Potential energy,Mechanical work
+Power (physics),Torque,Work (physics),Angular velocity,Motive power,Joule,Mechanical work,International System of Units,Time,Ampere,Electric current
+Kinetic energy,Potential energy,Work (physics),Angular velocity,Moment of inertia,Momentum,Velocity,Inertial frame of reference,Johann Bernoulli,Rigid body,Frame of reference
+Conservation of energy,Conservation of mass,Conservation of momentum,Mechanical work,Nicolas Léonard Sadi Carnot,Invariant mass,James Prescott Joule,Laws of thermodynamics,Caloric theory,Momentum,Second law of thermodynamics
+Coherence (physics),Coherence length,Coherence time,Intensity (physics),Mach–Zehnder interferometer,Michelson interferometer,Double-slit experiment,Helium–neon laser,Interference (wave propagation),Measurement in quantum mechanics,Laser linewidth
+Superposition principle,Wave equation,Stationary state,Plane wave,Linear system,Wavefunction,Green's function,Wave propagation,Linearization,Impulse response,Coherence (physics)
+Supersonic speed,Hypersonic speed,Wave drag,Supercruise,Transonic,Aerodynamic heating,Whitcomb area rule,Nose cone design,Lift-to-drag ratio,Supersonic aircraft,Mach (speed)
+Doppler effect,Christian Doppler,Spectral line,Relativistic Doppler effect,Blueshift,Fizeau experiment,Hippolyte Fizeau,Electromagnetic waves,Wave,Fading,Laser Doppler velocimetry
+Specular reflection,Diffuse reflection,Fresnel equations,Specular highlight,Ray (optics),Surface normal,Ridged mirror,Plane of incidence,Geometric optics,Total internal reflection,Quantum reflection
+Fresnel equations,Medium (optics),Plane of incidence,Fresnel rhomb,Brewster's angle,Specular reflection,Total internal reflection,Coherence length,Reflectance,Wave impedance,Optical filter
+Total internal reflection,Evanescent wave,Waveguide (optics),Ray (optics),Prism (optics),Linear polarization,Wave plate,Optical phenomenon,Snell's law,Circular polarization,Snell's window
+Refractive index,Birefringence,Transparency and translucency,Dispersion (optics),Crystal,Wavelength,Polarization (waves),Refraction,Optics,Sodium,Germanium
+Coulomb's law,Coulomb's_law,Biot–Savart law,Gauss's law,Classical electromagnetism,Electrostatics,Insulator (electricity),Static electricity,Alessandro Volta,Gaussian units,Coulomb
+Electric potential,Gauss's law for magnetism,Gauss's law,Liénard–Wiechert potential,Electric potential energy,Classical electromagnetism,Electrical network,Alessandro Volta,Charge density,Maxwell's equations,Faraday's law of induction
+Capacitor,Inductor,Resistor,Electrical reactance,Passivity (engineering),Types of capacitor,Variable capacitor,Semiconductor diode,Electronic component,Capacitance,Inductance
+Electric field,Permittivity,Electric charge,Electric potential,Maxwell's equations,Lorentz force,Electromagnetic field,Coulomb's law,Electric displacement field,Electric dipole moment,Gauss's law
+Ideal gas law,Real gas,Volume (thermodynamics),Combined gas law,Thermodynamic equations,Polytropic process,Thermodynamic process,State function,Isobaric process,Isothermal process,Isentropic process
+Rutherford model,Plum pudding model,Hantaro Nagaoka,Geiger–Marsden experiment,Rutherford scattering,Bohr model,Antonius van den Broek,Henry Moseley,Neutrons,Atomic mass,Atomic orbital
+Bohr model,Rutherford model,Bohr radius,Fine structure,Principal quantum number,Rydberg formula,Matrix mechanics,Free-fall atomic model,Hydrogen atom,Henry Moseley,Old quantum theory
+Transformer,Inductor,Electric power distribution,Fuse (electrical),Electric power transmission,Rectifier,Cathode ray tube,Electrical impedance,Electromagnetic induction,Electrical resistance,Alternating current
+Faraday's law of induction,Lenz's law,Eddy current,Ampère's circuital law,Classical electromagnetism,Electromotive force,Oliver Heaviside,Magnetic flux,Faraday's law of induction,Electrical conductor,Joseph Henry
+Photoelectric Effect,Annus Mirabilis papers,Solar cell,Photovoltaics,Wave–particle duality,Planck's constant,Compton scattering,Quantum,Heinrich Hertz,Planck's law,Annalen der Physik
+Chemistry,Biology,Physics,Biochemistry,Organic chemistry,American Chemical Society,Geology,Physical chemistry,Analytical chemistry,Materials science,Molecule
+Ionic bonding,Orbital hybridization,Valence electron,Valence shell,Electron density,Lattice energy,Polar covalent bond,Madelung constant,VSEPR,Electron affinity,Linear combination of atomic orbitals
+Neutralization (chemistry),Strong base,Brønsted–Lowry acid–base theory,Strong acid,Equivalence point,Self-ionization of water,Weak acid,Hydronium ion,Methyl orange,Dissociation (chemistry),Titration
+Redox,Oxidation state,Reducing agent,Electronegativity,Electron configuration,Electrochemistry,Anode,Electron transport chain,Oxidizing agent,Cathode,Electrode
+Flame test,Colored fire,Emission spectroscopy,Qualitative inorganic analysis,Atomic absorption spectroscopy,Emission spectrum,Flame,Halide,Violet (color),Scandium,Hafnium
+Reducing agent,Oxidizing agent,Sodium borohydride,Ionization energy,Diborane,Phosphorous acid,Electronegativity,Electrosynthesis,Organic reduction,Half-reaction,Sodium amalgam
+Periodic table,Period 7 element,Period 6 element,Group 11 element,Group (periodic table),Group 4 element,Group 3 element,Carbon group,Period (periodic table),Block (periodic table),Timeline of chemical element discoveries
+Single displacement reaction,Double displacement reaction,Spectator ion,Reactivity series,Silver nitrate,Anion,Cation,Halogen,Hydrochloric acid,Chemical element,Ion
+Chemical equation,Jean Beguin,Law of conservation of mass,Stoichiometric coefficient,Neutralization (chemistry),Reactant,William Cullen,Diatomic molecule,Aqueous,IUPAC nomenclature,Conservation of mass
+Electrolysis,Electrowinning,Electrometallurgy,Anode,Cathode,Standard electrode potential,Electroplating,Gallium,Gas cracker,Electrolytic cell,Humphry Davy
+Hydrolysis,Saponification,Carboxylic acid,Ester,Nucleophile,Amide,Carbonyl,Sodium hydroxide,Glucose,Acid dissociation constant,Amine
+Allotropy,Rhombohedral,Body-centered cubic,Allotropes of carbon,Amorphous carbon,Tin pest,Solid oxygen,Lonsdaleite,Tetraoxygen,Allotropes of oxygen,Face-centered cubic
+Isomer,Chirality (chemistry),Enantiomer,Double bond,Cyclohexane conformation,Cis-trans isomerism,Stereoisomer,Functional group,Stereocenter,Stereoisomerism,IUPAC
+Functional group,Methylene group,Methylene bridge,Imine,Nitro compound,Thioether,Azo compound,Isocyanate,Imide,Acyl,Nitrile
+Chemical equilibrium,Equilibrium constant,Reaction quotient,Self-ionization of water,Dynamic equilibrium,Determination of equilibrium constants,Reaction rate,Buffer solution,Le Chatelier's principle,Solubility equilibrium,Liquid–liquid extraction
+DNA,RNA,Genome,Nucleotide,Transcription (genetics),Chromosome,Genetics,Nucleic acid,Molecular biology,DNA replication,Cell nucleus
+Plasmolysis,Crenation,Cytorrhysis,Cytolysis,Turgor,Hypertonic,Tonicity,Protoplasm,Osmotic pressure,Osmosis,Plasma membrane
+Prokaryote,Planctomycetes,Thermophile,Spirochaete,Cyanobacteria,Kingdom (biology),Organelle,Archaea,Cell wall,Mycoplasma,Ribosome
+Eukaryote,Prokaryote,Protist,Mitochondrion,Ciliate,Plastid,Chromalveolata,Excavate,Endomembrane system,SAR supergroup,Heterokont
+Cell (biology),Cell nucleus,Organelle,Cell membrane,Cytoplasm,Organ (anatomy),Mitosis,Neuron,Organism,Cell division,Endoplasmic reticulum
+Protein,Protein Data Bank,Gene,Membrane protein,Amino acid,DNA,Cytoplasm,Cell (biology),Enzyme,RNA,Biochemistry
+Protein biosynthesis,Elongation factor,Release factor,Translation (biology),Posttranslational modification,Proteolysis,Protein targeting,Translation (genetics),Ribosome,TRNA,Post-translational modification
+Amino acid,Glycine,Cysteine,Serine,Proline,Arginine,Methionine,Histidine,Alanine,Leucine,Threonine
+Condensation reaction,Aldol condensation,Knoevenagel condensation,Claisen condensation,Step-growth polymerization,Intramolecular,Anhydride,Peptide bond,Condensation polymer,Dieckmann condensation,Reaction mechanism
+Nucleic acid,Nucleobase,Nucleoside,Uracil,Thymine,Purine,Cytosine,Adenine,Guanine,Peptide nucleic acid,Locked nucleic acid
+Carbohydrate,Food energy,Dietary fiber,Fructose,Monosaccharide,Polysaccharide,Glycogen,Sucrose,Starch,Lactose,Mannose
+Cholesterol,Progesterone,Estrogen,Acetone,Chloroform,Testosterone,Low-density lipoprotein,Phytosterol,Steroid,Benzene,Vitamin D
+Metabolism,Inborn error of metabolism,Lipid,Glycolysis,Acetyl-CoA,Mitochondrion,Glucose,Vitamin,Adenosine triphosphate,Citric acid cycle,Gluconeogenesis
+Cell membrane,Cell wall,Cytoskeleton,Organelle,Endoplasmic reticulum,Lipid bilayer,Phospholipid,Golgi apparatus,Extracellular matrix,Cytoplasm,Glycocalyx
+Chloroplast,Chromoplast,Amyloplast,Leucoplast,Elaioplast,Proteinoplast,Organelle,Gerontoplast,Peroxisome,Plastid,Thylakoid
+Mitochondrion,Plastid,Mitochondrial matrix,Cytochrome c,Inner mitochondrial membrane,Oxidative phosphorylation,Malate-aspartate shuttle,Cytochrome c oxidase,Glycerol phosphate shuttle,ATP synthase,Succinate dehydrogenase
+Active transport,Passive transport,Secondary active transport,Primary active transport,Pinocytosis,Electrochemical gradient,Co-transport,F-ATPase,Sodium-potassium pump,Hydrogen potassium ATPase,V-ATPase
+Osmosis,Active transport,Osmotic pressure,Biological membrane,Osmoregulation,Plasmolysis,Semipermeable membrane,Turgor,Water potential,Ions,Diffusion
+Enzyme,Enzyme Commission number,BRENDA,IntEnz,MetaCyc,ExPASy,KEGG,Substrate (biochemistry),Product (chemistry),Enzyme inhibitor,Oxidoreductase
+Adenosine triphosphate,Adenosine diphosphate,Adenosine monophosphate,Adenosine,Glycolysis,Oxidative phosphorylation,Mitochondria,Phosphate,Guanosine triphosphate,Citric acid cycle,Electron transport chain
+Photosynthesis,Chemosynthesis,Chlorophyll,Primary production,Photosynthetic efficiency,Primary producers,Photoheterotroph,Food chain,Biomass (ecology),Plastid,Plant cell
+Cellular respiration,Anaerobic respiration,Electron transport chain,Oxidative phosphorylation,Lactic acid fermentation,Pyruvate decarboxylation,Substrate-level phosphorylation,Krebs cycle,Fermentation (biochemistry),Catabolism,Citric acid cycle
+Mitosis,Meiosis,Interphase,Anaphase,Metaphase,Cytokinesis,Cell division,Prophase,G2 phase,Telophase,Cell cycle
+Mendelian inheritance,Gregor Mendel,Hugo de Vries,William Bateson,Classical genetics,Introduction to genetics,Chromosomal crossover,Carl Correns,Experiments on Plant Hybridization,Genetic linkage,Erich von Tschermak
+Chromosome,Sex-determination system,Diploid,Meiosis,Autosome,Centromere,Haploid,Cell nucleus,Mitosis,Polymorphism (biology),Eukaryote
+Griffith's experiment,Avery–MacLeod–McCarty experiment,Frederick Griffith,Fred Neufeld,Microbiology (journal),Microbiology and Molecular Biology Reviews,Transformation (genetics),Strain (biology),Streptococcus pneumoniae,Polysaccharide,Mouse
+Gene,Human Genome Organisation,Protein,Enzyme,RNA,Molecular biology,DNA,Cytoplasm,Chromosome,Mutation,Amino acid
+Mutation,Genetic drift,Natural selection,Polymorphism (biology),Allele,Genetic variation,Chromosome,Phenotype,Genetic disorder,Genetic recombination,Genome
+Genetic recombination,Chromosomal crossover,Genetic variation,Homologous chromosome,Chromatid,Deletion (genetics),Alleles,Site-specific recombination,Meiosis,DNA repair,Chromosomal translocation
+Genetic engineering,Transhumanism,Biological engineering,Synthetic biology,Gene therapy,Genetically modified food,Materials science,Biotechnology,Biofuel,Genetically modified organism,Recombinant DNA
+Natural selection,Genetic drift,Modern evolutionary synthesis,On the Origin of Species,Speciation,Gene flow,Microevolution,Adaptation,Macroevolution,Abiogenesis,Punctuated equilibrium
+Reflex arc,Neural pathway,Muscle spindle,Patellar reflex,Sensory neuron,Afferent nerve,Motor system,Motor nerve,Lateral giant neuron,Efferent nerve,Motor neuron
+Apical dominance,Lateral buds,Lateral bud,Indole-3-acetic acid,Cytokinin,Fruit tree propagation,Pollarding,Auxin,Araucariaceae,Phloem,Pruning
+Food chain,Food web,Trophic level,Consumers (food chain),Decomposer,Lithotroph,Biomagnification,Chemosynthesis,Cold seep,Heterotroph,Autotroph
+Decomposer,Chemotroph,Detritivore,Decomposition,Herbivores,Nutrients,Heterotrophic,Saprotroph,Ecosystems,Earthworms,Lignin
+Scandinavia,Northern Europe,Old Norse,Viking,Nordic countries,Germanic peoples,Baltic Sea,Norse mythology,Norsemen,Danish language,Sami people
+Ocean gyre,Boundary current,Maelstrom,Eddy (fluid dynamics),Ekman transport,Whirlpool,South Atlantic Gyre,North Atlantic Gyre,Ross Gyre,Weddell Gyre,Brazil Current
+Elevation,Topographic isolation,Sea level,North American Vertical Datum of 1988,Sea Level Datum of 1929,Topography,Mountain,Topographic map,Topographic prominence,Altitude,Geodesy
+Humid continental climate,Climate,Precipitation (meteorology),Monsoon,Köppen climate classification,Semi-arid climate,Continental climate,Thunderstorm,Biome,Snow,Appalachian Mountains
+Ecliptic,Axial tilt,Earth's rotation,Precession,Ecliptic coordinate system,Formation and evolution of the Solar System,Celestial sphere,Astrological sign,Celestial equator,Earth's orbit,Zodiac
+Monsoon,Arabian Sea,Bay of Bengal,Relative humidity,El Niño,Western Ghats,Konkan,Thar Desert,Indo-Gangetic Plain,Precipitation (meteorology),Rainfall
+Glacier,Glaciology,List of glaciers,Moraine,Ice sheet,Cirque,Ice,Iceberg,Fjord,Ice cap,Retreat of glaciers since 1850
+Continental drift,Alfred Wegener,Seafloor spreading,Arthur Holmes,Supercontinent,Pangaea,Tectonophysics,Isostasy,Pangea,Land bridge,Abraham Ortelius
+Greenhouse effect,Cloud forcing,Radiative forcing,Earth's energy budget,Svante Arrhenius,IPCC Fourth Assessment Report,Human impact on the environment,Intergovernmental Panel on Climate Change,Greenhouse gases,Troposphere,Positive feedback
+Ozone depletion,Halocarbon,Polar stratospheric cloud,Montreal Protocol,Intergovernmental Panel on Climate Change,Chlorofluorocarbon,Greenhouse gas,Ozone layer,Stratosphere,Troposphere,Ozone
+William Shakespeare,Hamlet,Romeo and Juliet,Macbeth,A Midsummer Night's Dream,The Tempest,King Lear,Othello,Twelfth Night,The Merchant of Venice,As You Like It
+Existentialism,Hegelianism,Phenomenology (philosophy),Moral nihilism,Quietism (philosophy),Determinism,Søren Kierkegaard,Post-structuralism,Free will,Rationalism,Karl Barth
+Boston Tea Party,Philadelphia Tea Party,Intolerable Acts,Sons of Liberty,No taxation without representation,Tea Act,Townshend Acts,Stamp Act 1765,Old South Meeting House,First Continental Congress,Boston Port Act
+Crusades,East–West Schism,Western Schism,Bernard of Clairvaux,Counter-Reformation,Latin Church,Assumption of Mary,Investiture Controversy,Avignon Papacy,Fourth Council of the Lateran,High Middle Ages
+Gothic architecture,Romanesque architecture,Renaissance architecture,Nave,Transept,Choir (architecture),Cathedral,Architectural style,Vault (architecture),Basilica,Buttress

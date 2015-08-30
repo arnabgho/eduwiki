@@ -73,8 +73,8 @@
 
     <h3>Compensation & Costs</h3>
 
-    <p>You will receive $1 as the base for participation. You may receive up to
-        $4 as the extra bonus which depends on your performance.
+    <p>You will receive <code>$1</code> as the base for participation. You may receive up to
+        <code>$4</code> as the extra bonus which depends on your performance.
     </p>
 
 
@@ -141,31 +141,38 @@
         irb-review@andrew.cmu.edu . Phone: 412-268-1901 or 412-268-5460.
     </p>
 
-    <p>Voluntary Participation</p>
-    Your participation in this research is voluntary. You may discontinue
-    participation at any time during the research activity.
+    <h3>Voluntary Participation</h3>
+
+    <p>
+        Your participation in this research is voluntary. You may discontinue
+        participation at any time during the research activity.
+    </p>
 
     <form id="consent_input_form">
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" name="eighteen_years_old"
-                       id="eighteen_years_old" required="">
-                <b>I am age 18 or older.</b>
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" name="consent" id="consent" required="">
-                <b>I have read and understand the information above.</b>
-            </label>
-        </div>
+{#        <div class="checkbox">#}
+{#            <label>#}
+{#                <input type="checkbox" name="eighteen_years_old"#}
+{#                       id="eighteen_years_old" required="">#}
+{#                <b>I am age 18 or older.</b>#}
+{#            </label>#}
+{#        </div>#}
+{#        <div class="checkbox">#}
+{#            <label>#}
+{#                <input type="checkbox" name="consent" id="consent" required="">#}
+{#                <b>I have read and understand the information above.</b>#}
+{#            </label>#}
+{#        </div>#}
 
         <div class="checkbox">
             <label>
                 <input type="checkbox" name="want_to_continue"
                        id="want_to_continue" required="">
-                <b>I want to participate in this research and continue with the
-                    activity.</b>
+                <b>
+                    I am age 18 or older.
+                    I have read and understand the information above.
+                    I want to participate in this research and continue with the
+                    activity.
+                </b>
             </label>
         </div>
         <div id="cannot_leave_warning"

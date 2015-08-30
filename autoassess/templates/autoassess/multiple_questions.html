@@ -17,8 +17,9 @@
 </head>
 <body>
 
+{#{% if assignmentId %}#}
 {% include "test_pages/consent_form.html" %}
-
+{#{% endif %}#}
 <div class="row" id="question_area">
     {#            <h2>&nbsp;&nbsp;&nbsp;&nbsp;The prerequisites are:</h2>#}
     {#            <br>#}
@@ -66,11 +67,13 @@
                  class="alert alert-info alert-dismissable">
                 <b>
                     Knowledge of the topic is not at all required. It's fine
-{#                    (and even preferred) #}
+                    {#                    (and even preferred) #}
                     if you do not know anything about the
                     possibly unusual topic.<br>
-                    You will receive <code>$1</code> as the base for participation. You may
-                    receive up to <code>$4</code> as the extra bonus which depends on your
+                    You will receive <code>$1</code> as the base for
+                    participation. You may
+                    receive up to <code>$4</code> as the extra bonus which
+                    depends on your
                     performance.
                 </b>
                 <br>
@@ -174,7 +177,10 @@
 <script src="{% static 'autoassess/js/multiple_questions_submit.js' %}"></script>
 <script src="{% static 'autoassess/js/update_answer.js' %}"></script>
 
-<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+
+</script>
 <script type="text/javascript"
         src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
