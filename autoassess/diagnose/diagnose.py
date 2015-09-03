@@ -3,6 +3,7 @@ from prereqsearch.related_concept import related_terms_in_article
 import quesgen_wrapper
 from util.wikipedia_util import WikipediaWrapper
 import sys
+from version_list import IN_TEXT_QUESTIONS
 
 
 def diagnose(search_term, generate_prereq_question=False, num_prereq=3,
@@ -14,11 +15,15 @@ def diagnose(search_term, generate_prereq_question=False, num_prereq=3,
             num_prereq=num_prereq,
             version=version)
     elif set_type == "Mentioned":
+        extra_question_in_text = False
+        if version == IN_TEXT_QUESTIONS:
+            extra_question_in_text = True
         return diagnose_mentioned(
             search_term,
             generate_prereq_question=generate_prereq_question,
             num_prereq=num_prereq,
-            version=version)
+            version=version,
+            extra_question_in_text=extra_question_in_text)
 
 
 def diagnose_prereq_tree(search_term, generate_prereq_question=False,
@@ -67,10 +72,21 @@ def diagnose_mentioned(search_term, generate_prereq_question=False,
     main_article_wikipage = prereq_tree['wikipage']
     child_questions = []
     if generate_prereq_question:
+
+        # Uncomment the following for fast debugging, remove after debugging
+        # if search_term == "Reinforcement learning":
+        #     candidate_topics = [u'Software agent', u'Markov decision process',
+        #                         u'Machine learning', u'Temporal difference',
+        #                         u'Dynamic programming']
+        #     alias = {}
+        #     for c in candidate_topics:
+        #         alias[c] = []
+        # else:
+
         candidate_topics, alias = related_terms_in_article(
             main_article_wikipage)
         # candidate_topics = candidate_topics[:5]
-        #TODO:: make this a parameter
+        # TODO:: make this a parameter
         candidate_question_max = 5
         candidate_question_count = 0
 
@@ -123,6 +139,7 @@ def diagnose_mentioned(search_term, generate_prereq_question=False,
                 candidate_question_count += 1
                 if candidate_question_count >= candidate_question_max:
                     break
+
     questions = [topic_question] + child_questions
 
     return questions

@@ -26,6 +26,9 @@ def dump_quiz(quiz_name, version):
     quiz_answers = QuizAnswers.objects(quiz=quiz)
     for quiz_ans in quiz_answers:
         assert isinstance(quiz_ans, QuizAnswers)
+
+        # !!!NOTE!!!:: Only take quiz final answers, not directly retrieve
+        # wiki_question_answer, which will contain intermediate answers
         final_answers = quiz_ans.quiz_final_answers
         for question_ans in final_answers:
             assert isinstance(question_ans, WikiQuestionAnswer)
@@ -38,7 +41,7 @@ def dump_quiz(quiz_name, version):
             record_list.append(record)
 
     if not record_list:
-        print "No record for", quiz_name
+        print "No record for", quiz_name, quiz.version
         return False
 
     with open('./response_data/' + quiz_name.replace(" ", "_") + '.response',
@@ -46,7 +49,7 @@ def dump_quiz(quiz_name, version):
         csv_out = csv.writer(outfile)
         for row in record_list:
             csv_out.writerow(row)
-        print "Finished dumping for", quiz_name
+        print "Finished dumping for", quiz_name, quiz.version
 
     return True
 

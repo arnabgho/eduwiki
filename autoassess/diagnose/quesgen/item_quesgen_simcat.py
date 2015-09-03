@@ -18,6 +18,7 @@ def generate_item_question_simcat(
     correct_answer = question_generated['answer']
     original_sentence = question_generated['original_sentence']
     distractors = []
+
     for distractor in item_distractor_generator(term, correct_answer):
         if not distractor:
             break

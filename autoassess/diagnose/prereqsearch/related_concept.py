@@ -20,6 +20,8 @@ import collections
 from sklearn.feature_extraction.dict_vectorizer import DictVectorizer
 from sklearn.cluster import DBSCAN, KMeans
 import math
+import numpy as np
+
 
 # [Future] TODO:: Factors to be included that are relevant to "good" subtopics
 # categorical, mentioning (times, linkage),
@@ -151,10 +153,12 @@ def most_mentioned_wikilinks(wikipage, with_count=True):
         print >> sys.stderr, e
     # TODO:: when Markov, Markov model, Hidden Markov model show up together
 
-
     # get high number mention topics
     most_mentioned = sorted(
         term_count.items(), key=operator.itemgetter(1), reverse=True)
+
+    # Filter those with zero mentioning counts
+    most_mentioned = [m for m in most_mentioned if m[1] > 0]
 
     if not with_count:
         most_mentioned = [m[0] for m in most_mentioned]
@@ -200,6 +204,7 @@ def similarly_covered_topics(wikipage, with_count=False):
         overlap_sim = len(list_overlapping(
             links_here_dict[title], link_to_main))
         overlap_sim /= math.exp(len(links_here_dict[title]) / len(link_to_main))
+        # overlap_sim /= len(links_here_dict[title])
 
         link_overlap.update(
             {title: overlap_sim}
@@ -214,7 +219,7 @@ def similarly_covered_topics(wikipage, with_count=False):
     return mostly_together_linked, aliases
 
 
-def similar_concpet_by_clustering_bag_of_links_to_here(wikipage):
+def similar_concept_by_clustering_bag_of_links_to_here(wikipage):
     link_to_main = WikipediaWrapper.page_ids_links_here(wikipage.title)
     mm_links, aliases = most_mentioned_wikilinks(wikipage, with_count=True)
     mm_link_titles = [m[0] for m in mm_links]
@@ -231,6 +236,12 @@ def similar_concpet_by_clustering_bag_of_links_to_here(wikipage):
 
 
 def cluster_bag_of_links_to_here(links_here_dict):
+    """
+    Totally not working at all, clustering methods will most likely result
+    in one big cluster, with (n-1) cluster containing merely one node
+    :param links_here_dict:
+    :return:
+    """
     # convert it to bags of links-to-here (B-O-L)
     #
     # for title in links_here_dict:
@@ -324,16 +335,65 @@ def test(topic="Reinforcement learning"):
 
     # sparse_mention_spanning_graph(page)
 
-    # clusters = similar_concpet_by_clustering_bag_of_links_to_here(page)
+    # clusters = similar_concept_by_clustering_bag_of_links_to_here(page)
 
     # print clusters
 
-    referred_links, aliases = most_mentioned_wikilinks(page, with_count=True)
-    referring_links, aliases = similarly_covered_topics(page, with_count=True)
-    print referred_links
-    print referring_links
+    mm_referred_links, aliases = most_mentioned_wikilinks(page, with_count=True)
+    sc_referring_links, aliases = similarly_covered_topics(page,
+                                                           with_count=True)
+    print "MM"
+    print mm_referred_links
+    print "SC"
+    print sc_referring_links
+
+    def normalize_link_tuple(links):
+        weights = [l[1] for l in links]
+        mean = np.average(weights)
+        stderr = math.sqrt(np.var(weights))
+        return [(
+                    l[0],
+                    min(1.0, max((l[1] - mean) / stderr, -1.0))
+                ) for l in links]
+
+    mm_referred_links = normalize_link_tuple(mm_referred_links)
+    sc_referring_links = normalize_link_tuple(sc_referring_links)
+
+    coeff = 1
+    l_dict = {}
+    for l in sc_referring_links:
+        link_name = l[0]
+        l_dict[link_name] = l[1]
+
+    for l in mm_referred_links:
+        link = l[0]
+        if link in l_dict:
+            l_dict[link] += coeff * l[1]
+        else:
+            print l[0]
+
+    combined_rank = sorted(
+        l_dict.items(), key=operator.itemgetter(1), reverse=True)
+
+    print "Combined"
+    print combined_rank
 
     # sparse_mention_spanning_graph(page)
+
+    # [QiDoc][Future] The related terms might not be mentioned in the contextual
+    # part of the article, for example, for Artificial NN, autoencoder
+    # are not mentioned at all,
+    # and RNN are mentioned only two times in its full name.
+    # Later we should better explore the graph structure and semantic relations
+    # of more links rather than only those are mentioned. But mentioning is a
+    # good signal that the . However it is hard to find the exact amount of
+    #  mentioning, as one term may be mentioned under different names (
+    # RNN, recurrent neural network, recurrent ANN, recurrent architecture),
+    # and some mentioning might be overly counted (contentment-satisfaction).
+    # Simplified counting amount itself does not work well. Although we can fix
+    # some of these pitfalls heuristically, some other undiscovered marginal
+    # cases might exist.
+
 
 
 if __name__ == "__main__":
@@ -341,5 +401,7 @@ if __name__ == "__main__":
 
     connect('eduwiki_db')
 
-    test()
-    # test("Marketing Strategy")
+    # test()
+    test("Marketing Strategy")
+    test("Customer satisfaction")
+    test("Artificial neural network")

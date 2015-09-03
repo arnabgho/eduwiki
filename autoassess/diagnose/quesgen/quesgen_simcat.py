@@ -21,6 +21,10 @@ def generate_question_simcat(prereq_tree, distractor_num=3, version=None):
         distractors = generate_distractors_simsent(
             prereq_tree['wikipage'], correct_answer,
             stem_tenses, max_num=3)
+    elif version == IN_TEXT_QUESTIONS:
+        distractors = generate_distractors_simsent(
+            prereq_tree['wikipage'], correct_answer,
+            stem_tenses, max_num=3)
     else:
         distractors = []
 

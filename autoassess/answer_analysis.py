@@ -34,7 +34,9 @@ def answer_stat(answers):
             'submit_time_delta'
         ]:
             li = [a[key] for a in answers if key in a]
-            stats[key] = sum(li) / len(li)
+            stats[key] = 0
+            if len(li) > 0:
+                stats[key] = sum(li) / len(li)
         elif key == 'correctness':
             li = [a[key] for a in answers if key in a]
             stats[key] = li.count(True) / len(li)
@@ -44,6 +46,8 @@ def answer_stat(answers):
             for li in lili:
                 merged_li.extend(li)
             stats[key] = Counter(merged_li).most_common()
+        elif key in ['choice_order']:
+            stats[key] = None
         else:
             stats[key] = Counter(
                 [a[key] for a in answers if key in a]).most_common()

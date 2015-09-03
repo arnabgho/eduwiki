@@ -1,7 +1,7 @@
 from __future__ import division
 __author__ = 'moonkey'
 
-from models import *
+from autoassess.models import *
 
 
 def quiz_stat(quiz):
@@ -47,4 +47,6 @@ if __name__ == '__main__':
 
     connect('eduwiki_db', host='localhost')
     stats = db_quiz_stats()
-    print stats
+    for stat in stats:
+        for p in stat:
+            print p

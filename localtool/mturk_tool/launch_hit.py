@@ -99,4 +99,4 @@ if __name__ == "__main__":
     # )
     create_hit_for_topic(
         "Customer satisfaction", version=-1.0, sandbox=True,
-        max_assignments=5, reward=1.0)
+        max_assignments=1, reward=1.0)

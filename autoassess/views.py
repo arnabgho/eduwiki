@@ -63,28 +63,26 @@ def quiz(request):
         else:
             version = float(request_data['v'])
 
+    if version < 0:
+        set_type = SET_SELF_DEFINED
+
     try:
         questions = None
         if not force_generating_new:
             try:
                 # the search term may not corresponds to a wikipedia entry
                 wiki_topic = WikipediaWrapper.page(search_term).title
-                questions = load_diagnose_question_set(
-                    wiki_topic,
-                    version=version,
-                    set_type=set_type)
-            except IndexError as e:
+                questions, quiz_id = load_diagnose_question_set(
+                    wiki_topic, version=version, set_type=set_type,
+                    with_meta_info=True, question_shuffle=False)
+                response_data['quiz_id'] = quiz_id
+            except IndexError or TypeError as e:
                 # this is the error it will raise if no questions is founded
                 # if there is not questions for this topic in the database
                 # then generate and save
+
+                # Type Error: 'NoneType' object is not iterable
                 print "Failed to load question for", search_term, e
-                # questions = diagnose.diagnose(
-                # search_term,
-                # generate_prereq_question=generate_prereq_question)
-                # save_diagnose_question_set(
-                #     questions,
-                #     question_version=CURRENT_QUESTION_VERSION,
-                #     force=True)
         if not questions:
             questions = diagnose.diagnose(
                 search_term,
@@ -99,8 +97,8 @@ def quiz(request):
     except DisambiguationError, dis:
         return disambiguation(request, dis)
 
-    # display feedback answers
-    if not ('nfb' in request_data and bool(request_data['nfb'])):
+    # display feedback answers for a single question
+    if 'qfb' in request_data and bool(request_data['qfb']):
         all_answers = []
         for ques in questions:
             if 'id' in ques:
@@ -113,6 +111,30 @@ def quiz(request):
                     all_answers += question_answers
         if all_answers:
             response_data['answers'] = all_answers
+
+    # display feedback for a quiz's questions
+    if not ('nsfb' in request_data and bool(request_data['nsfb'])):
+        try:
+            all_stats = []
+            all_answers = []
+            question_ans = {}
+            quiz = QuestionSet.objects(id=quiz_id)[0]
+            quiz_answers = QuizAnswers.objects(quiz=quiz)
+            for quiz_ans in quiz_answers:
+                # quiz_ans = QuizAnswers()
+                final_answers = quiz_ans.quiz_final_answers
+                for final_ans in final_answers:
+                    if final_ans.question.topic not in question_ans:
+                        question_ans[final_ans.question.topic] = []
+                    question_ans[final_ans.question.topic].append(final_ans)
+            for topic in question_ans:
+                stat = answer_stat(question_ans[topic])
+                all_stats.append(stat)
+                all_answers += question_ans[topic]
+            response_data['answers'] = all_stats + all_answers
+        except Exception as e:
+            print "Failed to retrieve the quiz answers"
+            print e
 
     response_data['quiz'] = questions
     response_data['search_term'] = search_term
@@ -206,5 +228,5 @@ def learn(request):
     # children = []
     # for child in d['children']:
     # children.append(json.loads(child, object_hook=recurhook))
-    #         d['children'] = children
-    #     return d
+    # d['children'] = children
+    # return d
