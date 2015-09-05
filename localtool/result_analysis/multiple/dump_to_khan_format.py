@@ -4,14 +4,17 @@ from autoassess.models import *
 import csv
 
 
-def dump_quiz(quiz_name, version):
+def dump_quiz(quiz_name, version, separate_questions_by_version=True):
     """
     Get the question answers into the Khan Academy format, so it can be
     analyzed directly through 'guacamole'
 
     These columns are name, exercise, time_taken, and correct.
     Reference: https://github.com/Khan/guacamole
-    :return:
+    :param separate_questions_by_version: if True, then in one (MANUAL) quiz,
+    the question generated (version>0) will be separated from expert questions
+      (version<0)
+    :return: the record list, the output will also be written to the file.
     """
 
     try:
@@ -22,8 +25,11 @@ def dump_quiz(quiz_name, version):
         print "No quiz retrieved for dumping"
         return False
 
-    record_list = []
     quiz_answers = QuizAnswers.objects(quiz=quiz)
+
+    record_list = []
+    if separate_questions_by_version:
+        version_separate_record_lists = {}
     for quiz_ans in quiz_answers:
         assert isinstance(quiz_ans, QuizAnswers)
 
@@ -38,6 +44,12 @@ def dump_quiz(quiz_name, version):
             time_taken = question_ans.submit_time_delta
             correct = question_ans.correctness
             record = (worker_id, exercise, time_taken, correct)
+            if separate_questions_by_version:
+                qversion = question_ans.question.version
+                if qversion not in version_separate_record_lists:
+                    version_separate_record_lists[qversion] = []
+                version_separate_record_lists[qversion].append(record)
+
             record_list.append(record)
 
     if not record_list:
@@ -51,7 +63,18 @@ def dump_quiz(quiz_name, version):
             csv_out.writerow(row)
         print "Finished dumping for", quiz_name, quiz.version
 
-    return True
+    if separate_questions_by_version:
+        for qversion in version_separate_record_lists:
+            with open('./response_data/' +
+                      quiz_name.replace(" ", "_") +
+                      "_v" + str(qversion) +
+                      '.response', 'w') as outfile:
+                csv_out = csv.writer(outfile)
+                for row in version_separate_record_lists[qversion]:
+                    csv_out.writerow(row)
+                print "Finished dumping for", quiz_name, quiz.version, qversion
+
+    return record_list
 
 
 def dump_all():

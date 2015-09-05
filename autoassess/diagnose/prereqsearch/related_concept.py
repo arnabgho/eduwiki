@@ -364,11 +364,13 @@ def test(topic="Reinforcement learning"):
     for l in sc_referring_links:
         link_name = l[0]
         l_dict[link_name] = l[1]
+        # l_dict[link_name] = math.exp(l[1])
 
     for l in mm_referred_links:
         link = l[0]
         if link in l_dict:
             l_dict[link] += coeff * l[1]
+            # l_dict[link] += coeff * math.exp(l[1])
         else:
             print l[0]
 
@@ -378,8 +380,7 @@ def test(topic="Reinforcement learning"):
     print "Combined"
     print combined_rank
 
-    # sparse_mention_spanning_graph(page)
-
+    # TODO::
     # [QiDoc][Future] The related terms might not be mentioned in the contextual
     # part of the article, for example, for Artificial NN, autoencoder
     # are not mentioned at all,
@@ -387,13 +388,12 @@ def test(topic="Reinforcement learning"):
     # Later we should better explore the graph structure and semantic relations
     # of more links rather than only those are mentioned. But mentioning is a
     # good signal that the . However it is hard to find the exact amount of
-    #  mentioning, as one term may be mentioned under different names (
+    # mentioning, as one term may be mentioned under different names (
     # RNN, recurrent neural network, recurrent ANN, recurrent architecture),
     # and some mentioning might be overly counted (contentment-satisfaction).
     # Simplified counting amount itself does not work well. Although we can fix
     # some of these pitfalls heuristically, some other undiscovered marginal
     # cases might exist.
-
 
 
 if __name__ == "__main__":
