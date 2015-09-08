@@ -1,40 +1,25 @@
-72_ABN92G6H73097,American Customer Satisfaction Index,37221,True
-72_ABN92G6H73097,Customer_centricity9,773,True
-72_ABN92G6H73097,Gross domestic product,47626,False
-72_ABN92G6H73097,Customer_centricity10,38402,True
-72_ABN92G6H73097,Customer_centricity3,32705,False
-72_ABN92G6H73097,Customer_centricity7,21910,True
-72_ABN92G6H73097,Customer_centricity2,20224,True
-72_ABN92G6H73097,Customer_centricity4,32369,False
-72_ABN92G6H73097,Contentment,19162,False
-72_ABN92G6H73097,Customer_centricity8,23821,True
-72_ABN92G6H73097,Customer_centricity5,21602,False
-72_ABN92G6H73097,Customer_centricity1,12614,False
-72_ABN92G6H73097,Sampling (statistics),19136,False
-72_ABN92G6H73097,Marketing,22008,False
-72_ABN92G6H73097,Customer_centricity6,12131,False
-66_A23H9Y6D4J1HFA,Gross domestic product,41714,False
+86_A2TR0BG1WR2KJB,Customer_centricity6,336567,True
+86_A2TR0BG1WR2KJB,Customer_centricity5,67047,True
+86_A2TR0BG1WR2KJB,Customer_centricity1,92408,False
+86_A2TR0BG1WR2KJB,Customer_centricity2,123196,False
+86_A2TR0BG1WR2KJB,Customer_centricity10,110623,True
+86_A2TR0BG1WR2KJB,Customer_centricity3,95920,True
+86_A2TR0BG1WR2KJB,Customer_centricity4,138293,False
+86_A2TR0BG1WR2KJB,Customer_centricity8,44150,True
+86_A2TR0BG1WR2KJB,Customer_centricity7,15392,True
+86_A2TR0BG1WR2KJB,Customer_centricity9,31636,True
 66_A23H9Y6D4J1HFA,Customer_centricity3,45605,True
-66_A23H9Y6D4J1HFA,American Customer Satisfaction Index,32363,True
 66_A23H9Y6D4J1HFA,Customer_centricity4,86191,True
 66_A23H9Y6D4J1HFA,Customer_centricity8,103772,True
 66_A23H9Y6D4J1HFA,Customer_centricity10,5086,False
 66_A23H9Y6D4J1HFA,Customer_centricity1,86043,False
-66_A23H9Y6D4J1HFA,Sampling (statistics),44186,True
 66_A23H9Y6D4J1HFA,Customer_centricity9,37849,True
 66_A23H9Y6D4J1HFA,Customer_centricity7,46883,False
 66_A23H9Y6D4J1HFA,Customer_centricity6,66784,False
-66_A23H9Y6D4J1HFA,Marketing,35110,True
-66_A23H9Y6D4J1HFA,Contentment,8297,True
 66_A23H9Y6D4J1HFA,Customer_centricity5,77170,False
 66_A23H9Y6D4J1HFA,Customer_centricity2,16169,False
 27_A3B7TNVOISSZ2O,Customer_centricity9,37146,True
-27_A3B7TNVOISSZ2O,Contentment,6144,True
-27_A3B7TNVOISSZ2O,Sampling (statistics),63392,True
-27_A3B7TNVOISSZ2O,American Customer Satisfaction Index,116747,True
-27_A3B7TNVOISSZ2O,Marketing,8845,True
 27_A3B7TNVOISSZ2O,Customer_centricity7,138648,False
-27_A3B7TNVOISSZ2O,Gross domestic product,65406,True
 27_A3B7TNVOISSZ2O,Customer_centricity1,118969,False
 27_A3B7TNVOISSZ2O,Customer_centricity6,50149,True
 27_A3B7TNVOISSZ2O,Customer_centricity8,71188,False
@@ -43,29 +28,9 @@
 27_A3B7TNVOISSZ2O,Customer_centricity2,82770,True
 27_A3B7TNVOISSZ2O,Customer_centricity3,12154,True
 27_A3B7TNVOISSZ2O,Customer_centricity4,78271,True
-86_A2TR0BG1WR2KJB,Customer_centricity6,336567,True
-86_A2TR0BG1WR2KJB,Customer_centricity5,67047,True
-86_A2TR0BG1WR2KJB,Sampling (statistics),59300,True
-86_A2TR0BG1WR2KJB,Customer_centricity1,92408,False
-86_A2TR0BG1WR2KJB,Marketing,7202,True
-86_A2TR0BG1WR2KJB,American Customer Satisfaction Index,10571,True
-86_A2TR0BG1WR2KJB,Gross domestic product,65101,False
-86_A2TR0BG1WR2KJB,Customer_centricity2,123196,False
-86_A2TR0BG1WR2KJB,Customer_centricity10,110623,True
-86_A2TR0BG1WR2KJB,Contentment,52596,True
-86_A2TR0BG1WR2KJB,Customer_centricity3,95920,True
-86_A2TR0BG1WR2KJB,Customer_centricity4,138293,False
-86_A2TR0BG1WR2KJB,Customer_centricity8,44150,True
-86_A2TR0BG1WR2KJB,Customer_centricity7,15392,True
-86_A2TR0BG1WR2KJB,Customer_centricity9,31636,True
-12_A4YG74WC1EK5V,Marketing,808258,True
-12_A4YG74WC1EK5V,American Customer Satisfaction Index,70800,True
 12_A4YG74WC1EK5V,Customer_centricity4,33640,False
 12_A4YG74WC1EK5V,Customer_centricity10,52029,False
 12_A4YG74WC1EK5V,Customer_centricity5,107496,False
-12_A4YG74WC1EK5V,Gross domestic product,35975,True
-12_A4YG74WC1EK5V,Contentment,35259,True
-12_A4YG74WC1EK5V,Sampling (statistics),45272,True
 12_A4YG74WC1EK5V,Customer_centricity8,41759,False
 12_A4YG74WC1EK5V,Customer_centricity2,5527,False
 12_A4YG74WC1EK5V,Customer_centricity9,24190,False
@@ -73,10 +38,7 @@
 12_A4YG74WC1EK5V,Customer_centricity1,54969,True
 12_A4YG74WC1EK5V,Customer_centricity3,52018,True
 12_A4YG74WC1EK5V,Customer_centricity6,140391,False
-35_ADKKDK6P4MS1Z,American Customer Satisfaction Index,75946,True
-35_ADKKDK6P4MS1Z,Gross domestic product,51398,True
 35_ADKKDK6P4MS1Z,Customer_centricity4,63684,False
-35_ADKKDK6P4MS1Z,Sampling (statistics),16743,False
 35_ADKKDK6P4MS1Z,Customer_centricity8,73336,True
 35_ADKKDK6P4MS1Z,Customer_centricity6,121345,False
 35_ADKKDK6P4MS1Z,Customer_centricity7,25670,False
@@ -86,16 +48,9 @@
 35_ADKKDK6P4MS1Z,Customer_centricity1,66571,False
 35_ADKKDK6P4MS1Z,Customer_centricity10,81679,False
 35_ADKKDK6P4MS1Z,Customer_centricity9,20469,True
-35_ADKKDK6P4MS1Z,Contentment,137380,True
-35_ADKKDK6P4MS1Z,Marketing,20852,True
-20_A4YG74WC1EK5V,Marketing,808258,True
-20_A4YG74WC1EK5V,American Customer Satisfaction Index,70800,True
 20_A4YG74WC1EK5V,Customer_centricity4,33640,False
 20_A4YG74WC1EK5V,Customer_centricity10,52029,False
 20_A4YG74WC1EK5V,Customer_centricity5,107496,False
-20_A4YG74WC1EK5V,Gross domestic product,35975,True
-20_A4YG74WC1EK5V,Contentment,35259,True
-20_A4YG74WC1EK5V,Sampling (statistics),45272,True
 20_A4YG74WC1EK5V,Customer_centricity8,41759,False
 20_A4YG74WC1EK5V,Customer_centricity2,5527,False
 20_A4YG74WC1EK5V,Customer_centricity9,24190,False
@@ -103,58 +58,38 @@
 20_A4YG74WC1EK5V,Customer_centricity1,54969,True
 20_A4YG74WC1EK5V,Customer_centricity3,52018,True
 20_A4YG74WC1EK5V,Customer_centricity6,140391,False
-58_A23H9Y6D4J1HFA,Gross domestic product,41714,False
 58_A23H9Y6D4J1HFA,Customer_centricity3,45605,True
-58_A23H9Y6D4J1HFA,American Customer Satisfaction Index,32363,True
 58_A23H9Y6D4J1HFA,Customer_centricity4,86191,True
 58_A23H9Y6D4J1HFA,Customer_centricity8,103772,True
 58_A23H9Y6D4J1HFA,Customer_centricity10,5086,False
 58_A23H9Y6D4J1HFA,Customer_centricity1,86043,False
-58_A23H9Y6D4J1HFA,Sampling (statistics),44186,True
 58_A23H9Y6D4J1HFA,Customer_centricity9,37849,True
 58_A23H9Y6D4J1HFA,Customer_centricity7,46883,False
 58_A23H9Y6D4J1HFA,Customer_centricity6,66784,False
-58_A23H9Y6D4J1HFA,Marketing,35110,True
-58_A23H9Y6D4J1HFA,Contentment,8297,True
 58_A23H9Y6D4J1HFA,Customer_centricity5,77170,False
 58_A23H9Y6D4J1HFA,Customer_centricity2,16169,False
 57_A3TDA1NWHNQFE3,Customer_centricity2,28104,False
 57_A3TDA1NWHNQFE3,Customer_centricity1,100615,False
-57_A3TDA1NWHNQFE3,Marketing,73325,True
 57_A3TDA1NWHNQFE3,Customer_centricity9,51360,True
 57_A3TDA1NWHNQFE3,Customer_centricity10,23077,False
 57_A3TDA1NWHNQFE3,Customer_centricity7,59033,True
-57_A3TDA1NWHNQFE3,American Customer Satisfaction Index,90834,True
-57_A3TDA1NWHNQFE3,Gross domestic product,191656,False
 57_A3TDA1NWHNQFE3,Customer_centricity4,67779,False
 57_A3TDA1NWHNQFE3,Customer_centricity6,106257,False
-57_A3TDA1NWHNQFE3,Sampling (statistics),115523,True
 57_A3TDA1NWHNQFE3,Customer_centricity8,55683,False
 57_A3TDA1NWHNQFE3,Customer_centricity3,176213,False
 57_A3TDA1NWHNQFE3,Customer_centricity5,131506,True
-57_A3TDA1NWHNQFE3,Contentment,85948,True
-32_A33U9PH6TQL0KG,Sampling (statistics),7969,False
 32_A33U9PH6TQL0KG,Customer_centricity2,1273,False
 32_A33U9PH6TQL0KG,Customer_centricity10,2381,False
-32_A33U9PH6TQL0KG,Gross domestic product,1827,False
 32_A33U9PH6TQL0KG,Customer_centricity6,1254,False
 32_A33U9PH6TQL0KG,Customer_centricity3,1775,False
 32_A33U9PH6TQL0KG,Customer_centricity8,1522,False
-32_A33U9PH6TQL0KG,American Customer Satisfaction Index,1808,True
 32_A33U9PH6TQL0KG,Customer_centricity4,1387,False
 32_A33U9PH6TQL0KG,Customer_centricity5,1511,False
-32_A33U9PH6TQL0KG,Marketing,1857,False
 32_A33U9PH6TQL0KG,Customer_centricity9,1198,True
 32_A33U9PH6TQL0KG,Customer_centricity7,2227,True
-32_A33U9PH6TQL0KG,Contentment,2408,True
 32_A33U9PH6TQL0KG,Customer_centricity1,2170,True
 88_A3B7TNVOISSZ2O,Customer_centricity9,37146,True
-88_A3B7TNVOISSZ2O,Contentment,6144,True
-88_A3B7TNVOISSZ2O,Sampling (statistics),63392,True
-88_A3B7TNVOISSZ2O,American Customer Satisfaction Index,116747,True
-88_A3B7TNVOISSZ2O,Marketing,8845,True
 88_A3B7TNVOISSZ2O,Customer_centricity7,138648,False
-88_A3B7TNVOISSZ2O,Gross domestic product,65406,True
 88_A3B7TNVOISSZ2O,Customer_centricity1,118969,False
 88_A3B7TNVOISSZ2O,Customer_centricity6,50149,True
 88_A3B7TNVOISSZ2O,Customer_centricity8,71188,False
@@ -164,12 +99,7 @@
 88_A3B7TNVOISSZ2O,Customer_centricity3,12154,True
 88_A3B7TNVOISSZ2O,Customer_centricity4,78271,True
 41_A3B7TNVOISSZ2O,Customer_centricity9,37146,True
-41_A3B7TNVOISSZ2O,Contentment,6144,True
-41_A3B7TNVOISSZ2O,Sampling (statistics),63392,True
-41_A3B7TNVOISSZ2O,American Customer Satisfaction Index,116747,True
-41_A3B7TNVOISSZ2O,Marketing,8845,True
 41_A3B7TNVOISSZ2O,Customer_centricity7,138648,False
-41_A3B7TNVOISSZ2O,Gross domestic product,65406,True
 41_A3B7TNVOISSZ2O,Customer_centricity1,118969,False
 41_A3B7TNVOISSZ2O,Customer_centricity6,50149,True
 41_A3B7TNVOISSZ2O,Customer_centricity8,71188,False
@@ -178,29 +108,19 @@
 41_A3B7TNVOISSZ2O,Customer_centricity2,82770,True
 41_A3B7TNVOISSZ2O,Customer_centricity3,12154,True
 41_A3B7TNVOISSZ2O,Customer_centricity4,78271,True
-78_A2SJ0PSN6JGJWP,Gross domestic product,705566,False
 78_A2SJ0PSN6JGJWP,Customer_centricity3,83534,False
 78_A2SJ0PSN6JGJWP,Customer_centricity6,76567,False
-78_A2SJ0PSN6JGJWP,American Customer Satisfaction Index,193438,True
-78_A2SJ0PSN6JGJWP,Marketing,59220,True
 78_A2SJ0PSN6JGJWP,Customer_centricity7,180047,False
 78_A2SJ0PSN6JGJWP,Customer_centricity5,76950,False
 78_A2SJ0PSN6JGJWP,Customer_centricity8,3687,False
-78_A2SJ0PSN6JGJWP,Sampling (statistics),91940,True
 78_A2SJ0PSN6JGJWP,Customer_centricity4,230007,True
-78_A2SJ0PSN6JGJWP,Contentment,135256,True
 78_A2SJ0PSN6JGJWP,Customer_centricity1,208375,False
 78_A2SJ0PSN6JGJWP,Customer_centricity10,12649,False
 78_A2SJ0PSN6JGJWP,Customer_centricity2,223321,False
 78_A2SJ0PSN6JGJWP,Customer_centricity9,17141,False
-17_A19406O89BADON,American Customer Satisfaction Index,1413,True
 17_A19406O89BADON,Customer_centricity1,22801,False
-17_A19406O89BADON,Sampling (statistics),17221,True
-17_A19406O89BADON,Marketing,44070,True
 17_A19406O89BADON,Customer_centricity6,1839,False
-17_A19406O89BADON,Gross domestic product,35947,True
 17_A19406O89BADON,Customer_centricity10,101616,False
-17_A19406O89BADON,Contentment,52246,True
 17_A19406O89BADON,Customer_centricity5,33868,True
 17_A19406O89BADON,Customer_centricity2,14372,False
 17_A19406O89BADON,Customer_centricity3,58555,True
@@ -208,40 +128,27 @@
 17_A19406O89BADON,Customer_centricity8,32087,False
 17_A19406O89BADON,Customer_centricity7,56361,True
 17_A19406O89BADON,Customer_centricity9,25390,True
-18_A3TDA1NWHNQFE3,Customer_centricity2,28104,False
-18_A3TDA1NWHNQFE3,Customer_centricity1,100615,False
-18_A3TDA1NWHNQFE3,Marketing,73325,True
-18_A3TDA1NWHNQFE3,Customer_centricity9,51360,True
-18_A3TDA1NWHNQFE3,Customer_centricity10,23077,False
-18_A3TDA1NWHNQFE3,Customer_centricity7,59033,True
-18_A3TDA1NWHNQFE3,American Customer Satisfaction Index,90834,True
-18_A3TDA1NWHNQFE3,Gross domestic product,191656,False
-18_A3TDA1NWHNQFE3,Customer_centricity4,67779,False
-18_A3TDA1NWHNQFE3,Customer_centricity6,106257,False
-18_A3TDA1NWHNQFE3,Sampling (statistics),115523,True
-18_A3TDA1NWHNQFE3,Customer_centricity8,55683,False
-18_A3TDA1NWHNQFE3,Customer_centricity3,176213,False
-18_A3TDA1NWHNQFE3,Customer_centricity5,131506,True
-18_A3TDA1NWHNQFE3,Contentment,85948,True
-42_AXGCH3EOOB0XG,Marketing,404747,True
+89_A2XJH3WC02RMXQ,Customer_centricity10,16561,True
+89_A2XJH3WC02RMXQ,Customer_centricity8,40723,True
+89_A2XJH3WC02RMXQ,Customer_centricity7,13263,False
+89_A2XJH3WC02RMXQ,Customer_centricity5,52472,False
+89_A2XJH3WC02RMXQ,Customer_centricity4,10878,False
+89_A2XJH3WC02RMXQ,Customer_centricity3,31744,True
+89_A2XJH3WC02RMXQ,Customer_centricity2,6957,False
+89_A2XJH3WC02RMXQ,Customer_centricity9,23348,False
+89_A2XJH3WC02RMXQ,Customer_centricity6,27040,False
+89_A2XJH3WC02RMXQ,Customer_centricity1,40089,False
 42_AXGCH3EOOB0XG,Customer_centricity1,31556,False
-42_AXGCH3EOOB0XG,American Customer Satisfaction Index,21209,True
 42_AXGCH3EOOB0XG,Customer_centricity2,21993,False
 42_AXGCH3EOOB0XG,Customer_centricity10,5313,False
 42_AXGCH3EOOB0XG,Customer_centricity4,21389,True
-42_AXGCH3EOOB0XG,Gross domestic product,17321,True
-42_AXGCH3EOOB0XG,Contentment,17298,True
 42_AXGCH3EOOB0XG,Customer_centricity9,16711,True
 42_AXGCH3EOOB0XG,Customer_centricity3,31416,True
 42_AXGCH3EOOB0XG,Customer_centricity6,2180,False
 42_AXGCH3EOOB0XG,Customer_centricity5,9312,True
-42_AXGCH3EOOB0XG,Sampling (statistics),1289,True
 42_AXGCH3EOOB0XG,Customer_centricity8,41210,False
 42_AXGCH3EOOB0XG,Customer_centricity7,25168,False
-83_ADKKDK6P4MS1Z,American Customer Satisfaction Index,75946,True
-83_ADKKDK6P4MS1Z,Gross domestic product,51398,True
 83_ADKKDK6P4MS1Z,Customer_centricity4,63684,False
-83_ADKKDK6P4MS1Z,Sampling (statistics),16743,False
 83_ADKKDK6P4MS1Z,Customer_centricity8,73336,True
 83_ADKKDK6P4MS1Z,Customer_centricity6,121345,False
 83_ADKKDK6P4MS1Z,Customer_centricity7,25670,False
@@ -251,181 +158,129 @@
 83_ADKKDK6P4MS1Z,Customer_centricity1,66571,False
 83_ADKKDK6P4MS1Z,Customer_centricity10,81679,False
 83_ADKKDK6P4MS1Z,Customer_centricity9,20469,True
-83_ADKKDK6P4MS1Z,Contentment,137380,True
-83_ADKKDK6P4MS1Z,Marketing,20852,True
-56_ABN92G6H73097,American Customer Satisfaction Index,37221,True
 56_ABN92G6H73097,Customer_centricity9,773,True
-56_ABN92G6H73097,Gross domestic product,47626,False
 56_ABN92G6H73097,Customer_centricity10,38402,True
 56_ABN92G6H73097,Customer_centricity3,32705,False
 56_ABN92G6H73097,Customer_centricity7,21910,True
 56_ABN92G6H73097,Customer_centricity2,20224,True
 56_ABN92G6H73097,Customer_centricity4,32369,False
-56_ABN92G6H73097,Contentment,19162,False
 56_ABN92G6H73097,Customer_centricity8,23821,True
 56_ABN92G6H73097,Customer_centricity5,21602,False
 56_ABN92G6H73097,Customer_centricity1,12614,False
-56_ABN92G6H73097,Sampling (statistics),19136,False
-56_ABN92G6H73097,Marketing,22008,False
 56_ABN92G6H73097,Customer_centricity6,12131,False
-2_A23H9Y6D4J1HFA,Gross domestic product,41714,False
 2_A23H9Y6D4J1HFA,Customer_centricity3,45605,True
-2_A23H9Y6D4J1HFA,American Customer Satisfaction Index,32363,True
 2_A23H9Y6D4J1HFA,Customer_centricity4,86191,True
 2_A23H9Y6D4J1HFA,Customer_centricity8,103772,True
 2_A23H9Y6D4J1HFA,Customer_centricity10,5086,False
 2_A23H9Y6D4J1HFA,Customer_centricity1,86043,False
-2_A23H9Y6D4J1HFA,Sampling (statistics),44186,True
 2_A23H9Y6D4J1HFA,Customer_centricity9,37849,True
 2_A23H9Y6D4J1HFA,Customer_centricity7,46883,False
 2_A23H9Y6D4J1HFA,Customer_centricity6,66784,False
-2_A23H9Y6D4J1HFA,Marketing,35110,True
-2_A23H9Y6D4J1HFA,Contentment,8297,True
 2_A23H9Y6D4J1HFA,Customer_centricity5,77170,False
 2_A23H9Y6D4J1HFA,Customer_centricity2,16169,False
-39_A2XJH3WC02RMXQ,Gross domestic product,69430,False
 39_A2XJH3WC02RMXQ,Customer_centricity10,16561,True
 39_A2XJH3WC02RMXQ,Customer_centricity8,40723,True
-39_A2XJH3WC02RMXQ,Contentment,9948,False
 39_A2XJH3WC02RMXQ,Customer_centricity7,13263,False
 39_A2XJH3WC02RMXQ,Customer_centricity5,52472,False
 39_A2XJH3WC02RMXQ,Customer_centricity4,10878,False
-39_A2XJH3WC02RMXQ,Sampling (statistics),39773,False
-39_A2XJH3WC02RMXQ,American Customer Satisfaction Index,6171,True
 39_A2XJH3WC02RMXQ,Customer_centricity3,31744,True
 39_A2XJH3WC02RMXQ,Customer_centricity2,6957,False
 39_A2XJH3WC02RMXQ,Customer_centricity9,23348,False
-39_A2XJH3WC02RMXQ,Marketing,15086,True
 39_A2XJH3WC02RMXQ,Customer_centricity6,27040,False
 39_A2XJH3WC02RMXQ,Customer_centricity1,40089,False
-45_A2XJH3WC02RMXQ,Gross domestic product,69430,False
+7_A3B7TNVOISSZ2O,Customer_centricity9,37146,True
+7_A3B7TNVOISSZ2O,Customer_centricity7,138648,False
+7_A3B7TNVOISSZ2O,Customer_centricity1,118969,False
+7_A3B7TNVOISSZ2O,Customer_centricity6,50149,True
+7_A3B7TNVOISSZ2O,Customer_centricity8,71188,False
+7_A3B7TNVOISSZ2O,Customer_centricity5,20768,True
+7_A3B7TNVOISSZ2O,Customer_centricity10,31934,False
+7_A3B7TNVOISSZ2O,Customer_centricity2,82770,True
+7_A3B7TNVOISSZ2O,Customer_centricity3,12154,True
+7_A3B7TNVOISSZ2O,Customer_centricity4,78271,True
 45_A2XJH3WC02RMXQ,Customer_centricity10,16561,True
 45_A2XJH3WC02RMXQ,Customer_centricity8,40723,True
-45_A2XJH3WC02RMXQ,Contentment,9948,False
 45_A2XJH3WC02RMXQ,Customer_centricity7,13263,False
 45_A2XJH3WC02RMXQ,Customer_centricity5,52472,False
 45_A2XJH3WC02RMXQ,Customer_centricity4,10878,False
-45_A2XJH3WC02RMXQ,Sampling (statistics),39773,False
-45_A2XJH3WC02RMXQ,American Customer Satisfaction Index,6171,True
 45_A2XJH3WC02RMXQ,Customer_centricity3,31744,True
 45_A2XJH3WC02RMXQ,Customer_centricity2,6957,False
 45_A2XJH3WC02RMXQ,Customer_centricity9,23348,False
-45_A2XJH3WC02RMXQ,Marketing,15086,True
 45_A2XJH3WC02RMXQ,Customer_centricity6,27040,False
 45_A2XJH3WC02RMXQ,Customer_centricity1,40089,False
-91_ABN92G6H73097,American Customer Satisfaction Index,37221,True
 91_ABN92G6H73097,Customer_centricity9,773,True
-91_ABN92G6H73097,Gross domestic product,47626,False
 91_ABN92G6H73097,Customer_centricity10,38402,True
 91_ABN92G6H73097,Customer_centricity3,32705,False
 91_ABN92G6H73097,Customer_centricity7,21910,True
 91_ABN92G6H73097,Customer_centricity2,20224,True
 91_ABN92G6H73097,Customer_centricity4,32369,False
-91_ABN92G6H73097,Contentment,19162,False
 91_ABN92G6H73097,Customer_centricity8,23821,True
 91_ABN92G6H73097,Customer_centricity5,21602,False
 91_ABN92G6H73097,Customer_centricity1,12614,False
-91_ABN92G6H73097,Sampling (statistics),19136,False
-91_ABN92G6H73097,Marketing,22008,False
 91_ABN92G6H73097,Customer_centricity6,12131,False
 97_AW5FP8MFB3F7X,Customer_centricity3,47081,False
-97_AW5FP8MFB3F7X,Marketing,14348,True
 97_AW5FP8MFB3F7X,Customer_centricity2,19099,False
 97_AW5FP8MFB3F7X,Customer_centricity4,42809,False
 97_AW5FP8MFB3F7X,Customer_centricity9,10680,True
 97_AW5FP8MFB3F7X,Customer_centricity8,24832,False
 97_AW5FP8MFB3F7X,Customer_centricity1,33414,False
-97_AW5FP8MFB3F7X,Gross domestic product,17480,False
-97_AW5FP8MFB3F7X,Sampling (statistics),19868,False
 97_AW5FP8MFB3F7X,Customer_centricity10,12278,False
 97_AW5FP8MFB3F7X,Customer_centricity6,26328,False
-97_AW5FP8MFB3F7X,Contentment,14622,True
 97_AW5FP8MFB3F7X,Customer_centricity5,37786,True
-97_AW5FP8MFB3F7X,American Customer Satisfaction Index,11786,True
 97_AW5FP8MFB3F7X,Customer_centricity7,10725,False
 37_A3TDA1NWHNQFE3,Customer_centricity2,28104,False
 37_A3TDA1NWHNQFE3,Customer_centricity1,100615,False
-37_A3TDA1NWHNQFE3,Marketing,73325,True
 37_A3TDA1NWHNQFE3,Customer_centricity9,51360,True
 37_A3TDA1NWHNQFE3,Customer_centricity10,23077,False
 37_A3TDA1NWHNQFE3,Customer_centricity7,59033,True
-37_A3TDA1NWHNQFE3,American Customer Satisfaction Index,90834,True
-37_A3TDA1NWHNQFE3,Gross domestic product,191656,False
 37_A3TDA1NWHNQFE3,Customer_centricity4,67779,False
 37_A3TDA1NWHNQFE3,Customer_centricity6,106257,False
-37_A3TDA1NWHNQFE3,Sampling (statistics),115523,True
 37_A3TDA1NWHNQFE3,Customer_centricity8,55683,False
 37_A3TDA1NWHNQFE3,Customer_centricity3,176213,False
 37_A3TDA1NWHNQFE3,Customer_centricity5,131506,True
-37_A3TDA1NWHNQFE3,Contentment,85948,True
 21_A3TDA1NWHNQFE3,Customer_centricity2,28104,False
 21_A3TDA1NWHNQFE3,Customer_centricity1,100615,False
-21_A3TDA1NWHNQFE3,Marketing,73325,True
 21_A3TDA1NWHNQFE3,Customer_centricity9,51360,True
 21_A3TDA1NWHNQFE3,Customer_centricity10,23077,False
 21_A3TDA1NWHNQFE3,Customer_centricity7,59033,True
-21_A3TDA1NWHNQFE3,American Customer Satisfaction Index,90834,True
-21_A3TDA1NWHNQFE3,Gross domestic product,191656,False
 21_A3TDA1NWHNQFE3,Customer_centricity4,67779,False
 21_A3TDA1NWHNQFE3,Customer_centricity6,106257,False
-21_A3TDA1NWHNQFE3,Sampling (statistics),115523,True
 21_A3TDA1NWHNQFE3,Customer_centricity8,55683,False
 21_A3TDA1NWHNQFE3,Customer_centricity3,176213,False
 21_A3TDA1NWHNQFE3,Customer_centricity5,131506,True
-21_A3TDA1NWHNQFE3,Contentment,85948,True
-1_A33U9PH6TQL0KG,Sampling (statistics),7969,False
 1_A33U9PH6TQL0KG,Customer_centricity2,1273,False
 1_A33U9PH6TQL0KG,Customer_centricity10,2381,False
-1_A33U9PH6TQL0KG,Gross domestic product,1827,False
 1_A33U9PH6TQL0KG,Customer_centricity6,1254,False
 1_A33U9PH6TQL0KG,Customer_centricity3,1775,False
 1_A33U9PH6TQL0KG,Customer_centricity8,1522,False
-1_A33U9PH6TQL0KG,American Customer Satisfaction Index,1808,True
 1_A33U9PH6TQL0KG,Customer_centricity4,1387,False
 1_A33U9PH6TQL0KG,Customer_centricity5,1511,False
-1_A33U9PH6TQL0KG,Marketing,1857,False
 1_A33U9PH6TQL0KG,Customer_centricity9,1198,True
 1_A33U9PH6TQL0KG,Customer_centricity7,2227,True
-1_A33U9PH6TQL0KG,Contentment,2408,True
 1_A33U9PH6TQL0KG,Customer_centricity1,2170,True
 52_A138BU1VWM2RKN,Customer_centricity2,135722,False
 52_A138BU1VWM2RKN,Customer_centricity8,42113,False
 52_A138BU1VWM2RKN,Customer_centricity5,59495,True
-52_A138BU1VWM2RKN,Sampling (statistics),71978,True
 52_A138BU1VWM2RKN,Customer_centricity6,43064,True
-52_A138BU1VWM2RKN,American Customer Satisfaction Index,29650,True
 52_A138BU1VWM2RKN,Customer_centricity9,16888,True
 52_A138BU1VWM2RKN,Customer_centricity4,35431,False
-52_A138BU1VWM2RKN,Gross domestic product,63829,True
 52_A138BU1VWM2RKN,Customer_centricity10,39152,True
-52_A138BU1VWM2RKN,Marketing,32835,True
 52_A138BU1VWM2RKN,Customer_centricity3,46012,True
-52_A138BU1VWM2RKN,Contentment,20229,True
 52_A138BU1VWM2RKN,Customer_centricity1,32281,False
 52_A138BU1VWM2RKN,Customer_centricity7,45487,False
-81_A38L1QCI94USEJ,Gross domestic product,216630,True
-81_A38L1QCI94USEJ,Customer_centricity2,138715,False
-81_A38L1QCI94USEJ,Customer_centricity10,113797,True
-81_A38L1QCI94USEJ,Customer_centricity7,15079,True
-81_A38L1QCI94USEJ,Customer_centricity6,108593,False
-81_A38L1QCI94USEJ,American Customer Satisfaction Index,127732,True
-81_A38L1QCI94USEJ,Customer_centricity4,87149,False
-81_A38L1QCI94USEJ,Customer_centricity1,155841,False
-81_A38L1QCI94USEJ,Customer_centricity9,53196,True
-81_A38L1QCI94USEJ,Sampling (statistics),78806,False
-81_A38L1QCI94USEJ,Contentment,141067,False
-81_A38L1QCI94USEJ,Marketing,120674,False
-81_A38L1QCI94USEJ,Customer_centricity8,106538,False
-81_A38L1QCI94USEJ,Customer_centricity3,101223,False
-81_A38L1QCI94USEJ,Customer_centricity5,148598,True
-16_A4YG74WC1EK5V,Marketing,808258,True
-16_A4YG74WC1EK5V,American Customer Satisfaction Index,70800,True
+46_A610SH5RY1NG1,Customer_centricity7,37650,True
+46_A610SH5RY1NG1,Customer_centricity5,41596,True
+46_A610SH5RY1NG1,Customer_centricity2,38355,False
+46_A610SH5RY1NG1,Customer_centricity3,52426,True
+46_A610SH5RY1NG1,Customer_centricity6,22011,False
+46_A610SH5RY1NG1,Customer_centricity8,26336,False
+46_A610SH5RY1NG1,Customer_centricity1,8481,False
+46_A610SH5RY1NG1,Customer_centricity9,18751,True
+46_A610SH5RY1NG1,Customer_centricity4,28447,False
+46_A610SH5RY1NG1,Customer_centricity10,26082,True
 16_A4YG74WC1EK5V,Customer_centricity4,33640,False
 16_A4YG74WC1EK5V,Customer_centricity10,52029,False
 16_A4YG74WC1EK5V,Customer_centricity5,107496,False
-16_A4YG74WC1EK5V,Gross domestic product,35975,True
-16_A4YG74WC1EK5V,Contentment,35259,True
-16_A4YG74WC1EK5V,Sampling (statistics),45272,True
 16_A4YG74WC1EK5V,Customer_centricity8,41759,False
 16_A4YG74WC1EK5V,Customer_centricity2,5527,False
 16_A4YG74WC1EK5V,Customer_centricity9,24190,False
@@ -435,53 +290,35 @@
 16_A4YG74WC1EK5V,Customer_centricity6,140391,False
 96_A2TR0BG1WR2KJB,Customer_centricity6,336567,True
 96_A2TR0BG1WR2KJB,Customer_centricity5,67047,True
-96_A2TR0BG1WR2KJB,Sampling (statistics),59300,True
 96_A2TR0BG1WR2KJB,Customer_centricity1,92408,False
-96_A2TR0BG1WR2KJB,Marketing,7202,True
-96_A2TR0BG1WR2KJB,American Customer Satisfaction Index,10571,True
-96_A2TR0BG1WR2KJB,Gross domestic product,65101,False
 96_A2TR0BG1WR2KJB,Customer_centricity2,123196,False
 96_A2TR0BG1WR2KJB,Customer_centricity10,110623,True
-96_A2TR0BG1WR2KJB,Contentment,52596,True
 96_A2TR0BG1WR2KJB,Customer_centricity3,95920,True
 96_A2TR0BG1WR2KJB,Customer_centricity4,138293,False
 96_A2TR0BG1WR2KJB,Customer_centricity8,44150,True
 96_A2TR0BG1WR2KJB,Customer_centricity7,15392,True
 96_A2TR0BG1WR2KJB,Customer_centricity9,31636,True
-30_ADKKDK6P4MS1Z,American Customer Satisfaction Index,75946,True
-30_ADKKDK6P4MS1Z,Gross domestic product,51398,True
-30_ADKKDK6P4MS1Z,Customer_centricity4,63684,False
-30_ADKKDK6P4MS1Z,Sampling (statistics),16743,False
-30_ADKKDK6P4MS1Z,Customer_centricity8,73336,True
-30_ADKKDK6P4MS1Z,Customer_centricity6,121345,False
-30_ADKKDK6P4MS1Z,Customer_centricity7,25670,False
-30_ADKKDK6P4MS1Z,Customer_centricity3,65497,True
-30_ADKKDK6P4MS1Z,Customer_centricity5,129137,True
-30_ADKKDK6P4MS1Z,Customer_centricity2,147684,False
-30_ADKKDK6P4MS1Z,Customer_centricity1,66571,False
-30_ADKKDK6P4MS1Z,Customer_centricity10,81679,False
-30_ADKKDK6P4MS1Z,Customer_centricity9,20469,True
-30_ADKKDK6P4MS1Z,Contentment,137380,True
-30_ADKKDK6P4MS1Z,Marketing,20852,True
+69_A33U9PH6TQL0KG,Customer_centricity2,1273,False
+69_A33U9PH6TQL0KG,Customer_centricity10,2381,False
+69_A33U9PH6TQL0KG,Customer_centricity6,1254,False
+69_A33U9PH6TQL0KG,Customer_centricity3,1775,False
+69_A33U9PH6TQL0KG,Customer_centricity8,1522,False
+69_A33U9PH6TQL0KG,Customer_centricity4,1387,False
+69_A33U9PH6TQL0KG,Customer_centricity5,1511,False
+69_A33U9PH6TQL0KG,Customer_centricity9,1198,True
+69_A33U9PH6TQL0KG,Customer_centricity7,2227,True
+69_A33U9PH6TQL0KG,Customer_centricity1,2170,True
 43_A3KKXA7COL5JHL,Customer_centricity9,813971,True
 43_A3KKXA7COL5JHL,Customer_centricity4,36710,True
 43_A3KKXA7COL5JHL,Customer_centricity7,23129,False
 43_A3KKXA7COL5JHL,Customer_centricity6,58652,False
 43_A3KKXA7COL5JHL,Customer_centricity3,2516,False
-43_A3KKXA7COL5JHL,Sampling (statistics),44449,False
 43_A3KKXA7COL5JHL,Customer_centricity8,15260,False
 43_A3KKXA7COL5JHL,Customer_centricity10,33042,False
 43_A3KKXA7COL5JHL,Customer_centricity5,10986,True
-43_A3KKXA7COL5JHL,American Customer Satisfaction Index,29936,True
-43_A3KKXA7COL5JHL,Marketing,42116,True
 43_A3KKXA7COL5JHL,Customer_centricity1,80393,False
-43_A3KKXA7COL5JHL,Gross domestic product,29459,True
 43_A3KKXA7COL5JHL,Customer_centricity2,3650,False
-43_A3KKXA7COL5JHL,Contentment,17307,True
-0_ADKKDK6P4MS1Z,American Customer Satisfaction Index,75946,True
-0_ADKKDK6P4MS1Z,Gross domestic product,51398,True
 0_ADKKDK6P4MS1Z,Customer_centricity4,63684,False
-0_ADKKDK6P4MS1Z,Sampling (statistics),16743,False
 0_ADKKDK6P4MS1Z,Customer_centricity8,73336,True
 0_ADKKDK6P4MS1Z,Customer_centricity6,121345,False
 0_ADKKDK6P4MS1Z,Customer_centricity7,25670,False
@@ -491,31 +328,19 @@
 0_ADKKDK6P4MS1Z,Customer_centricity1,66571,False
 0_ADKKDK6P4MS1Z,Customer_centricity10,81679,False
 0_ADKKDK6P4MS1Z,Customer_centricity9,20469,True
-0_ADKKDK6P4MS1Z,Contentment,137380,True
-0_ADKKDK6P4MS1Z,Marketing,20852,True
 71_A3KKXA7COL5JHL,Customer_centricity9,813971,True
 71_A3KKXA7COL5JHL,Customer_centricity4,36710,True
 71_A3KKXA7COL5JHL,Customer_centricity7,23129,False
 71_A3KKXA7COL5JHL,Customer_centricity6,58652,False
 71_A3KKXA7COL5JHL,Customer_centricity3,2516,False
-71_A3KKXA7COL5JHL,Sampling (statistics),44449,False
 71_A3KKXA7COL5JHL,Customer_centricity8,15260,False
 71_A3KKXA7COL5JHL,Customer_centricity10,33042,False
 71_A3KKXA7COL5JHL,Customer_centricity5,10986,True
-71_A3KKXA7COL5JHL,American Customer Satisfaction Index,29936,True
-71_A3KKXA7COL5JHL,Marketing,42116,True
 71_A3KKXA7COL5JHL,Customer_centricity1,80393,False
-71_A3KKXA7COL5JHL,Gross domestic product,29459,True
 71_A3KKXA7COL5JHL,Customer_centricity2,3650,False
-71_A3KKXA7COL5JHL,Contentment,17307,True
-48_A4YG74WC1EK5V,Marketing,808258,True
-48_A4YG74WC1EK5V,American Customer Satisfaction Index,70800,True
 48_A4YG74WC1EK5V,Customer_centricity4,33640,False
 48_A4YG74WC1EK5V,Customer_centricity10,52029,False
 48_A4YG74WC1EK5V,Customer_centricity5,107496,False
-48_A4YG74WC1EK5V,Gross domestic product,35975,True
-48_A4YG74WC1EK5V,Contentment,35259,True
-48_A4YG74WC1EK5V,Sampling (statistics),45272,True
 48_A4YG74WC1EK5V,Customer_centricity8,41759,False
 48_A4YG74WC1EK5V,Customer_centricity2,5527,False
 48_A4YG74WC1EK5V,Customer_centricity9,24190,False
@@ -523,10 +348,7 @@
 48_A4YG74WC1EK5V,Customer_centricity1,54969,True
 48_A4YG74WC1EK5V,Customer_centricity3,52018,True
 48_A4YG74WC1EK5V,Customer_centricity6,140391,False
-51_ADKKDK6P4MS1Z,American Customer Satisfaction Index,75946,True
-51_ADKKDK6P4MS1Z,Gross domestic product,51398,True
 51_ADKKDK6P4MS1Z,Customer_centricity4,63684,False
-51_ADKKDK6P4MS1Z,Sampling (statistics),16743,False
 51_ADKKDK6P4MS1Z,Customer_centricity8,73336,True
 51_ADKKDK6P4MS1Z,Customer_centricity6,121345,False
 51_ADKKDK6P4MS1Z,Customer_centricity7,25670,False
@@ -536,31 +358,19 @@
 51_ADKKDK6P4MS1Z,Customer_centricity1,66571,False
 51_ADKKDK6P4MS1Z,Customer_centricity10,81679,False
 51_ADKKDK6P4MS1Z,Customer_centricity9,20469,True
-51_ADKKDK6P4MS1Z,Contentment,137380,True
-51_ADKKDK6P4MS1Z,Marketing,20852,True
 29_AW5FP8MFB3F7X,Customer_centricity3,47081,False
-29_AW5FP8MFB3F7X,Marketing,14348,True
 29_AW5FP8MFB3F7X,Customer_centricity2,19099,False
 29_AW5FP8MFB3F7X,Customer_centricity4,42809,False
 29_AW5FP8MFB3F7X,Customer_centricity9,10680,True
 29_AW5FP8MFB3F7X,Customer_centricity8,24832,False
 29_AW5FP8MFB3F7X,Customer_centricity1,33414,False
-29_AW5FP8MFB3F7X,Gross domestic product,17480,False
-29_AW5FP8MFB3F7X,Sampling (statistics),19868,False
 29_AW5FP8MFB3F7X,Customer_centricity10,12278,False
 29_AW5FP8MFB3F7X,Customer_centricity6,26328,False
-29_AW5FP8MFB3F7X,Contentment,14622,True
 29_AW5FP8MFB3F7X,Customer_centricity5,37786,True
-29_AW5FP8MFB3F7X,American Customer Satisfaction Index,11786,True
 29_AW5FP8MFB3F7X,Customer_centricity7,10725,False
-76_A19406O89BADON,American Customer Satisfaction Index,1413,True
 76_A19406O89BADON,Customer_centricity1,22801,False
-76_A19406O89BADON,Sampling (statistics),17221,True
-76_A19406O89BADON,Marketing,44070,True
 76_A19406O89BADON,Customer_centricity6,1839,False
-76_A19406O89BADON,Gross domestic product,35947,True
 76_A19406O89BADON,Customer_centricity10,101616,False
-76_A19406O89BADON,Contentment,52246,True
 76_A19406O89BADON,Customer_centricity5,33868,True
 76_A19406O89BADON,Customer_centricity2,14372,False
 76_A19406O89BADON,Customer_centricity3,58555,True
@@ -568,59 +378,39 @@
 76_A19406O89BADON,Customer_centricity8,32087,False
 76_A19406O89BADON,Customer_centricity7,56361,True
 76_A19406O89BADON,Customer_centricity9,25390,True
-36_A38L1QCI94USEJ,Gross domestic product,216630,True
 36_A38L1QCI94USEJ,Customer_centricity2,138715,False
 36_A38L1QCI94USEJ,Customer_centricity10,113797,True
 36_A38L1QCI94USEJ,Customer_centricity7,15079,True
 36_A38L1QCI94USEJ,Customer_centricity6,108593,False
-36_A38L1QCI94USEJ,American Customer Satisfaction Index,127732,True
 36_A38L1QCI94USEJ,Customer_centricity4,87149,False
 36_A38L1QCI94USEJ,Customer_centricity1,155841,False
 36_A38L1QCI94USEJ,Customer_centricity9,53196,True
-36_A38L1QCI94USEJ,Sampling (statistics),78806,False
-36_A38L1QCI94USEJ,Contentment,141067,False
-36_A38L1QCI94USEJ,Marketing,120674,False
 36_A38L1QCI94USEJ,Customer_centricity8,106538,False
 36_A38L1QCI94USEJ,Customer_centricity3,101223,False
 36_A38L1QCI94USEJ,Customer_centricity5,148598,True
 25_A15SBWIYJ9AGVZ,Customer_centricity9,29570,True
 25_A15SBWIYJ9AGVZ,Customer_centricity8,3591,False
-25_A15SBWIYJ9AGVZ,American Customer Satisfaction Index,18513,False
 25_A15SBWIYJ9AGVZ,Customer_centricity5,17710,True
 25_A15SBWIYJ9AGVZ,Customer_centricity10,22107,True
-25_A15SBWIYJ9AGVZ,Gross domestic product,8764,False
 25_A15SBWIYJ9AGVZ,Customer_centricity2,33343,True
-25_A15SBWIYJ9AGVZ,Marketing,19215,False
 25_A15SBWIYJ9AGVZ,Customer_centricity4,7794,False
 25_A15SBWIYJ9AGVZ,Customer_centricity7,31074,True
-25_A15SBWIYJ9AGVZ,Sampling (statistics),3549,False
 25_A15SBWIYJ9AGVZ,Customer_centricity1,3053,False
 25_A15SBWIYJ9AGVZ,Customer_centricity3,2199,False
 25_A15SBWIYJ9AGVZ,Customer_centricity6,741,False
-25_A15SBWIYJ9AGVZ,Contentment,20051,True
-44_A2XJH3WC02RMXQ,Gross domestic product,69430,False
-44_A2XJH3WC02RMXQ,Customer_centricity10,16561,True
-44_A2XJH3WC02RMXQ,Customer_centricity8,40723,True
-44_A2XJH3WC02RMXQ,Contentment,9948,False
-44_A2XJH3WC02RMXQ,Customer_centricity7,13263,False
-44_A2XJH3WC02RMXQ,Customer_centricity5,52472,False
-44_A2XJH3WC02RMXQ,Customer_centricity4,10878,False
-44_A2XJH3WC02RMXQ,Sampling (statistics),39773,False
-44_A2XJH3WC02RMXQ,American Customer Satisfaction Index,6171,True
-44_A2XJH3WC02RMXQ,Customer_centricity3,31744,True
-44_A2XJH3WC02RMXQ,Customer_centricity2,6957,False
-44_A2XJH3WC02RMXQ,Customer_centricity9,23348,False
-44_A2XJH3WC02RMXQ,Marketing,15086,True
-44_A2XJH3WC02RMXQ,Customer_centricity6,27040,False
-44_A2XJH3WC02RMXQ,Customer_centricity1,40089,False
-94_A4YG74WC1EK5V,Marketing,808258,True
-94_A4YG74WC1EK5V,American Customer Satisfaction Index,70800,True
+90_A2SJ0PSN6JGJWP,Customer_centricity3,83534,False
+90_A2SJ0PSN6JGJWP,Customer_centricity6,76567,False
+90_A2SJ0PSN6JGJWP,Customer_centricity7,180047,False
+90_A2SJ0PSN6JGJWP,Customer_centricity5,76950,False
+90_A2SJ0PSN6JGJWP,Customer_centricity8,3687,False
+90_A2SJ0PSN6JGJWP,Customer_centricity4,230007,True
+90_A2SJ0PSN6JGJWP,Customer_centricity1,208375,False
+90_A2SJ0PSN6JGJWP,Customer_centricity10,12649,False
+90_A2SJ0PSN6JGJWP,Customer_centricity2,223321,False
+90_A2SJ0PSN6JGJWP,Customer_centricity9,17141,False
 94_A4YG74WC1EK5V,Customer_centricity4,33640,False
 94_A4YG74WC1EK5V,Customer_centricity10,52029,False
 94_A4YG74WC1EK5V,Customer_centricity5,107496,False
-94_A4YG74WC1EK5V,Gross domestic product,35975,True
-94_A4YG74WC1EK5V,Contentment,35259,True
-94_A4YG74WC1EK5V,Sampling (statistics),45272,True
 94_A4YG74WC1EK5V,Customer_centricity8,41759,False
 94_A4YG74WC1EK5V,Customer_centricity2,5527,False
 94_A4YG74WC1EK5V,Customer_centricity9,24190,False
@@ -628,63 +418,43 @@
 94_A4YG74WC1EK5V,Customer_centricity1,54969,True
 94_A4YG74WC1EK5V,Customer_centricity3,52018,True
 94_A4YG74WC1EK5V,Customer_centricity6,140391,False
-19_A2SJ0PSN6JGJWP,Gross domestic product,705566,False
 19_A2SJ0PSN6JGJWP,Customer_centricity3,83534,False
 19_A2SJ0PSN6JGJWP,Customer_centricity6,76567,False
-19_A2SJ0PSN6JGJWP,American Customer Satisfaction Index,193438,True
-19_A2SJ0PSN6JGJWP,Marketing,59220,True
 19_A2SJ0PSN6JGJWP,Customer_centricity7,180047,False
 19_A2SJ0PSN6JGJWP,Customer_centricity5,76950,False
 19_A2SJ0PSN6JGJWP,Customer_centricity8,3687,False
-19_A2SJ0PSN6JGJWP,Sampling (statistics),91940,True
 19_A2SJ0PSN6JGJWP,Customer_centricity4,230007,True
-19_A2SJ0PSN6JGJWP,Contentment,135256,True
 19_A2SJ0PSN6JGJWP,Customer_centricity1,208375,False
 19_A2SJ0PSN6JGJWP,Customer_centricity10,12649,False
 19_A2SJ0PSN6JGJWP,Customer_centricity2,223321,False
 19_A2SJ0PSN6JGJWP,Customer_centricity9,17141,False
-93_ABN92G6H73097,American Customer Satisfaction Index,37221,True
 93_ABN92G6H73097,Customer_centricity9,773,True
-93_ABN92G6H73097,Gross domestic product,47626,False
 93_ABN92G6H73097,Customer_centricity10,38402,True
 93_ABN92G6H73097,Customer_centricity3,32705,False
 93_ABN92G6H73097,Customer_centricity7,21910,True
 93_ABN92G6H73097,Customer_centricity2,20224,True
 93_ABN92G6H73097,Customer_centricity4,32369,False
-93_ABN92G6H73097,Contentment,19162,False
 93_ABN92G6H73097,Customer_centricity8,23821,True
 93_ABN92G6H73097,Customer_centricity5,21602,False
 93_ABN92G6H73097,Customer_centricity1,12614,False
-93_ABN92G6H73097,Sampling (statistics),19136,False
-93_ABN92G6H73097,Marketing,22008,False
 93_ABN92G6H73097,Customer_centricity6,12131,False
 62_A16SAB417Y96G4,Customer_centricity3,441155,False
-62_A16SAB417Y96G4,Gross domestic product,32111,True
 62_A16SAB417Y96G4,Customer_centricity10,22712,True
 62_A16SAB417Y96G4,Customer_centricity2,17560,False
 62_A16SAB417Y96G4,Customer_centricity7,2328,True
-62_A16SAB417Y96G4,Marketing,21008,True
-62_A16SAB417Y96G4,Sampling (statistics),16624,True
-62_A16SAB417Y96G4,American Customer Satisfaction Index,11664,True
-62_A16SAB417Y96G4,Contentment,10793,True
 62_A16SAB417Y96G4,Customer_centricity9,11879,True
 62_A16SAB417Y96G4,Customer_centricity8,24121,False
 62_A16SAB417Y96G4,Customer_centricity4,13575,False
 62_A16SAB417Y96G4,Customer_centricity6,23552,False
 62_A16SAB417Y96G4,Customer_centricity1,19967,False
 62_A16SAB417Y96G4,Customer_centricity5,26840,True
-22_A38L1QCI94USEJ,Gross domestic product,216630,True
 22_A38L1QCI94USEJ,Customer_centricity2,138715,False
 22_A38L1QCI94USEJ,Customer_centricity10,113797,True
 22_A38L1QCI94USEJ,Customer_centricity7,15079,True
 22_A38L1QCI94USEJ,Customer_centricity6,108593,False
-22_A38L1QCI94USEJ,American Customer Satisfaction Index,127732,True
 22_A38L1QCI94USEJ,Customer_centricity4,87149,False
 22_A38L1QCI94USEJ,Customer_centricity1,155841,False
 22_A38L1QCI94USEJ,Customer_centricity9,53196,True
-22_A38L1QCI94USEJ,Sampling (statistics),78806,False
-22_A38L1QCI94USEJ,Contentment,141067,False
-22_A38L1QCI94USEJ,Marketing,120674,False
 22_A38L1QCI94USEJ,Customer_centricity8,106538,False
 22_A38L1QCI94USEJ,Customer_centricity3,101223,False
 22_A38L1QCI94USEJ,Customer_centricity5,148598,True
@@ -693,129 +463,94 @@
 54_A3KKXA7COL5JHL,Customer_centricity7,23129,False
 54_A3KKXA7COL5JHL,Customer_centricity6,58652,False
 54_A3KKXA7COL5JHL,Customer_centricity3,2516,False
-54_A3KKXA7COL5JHL,Sampling (statistics),44449,False
 54_A3KKXA7COL5JHL,Customer_centricity8,15260,False
 54_A3KKXA7COL5JHL,Customer_centricity10,33042,False
 54_A3KKXA7COL5JHL,Customer_centricity5,10986,True
-54_A3KKXA7COL5JHL,American Customer Satisfaction Index,29936,True
-54_A3KKXA7COL5JHL,Marketing,42116,True
 54_A3KKXA7COL5JHL,Customer_centricity1,80393,False
-54_A3KKXA7COL5JHL,Gross domestic product,29459,True
 54_A3KKXA7COL5JHL,Customer_centricity2,3650,False
-54_A3KKXA7COL5JHL,Contentment,17307,True
 73_A1HU9IOTYXB4YY,Customer_centricity10,23382,False
 73_A1HU9IOTYXB4YY,Customer_centricity9,21625,True
-73_A1HU9IOTYXB4YY,Sampling (statistics),42085,True
-73_A1HU9IOTYXB4YY,Contentment,64255,True
 73_A1HU9IOTYXB4YY,Customer_centricity1,14211,True
 73_A1HU9IOTYXB4YY,Customer_centricity3,26064,True
 73_A1HU9IOTYXB4YY,Customer_centricity5,83770,True
-73_A1HU9IOTYXB4YY,American Customer Satisfaction Index,58343,True
 73_A1HU9IOTYXB4YY,Customer_centricity4,50096,False
-73_A1HU9IOTYXB4YY,Marketing,63737,True
-73_A1HU9IOTYXB4YY,Gross domestic product,42702,True
 73_A1HU9IOTYXB4YY,Customer_centricity8,34881,False
 73_A1HU9IOTYXB4YY,Customer_centricity7,56833,True
 73_A1HU9IOTYXB4YY,Customer_centricity2,38119,False
 73_A1HU9IOTYXB4YY,Customer_centricity6,44687,False
-84_A2SJ0PSN6JGJWP,Gross domestic product,705566,False
+44_A2XJH3WC02RMXQ,Customer_centricity10,16561,True
+44_A2XJH3WC02RMXQ,Customer_centricity8,40723,True
+44_A2XJH3WC02RMXQ,Customer_centricity7,13263,False
+44_A2XJH3WC02RMXQ,Customer_centricity5,52472,False
+44_A2XJH3WC02RMXQ,Customer_centricity4,10878,False
+44_A2XJH3WC02RMXQ,Customer_centricity3,31744,True
+44_A2XJH3WC02RMXQ,Customer_centricity2,6957,False
+44_A2XJH3WC02RMXQ,Customer_centricity9,23348,False
+44_A2XJH3WC02RMXQ,Customer_centricity6,27040,False
+44_A2XJH3WC02RMXQ,Customer_centricity1,40089,False
 84_A2SJ0PSN6JGJWP,Customer_centricity3,83534,False
 84_A2SJ0PSN6JGJWP,Customer_centricity6,76567,False
-84_A2SJ0PSN6JGJWP,American Customer Satisfaction Index,193438,True
-84_A2SJ0PSN6JGJWP,Marketing,59220,True
 84_A2SJ0PSN6JGJWP,Customer_centricity7,180047,False
 84_A2SJ0PSN6JGJWP,Customer_centricity5,76950,False
 84_A2SJ0PSN6JGJWP,Customer_centricity8,3687,False
-84_A2SJ0PSN6JGJWP,Sampling (statistics),91940,True
 84_A2SJ0PSN6JGJWP,Customer_centricity4,230007,True
-84_A2SJ0PSN6JGJWP,Contentment,135256,True
 84_A2SJ0PSN6JGJWP,Customer_centricity1,208375,False
 84_A2SJ0PSN6JGJWP,Customer_centricity10,12649,False
 84_A2SJ0PSN6JGJWP,Customer_centricity2,223321,False
 84_A2SJ0PSN6JGJWP,Customer_centricity9,17141,False
 61_A16SAB417Y96G4,Customer_centricity3,441155,False
-61_A16SAB417Y96G4,Gross domestic product,32111,True
 61_A16SAB417Y96G4,Customer_centricity10,22712,True
 61_A16SAB417Y96G4,Customer_centricity2,17560,False
 61_A16SAB417Y96G4,Customer_centricity7,2328,True
-61_A16SAB417Y96G4,Marketing,21008,True
-61_A16SAB417Y96G4,Sampling (statistics),16624,True
-61_A16SAB417Y96G4,American Customer Satisfaction Index,11664,True
-61_A16SAB417Y96G4,Contentment,10793,True
 61_A16SAB417Y96G4,Customer_centricity9,11879,True
 61_A16SAB417Y96G4,Customer_centricity8,24121,False
 61_A16SAB417Y96G4,Customer_centricity4,13575,False
 61_A16SAB417Y96G4,Customer_centricity6,23552,False
 61_A16SAB417Y96G4,Customer_centricity1,19967,False
 61_A16SAB417Y96G4,Customer_centricity5,26840,True
-49_AXGCH3EOOB0XG,Marketing,404747,True
 49_AXGCH3EOOB0XG,Customer_centricity1,31556,False
-49_AXGCH3EOOB0XG,American Customer Satisfaction Index,21209,True
 49_AXGCH3EOOB0XG,Customer_centricity2,21993,False
 49_AXGCH3EOOB0XG,Customer_centricity10,5313,False
 49_AXGCH3EOOB0XG,Customer_centricity4,21389,True
-49_AXGCH3EOOB0XG,Gross domestic product,17321,True
-49_AXGCH3EOOB0XG,Contentment,17298,True
 49_AXGCH3EOOB0XG,Customer_centricity9,16711,True
 49_AXGCH3EOOB0XG,Customer_centricity3,31416,True
 49_AXGCH3EOOB0XG,Customer_centricity6,2180,False
 49_AXGCH3EOOB0XG,Customer_centricity5,9312,True
-49_AXGCH3EOOB0XG,Sampling (statistics),1289,True
 49_AXGCH3EOOB0XG,Customer_centricity8,41210,False
 49_AXGCH3EOOB0XG,Customer_centricity7,25168,False
-28_A33U9PH6TQL0KG,Sampling (statistics),7969,False
 28_A33U9PH6TQL0KG,Customer_centricity2,1273,False
 28_A33U9PH6TQL0KG,Customer_centricity10,2381,False
-28_A33U9PH6TQL0KG,Gross domestic product,1827,False
 28_A33U9PH6TQL0KG,Customer_centricity6,1254,False
 28_A33U9PH6TQL0KG,Customer_centricity3,1775,False
 28_A33U9PH6TQL0KG,Customer_centricity8,1522,False
-28_A33U9PH6TQL0KG,American Customer Satisfaction Index,1808,True
 28_A33U9PH6TQL0KG,Customer_centricity4,1387,False
 28_A33U9PH6TQL0KG,Customer_centricity5,1511,False
-28_A33U9PH6TQL0KG,Marketing,1857,False
 28_A33U9PH6TQL0KG,Customer_centricity9,1198,True
 28_A33U9PH6TQL0KG,Customer_centricity7,2227,True
-28_A33U9PH6TQL0KG,Contentment,2408,True
 28_A33U9PH6TQL0KG,Customer_centricity1,2170,True
 95_AW5FP8MFB3F7X,Customer_centricity3,47081,False
-95_AW5FP8MFB3F7X,Marketing,14348,True
 95_AW5FP8MFB3F7X,Customer_centricity2,19099,False
 95_AW5FP8MFB3F7X,Customer_centricity4,42809,False
 95_AW5FP8MFB3F7X,Customer_centricity9,10680,True
 95_AW5FP8MFB3F7X,Customer_centricity8,24832,False
 95_AW5FP8MFB3F7X,Customer_centricity1,33414,False
-95_AW5FP8MFB3F7X,Gross domestic product,17480,False
-95_AW5FP8MFB3F7X,Sampling (statistics),19868,False
 95_AW5FP8MFB3F7X,Customer_centricity10,12278,False
 95_AW5FP8MFB3F7X,Customer_centricity6,26328,False
-95_AW5FP8MFB3F7X,Contentment,14622,True
 95_AW5FP8MFB3F7X,Customer_centricity5,37786,True
-95_AW5FP8MFB3F7X,American Customer Satisfaction Index,11786,True
 95_AW5FP8MFB3F7X,Customer_centricity7,10725,False
-3_A2SJ0PSN6JGJWP,Gross domestic product,705566,False
 3_A2SJ0PSN6JGJWP,Customer_centricity3,83534,False
 3_A2SJ0PSN6JGJWP,Customer_centricity6,76567,False
-3_A2SJ0PSN6JGJWP,American Customer Satisfaction Index,193438,True
-3_A2SJ0PSN6JGJWP,Marketing,59220,True
 3_A2SJ0PSN6JGJWP,Customer_centricity7,180047,False
 3_A2SJ0PSN6JGJWP,Customer_centricity5,76950,False
 3_A2SJ0PSN6JGJWP,Customer_centricity8,3687,False
-3_A2SJ0PSN6JGJWP,Sampling (statistics),91940,True
 3_A2SJ0PSN6JGJWP,Customer_centricity4,230007,True
-3_A2SJ0PSN6JGJWP,Contentment,135256,True
 3_A2SJ0PSN6JGJWP,Customer_centricity1,208375,False
 3_A2SJ0PSN6JGJWP,Customer_centricity10,12649,False
 3_A2SJ0PSN6JGJWP,Customer_centricity2,223321,False
 3_A2SJ0PSN6JGJWP,Customer_centricity9,17141,False
-34_A19406O89BADON,American Customer Satisfaction Index,1413,True
 34_A19406O89BADON,Customer_centricity1,22801,False
-34_A19406O89BADON,Sampling (statistics),17221,True
-34_A19406O89BADON,Marketing,44070,True
 34_A19406O89BADON,Customer_centricity6,1839,False
-34_A19406O89BADON,Gross domestic product,35947,True
 34_A19406O89BADON,Customer_centricity10,101616,False
-34_A19406O89BADON,Contentment,52246,True
 34_A19406O89BADON,Customer_centricity5,33868,True
 34_A19406O89BADON,Customer_centricity2,14372,False
 34_A19406O89BADON,Customer_centricity3,58555,True
@@ -825,43 +560,28 @@
 34_A19406O89BADON,Customer_centricity9,25390,True
 82_A2TR0BG1WR2KJB,Customer_centricity6,336567,True
 82_A2TR0BG1WR2KJB,Customer_centricity5,67047,True
-82_A2TR0BG1WR2KJB,Sampling (statistics),59300,True
 82_A2TR0BG1WR2KJB,Customer_centricity1,92408,False
-82_A2TR0BG1WR2KJB,Marketing,7202,True
-82_A2TR0BG1WR2KJB,American Customer Satisfaction Index,10571,True
-82_A2TR0BG1WR2KJB,Gross domestic product,65101,False
 82_A2TR0BG1WR2KJB,Customer_centricity2,123196,False
 82_A2TR0BG1WR2KJB,Customer_centricity10,110623,True
-82_A2TR0BG1WR2KJB,Contentment,52596,True
 82_A2TR0BG1WR2KJB,Customer_centricity3,95920,True
 82_A2TR0BG1WR2KJB,Customer_centricity4,138293,False
 82_A2TR0BG1WR2KJB,Customer_centricity8,44150,True
 82_A2TR0BG1WR2KJB,Customer_centricity7,15392,True
 82_A2TR0BG1WR2KJB,Customer_centricity9,31636,True
-69_A33U9PH6TQL0KG,Sampling (statistics),7969,False
-69_A33U9PH6TQL0KG,Customer_centricity2,1273,False
-69_A33U9PH6TQL0KG,Customer_centricity10,2381,False
-69_A33U9PH6TQL0KG,Gross domestic product,1827,False
-69_A33U9PH6TQL0KG,Customer_centricity6,1254,False
-69_A33U9PH6TQL0KG,Customer_centricity3,1775,False
-69_A33U9PH6TQL0KG,Customer_centricity8,1522,False
-69_A33U9PH6TQL0KG,American Customer Satisfaction Index,1808,True
-69_A33U9PH6TQL0KG,Customer_centricity4,1387,False
-69_A33U9PH6TQL0KG,Customer_centricity5,1511,False
-69_A33U9PH6TQL0KG,Marketing,1857,False
-69_A33U9PH6TQL0KG,Customer_centricity9,1198,True
-69_A33U9PH6TQL0KG,Customer_centricity7,2227,True
-69_A33U9PH6TQL0KG,Contentment,2408,True
-69_A33U9PH6TQL0KG,Customer_centricity1,2170,True
+30_ADKKDK6P4MS1Z,Customer_centricity4,63684,False
+30_ADKKDK6P4MS1Z,Customer_centricity8,73336,True
+30_ADKKDK6P4MS1Z,Customer_centricity6,121345,False
+30_ADKKDK6P4MS1Z,Customer_centricity7,25670,False
+30_ADKKDK6P4MS1Z,Customer_centricity3,65497,True
+30_ADKKDK6P4MS1Z,Customer_centricity5,129137,True
+30_ADKKDK6P4MS1Z,Customer_centricity2,147684,False
+30_ADKKDK6P4MS1Z,Customer_centricity1,66571,False
+30_ADKKDK6P4MS1Z,Customer_centricity10,81679,False
+30_ADKKDK6P4MS1Z,Customer_centricity9,20469,True
 74_A16SAB417Y96G4,Customer_centricity3,441155,False
-74_A16SAB417Y96G4,Gross domestic product,32111,True
 74_A16SAB417Y96G4,Customer_centricity10,22712,True
 74_A16SAB417Y96G4,Customer_centricity2,17560,False
 74_A16SAB417Y96G4,Customer_centricity7,2328,True
-74_A16SAB417Y96G4,Marketing,21008,True
-74_A16SAB417Y96G4,Sampling (statistics),16624,True
-74_A16SAB417Y96G4,American Customer Satisfaction Index,11664,True
-74_A16SAB417Y96G4,Contentment,10793,True
 74_A16SAB417Y96G4,Customer_centricity9,11879,True
 74_A16SAB417Y96G4,Customer_centricity8,24121,False
 74_A16SAB417Y96G4,Customer_centricity4,13575,False
@@ -869,12 +589,7 @@
 74_A16SAB417Y96G4,Customer_centricity1,19967,False
 74_A16SAB417Y96G4,Customer_centricity5,26840,True
 68_A3B7TNVOISSZ2O,Customer_centricity9,37146,True
-68_A3B7TNVOISSZ2O,Contentment,6144,True
-68_A3B7TNVOISSZ2O,Sampling (statistics),63392,True
-68_A3B7TNVOISSZ2O,American Customer Satisfaction Index,116747,True
-68_A3B7TNVOISSZ2O,Marketing,8845,True
 68_A3B7TNVOISSZ2O,Customer_centricity7,138648,False
-68_A3B7TNVOISSZ2O,Gross domestic product,65406,True
 68_A3B7TNVOISSZ2O,Customer_centricity1,118969,False
 68_A3B7TNVOISSZ2O,Customer_centricity6,50149,True
 68_A3B7TNVOISSZ2O,Customer_centricity8,71188,False
@@ -883,374 +598,239 @@
 68_A3B7TNVOISSZ2O,Customer_centricity2,82770,True
 68_A3B7TNVOISSZ2O,Customer_centricity3,12154,True
 68_A3B7TNVOISSZ2O,Customer_centricity4,78271,True
-80_AXGCH3EOOB0XG,Marketing,404747,True
 80_AXGCH3EOOB0XG,Customer_centricity1,31556,False
-80_AXGCH3EOOB0XG,American Customer Satisfaction Index,21209,True
 80_AXGCH3EOOB0XG,Customer_centricity2,21993,False
 80_AXGCH3EOOB0XG,Customer_centricity10,5313,False
 80_AXGCH3EOOB0XG,Customer_centricity4,21389,True
-80_AXGCH3EOOB0XG,Gross domestic product,17321,True
-80_AXGCH3EOOB0XG,Contentment,17298,True
 80_AXGCH3EOOB0XG,Customer_centricity9,16711,True
 80_AXGCH3EOOB0XG,Customer_centricity3,31416,True
 80_AXGCH3EOOB0XG,Customer_centricity6,2180,False
 80_AXGCH3EOOB0XG,Customer_centricity5,9312,True
-80_AXGCH3EOOB0XG,Sampling (statistics),1289,True
 80_AXGCH3EOOB0XG,Customer_centricity8,41210,False
 80_AXGCH3EOOB0XG,Customer_centricity7,25168,False
-4_A33U9PH6TQL0KG,Sampling (statistics),7969,False
-4_A33U9PH6TQL0KG,Customer_centricity2,1273,False
-4_A33U9PH6TQL0KG,Customer_centricity10,2381,False
-4_A33U9PH6TQL0KG,Gross domestic product,1827,False
-4_A33U9PH6TQL0KG,Customer_centricity6,1254,False
-4_A33U9PH6TQL0KG,Customer_centricity3,1775,False
-4_A33U9PH6TQL0KG,Customer_centricity8,1522,False
-4_A33U9PH6TQL0KG,American Customer Satisfaction Index,1808,True
-4_A33U9PH6TQL0KG,Customer_centricity4,1387,False
-4_A33U9PH6TQL0KG,Customer_centricity5,1511,False
-4_A33U9PH6TQL0KG,Marketing,1857,False
-4_A33U9PH6TQL0KG,Customer_centricity9,1198,True
-4_A33U9PH6TQL0KG,Customer_centricity7,2227,True
-4_A33U9PH6TQL0KG,Contentment,2408,True
-4_A33U9PH6TQL0KG,Customer_centricity1,2170,True
+79_A1HU9IOTYXB4YY,Customer_centricity10,23382,False
+79_A1HU9IOTYXB4YY,Customer_centricity9,21625,True
+79_A1HU9IOTYXB4YY,Customer_centricity1,14211,True
+79_A1HU9IOTYXB4YY,Customer_centricity3,26064,True
+79_A1HU9IOTYXB4YY,Customer_centricity5,83770,True
+79_A1HU9IOTYXB4YY,Customer_centricity4,50096,False
+79_A1HU9IOTYXB4YY,Customer_centricity8,34881,False
+79_A1HU9IOTYXB4YY,Customer_centricity7,56833,True
+79_A1HU9IOTYXB4YY,Customer_centricity2,38119,False
+79_A1HU9IOTYXB4YY,Customer_centricity6,44687,False
 40_A16SAB417Y96G4,Customer_centricity3,441155,False
-40_A16SAB417Y96G4,Gross domestic product,32111,True
 40_A16SAB417Y96G4,Customer_centricity10,22712,True
 40_A16SAB417Y96G4,Customer_centricity2,17560,False
 40_A16SAB417Y96G4,Customer_centricity7,2328,True
-40_A16SAB417Y96G4,Marketing,21008,True
-40_A16SAB417Y96G4,Sampling (statistics),16624,True
-40_A16SAB417Y96G4,American Customer Satisfaction Index,11664,True
-40_A16SAB417Y96G4,Contentment,10793,True
 40_A16SAB417Y96G4,Customer_centricity9,11879,True
 40_A16SAB417Y96G4,Customer_centricity8,24121,False
 40_A16SAB417Y96G4,Customer_centricity4,13575,False
 40_A16SAB417Y96G4,Customer_centricity6,23552,False
 40_A16SAB417Y96G4,Customer_centricity1,19967,False
 40_A16SAB417Y96G4,Customer_centricity5,26840,True
-8_A38L1QCI94USEJ,Gross domestic product,216630,True
-8_A38L1QCI94USEJ,Customer_centricity2,138715,False
-8_A38L1QCI94USEJ,Customer_centricity10,113797,True
-8_A38L1QCI94USEJ,Customer_centricity7,15079,True
-8_A38L1QCI94USEJ,Customer_centricity6,108593,False
-8_A38L1QCI94USEJ,American Customer Satisfaction Index,127732,True
-8_A38L1QCI94USEJ,Customer_centricity4,87149,False
-8_A38L1QCI94USEJ,Customer_centricity1,155841,False
-8_A38L1QCI94USEJ,Customer_centricity9,53196,True
-8_A38L1QCI94USEJ,Sampling (statistics),78806,False
-8_A38L1QCI94USEJ,Contentment,141067,False
-8_A38L1QCI94USEJ,Marketing,120674,False
-8_A38L1QCI94USEJ,Customer_centricity8,106538,False
-8_A38L1QCI94USEJ,Customer_centricity3,101223,False
-8_A38L1QCI94USEJ,Customer_centricity5,148598,True
+31_A610SH5RY1NG1,Customer_centricity7,37650,True
+31_A610SH5RY1NG1,Customer_centricity5,41596,True
+31_A610SH5RY1NG1,Customer_centricity2,38355,False
+31_A610SH5RY1NG1,Customer_centricity3,52426,True
+31_A610SH5RY1NG1,Customer_centricity6,22011,False
+31_A610SH5RY1NG1,Customer_centricity8,26336,False
+31_A610SH5RY1NG1,Customer_centricity1,8481,False
+31_A610SH5RY1NG1,Customer_centricity9,18751,True
+31_A610SH5RY1NG1,Customer_centricity4,28447,False
+31_A610SH5RY1NG1,Customer_centricity10,26082,True
 59_A1HU9IOTYXB4YY,Customer_centricity10,23382,False
 59_A1HU9IOTYXB4YY,Customer_centricity9,21625,True
-59_A1HU9IOTYXB4YY,Sampling (statistics),42085,True
-59_A1HU9IOTYXB4YY,Contentment,64255,True
 59_A1HU9IOTYXB4YY,Customer_centricity1,14211,True
 59_A1HU9IOTYXB4YY,Customer_centricity3,26064,True
 59_A1HU9IOTYXB4YY,Customer_centricity5,83770,True
-59_A1HU9IOTYXB4YY,American Customer Satisfaction Index,58343,True
 59_A1HU9IOTYXB4YY,Customer_centricity4,50096,False
-59_A1HU9IOTYXB4YY,Marketing,63737,True
-59_A1HU9IOTYXB4YY,Gross domestic product,42702,True
 59_A1HU9IOTYXB4YY,Customer_centricity8,34881,False
 59_A1HU9IOTYXB4YY,Customer_centricity7,56833,True
 59_A1HU9IOTYXB4YY,Customer_centricity2,38119,False
 59_A1HU9IOTYXB4YY,Customer_centricity6,44687,False
-15_A2XJH3WC02RMXQ,Gross domestic product,69430,False
 15_A2XJH3WC02RMXQ,Customer_centricity10,16561,True
 15_A2XJH3WC02RMXQ,Customer_centricity8,40723,True
-15_A2XJH3WC02RMXQ,Contentment,9948,False
 15_A2XJH3WC02RMXQ,Customer_centricity7,13263,False
 15_A2XJH3WC02RMXQ,Customer_centricity5,52472,False
 15_A2XJH3WC02RMXQ,Customer_centricity4,10878,False
-15_A2XJH3WC02RMXQ,Sampling (statistics),39773,False
-15_A2XJH3WC02RMXQ,American Customer Satisfaction Index,6171,True
 15_A2XJH3WC02RMXQ,Customer_centricity3,31744,True
 15_A2XJH3WC02RMXQ,Customer_centricity2,6957,False
 15_A2XJH3WC02RMXQ,Customer_centricity9,23348,False
-15_A2XJH3WC02RMXQ,Marketing,15086,True
 15_A2XJH3WC02RMXQ,Customer_centricity6,27040,False
 15_A2XJH3WC02RMXQ,Customer_centricity1,40089,False
-92_A610SH5RY1NG1,Sampling (statistics),147463,True
 92_A610SH5RY1NG1,Customer_centricity7,37650,True
-92_A610SH5RY1NG1,Marketing,29274,True
 92_A610SH5RY1NG1,Customer_centricity5,41596,True
-92_A610SH5RY1NG1,Contentment,27105,True
 92_A610SH5RY1NG1,Customer_centricity2,38355,False
 92_A610SH5RY1NG1,Customer_centricity3,52426,True
 92_A610SH5RY1NG1,Customer_centricity6,22011,False
 92_A610SH5RY1NG1,Customer_centricity8,26336,False
-92_A610SH5RY1NG1,American Customer Satisfaction Index,17115,True
 92_A610SH5RY1NG1,Customer_centricity1,8481,False
 92_A610SH5RY1NG1,Customer_centricity9,18751,True
-92_A610SH5RY1NG1,Gross domestic product,34414,True
 92_A610SH5RY1NG1,Customer_centricity4,28447,False
 92_A610SH5RY1NG1,Customer_centricity10,26082,True
-67_A2XJH3WC02RMXQ,Gross domestic product,69430,False
 67_A2XJH3WC02RMXQ,Customer_centricity10,16561,True
 67_A2XJH3WC02RMXQ,Customer_centricity8,40723,True
-67_A2XJH3WC02RMXQ,Contentment,9948,False
 67_A2XJH3WC02RMXQ,Customer_centricity7,13263,False
 67_A2XJH3WC02RMXQ,Customer_centricity5,52472,False
 67_A2XJH3WC02RMXQ,Customer_centricity4,10878,False
-67_A2XJH3WC02RMXQ,Sampling (statistics),39773,False
-67_A2XJH3WC02RMXQ,American Customer Satisfaction Index,6171,True
 67_A2XJH3WC02RMXQ,Customer_centricity3,31744,True
 67_A2XJH3WC02RMXQ,Customer_centricity2,6957,False
 67_A2XJH3WC02RMXQ,Customer_centricity9,23348,False
-67_A2XJH3WC02RMXQ,Marketing,15086,True
 67_A2XJH3WC02RMXQ,Customer_centricity6,27040,False
 67_A2XJH3WC02RMXQ,Customer_centricity1,40089,False
 85_A15SBWIYJ9AGVZ,Customer_centricity9,29570,True
 85_A15SBWIYJ9AGVZ,Customer_centricity8,3591,False
-85_A15SBWIYJ9AGVZ,American Customer Satisfaction Index,18513,False
 85_A15SBWIYJ9AGVZ,Customer_centricity5,17710,True
 85_A15SBWIYJ9AGVZ,Customer_centricity10,22107,True
-85_A15SBWIYJ9AGVZ,Gross domestic product,8764,False
 85_A15SBWIYJ9AGVZ,Customer_centricity2,33343,True
-85_A15SBWIYJ9AGVZ,Marketing,19215,False
 85_A15SBWIYJ9AGVZ,Customer_centricity4,7794,False
 85_A15SBWIYJ9AGVZ,Customer_centricity7,31074,True
-85_A15SBWIYJ9AGVZ,Sampling (statistics),3549,False
 85_A15SBWIYJ9AGVZ,Customer_centricity1,3053,False
 85_A15SBWIYJ9AGVZ,Customer_centricity3,2199,False
 85_A15SBWIYJ9AGVZ,Customer_centricity6,741,False
-85_A15SBWIYJ9AGVZ,Contentment,20051,True
 63_AW5FP8MFB3F7X,Customer_centricity3,47081,False
-63_AW5FP8MFB3F7X,Marketing,14348,True
 63_AW5FP8MFB3F7X,Customer_centricity2,19099,False
 63_AW5FP8MFB3F7X,Customer_centricity4,42809,False
 63_AW5FP8MFB3F7X,Customer_centricity9,10680,True
 63_AW5FP8MFB3F7X,Customer_centricity8,24832,False
 63_AW5FP8MFB3F7X,Customer_centricity1,33414,False
-63_AW5FP8MFB3F7X,Gross domestic product,17480,False
-63_AW5FP8MFB3F7X,Sampling (statistics),19868,False
 63_AW5FP8MFB3F7X,Customer_centricity10,12278,False
 63_AW5FP8MFB3F7X,Customer_centricity6,26328,False
-63_AW5FP8MFB3F7X,Contentment,14622,True
 63_AW5FP8MFB3F7X,Customer_centricity5,37786,True
-63_AW5FP8MFB3F7X,American Customer Satisfaction Index,11786,True
 63_AW5FP8MFB3F7X,Customer_centricity7,10725,False
-89_A2XJH3WC02RMXQ,Gross domestic product,69430,False
-89_A2XJH3WC02RMXQ,Customer_centricity10,16561,True
-89_A2XJH3WC02RMXQ,Customer_centricity8,40723,True
-89_A2XJH3WC02RMXQ,Contentment,9948,False
-89_A2XJH3WC02RMXQ,Customer_centricity7,13263,False
-89_A2XJH3WC02RMXQ,Customer_centricity5,52472,False
-89_A2XJH3WC02RMXQ,Customer_centricity4,10878,False
-89_A2XJH3WC02RMXQ,Sampling (statistics),39773,False
-89_A2XJH3WC02RMXQ,American Customer Satisfaction Index,6171,True
-89_A2XJH3WC02RMXQ,Customer_centricity3,31744,True
-89_A2XJH3WC02RMXQ,Customer_centricity2,6957,False
-89_A2XJH3WC02RMXQ,Customer_centricity9,23348,False
-89_A2XJH3WC02RMXQ,Marketing,15086,True
-89_A2XJH3WC02RMXQ,Customer_centricity6,27040,False
-89_A2XJH3WC02RMXQ,Customer_centricity1,40089,False
-90_A2SJ0PSN6JGJWP,Gross domestic product,705566,False
-90_A2SJ0PSN6JGJWP,Customer_centricity3,83534,False
-90_A2SJ0PSN6JGJWP,Customer_centricity6,76567,False
-90_A2SJ0PSN6JGJWP,American Customer Satisfaction Index,193438,True
-90_A2SJ0PSN6JGJWP,Marketing,59220,True
-90_A2SJ0PSN6JGJWP,Customer_centricity7,180047,False
-90_A2SJ0PSN6JGJWP,Customer_centricity5,76950,False
-90_A2SJ0PSN6JGJWP,Customer_centricity8,3687,False
-90_A2SJ0PSN6JGJWP,Sampling (statistics),91940,True
-90_A2SJ0PSN6JGJWP,Customer_centricity4,230007,True
-90_A2SJ0PSN6JGJWP,Contentment,135256,True
-90_A2SJ0PSN6JGJWP,Customer_centricity1,208375,False
-90_A2SJ0PSN6JGJWP,Customer_centricity10,12649,False
-90_A2SJ0PSN6JGJWP,Customer_centricity2,223321,False
-90_A2SJ0PSN6JGJWP,Customer_centricity9,17141,False
-46_A610SH5RY1NG1,Sampling (statistics),147463,True
-46_A610SH5RY1NG1,Customer_centricity7,37650,True
-46_A610SH5RY1NG1,Marketing,29274,True
-46_A610SH5RY1NG1,Customer_centricity5,41596,True
-46_A610SH5RY1NG1,Contentment,27105,True
-46_A610SH5RY1NG1,Customer_centricity2,38355,False
-46_A610SH5RY1NG1,Customer_centricity3,52426,True
-46_A610SH5RY1NG1,Customer_centricity6,22011,False
-46_A610SH5RY1NG1,Customer_centricity8,26336,False
-46_A610SH5RY1NG1,American Customer Satisfaction Index,17115,True
-46_A610SH5RY1NG1,Customer_centricity1,8481,False
-46_A610SH5RY1NG1,Customer_centricity9,18751,True
-46_A610SH5RY1NG1,Gross domestic product,34414,True
-46_A610SH5RY1NG1,Customer_centricity4,28447,False
-46_A610SH5RY1NG1,Customer_centricity10,26082,True
-33_A33U9PH6TQL0KG,Sampling (statistics),7969,False
+18_A3TDA1NWHNQFE3,Customer_centricity2,28104,False
+18_A3TDA1NWHNQFE3,Customer_centricity1,100615,False
+18_A3TDA1NWHNQFE3,Customer_centricity9,51360,True
+18_A3TDA1NWHNQFE3,Customer_centricity10,23077,False
+18_A3TDA1NWHNQFE3,Customer_centricity7,59033,True
+18_A3TDA1NWHNQFE3,Customer_centricity4,67779,False
+18_A3TDA1NWHNQFE3,Customer_centricity6,106257,False
+18_A3TDA1NWHNQFE3,Customer_centricity8,55683,False
+18_A3TDA1NWHNQFE3,Customer_centricity3,176213,False
+18_A3TDA1NWHNQFE3,Customer_centricity5,131506,True
+81_A38L1QCI94USEJ,Customer_centricity2,138715,False
+81_A38L1QCI94USEJ,Customer_centricity10,113797,True
+81_A38L1QCI94USEJ,Customer_centricity7,15079,True
+81_A38L1QCI94USEJ,Customer_centricity6,108593,False
+81_A38L1QCI94USEJ,Customer_centricity4,87149,False
+81_A38L1QCI94USEJ,Customer_centricity1,155841,False
+81_A38L1QCI94USEJ,Customer_centricity9,53196,True
+81_A38L1QCI94USEJ,Customer_centricity8,106538,False
+81_A38L1QCI94USEJ,Customer_centricity3,101223,False
+81_A38L1QCI94USEJ,Customer_centricity5,148598,True
 33_A33U9PH6TQL0KG,Customer_centricity2,1273,False
 33_A33U9PH6TQL0KG,Customer_centricity10,2381,False
-33_A33U9PH6TQL0KG,Gross domestic product,1827,False
 33_A33U9PH6TQL0KG,Customer_centricity6,1254,False
 33_A33U9PH6TQL0KG,Customer_centricity3,1775,False
 33_A33U9PH6TQL0KG,Customer_centricity8,1522,False
-33_A33U9PH6TQL0KG,American Customer Satisfaction Index,1808,True
 33_A33U9PH6TQL0KG,Customer_centricity4,1387,False
 33_A33U9PH6TQL0KG,Customer_centricity5,1511,False
-33_A33U9PH6TQL0KG,Marketing,1857,False
 33_A33U9PH6TQL0KG,Customer_centricity9,1198,True
 33_A33U9PH6TQL0KG,Customer_centricity7,2227,True
-33_A33U9PH6TQL0KG,Contentment,2408,True
 33_A33U9PH6TQL0KG,Customer_centricity1,2170,True
-77_A610SH5RY1NG1,Sampling (statistics),147463,True
 77_A610SH5RY1NG1,Customer_centricity7,37650,True
-77_A610SH5RY1NG1,Marketing,29274,True
 77_A610SH5RY1NG1,Customer_centricity5,41596,True
-77_A610SH5RY1NG1,Contentment,27105,True
 77_A610SH5RY1NG1,Customer_centricity2,38355,False
 77_A610SH5RY1NG1,Customer_centricity3,52426,True
 77_A610SH5RY1NG1,Customer_centricity6,22011,False
 77_A610SH5RY1NG1,Customer_centricity8,26336,False
-77_A610SH5RY1NG1,American Customer Satisfaction Index,17115,True
 77_A610SH5RY1NG1,Customer_centricity1,8481,False
 77_A610SH5RY1NG1,Customer_centricity9,18751,True
-77_A610SH5RY1NG1,Gross domestic product,34414,True
 77_A610SH5RY1NG1,Customer_centricity4,28447,False
 77_A610SH5RY1NG1,Customer_centricity10,26082,True
-50_AXGCH3EOOB0XG,Marketing,404747,True
 50_AXGCH3EOOB0XG,Customer_centricity1,31556,False
-50_AXGCH3EOOB0XG,American Customer Satisfaction Index,21209,True
 50_AXGCH3EOOB0XG,Customer_centricity2,21993,False
 50_AXGCH3EOOB0XG,Customer_centricity10,5313,False
 50_AXGCH3EOOB0XG,Customer_centricity4,21389,True
-50_AXGCH3EOOB0XG,Gross domestic product,17321,True
-50_AXGCH3EOOB0XG,Contentment,17298,True
 50_AXGCH3EOOB0XG,Customer_centricity9,16711,True
 50_AXGCH3EOOB0XG,Customer_centricity3,31416,True
 50_AXGCH3EOOB0XG,Customer_centricity6,2180,False
 50_AXGCH3EOOB0XG,Customer_centricity5,9312,True
-50_AXGCH3EOOB0XG,Sampling (statistics),1289,True
 50_AXGCH3EOOB0XG,Customer_centricity8,41210,False
 50_AXGCH3EOOB0XG,Customer_centricity7,25168,False
-87_A138BU1VWM2RKN,Customer_centricity2,135722,False
-87_A138BU1VWM2RKN,Customer_centricity8,42113,False
-87_A138BU1VWM2RKN,Customer_centricity5,59495,True
-87_A138BU1VWM2RKN,Sampling (statistics),71978,True
-87_A138BU1VWM2RKN,Customer_centricity6,43064,True
-87_A138BU1VWM2RKN,American Customer Satisfaction Index,29650,True
-87_A138BU1VWM2RKN,Customer_centricity9,16888,True
-87_A138BU1VWM2RKN,Customer_centricity4,35431,False
-87_A138BU1VWM2RKN,Gross domestic product,63829,True
-87_A138BU1VWM2RKN,Customer_centricity10,39152,True
-87_A138BU1VWM2RKN,Marketing,32835,True
-87_A138BU1VWM2RKN,Customer_centricity3,46012,True
-87_A138BU1VWM2RKN,Contentment,20229,True
-87_A138BU1VWM2RKN,Customer_centricity1,32281,False
-87_A138BU1VWM2RKN,Customer_centricity7,45487,False
-75_AXGCH3EOOB0XG,Marketing,404747,True
-75_AXGCH3EOOB0XG,Customer_centricity1,31556,False
-75_AXGCH3EOOB0XG,American Customer Satisfaction Index,21209,True
-75_AXGCH3EOOB0XG,Customer_centricity2,21993,False
-75_AXGCH3EOOB0XG,Customer_centricity10,5313,False
-75_AXGCH3EOOB0XG,Customer_centricity4,21389,True
-75_AXGCH3EOOB0XG,Gross domestic product,17321,True
-75_AXGCH3EOOB0XG,Contentment,17298,True
-75_AXGCH3EOOB0XG,Customer_centricity9,16711,True
-75_AXGCH3EOOB0XG,Customer_centricity3,31416,True
-75_AXGCH3EOOB0XG,Customer_centricity6,2180,False
-75_AXGCH3EOOB0XG,Customer_centricity5,9312,True
-75_AXGCH3EOOB0XG,Sampling (statistics),1289,True
-75_AXGCH3EOOB0XG,Customer_centricity8,41210,False
-75_AXGCH3EOOB0XG,Customer_centricity7,25168,False
-47_A2XJH3WC02RMXQ,Gross domestic product,69430,False
-47_A2XJH3WC02RMXQ,Customer_centricity10,16561,True
-47_A2XJH3WC02RMXQ,Customer_centricity8,40723,True
-47_A2XJH3WC02RMXQ,Contentment,9948,False
-47_A2XJH3WC02RMXQ,Customer_centricity7,13263,False
-47_A2XJH3WC02RMXQ,Customer_centricity5,52472,False
-47_A2XJH3WC02RMXQ,Customer_centricity4,10878,False
-47_A2XJH3WC02RMXQ,Sampling (statistics),39773,False
-47_A2XJH3WC02RMXQ,American Customer Satisfaction Index,6171,True
-47_A2XJH3WC02RMXQ,Customer_centricity3,31744,True
-47_A2XJH3WC02RMXQ,Customer_centricity2,6957,False
-47_A2XJH3WC02RMXQ,Customer_centricity9,23348,False
-47_A2XJH3WC02RMXQ,Marketing,15086,True
-47_A2XJH3WC02RMXQ,Customer_centricity6,27040,False
-47_A2XJH3WC02RMXQ,Customer_centricity1,40089,False
-5_ABN92G6H73097,American Customer Satisfaction Index,37221,True
-5_ABN92G6H73097,Customer_centricity9,773,True
-5_ABN92G6H73097,Gross domestic product,47626,False
-5_ABN92G6H73097,Customer_centricity10,38402,True
-5_ABN92G6H73097,Customer_centricity3,32705,False
-5_ABN92G6H73097,Customer_centricity7,21910,True
-5_ABN92G6H73097,Customer_centricity2,20224,True
-5_ABN92G6H73097,Customer_centricity4,32369,False
-5_ABN92G6H73097,Contentment,19162,False
-5_ABN92G6H73097,Customer_centricity8,23821,True
-5_ABN92G6H73097,Customer_centricity5,21602,False
-5_ABN92G6H73097,Customer_centricity1,12614,False
-5_ABN92G6H73097,Sampling (statistics),19136,False
-5_ABN92G6H73097,Marketing,22008,False
-5_ABN92G6H73097,Customer_centricity6,12131,False
-23_A610SH5RY1NG1,Sampling (statistics),147463,True
-23_A610SH5RY1NG1,Customer_centricity7,37650,True
-23_A610SH5RY1NG1,Marketing,29274,True
-23_A610SH5RY1NG1,Customer_centricity5,41596,True
-23_A610SH5RY1NG1,Contentment,27105,True
-23_A610SH5RY1NG1,Customer_centricity2,38355,False
-23_A610SH5RY1NG1,Customer_centricity3,52426,True
-23_A610SH5RY1NG1,Customer_centricity6,22011,False
-23_A610SH5RY1NG1,Customer_centricity8,26336,False
-23_A610SH5RY1NG1,American Customer Satisfaction Index,17115,True
-23_A610SH5RY1NG1,Customer_centricity1,8481,False
-23_A610SH5RY1NG1,Customer_centricity9,18751,True
-23_A610SH5RY1NG1,Gross domestic product,34414,True
-23_A610SH5RY1NG1,Customer_centricity4,28447,False
-23_A610SH5RY1NG1,Customer_centricity10,26082,True
-7_A3B7TNVOISSZ2O,Customer_centricity9,37146,True
-7_A3B7TNVOISSZ2O,Contentment,6144,True
-7_A3B7TNVOISSZ2O,Sampling (statistics),63392,True
-7_A3B7TNVOISSZ2O,American Customer Satisfaction Index,116747,True
-7_A3B7TNVOISSZ2O,Marketing,8845,True
-7_A3B7TNVOISSZ2O,Customer_centricity7,138648,False
-7_A3B7TNVOISSZ2O,Gross domestic product,65406,True
-7_A3B7TNVOISSZ2O,Customer_centricity1,118969,False
-7_A3B7TNVOISSZ2O,Customer_centricity6,50149,True
-7_A3B7TNVOISSZ2O,Customer_centricity8,71188,False
-7_A3B7TNVOISSZ2O,Customer_centricity5,20768,True
-7_A3B7TNVOISSZ2O,Customer_centricity10,31934,False
-7_A3B7TNVOISSZ2O,Customer_centricity2,82770,True
-7_A3B7TNVOISSZ2O,Customer_centricity3,12154,True
-7_A3B7TNVOISSZ2O,Customer_centricity4,78271,True
-31_A610SH5RY1NG1,Sampling (statistics),147463,True
-31_A610SH5RY1NG1,Customer_centricity7,37650,True
-31_A610SH5RY1NG1,Marketing,29274,True
-31_A610SH5RY1NG1,Customer_centricity5,41596,True
-31_A610SH5RY1NG1,Contentment,27105,True
-31_A610SH5RY1NG1,Customer_centricity2,38355,False
-31_A610SH5RY1NG1,Customer_centricity3,52426,True
-31_A610SH5RY1NG1,Customer_centricity6,22011,False
-31_A610SH5RY1NG1,Customer_centricity8,26336,False
-31_A610SH5RY1NG1,American Customer Satisfaction Index,17115,True
-31_A610SH5RY1NG1,Customer_centricity1,8481,False
-31_A610SH5RY1NG1,Customer_centricity9,18751,True
-31_A610SH5RY1NG1,Gross domestic product,34414,True
-31_A610SH5RY1NG1,Customer_centricity4,28447,False
-31_A610SH5RY1NG1,Customer_centricity10,26082,True
+64_A19406O89BADON,Customer_centricity1,22801,False
+64_A19406O89BADON,Customer_centricity6,1839,False
+64_A19406O89BADON,Customer_centricity10,101616,False
+64_A19406O89BADON,Customer_centricity5,33868,True
+64_A19406O89BADON,Customer_centricity2,14372,False
+64_A19406O89BADON,Customer_centricity3,58555,True
+64_A19406O89BADON,Customer_centricity4,31106,False
+64_A19406O89BADON,Customer_centricity8,32087,False
+64_A19406O89BADON,Customer_centricity7,56361,True
+64_A19406O89BADON,Customer_centricity9,25390,True
 13_A2TR0BG1WR2KJB,Customer_centricity6,336567,True
 13_A2TR0BG1WR2KJB,Customer_centricity5,67047,True
-13_A2TR0BG1WR2KJB,Sampling (statistics),59300,True
 13_A2TR0BG1WR2KJB,Customer_centricity1,92408,False
-13_A2TR0BG1WR2KJB,Marketing,7202,True
-13_A2TR0BG1WR2KJB,American Customer Satisfaction Index,10571,True
-13_A2TR0BG1WR2KJB,Gross domestic product,65101,False
 13_A2TR0BG1WR2KJB,Customer_centricity2,123196,False
 13_A2TR0BG1WR2KJB,Customer_centricity10,110623,True
-13_A2TR0BG1WR2KJB,Contentment,52596,True
 13_A2TR0BG1WR2KJB,Customer_centricity3,95920,True
 13_A2TR0BG1WR2KJB,Customer_centricity4,138293,False
 13_A2TR0BG1WR2KJB,Customer_centricity8,44150,True
 13_A2TR0BG1WR2KJB,Customer_centricity7,15392,True
 13_A2TR0BG1WR2KJB,Customer_centricity9,31636,True
-10_A19406O89BADON,American Customer Satisfaction Index,1413,True
+75_AXGCH3EOOB0XG,Customer_centricity1,31556,False
+75_AXGCH3EOOB0XG,Customer_centricity2,21993,False
+75_AXGCH3EOOB0XG,Customer_centricity10,5313,False
+75_AXGCH3EOOB0XG,Customer_centricity4,21389,True
+75_AXGCH3EOOB0XG,Customer_centricity9,16711,True
+75_AXGCH3EOOB0XG,Customer_centricity3,31416,True
+75_AXGCH3EOOB0XG,Customer_centricity6,2180,False
+75_AXGCH3EOOB0XG,Customer_centricity5,9312,True
+75_AXGCH3EOOB0XG,Customer_centricity8,41210,False
+75_AXGCH3EOOB0XG,Customer_centricity7,25168,False
+47_A2XJH3WC02RMXQ,Customer_centricity10,16561,True
+47_A2XJH3WC02RMXQ,Customer_centricity8,40723,True
+47_A2XJH3WC02RMXQ,Customer_centricity7,13263,False
+47_A2XJH3WC02RMXQ,Customer_centricity5,52472,False
+47_A2XJH3WC02RMXQ,Customer_centricity4,10878,False
+47_A2XJH3WC02RMXQ,Customer_centricity3,31744,True
+47_A2XJH3WC02RMXQ,Customer_centricity2,6957,False
+47_A2XJH3WC02RMXQ,Customer_centricity9,23348,False
+47_A2XJH3WC02RMXQ,Customer_centricity6,27040,False
+47_A2XJH3WC02RMXQ,Customer_centricity1,40089,False
+5_ABN92G6H73097,Customer_centricity9,773,True
+5_ABN92G6H73097,Customer_centricity10,38402,True
+5_ABN92G6H73097,Customer_centricity3,32705,False
+5_ABN92G6H73097,Customer_centricity7,21910,True
+5_ABN92G6H73097,Customer_centricity2,20224,True
+5_ABN92G6H73097,Customer_centricity4,32369,False
+5_ABN92G6H73097,Customer_centricity8,23821,True
+5_ABN92G6H73097,Customer_centricity5,21602,False
+5_ABN92G6H73097,Customer_centricity1,12614,False
+5_ABN92G6H73097,Customer_centricity6,12131,False
+23_A610SH5RY1NG1,Customer_centricity7,37650,True
+23_A610SH5RY1NG1,Customer_centricity5,41596,True
+23_A610SH5RY1NG1,Customer_centricity2,38355,False
+23_A610SH5RY1NG1,Customer_centricity3,52426,True
+23_A610SH5RY1NG1,Customer_centricity6,22011,False
+23_A610SH5RY1NG1,Customer_centricity8,26336,False
+23_A610SH5RY1NG1,Customer_centricity1,8481,False
+23_A610SH5RY1NG1,Customer_centricity9,18751,True
+23_A610SH5RY1NG1,Customer_centricity4,28447,False
+23_A610SH5RY1NG1,Customer_centricity10,26082,True
+8_A38L1QCI94USEJ,Customer_centricity2,138715,False
+8_A38L1QCI94USEJ,Customer_centricity10,113797,True
+8_A38L1QCI94USEJ,Customer_centricity7,15079,True
+8_A38L1QCI94USEJ,Customer_centricity6,108593,False
+8_A38L1QCI94USEJ,Customer_centricity4,87149,False
+8_A38L1QCI94USEJ,Customer_centricity1,155841,False
+8_A38L1QCI94USEJ,Customer_centricity9,53196,True
+8_A38L1QCI94USEJ,Customer_centricity8,106538,False
+8_A38L1QCI94USEJ,Customer_centricity3,101223,False
+8_A38L1QCI94USEJ,Customer_centricity5,148598,True
+87_A138BU1VWM2RKN,Customer_centricity2,135722,False
+87_A138BU1VWM2RKN,Customer_centricity8,42113,False
+87_A138BU1VWM2RKN,Customer_centricity5,59495,True
+87_A138BU1VWM2RKN,Customer_centricity6,43064,True
+87_A138BU1VWM2RKN,Customer_centricity9,16888,True
+87_A138BU1VWM2RKN,Customer_centricity4,35431,False
+87_A138BU1VWM2RKN,Customer_centricity10,39152,True
+87_A138BU1VWM2RKN,Customer_centricity3,46012,True
+87_A138BU1VWM2RKN,Customer_centricity1,32281,False
+87_A138BU1VWM2RKN,Customer_centricity7,45487,False
 10_A19406O89BADON,Customer_centricity1,22801,False
-10_A19406O89BADON,Sampling (statistics),17221,True
-10_A19406O89BADON,Marketing,44070,True
 10_A19406O89BADON,Customer_centricity6,1839,False
-10_A19406O89BADON,Gross domestic product,35947,True
 10_A19406O89BADON,Customer_centricity10,101616,False
-10_A19406O89BADON,Contentment,52246,True
 10_A19406O89BADON,Customer_centricity5,33868,True
 10_A19406O89BADON,Customer_centricity2,14372,False
 10_A19406O89BADON,Customer_centricity3,58555,True
@@ -1260,124 +840,84 @@
 10_A19406O89BADON,Customer_centricity9,25390,True
 26_A1HU9IOTYXB4YY,Customer_centricity10,23382,False
 26_A1HU9IOTYXB4YY,Customer_centricity9,21625,True
-26_A1HU9IOTYXB4YY,Sampling (statistics),42085,True
-26_A1HU9IOTYXB4YY,Contentment,64255,True
 26_A1HU9IOTYXB4YY,Customer_centricity1,14211,True
 26_A1HU9IOTYXB4YY,Customer_centricity3,26064,True
 26_A1HU9IOTYXB4YY,Customer_centricity5,83770,True
-26_A1HU9IOTYXB4YY,American Customer Satisfaction Index,58343,True
 26_A1HU9IOTYXB4YY,Customer_centricity4,50096,False
-26_A1HU9IOTYXB4YY,Marketing,63737,True
-26_A1HU9IOTYXB4YY,Gross domestic product,42702,True
 26_A1HU9IOTYXB4YY,Customer_centricity8,34881,False
 26_A1HU9IOTYXB4YY,Customer_centricity7,56833,True
 26_A1HU9IOTYXB4YY,Customer_centricity2,38119,False
 26_A1HU9IOTYXB4YY,Customer_centricity6,44687,False
 14_A16SAB417Y96G4,Customer_centricity3,441155,False
-14_A16SAB417Y96G4,Gross domestic product,32111,True
 14_A16SAB417Y96G4,Customer_centricity10,22712,True
 14_A16SAB417Y96G4,Customer_centricity2,17560,False
 14_A16SAB417Y96G4,Customer_centricity7,2328,True
-14_A16SAB417Y96G4,Marketing,21008,True
-14_A16SAB417Y96G4,Sampling (statistics),16624,True
-14_A16SAB417Y96G4,American Customer Satisfaction Index,11664,True
-14_A16SAB417Y96G4,Contentment,10793,True
 14_A16SAB417Y96G4,Customer_centricity9,11879,True
 14_A16SAB417Y96G4,Customer_centricity8,24121,False
 14_A16SAB417Y96G4,Customer_centricity4,13575,False
 14_A16SAB417Y96G4,Customer_centricity6,23552,False
 14_A16SAB417Y96G4,Customer_centricity1,19967,False
 14_A16SAB417Y96G4,Customer_centricity5,26840,True
-64_A19406O89BADON,American Customer Satisfaction Index,1413,True
-64_A19406O89BADON,Customer_centricity1,22801,False
-64_A19406O89BADON,Sampling (statistics),17221,True
-64_A19406O89BADON,Marketing,44070,True
-64_A19406O89BADON,Customer_centricity6,1839,False
-64_A19406O89BADON,Gross domestic product,35947,True
-64_A19406O89BADON,Customer_centricity10,101616,False
-64_A19406O89BADON,Contentment,52246,True
-64_A19406O89BADON,Customer_centricity5,33868,True
-64_A19406O89BADON,Customer_centricity2,14372,False
-64_A19406O89BADON,Customer_centricity3,58555,True
-64_A19406O89BADON,Customer_centricity4,31106,False
-64_A19406O89BADON,Customer_centricity8,32087,False
-64_A19406O89BADON,Customer_centricity7,56361,True
-64_A19406O89BADON,Customer_centricity9,25390,True
-9_A610SH5RY1NG1,Sampling (statistics),147463,True
+72_ABN92G6H73097,Customer_centricity9,773,True
+72_ABN92G6H73097,Customer_centricity10,38402,True
+72_ABN92G6H73097,Customer_centricity3,32705,False
+72_ABN92G6H73097,Customer_centricity7,21910,True
+72_ABN92G6H73097,Customer_centricity2,20224,True
+72_ABN92G6H73097,Customer_centricity4,32369,False
+72_ABN92G6H73097,Customer_centricity8,23821,True
+72_ABN92G6H73097,Customer_centricity5,21602,False
+72_ABN92G6H73097,Customer_centricity1,12614,False
+72_ABN92G6H73097,Customer_centricity6,12131,False
 9_A610SH5RY1NG1,Customer_centricity7,37650,True
-9_A610SH5RY1NG1,Marketing,29274,True
 9_A610SH5RY1NG1,Customer_centricity5,41596,True
-9_A610SH5RY1NG1,Contentment,27105,True
 9_A610SH5RY1NG1,Customer_centricity2,38355,False
 9_A610SH5RY1NG1,Customer_centricity3,52426,True
 9_A610SH5RY1NG1,Customer_centricity6,22011,False
 9_A610SH5RY1NG1,Customer_centricity8,26336,False
-9_A610SH5RY1NG1,American Customer Satisfaction Index,17115,True
 9_A610SH5RY1NG1,Customer_centricity1,8481,False
 9_A610SH5RY1NG1,Customer_centricity9,18751,True
-9_A610SH5RY1NG1,Gross domestic product,34414,True
 9_A610SH5RY1NG1,Customer_centricity4,28447,False
 9_A610SH5RY1NG1,Customer_centricity10,26082,True
-6_ABN92G6H73097,American Customer Satisfaction Index,37221,True
 6_ABN92G6H73097,Customer_centricity9,773,True
-6_ABN92G6H73097,Gross domestic product,47626,False
 6_ABN92G6H73097,Customer_centricity10,38402,True
 6_ABN92G6H73097,Customer_centricity3,32705,False
 6_ABN92G6H73097,Customer_centricity7,21910,True
 6_ABN92G6H73097,Customer_centricity2,20224,True
 6_ABN92G6H73097,Customer_centricity4,32369,False
-6_ABN92G6H73097,Contentment,19162,False
 6_ABN92G6H73097,Customer_centricity8,23821,True
 6_ABN92G6H73097,Customer_centricity5,21602,False
 6_ABN92G6H73097,Customer_centricity1,12614,False
-6_ABN92G6H73097,Sampling (statistics),19136,False
-6_ABN92G6H73097,Marketing,22008,False
 6_ABN92G6H73097,Customer_centricity6,12131,False
 99_A3KKXA7COL5JHL,Customer_centricity9,813971,True
 99_A3KKXA7COL5JHL,Customer_centricity4,36710,True
 99_A3KKXA7COL5JHL,Customer_centricity7,23129,False
 99_A3KKXA7COL5JHL,Customer_centricity6,58652,False
 99_A3KKXA7COL5JHL,Customer_centricity3,2516,False
-99_A3KKXA7COL5JHL,Sampling (statistics),44449,False
 99_A3KKXA7COL5JHL,Customer_centricity8,15260,False
 99_A3KKXA7COL5JHL,Customer_centricity10,33042,False
 99_A3KKXA7COL5JHL,Customer_centricity5,10986,True
-99_A3KKXA7COL5JHL,American Customer Satisfaction Index,29936,True
-99_A3KKXA7COL5JHL,Marketing,42116,True
 99_A3KKXA7COL5JHL,Customer_centricity1,80393,False
-99_A3KKXA7COL5JHL,Gross domestic product,29459,True
 99_A3KKXA7COL5JHL,Customer_centricity2,3650,False
-99_A3KKXA7COL5JHL,Contentment,17307,True
 11_A1HU9IOTYXB4YY,Customer_centricity10,23382,False
 11_A1HU9IOTYXB4YY,Customer_centricity9,21625,True
-11_A1HU9IOTYXB4YY,Sampling (statistics),42085,True
-11_A1HU9IOTYXB4YY,Contentment,64255,True
 11_A1HU9IOTYXB4YY,Customer_centricity1,14211,True
 11_A1HU9IOTYXB4YY,Customer_centricity3,26064,True
 11_A1HU9IOTYXB4YY,Customer_centricity5,83770,True
-11_A1HU9IOTYXB4YY,American Customer Satisfaction Index,58343,True
 11_A1HU9IOTYXB4YY,Customer_centricity4,50096,False
-11_A1HU9IOTYXB4YY,Marketing,63737,True
-11_A1HU9IOTYXB4YY,Gross domestic product,42702,True
 11_A1HU9IOTYXB4YY,Customer_centricity8,34881,False
 11_A1HU9IOTYXB4YY,Customer_centricity7,56833,True
 11_A1HU9IOTYXB4YY,Customer_centricity2,38119,False
 11_A1HU9IOTYXB4YY,Customer_centricity6,44687,False
 65_A3TDA1NWHNQFE3,Customer_centricity2,28104,False
 65_A3TDA1NWHNQFE3,Customer_centricity1,100615,False
-65_A3TDA1NWHNQFE3,Marketing,73325,True
 65_A3TDA1NWHNQFE3,Customer_centricity9,51360,True
 65_A3TDA1NWHNQFE3,Customer_centricity10,23077,False
 65_A3TDA1NWHNQFE3,Customer_centricity7,59033,True
-65_A3TDA1NWHNQFE3,American Customer Satisfaction Index,90834,True
-65_A3TDA1NWHNQFE3,Gross domestic product,191656,False
 65_A3TDA1NWHNQFE3,Customer_centricity4,67779,False
 65_A3TDA1NWHNQFE3,Customer_centricity6,106257,False
-65_A3TDA1NWHNQFE3,Sampling (statistics),115523,True
 65_A3TDA1NWHNQFE3,Customer_centricity8,55683,False
 65_A3TDA1NWHNQFE3,Customer_centricity3,176213,False
 65_A3TDA1NWHNQFE3,Customer_centricity5,131506,True
-65_A3TDA1NWHNQFE3,Contentment,85948,True
 24_A2P065E9CYMYJL,Customer_centricity10,31130,True
 24_A2P065E9CYMYJL,Customer_centricity1,51755,False
 24_A2P065E9CYMYJL,Customer_centricity3,41100,True
@@ -1385,85 +925,55 @@
 24_A2P065E9CYMYJL,Customer_centricity9,20126,True
 24_A2P065E9CYMYJL,Customer_centricity4,43015,True
 24_A2P065E9CYMYJL,Customer_centricity2,46969,False
-24_A2P065E9CYMYJL,Sampling (statistics),3796,False
 24_A2P065E9CYMYJL,Customer_centricity5,54663,False
-24_A2P065E9CYMYJL,Marketing,30124,True
-24_A2P065E9CYMYJL,American Customer Satisfaction Index,24690,True
 24_A2P065E9CYMYJL,Customer_centricity8,2301,True
 24_A2P065E9CYMYJL,Customer_centricity7,8595,False
-24_A2P065E9CYMYJL,Contentment,23697,True
-24_A2P065E9CYMYJL,Gross domestic product,30427,True
-79_A1HU9IOTYXB4YY,Customer_centricity10,23382,False
-79_A1HU9IOTYXB4YY,Customer_centricity9,21625,True
-79_A1HU9IOTYXB4YY,Sampling (statistics),42085,True
-79_A1HU9IOTYXB4YY,Contentment,64255,True
-79_A1HU9IOTYXB4YY,Customer_centricity1,14211,True
-79_A1HU9IOTYXB4YY,Customer_centricity3,26064,True
-79_A1HU9IOTYXB4YY,Customer_centricity5,83770,True
-79_A1HU9IOTYXB4YY,American Customer Satisfaction Index,58343,True
-79_A1HU9IOTYXB4YY,Customer_centricity4,50096,False
-79_A1HU9IOTYXB4YY,Marketing,63737,True
-79_A1HU9IOTYXB4YY,Gross domestic product,42702,True
-79_A1HU9IOTYXB4YY,Customer_centricity8,34881,False
-79_A1HU9IOTYXB4YY,Customer_centricity7,56833,True
-79_A1HU9IOTYXB4YY,Customer_centricity2,38119,False
-79_A1HU9IOTYXB4YY,Customer_centricity6,44687,False
-55_A2SJ0PSN6JGJWP,Gross domestic product,705566,False
+4_A33U9PH6TQL0KG,Customer_centricity2,1273,False
+4_A33U9PH6TQL0KG,Customer_centricity10,2381,False
+4_A33U9PH6TQL0KG,Customer_centricity6,1254,False
+4_A33U9PH6TQL0KG,Customer_centricity3,1775,False
+4_A33U9PH6TQL0KG,Customer_centricity8,1522,False
+4_A33U9PH6TQL0KG,Customer_centricity4,1387,False
+4_A33U9PH6TQL0KG,Customer_centricity5,1511,False
+4_A33U9PH6TQL0KG,Customer_centricity9,1198,True
+4_A33U9PH6TQL0KG,Customer_centricity7,2227,True
+4_A33U9PH6TQL0KG,Customer_centricity1,2170,True
 55_A2SJ0PSN6JGJWP,Customer_centricity3,83534,False
 55_A2SJ0PSN6JGJWP,Customer_centricity6,76567,False
-55_A2SJ0PSN6JGJWP,American Customer Satisfaction Index,193438,True
-55_A2SJ0PSN6JGJWP,Marketing,59220,True
 55_A2SJ0PSN6JGJWP,Customer_centricity7,180047,False
 55_A2SJ0PSN6JGJWP,Customer_centricity5,76950,False
 55_A2SJ0PSN6JGJWP,Customer_centricity8,3687,False
-55_A2SJ0PSN6JGJWP,Sampling (statistics),91940,True
 55_A2SJ0PSN6JGJWP,Customer_centricity4,230007,True
-55_A2SJ0PSN6JGJWP,Contentment,135256,True
 55_A2SJ0PSN6JGJWP,Customer_centricity1,208375,False
 55_A2SJ0PSN6JGJWP,Customer_centricity10,12649,False
 55_A2SJ0PSN6JGJWP,Customer_centricity2,223321,False
 55_A2SJ0PSN6JGJWP,Customer_centricity9,17141,False
-38_A38L1QCI94USEJ,Gross domestic product,216630,True
 38_A38L1QCI94USEJ,Customer_centricity2,138715,False
 38_A38L1QCI94USEJ,Customer_centricity10,113797,True
 38_A38L1QCI94USEJ,Customer_centricity7,15079,True
 38_A38L1QCI94USEJ,Customer_centricity6,108593,False
-38_A38L1QCI94USEJ,American Customer Satisfaction Index,127732,True
 38_A38L1QCI94USEJ,Customer_centricity4,87149,False
 38_A38L1QCI94USEJ,Customer_centricity1,155841,False
 38_A38L1QCI94USEJ,Customer_centricity9,53196,True
-38_A38L1QCI94USEJ,Sampling (statistics),78806,False
-38_A38L1QCI94USEJ,Contentment,141067,False
-38_A38L1QCI94USEJ,Marketing,120674,False
 38_A38L1QCI94USEJ,Customer_centricity8,106538,False
 38_A38L1QCI94USEJ,Customer_centricity3,101223,False
 38_A38L1QCI94USEJ,Customer_centricity5,148598,True
-70_A2SJ0PSN6JGJWP,Gross domestic product,705566,False
 70_A2SJ0PSN6JGJWP,Customer_centricity3,83534,False
 70_A2SJ0PSN6JGJWP,Customer_centricity6,76567,False
-70_A2SJ0PSN6JGJWP,American Customer Satisfaction Index,193438,True
-70_A2SJ0PSN6JGJWP,Marketing,59220,True
 70_A2SJ0PSN6JGJWP,Customer_centricity7,180047,False
 70_A2SJ0PSN6JGJWP,Customer_centricity5,76950,False
 70_A2SJ0PSN6JGJWP,Customer_centricity8,3687,False
-70_A2SJ0PSN6JGJWP,Sampling (statistics),91940,True
 70_A2SJ0PSN6JGJWP,Customer_centricity4,230007,True
-70_A2SJ0PSN6JGJWP,Contentment,135256,True
 70_A2SJ0PSN6JGJWP,Customer_centricity1,208375,False
 70_A2SJ0PSN6JGJWP,Customer_centricity10,12649,False
 70_A2SJ0PSN6JGJWP,Customer_centricity2,223321,False
 70_A2SJ0PSN6JGJWP,Customer_centricity9,17141,False
 53_A1HU9IOTYXB4YY,Customer_centricity10,23382,False
 53_A1HU9IOTYXB4YY,Customer_centricity9,21625,True
-53_A1HU9IOTYXB4YY,Sampling (statistics),42085,True
-53_A1HU9IOTYXB4YY,Contentment,64255,True
 53_A1HU9IOTYXB4YY,Customer_centricity1,14211,True
 53_A1HU9IOTYXB4YY,Customer_centricity3,26064,True
 53_A1HU9IOTYXB4YY,Customer_centricity5,83770,True
-53_A1HU9IOTYXB4YY,American Customer Satisfaction Index,58343,True
 53_A1HU9IOTYXB4YY,Customer_centricity4,50096,False
-53_A1HU9IOTYXB4YY,Marketing,63737,True
-53_A1HU9IOTYXB4YY,Gross domestic product,42702,True
 53_A1HU9IOTYXB4YY,Customer_centricity8,34881,False
 53_A1HU9IOTYXB4YY,Customer_centricity7,56833,True
 53_A1HU9IOTYXB4YY,Customer_centricity2,38119,False
@@ -1471,16 +981,11 @@
 98_A138BU1VWM2RKN,Customer_centricity2,135722,False
 98_A138BU1VWM2RKN,Customer_centricity8,42113,False
 98_A138BU1VWM2RKN,Customer_centricity5,59495,True
-98_A138BU1VWM2RKN,Sampling (statistics),71978,True
 98_A138BU1VWM2RKN,Customer_centricity6,43064,True
-98_A138BU1VWM2RKN,American Customer Satisfaction Index,29650,True
 98_A138BU1VWM2RKN,Customer_centricity9,16888,True
 98_A138BU1VWM2RKN,Customer_centricity4,35431,False
-98_A138BU1VWM2RKN,Gross domestic product,63829,True
 98_A138BU1VWM2RKN,Customer_centricity10,39152,True
-98_A138BU1VWM2RKN,Marketing,32835,True
 98_A138BU1VWM2RKN,Customer_centricity3,46012,True
-98_A138BU1VWM2RKN,Contentment,20229,True
 98_A138BU1VWM2RKN,Customer_centricity1,32281,False
 98_A138BU1VWM2RKN,Customer_centricity7,45487,False
 60_A2P065E9CYMYJL,Customer_centricity10,31130,True
@@ -1490,11 +995,6 @@
 60_A2P065E9CYMYJL,Customer_centricity9,20126,True
 60_A2P065E9CYMYJL,Customer_centricity4,43015,True
 60_A2P065E9CYMYJL,Customer_centricity2,46969,False
-60_A2P065E9CYMYJL,Sampling (statistics),3796,False
 60_A2P065E9CYMYJL,Customer_centricity5,54663,False
-60_A2P065E9CYMYJL,Marketing,30124,True
-60_A2P065E9CYMYJL,American Customer Satisfaction Index,24690,True
 60_A2P065E9CYMYJL,Customer_centricity8,2301,True
 60_A2P065E9CYMYJL,Customer_centricity7,8595,False
-60_A2P065E9CYMYJL,Contentment,23697,True
-60_A2P065E9CYMYJL,Gross domestic product,30427,True

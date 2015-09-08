@@ -6,7 +6,7 @@ from autoassess.models import *
 from draw_score_correlation import *
 
 
-def read_answers_from_db(quiz):
+def read_answers_from_db_by_question_and_student(quiz):
     quiz_answers = QuizAnswers.objects(quiz=quiz)
 
     # ###########
@@ -39,8 +39,9 @@ def read_answers_from_db(quiz):
     return question_ans, student_ans, question_version
 
 
-def quiz_stat(quiz):
-    question_ans, student_ans, question_version = read_answers_from_db(quiz)
+def quiz_correct_rate(quiz):
+    question_ans, student_ans, question_version = \
+        read_answers_from_db_by_question_and_student(quiz)
 
     question_correct_rate = {
         q: question_ans[q].count(True) / len(question_ans[q])
@@ -74,7 +75,7 @@ def db_quiz_stats():
 
     stats = []
     for quiz in answered_quizzes:
-        stat = quiz_stat(quiz)
+        stat = quiz_correct_rate(quiz)
         stats.append(stat)
     return stats
 
@@ -90,7 +91,7 @@ if __name__ == '__main__':
 
     quiz = QuestionSet.objects(
         set_topic="Customer satisfaction", version=-1.0)[0]
-    question_stat, expert_scores, eduwiki_scores = quiz_stat(quiz)
+    question_stat, expert_scores, eduwiki_scores = quiz_correct_rate(quiz)
 
     combined = combine_score_dicts_to_score_list(
         [expert_scores, eduwiki_scores])
