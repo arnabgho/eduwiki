@@ -3,6 +3,27 @@ __author__ = 'moonkey'
 from answer_io_util import *
 
 
+
+def student_ans_dict_to_khan_record(student_quiz_answers):
+    record_list = []
+    for workerId in student_quiz_answers:
+        for sq_ans in student_quiz_answers[workerId]:
+            # Note workerId does not match the sq_ans.workerId
+            # if this is from bootstrap sampling with changed names
+            exercise = sq_ans.question.topic
+            time_taken = sq_ans.submit_time_delta
+            correct = sq_ans.correctness
+
+            record = (workerId, exercise, time_taken, correct)
+
+            record_list.append(record)
+
+    if not record_list:
+        print "No record !!!"
+        return False
+    return record_list
+
+
 def write_khan_record_list_to_file(
         record_list, quiz_name, quiz_version=None, n_samples=None):
     record_file_name = './response_data/' + quiz_name.replace(" ", "_")

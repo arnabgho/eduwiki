@@ -3,7 +3,8 @@ from __future__ import division
 __author__ = 'moonkey'
 
 from autoassess.models import *
-from draw_score_correlation import *
+from score_correlation import *
+import math
 
 
 def read_answers_from_db_by_question_and_student(quiz):
@@ -70,6 +71,29 @@ def quiz_correct_rate(quiz):
            student_correct_rate_automatic
 
 
+def expert_fit_expert(quiz):
+    question_ans, student_ans, question_version = \
+        read_answers_from_db_by_question_and_student(quiz)
+
+    expert_questions = [q for q in question_version if question_version[q] < 0]
+    random.shuffle(expert_questions)
+    first_half = expert_questions[:int(len(expert_questions) / 2)]
+    second_half = expert_questions[int(len(expert_questions) / 2):]
+    first_half_scores = {
+        s: [student_ans[s][q] for q in student_ans[s] if q
+            in first_half].count(True) / len(first_half)
+        for s in student_ans
+    }
+
+    second_half_scores = {
+        s: [student_ans[s][q] for q in student_ans[s] if q
+            in second_half].count(True) / len(second_half)
+        for s in student_ans
+    }
+
+    return first_half_scores, second_half_scores
+
+
 def db_quiz_stats():
     answered_quizzes = QuizAnswers.objects().distinct('quiz')
 
@@ -93,6 +117,25 @@ if __name__ == '__main__':
         set_topic="Customer satisfaction", version=-1.0)[0]
     question_stat, expert_scores, eduwiki_scores = quiz_correct_rate(quiz)
 
+    print len(expert_scores), len(eduwiki_scores)
+
     combined = combine_score_dicts_to_score_list(
         [expert_scores, eduwiki_scores])
-    draw_scores(combined[0], combined[1])
+    corr = draw_scores(combined[0], combined[1])
+
+    # # Separate expert questions to two groups, and
+    # corrs = []
+    # for idx in range(0, 50):
+    #     first_scores, second_scores = expert_fit_expert(quiz)
+    #     combined = combine_score_dicts_to_score_list(
+    #         [first_scores, second_scores])
+    #     corr = draw_scores(combined[0], combined[1])
+    #     corrs.append(corr)
+    # average_pearson_corr = np.mean([c[0] for c in corrs])
+    # std_pearson_corr = np.std([c[0] for c in corrs])
+    # average_p_value = np.mean([c[1] for c in corrs])
+    # std_p_value = np.std(([c[1] for c in corrs]))
+    # for c in corrs:
+    #     print c
+    # print 'avg pearson corr', average_pearson_corr, std_pearson_corr
+    # print 'avg p value', average_p_value, std_p_value

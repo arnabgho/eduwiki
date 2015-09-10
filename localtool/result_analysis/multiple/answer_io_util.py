@@ -2,7 +2,7 @@ __author__ = 'moonkey'
 
 from autoassess.models import *
 import csv
-from score_resampling import resample_students
+from student_resampling import resample_students
 import numpy as np
 
 
@@ -66,37 +66,3 @@ def answer_dict_to_arrays(student_quiz_answers):
             ans_mtx[q_idx][s_idx] = float(s_q_ans.correctness)
 
     return ans_mtx, students, questions
-
-
-def student_ans_dict_to_khan_record(student_quiz_answers):
-    record_list = []
-    for workerId in student_quiz_answers:
-        for sq_ans in student_quiz_answers[workerId]:
-            # Note workerId does not match the sq_ans.workerId
-            # if this is from bootstrap sampling with changed names
-            exercise = sq_ans.question.topic
-            time_taken = sq_ans.submit_time_delta
-            correct = sq_ans.correctness
-
-            record = (workerId, exercise, time_taken, correct)
-
-            record_list.append(record)
-
-    if not record_list:
-        print "No record !!!"
-        return False
-    return record_list
-
-
-
-if __name__ == '__main__':
-    from mongoengine import connect
-
-    connect('eduwiki_db', host='localhost')
-
-    quiz = QuestionSet.objects(
-        set_topic="Customer satisfaction", version=-1.0)[0]
-    student_ans = read_student_answers_from_db(quiz)
-    ans_mtx, students, questions = answer_dict_to_arrays(student_ans)
-    print len(questions), [q.topic for q in questions]
-    print len(students), students
