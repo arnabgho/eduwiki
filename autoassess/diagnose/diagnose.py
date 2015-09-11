@@ -1,9 +1,11 @@
 from prereqsearch import prereq_early_terms
 from prereqsearch.related_concept import related_terms_in_article
+from prereqsearch.related_concept import most_mentioned_wikilinks, \
+    two_way_ranked_wiki_links, similarly_covered_topics
 import quesgen_wrapper
 from util.wikipedia_util import WikipediaWrapper
 import sys
-from version_list import IN_TEXT_QUESTIONS
+from version_list import *
 
 
 def diagnose(search_term, generate_prereq_question=False, num_prereq=3,
@@ -16,7 +18,10 @@ def diagnose(search_term, generate_prereq_question=False, num_prereq=3,
             version=version)
     elif set_type == "Mentioned":
         extra_question_in_text = False
-        if version == IN_TEXT_QUESTIONS:
+
+        # [ADD VERSION] if the question is to be generated in main article text
+        # , add a condition branch here
+        if version == IN_TEXT_QUESTIONS_WITH_MENTION_COUNT_CANDIDATE:
             extra_question_in_text = True
         return diagnose_mentioned(
             search_term,
@@ -56,7 +61,8 @@ def diagnose_mentioned(search_term, generate_prereq_question=False,
                        num_prereq=3,
                        version=None,
                        verbose=True,
-                       extra_question_in_text=False):
+                       extra_question_in_text=False,
+                       candidate_question_max_count=10):
     # depth = 1
     # if generate_prereq_question:
     # depth = 2
@@ -75,24 +81,31 @@ def diagnose_mentioned(search_term, generate_prereq_question=False,
 
         # Uncomment the following for fast debugging, remove after debugging
         # if search_term == "Reinforcement learning":
-        #     candidate_topics = [u'Software agent', u'Markov decision process',
-        #                         u'Machine learning', u'Temporal difference',
-        #                         u'Dynamic programming']
+        # candidate_topics = [u'Software agent', u'Markov decision process',
+        # u'Machine learning', u'Temporal difference',
+        # u'Dynamic programming']
         #     alias = {}
         #     for c in candidate_topics:
         #         alias[c] = []
         # else:
 
-        candidate_topics, alias = related_terms_in_article(
-            main_article_wikipage)
-        # candidate_topics = candidate_topics[:5]
+        # [ADD VERSION] select the right candiate selection algorithm
+        if version == SKIPTHOUGHT_SIM_DISTRACTOR_WITH_TWO_WAY_MEASURED_CANDIDATE:
+            candidate_topics, alias = related_terms_in_article(
+                main_article_wikipage, rank_method=two_way_ranked_wiki_links,
+                max_count=candidate_question_max_count
+            )
+        else:
+            candidate_topics, alias = related_terms_in_article(
+                main_article_wikipage, rank_method=most_mentioned_wikilinks,
+                max_count=candidate_question_max_count)
+
         # TODO:: make this a parameter
-        candidate_question_max = 5
         candidate_question_count = 0
 
         if verbose:
             print "Candidates for", search_term, ":", \
-                candidate_topics[:candidate_question_max]
+                candidate_topics[:candidate_question_max_count]
 
         if extra_question_in_text:
             used_sentences = []
@@ -120,7 +133,7 @@ def diagnose_mentioned(search_term, generate_prereq_question=False,
                     child_questions.append(child_question)
                     candidate_question_count += 1
 
-                    if candidate_question_count >= candidate_question_max:
+                    if candidate_question_count >= candidate_question_max_count:
                         break
                 except ValueError, ve:
                     print >> sys.stderr, ve
@@ -137,7 +150,7 @@ def diagnose_mentioned(search_term, generate_prereq_question=False,
                     {'wikipage': candidate_page}, version=version)
                 child_questions.append(child_question)
                 candidate_question_count += 1
-                if candidate_question_count >= candidate_question_max:
+                if candidate_question_count >= candidate_question_max_count:
                     break
 
     questions = [topic_question] + child_questions

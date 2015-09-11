@@ -21,6 +21,8 @@ from sklearn.feature_extraction.dict_vectorizer import DictVectorizer
 from sklearn.cluster import DBSCAN, KMeans
 import math
 import numpy as np
+from autoassess.diagnose.util.NLPU.doc_sim import \
+    word2vec_n_sim, sort_docs_by_similarity
 
 
 # [Future] TODO:: Factors to be included that are relevant to "good" subtopics
@@ -29,48 +31,6 @@ import numpy as np
 
 # [Future] TODO:: Some way is needed for both signifying sharing similarity,
 # and also RULING OUT too general concepts
-
-
-def related_terms_in_article(wikipage):
-    """
-
-    :param wikipage:
-    :return:
-    """
-    mm_links, aliases = most_mentioned_wikilinks(wikipage, with_count=False)
-    related_terms = []
-    for l in mm_links:
-        if len(related_terms) > 5:
-            break
-
-        # to deal with "Markov", "Markov Model"
-
-        # Supposedly remove more broad concept, and add more detailed ones
-        related_terms = [x for x in related_terms if x not in l]
-        to_add_l = True
-        for already_added_link in related_terms:
-            if l in already_added_link:
-                to_add_l = False
-                break
-        if to_add_l:
-            related_terms.append(l)
-
-    return related_terms, aliases
-
-
-# def find_related_terms(wikipage):
-# # find overlapps in wikilinks and same category links
-# wikilinks = [filter_wikilink(l.target) for l in wikipage.wikilinks]
-# counted_wikilinks = count_rank(wikilinks)
-# wikilinks = [c[0] for c in counted_wikilinks]
-# same_cat_links = page_titles_of_same_category(wikipage)
-#
-# overlap_links = []
-# for l in wikilinks:
-# if l in same_cat_links:
-# overlap_links.append(l)
-#
-# print overlap_links
 
 
 def most_mentioned_wikilinks(wikipage, with_count=True):
@@ -178,7 +138,7 @@ def list_overlapping(a, b):
     return overlap
 
 
-def similarly_covered_topics(wikipage, with_count=False):
+def similarly_covered_topics(wikipage, with_count=True):
     link_to_main = WikipediaWrapper.page_ids_links_here(wikipage.title)
 
     if not link_to_main:
@@ -330,22 +290,16 @@ def sparse_mention_spanning_graph(wikipage):
     plt.show()
 
 
-def test(topic="Reinforcement learning"):
-    page = WikipediaWrapper.page(topic)
-
-    # sparse_mention_spanning_graph(page)
-
-    # clusters = similar_concept_by_clustering_bag_of_links_to_here(page)
-
-    # print clusters
-
-    mm_referred_links, aliases = most_mentioned_wikilinks(page, with_count=True)
-    sc_referring_links, aliases = similarly_covered_topics(page,
-                                                           with_count=True)
-    print "MM"
-    print mm_referred_links
-    print "SC"
-    print sc_referring_links
+def two_way_ranked_wiki_links(
+        wikipage, with_count=True, alpha=1, beta=1,
+        verbose=False):
+    mm_referred_links, alias = most_mentioned_wikilinks(
+        wikipage, with_count=True)
+    sc_referring_links, alias = similarly_covered_topics(
+        wikipage, with_count=True)
+    if verbose:
+        print "MM", mm_referred_links
+        print "SC", sc_referring_links
 
     def normalize_link_tuple(links):
         weights = [l[1] for l in links]
@@ -359,27 +313,89 @@ def test(topic="Reinforcement learning"):
     mm_referred_links = normalize_link_tuple(mm_referred_links)
     sc_referring_links = normalize_link_tuple(sc_referring_links)
 
-    coeff = 1
     l_dict = {}
     for l in sc_referring_links:
-        link_name = l[0]
-        l_dict[link_name] = l[1]
-        # l_dict[link_name] = math.exp(l[1])
+        link = l[0]
+        l_dict[link] = l[1]
+        # l_dict[link] = math.exp(l[1])
 
     for l in mm_referred_links:
         link = l[0]
+        # Throw away links with no mentioning in the main article
         if link in l_dict:
-            l_dict[link] += coeff * l[1]
+            l_dict[link] += alpha * l[1]
             # l_dict[link] += coeff * math.exp(l[1])
+        else:
+            print l[0]
+
+    link_keys = l_dict.keys()
+    word2vec_ranked_links = sort_docs_by_similarity(
+        wikipage.title, link_keys,
+        sim_func=word2vec_n_sim, remove_sub=False, with_numer=True)
+
+    if verbose:
+        print "Word2Vec", word2vec_ranked_links
+
+    word2vec_ranked_links = normalize_link_tuple(word2vec_ranked_links)
+    for l in word2vec_ranked_links:
+        link = l[0]
+        if link in l_dict:
+            l_dict[link] += beta * l[1]
         else:
             print l[0]
 
     combined_rank = sorted(
         l_dict.items(), key=operator.itemgetter(1), reverse=True)
 
-    print "Combined"
-    print combined_rank
+    if not with_count:
+        combined_rank = [l[0] for l in combined_rank]
 
+    if verbose:
+        print "Combined", combined_rank
+
+    return combined_rank, alias
+
+
+def related_terms_in_article(
+        wikipage, rank_method=most_mentioned_wikilinks,
+        max_count=10):
+    """
+
+    :param wikipage:
+    :return:
+    """
+    mm_links, aliases = rank_method(wikipage, with_count=False)
+    related_terms = []
+    for l in mm_links:
+        if len(related_terms) > max_count:
+            break
+
+        # to deal with "Markov", "Markov Model"
+
+        # Supposedly remove more broad concept, and add more detailed ones
+        related_terms = [x for x in related_terms if x not in l]
+        to_add_l = True
+        for already_added_link in related_terms:
+            if l in already_added_link:
+                to_add_l = False
+                break
+        if to_add_l:
+            related_terms.append(l)
+
+    return related_terms, aliases
+
+
+def test(topic="Reinforcement learning"):
+    page = WikipediaWrapper.page(topic)
+
+    # sparse_mention_spanning_graph(page)
+
+    # clusters = similar_concept_by_clustering_bag_of_links_to_here(page)
+
+    # print clusters
+
+    two_way_rank = two_way_ranked_wiki_links(
+        page, with_count=True, verbose=True)
     # TODO::
     # [QiDoc][Future] The related terms might not be mentioned in the contextual
     # part of the article, for example, for Artificial NN, autoencoder

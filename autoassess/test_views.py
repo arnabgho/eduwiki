@@ -242,13 +242,24 @@ def multiple_questions(request):
             # the search term may not corresponds to a wikipedia entry
             #TODO:: change this to google site search with the title in it
             try:
-                quiz_topic = WikipediaWrapper.page(search_term).title
-            except Exception as e:
-                # if connecting to wikipedia server fails
                 quiz_topic = search_term
-            questions, quiz_id = load_diagnose_question_set(
-                quiz_topic, version=version, set_type=set_type,
-                with_meta_info=True, question_shuffle=True)
+                questions, quiz_id = load_diagnose_question_set(
+                    quiz_topic, version=version, set_type=set_type,
+                    with_meta_info=True, question_shuffle=True)
+            except Exception as e:
+                print >> sys.stderr, e
+                quiz_topic = WikipediaWrapper.page(search_term).title
+                questions, quiz_id = load_diagnose_question_set(
+                    quiz_topic, version=version, set_type=set_type,
+                    with_meta_info=True, question_shuffle=True)
+            # try:
+            #     quiz_topic = WikipediaWrapper.page(search_term).title
+            # except Exception as e:
+            #   #  if connecting to wikipedia server fails
+                # quiz_topic = search_term
+            # questions, quiz_id = load_diagnose_question_set(
+            #     quiz_topic, version=version, set_type=set_type,
+            #     with_meta_info=True, question_shuffle=True)
 
             response_data['quiz_id'] = quiz_id
 

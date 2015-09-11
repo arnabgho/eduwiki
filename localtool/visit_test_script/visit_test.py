@@ -39,8 +39,8 @@ def visit_eduwiki_link(version, local=True,
 
         link = dn + "/autoassess/quiz/?q=" + temp + \
                "&v=" + str(version) \
-               + "&pre=T"
-               # + "&f=T"
+               + "&pre=T" \
+               + "&f=T"
         r = requests.get(link)
         if r:
             print idx, "good_link"
@@ -94,16 +94,17 @@ def print_eduwiki_links(version, local=True,
 
 
 if __name__ == "__main__":
-    # visit_eduwiki_link(version=0.2,
-    # local=False, start=0, topic_max=200)
+    #TODO:: (1)set correct topic file, (2) check correct link format
 
-    # visit_topic_file = "../mturk_tool/experiment_data/IRT_topics.txt"
-    visit_topic_file = "../mturk_tool/experiment_data/experiment_topics.txt"
+    visit_topic_file = "../mturk_tool/experiment_data/IRT_topics.txt"
+    # visit_topic_file = "../mturk_tool/experiment_data/experiment_topics.txt"
+
     visit_eduwiki_link(
-        version=0.24, local=True,
+        version=0.25, local=True, # local always True if db synced
         start=0, topic_max=50,
         filename=visit_topic_file)
     # print_eduwiki_links(
-    #     version=0.22, local=True,
+    #     version=0.25, local=True,
     #     start=0, topic_max=50,
     #     filename=visit_topic_file)
+#

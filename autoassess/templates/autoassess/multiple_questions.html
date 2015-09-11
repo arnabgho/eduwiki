@@ -19,7 +19,7 @@
 
 {% if assignmentId %}
 {#    TODO:: Uncomment consent form for debug purpose, change it back after#}
-        {% include "test_pages/consent_form.html" %}
+{#        {% include "test_pages/consent_form.html" %}#}
 {% endif %}
 <div class="row" id="question_area">
     {#            <h2>&nbsp;&nbsp;&nbsp;&nbsp;The prerequisites are:</h2>#}
@@ -65,6 +65,8 @@
                 {#                    (and even preferred) #}
                 if you do not know anything about the
                 possibly unusual topic.<br>
+{#                You will be shown one question at a time, and will not#}
+{#                be able to revisit a question once you proceed to the next.<br>#}
                 You will receive <code>$1</code> as the base for
                 participation. You may
                 receive up to <code>$4</code> as the extra bonus which
@@ -237,7 +239,7 @@
 <script src="{% static 'autoassess/js/time_management.js' %}"></script>
 
 {# TODO:: Uncomment consent form for debug purpose, change it back after#}
-<script src="{% static 'autoassess/js/consent_form.js' %}"></script>
+{#<script src="{% static 'autoassess/js/consent_form.js' %}"></script>#}
 
 <script src="{% static 'autoassess/js/multiple_questions_submit.js' %}"></script>
 <script src="{% static 'autoassess/js/update_answer.js' %}"></script>

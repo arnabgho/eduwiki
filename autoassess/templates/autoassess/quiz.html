@@ -19,6 +19,7 @@
                     <input name="main_topic" value="{{ search_term }}"
                            hidden="hidden">
                     {% for question in quiz %}
+                        Question ID: {{ question.id }}
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4>{{ question.question_text }}
