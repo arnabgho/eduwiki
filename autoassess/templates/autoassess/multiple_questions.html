@@ -17,40 +17,69 @@
 </head>
 <body>
 
-{#{% if assignmentId %}#}
-{% include "test_pages/consent_form.html" %}
-{#{% endif %}#}
+{% if assignmentId %}
+{#    TODO:: Uncomment consent form for debug purpose, change it back after#}
+        {% include "test_pages/consent_form.html" %}
+{% endif %}
 <div class="row" id="question_area">
     {#            <h2>&nbsp;&nbsp;&nbsp;&nbsp;The prerequisites are:</h2>#}
     {#            <br>#}
 
     <div class="col-sm-10 col-sm-offset-1">
-        <h2 class="text-info text-center">{{ search_term }}</h2>
+        {% if assignmentId %}
+            {% ifequal assignmentId "ASSIGNMENT_ID_NOT_AVAILABLE" %}
+                <h2 class="text-danger text-center">
+                    Please accept the HIT before you start to answer and submit.
+                </h2>
+            {% else %}
+                <h2 class="text-info text-center">{{ search_term }}</h2>
+            {% endifequal %}
+        {% else %}
+            <h2 class="text-danger text-center">
+                Please accept the HIT before you start to answer and submit.
+            </h2>
+        {% endif %}
 
+
+        <div class="text-center">
+            {% if assignmentId %}
+                {% ifequal assignmentId "ASSIGNMENT_ID_NOT_AVAILABLE" %}
+                    <div class="btn btn-primary">
+                            <span class="glyphicon glyphicon-file"
+                                  aria-hidden="true"></span>
+                        Preview Mode
+                    </div>
+                {% else %}
+                    <div class="btn btn-primary">
+                            <span class="glyphicon glyphicon-user"
+                                  aria-hidden="true"></span>
+                        Your Worker Id = {{ workerId }}
+                    </div>
+                {% endifequal %}
+            {% endif %}
+        </div>
+        <div id="pre_quiz_area"
+             class="alert alert-info alert-dismissable">
+            <b>
+                Knowledge of the topic is not at all required. It's fine
+                {#                    (and even preferred) #}
+                if you do not know anything about the
+                possibly unusual topic.<br>
+                You will receive <code>$1</code> as the base for
+                participation. You may
+                receive up to <code>$4</code> as the extra bonus which
+                depends on your
+                performance.
+            </b>
+            <br>
+            {#                Note the topic confidence is not changeable after your selection.#}
+        </div>
         <form role="form" action="{{ turkSubmitTo }}/mturk/externalSubmit"
               method="post"
               eduwiki_action="{% url 'multiple_questions_submit' %}"
               eduwiki_update_action="{% url 'multiple_questions_single_update' %}"
               name="question_answer_form" id="question_answer_form">
             {#        <form role="form" action="{% url 'single_question_submit' %}" method="get">#}
-            <div class="text-center">
-                {% if assignmentId %}
-                    {% ifequal assignmentId "ASSIGNMENT_ID_NOT_AVAILABLE" %}
-                        <div class="btn btn-primary">
-                            <span class="glyphicon glyphicon-file"
-                                  aria-hidden="true"></span>
-                            Preview Mode
-                        </div>
-                    {% else %}
-                        <div class="btn btn-primary">
-                            <span class="glyphicon glyphicon-user"
-                                  aria-hidden="true"></span>
-                            Your Worker Id = {{ workerId }}
-                        </div>
-                    {% endifequal %}
-                {% endif %}
-            </div>
-
             {% csrf_token %}
             {#        Meta Information about the HIT #}
             <input name="assignmentId" value="{{ assignmentId }}"
@@ -62,107 +91,127 @@
             <input name="main_topic" value="{{ search_term }}" hidden="hidden">
             <input name="quiz_id" value="{{ quiz_id }}" hidden="hidden">
 
-            {#       Information to show before the user select topic confidence #}
-            <div class="alert alert-danger alert-dismissable">
-                <h4>Please accept the HIT before you start to answer and submit.</h4>
-            </div>
-            <div id="pre_topic_confidence"
-                 class="alert alert-info alert-dismissable">
-                <b>
-                    Knowledge of the topic is not at all required. It's fine
-                    {#                    (and even preferred) #}
-                    if you do not know anything about the
-                    possibly unusual topic.<br>
-                    You will receive <code>$1</code> as the base for
-                    participation. You may
-                    receive up to <code>$4</code> as the extra bonus which
-                    depends on your
-                    performance.
-                </b>
-                <br>
-
-                {#                Note the topic confidence is not changeable after your selection.#}
-            </div>
-
             {#        Questions for the HIT #}
-
-            <div id="after_topic_confidence">
-                {#    hidden="hidden">#}
-                <div class="h3"><b><span class="text-warning">Choose the most proper answer(s) for the following question(s).</span></b>
-                </div>
-                {% for question in quiz %}
-                    <input name="choice_order_{{ question.id }}"
-                           id="choice_order_{{ question.id }}"
-                           value="{{ question.choice_order }}" hidden="">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4>{{ question.question_text | safe }}
-                            </h4>
-                        </div>
-                        <table class="table">
-                            {% for answer in question.choices %}
+            <div id="quiz_and_submission_area">
+                <div id="quiz_area">
+                    <div class="h3"><b><span class="text-warning">
+                        Choose the most proper answer(s) for the following {{ quiz | length }} question(s).
+                    </span></b>
+                    </div>
+                    {% for question in quiz %}
+                        <input name="choice_order_{{ question.id }}"
+                               id="choice_order_{{ question.id }}"
+                               value="{{ question.choice_order }}" hidden="">
+                        <div class="panel panel-default"
+                             id="question_panel_{{ question.id }}">
+                            <div class="panel-heading">
+                                <h4>{{ question.question_text | safe }}
+                                </h4>
+                            </div>
+                            <table class="table">
+                                {% for answer in question.choices %}
+                                    <tr>
+                                        <td>
+                                            {# <input type="radio" name="{{ question.topic }}" value="{{ answer.correct }}"> #}
+                                            <input type="radio"
+                                                   name="question_answer_{{ question.id }}"
+                                                   id="question_answer_{{ question.id }}"
+                                                   value="{{ answer.idx }}"
+                                                   required=""
+                                                    >
+                                            <span class="text-success"><b>({{ forloop.counter }}) </b></span>
+                                            {{ answer.text | safe }}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
                                 <tr>
                                     <td>
-                                        {# <input type="radio" name="{{ question.topic }}" value="{{ answer.correct }}"> #}
-                                        <input type="radio"
-                                               name="question_answer_{{ question.id }}"
-                                               value="{{ answer.idx }}"
-                                               required=""
-                                                >
-                                        <span class="text-success"><b>({{ forloop.counter }}) </b></span>
-                                        {{ answer.text | safe }}
+                                        <div class="form-group">
+                                            <label for="comment_{{ question.id }}">
+                                                Please explain your reason (15
+                                                characters minimum)</label>
+                                            <input
+                                                    type="text"
+                                                    name="comment_{{ question.id }}"
+                                                    class="form-control"
+                                                    id="comment_{{ question.id }}"
+                                                    required=""
+                                                    pattern=".{15,}">
+                                        </div>
                                     </td>
                                 </tr>
-                            {% endfor %}
-                            <tr>
-                                <td>
-                                    <div class="form-group">
-                                        <label for="comment_{{ question.id }}">
-                                            Please explain your reason (15
-                                            characters minimum)</label>
-                                        <input
-                                                type="text"
-                                                name="comment_{{ question.id }}"
-                                                class="form-control"
-                                                id="comment_{{ question.id }}"
-                                                required=""
-                                                pattern=".{15,}">
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
+                                <tr>
+                                    <td>
+                                        <div class="col-md-6 col-md-offset-3">
+                                            {% if assignmentId %}
+                                                {% ifequal assignmentId "ASSIGNMENT_ID_NOT_AVAILABLE" %}
+                                                    <button class="btn btn-lg btn-block btn-primary"
+                                                            disabled>
+                                                        Cannot proceed in
+                                                        preview
+                                                        mode
+                                                    </button>
+                                                {% else %}
+                                                    <button type="button"
+                                                            class="btn btn-lg btn-block btn-primary btn-next-question"
+                                                            id="submit_question_{{ question.id }}"
+                                                            name="submit_question_{{ question.id }}">
+                                                        Next Question
+                                                    </button>
+                                                {% endifequal %}
+                                            {% else %}
+                                                <button class="btn btn-lg btn-block btn-primary"
+                                                        disabled>
+                                                    Cannot proceed in preview
+                                                    mode
+                                                </button>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
 
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+                <div id="final_submission_area" hidden="">
+                    <div class="h3 text-center"><b><span class="text-success">
+                        Congratulation! You have finished all {{ quiz | length }} question(s).
+                    </span></b>
+                    </div>
+                    <div class="form-group">
+                        <label for="comment">
+                            <span class="text-warning">Additional Comments</span>
+                            [Optional] </label>
+                        <input type="text" class="form-control" id="comment"
+                               name="comment"
+                               placeholder="Anything wrong with the questions? How can we improve the question quality? How can we improve this HIT?">
                     </div>
 
-                {% endfor %}
-
-
-
-                <div class="form-group">
-                    <label for="comment">
-                        <span class="text-warning">Additional Comments</span>
-                        [Optional] </label>
-                    <input type="text" class="form-control" id="comment"
-                           name="comment"
-                           placeholder="Anything wrong with the questions? How can we improve the question quality? How can we improve this HIT?">
+                    <div class="col-md-6 col-md-offset-3">
+                        {% if assignmentId %}
+                            {% ifequal assignmentId "ASSIGNMENT_ID_NOT_AVAILABLE" %}
+                                <button class="btn btn-lg btn-block btn-primary"
+                                        disabled>
+                                    Cannot submit in preview mode
+                                </button>
+                            {% else %}
+                                <button type="submit"
+                                        class="btn btn-lg btn-block btn-primary"
+                                        id="submit_answer" name="submit_answer">
+                                    Submit Answer
+                                </button>
+                            {% endifequal %}
+                        {% else %}
+                            <button class="btn btn-lg btn-block btn-primary"
+                                    disabled>
+                                Cannot submit in preview mode
+                            </button>
+                        {% endif %}
+                    </div>
                 </div>
-
-                <div class="col-md-6 col-md-offset-3">
-                    {% if assignmentId %}
-                        <button type="submit"
-                                class="btn btn-lg btn-block btn-primary"
-                                id="submit_answer" name="submit_answer">
-                            Submit Answer
-                        </button>
-                    {% else %}
-                        <button class="btn btn-lg btn-block btn-primary"
-                                disabled>
-                            Cannot submit in preview mode
-                        </button>
-                    {% endif %}
-                </div>
-
-
             </div>
         </form>
     </div>
@@ -181,18 +230,20 @@
 </script>
 
 <script src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'autoassess/js/star-rating.min.js' %}"></script>
 
 <script src="{% static 'autoassess/js/time_management.js' %}"></script>
+
+{# TODO:: Uncomment consent form for debug purpose, change it back after#}
 <script src="{% static 'autoassess/js/consent_form.js' %}"></script>
+
 <script src="{% static 'autoassess/js/multiple_questions_submit.js' %}"></script>
 <script src="{% static 'autoassess/js/update_answer.js' %}"></script>
-
+<script src="{% static 'autoassess/js/question_visibility.js' %}"></script>
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
-
-
 
 </script>
 <script type="text/javascript"

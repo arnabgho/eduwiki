@@ -225,7 +225,7 @@ def save_answers(ans_data):
                     ans_data['question_answer_' + question_id]):
                 wiki_ans = last_old_ans
                 wiki_ans.comment = ans_data.get('comment_' + question_id, "")
-
+                wiki_ans.submit_time_delta += int(submit_time_delta)
         if not wiki_ans:
             wiki_ans = WikiQuestionAnswer(
                 question=wiki_question,
@@ -275,7 +275,7 @@ def save_or_update_question_answer(ans_data):
 
     # ######## FOR THE WHOLE QUIZ
     comment = ans_data.pop('comment', "")
-    submit_time_delta = ans_data.pop('submit_time_delta', -1)
+    submit_time_delta = ans_data.pop('submit_time_delta', 0)
 
     question_order = ast.literal_eval(ans_data.pop('question_order', '[]'))
     question_order = [WikiQuestion.objects(id=q)[0] for q in question_order]
@@ -336,6 +336,7 @@ def save_or_update_question_answer(ans_data):
                     ans_data['question_answer_' + question_id]):
                 wiki_ans = last_old_ans
                 wiki_ans.comment = ans_data.get('comment_' + question_id, "")
+                # wiki_ans.submit_time_delta += int(submit_time_delta)
         if not wiki_ans:
             wiki_ans = WikiQuestionAnswer(
                 question=wiki_question,

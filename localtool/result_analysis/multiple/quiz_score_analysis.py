@@ -71,7 +71,7 @@ def quiz_correct_rate(quiz):
            student_correct_rate_automatic
 
 
-def expert_fit_expert(quiz):
+def expert_expert_correlation(quiz):
     question_ans, student_ans, question_version = \
         read_answers_from_db_by_question_and_student(quiz)
 
@@ -121,12 +121,13 @@ if __name__ == '__main__':
 
     combined = combine_score_dicts_to_score_list(
         [expert_scores, eduwiki_scores])
-    corr = draw_scores(combined[0], combined[1])
+    corr = draw_scores(
+        combined[0], combined[1], axis_range=(0, 1.05), overlap_weight=True)
 
     # # Separate expert questions to two groups, and
     # corrs = []
     # for idx in range(0, 50):
-    #     first_scores, second_scores = expert_fit_expert(quiz)
+    # first_scores, second_scores = expert_expert_correlation(quiz)
     #     combined = combine_score_dicts_to_score_list(
     #         [first_scores, second_scores])
     #     corr = draw_scores(combined[0], combined[1])
