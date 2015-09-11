@@ -2,11 +2,9 @@
  * Created by moonkey on 9/10/15.
  */
 
-function procced_to_next_question() {
-
-}
 $(document).ready(function () {
-    var question_answer_form = $('#question_answer_form');
+//    var question_answer_form = $('#question_answer_form');
+
     var quiz_submit_button = $('#submit_answer');
 
     var first_question = question_order[0];
@@ -22,7 +20,6 @@ $(document).ready(function () {
         }
     }
 
-
     var next_question_buttons = $('.btn-next-question');
 
     next_question_buttons.click(function () {
@@ -36,6 +33,8 @@ $(document).ready(function () {
             quiz_submit_button.click();
             return false;
         }
+
+        update_question(question_radio);
 
         if (current_question_page_idx < question_order.length - 1) {
             // not the last question

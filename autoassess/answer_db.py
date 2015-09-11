@@ -225,7 +225,7 @@ def save_answers(ans_data):
                     ans_data['question_answer_' + question_id]):
                 wiki_ans = last_old_ans
                 wiki_ans.comment = ans_data.get('comment_' + question_id, "")
-                wiki_ans.submit_time_delta += int(submit_time_delta)
+                # wiki_ans.submit_time_delta += int(submit_time_delta)
         if not wiki_ans:
             wiki_ans = WikiQuestionAnswer(
                 question=wiki_question,
@@ -336,7 +336,7 @@ def save_or_update_question_answer(ans_data):
                     ans_data['question_answer_' + question_id]):
                 wiki_ans = last_old_ans
                 wiki_ans.comment = ans_data.get('comment_' + question_id, "")
-                # wiki_ans.submit_time_delta += int(submit_time_delta)
+                wiki_ans.submit_time_delta += int(submit_time_delta)
         if not wiki_ans:
             wiki_ans = WikiQuestionAnswer(
                 question=wiki_question,

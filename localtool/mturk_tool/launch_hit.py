@@ -98,5 +98,5 @@ if __name__ == "__main__":
     #     visit_question_generation_link=False
     # )
     create_hit_for_topic(
-        "Customer satisfaction", version=-1.0, sandbox=True,
+        "Customer satisfaction 20", version=-1.0, sandbox=True,
         max_assignments=1, reward=1.0)
