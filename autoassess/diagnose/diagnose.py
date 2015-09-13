@@ -62,7 +62,7 @@ def diagnose_mentioned(search_term, generate_prereq_question=False,
                        version=None,
                        verbose=True,
                        extra_question_in_text=False,
-                       candidate_question_max_count=10):
+                       candidate_question_max_count=9):
     # depth = 1
     # if generate_prereq_question:
     # depth = 2
@@ -111,9 +111,11 @@ def diagnose_mentioned(search_term, generate_prereq_question=False,
             used_sentences = []
             for candidate in candidate_topics:
                 try:
-                    # TODO:: intelligently decide question type for subtopics
+                    # [Future] TODO:: intelligently decide
+                    # question type for subtopics
                     # as in some case item question is better, and vice versa.
 
+                    # [ADD VERSION] TODO:: add a separate version for this.
                     child_question = quesgen_wrapper.generate_item_question(
                         candidate, alias[candidate],
                         main_article_wikipage, used_sentences)
@@ -130,8 +132,9 @@ def diagnose_mentioned(search_term, generate_prereq_question=False,
                         used_sentences.append(
                             child_question['question_text'].repalce(
                                 '________', child_question['correct_answer']))
-                    child_questions.append(child_question)
-                    candidate_question_count += 1
+                    if child_question:
+                        child_questions.append(child_question)
+                        candidate_question_count += 1
 
                     if candidate_question_count >= candidate_question_max_count:
                         break
@@ -148,8 +151,9 @@ def diagnose_mentioned(search_term, generate_prereq_question=False,
 
                 child_question = quesgen_wrapper.generate_question(
                     {'wikipage': candidate_page}, version=version)
-                child_questions.append(child_question)
-                candidate_question_count += 1
+                if child_question:
+                    child_questions.append(child_question)
+                    candidate_question_count += 1
                 if candidate_question_count >= candidate_question_max_count:
                     break
 

@@ -1,0 +1,1 @@
+{ "indexes" : [ { "v" : 1, "key" : { "_id" : 1 }, "name" : "_id_", "ns" : "eduwiki_db.quiz_answers" }, { "v" : 1, "unique" : true, "key" : { "assignmentId" : 1, "workerId" : 1 }, "name" : "assignmentId_1_workerId_1", "ns" : "eduwiki_db.quiz_answers", "background" : false, "sparse" : false, "dropDups" : false } ] }

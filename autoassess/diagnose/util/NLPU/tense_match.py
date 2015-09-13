@@ -82,6 +82,8 @@ def match_sentence_tense(verbal_tree, target_tenses):
                         if node is None or type(node) in [str, unicode]:
                             return None
                         for child in node:
+                            if child is None or type(child) in [str, unicode]:
+                                return None
                             if 'NP' or 'NN' in child.label():
                                 return child
                         return None
@@ -90,6 +92,8 @@ def match_sentence_tense(verbal_tree, target_tenses):
                         if node is None or type(node) in [str, unicode]:
                             return False
                         for child in node:
+                            if child is None or type(child) in [str, unicode]:
+                                return False
                             if 'NN' in child.label():
                                 return True
                         return False

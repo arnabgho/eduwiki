@@ -56,6 +56,6 @@ if __name__ == "__main__":
     from mongoengine import connect
 
     connect('eduwiki_db', host='localhost')
-    test("../mturk_tool/experiment_data/IRT_topics.txt",
+    test("../mturk_tool/experiment_data/quiz_topics.txt",
          topic_max=200, start=0,
          sim_method=most_mentioned_wikilinks)

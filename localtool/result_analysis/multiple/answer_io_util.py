@@ -4,9 +4,17 @@ from autoassess.models import *
 import csv
 from student_resampling import resample_students
 import numpy as np
+import sys
 
 
 def read_student_answers_from_db(quiz):
+    """
+    read question
+    :param quiz:
+    :param quiz_question_number:
+    :return:
+    """
+    quiz_question_number = len(quiz.questions)
     quiz_answers = QuizAnswers.objects(quiz=quiz)
 
     # ###########
@@ -15,17 +23,30 @@ def read_student_answers_from_db(quiz):
     student_quiz_answers = {}
 
     for quiz_ans in quiz_answers:
+
         final_answers = quiz_ans.quiz_final_answers
         workerId = quiz_ans.workerId
-
+        if quiz_question_number:
+            if len(final_answers) != quiz_question_number:
+                print >> sys.stderr, "Not enough answers:", \
+                    quiz.id, workerId, len(final_answers)
+                continue
         for final_ans in final_answers:
             if workerId not in student_quiz_answers:
                 student_quiz_answers[workerId] = []
             student_quiz_answers[workerId].append(final_ans)
+    print "Read in", len(student_quiz_answers), \
+        "quiz answers for ", quiz.set_topic
     return student_quiz_answers
 
 
 def separate_student_answers_by_version(student_quiz_answers):
+    """
+    So we can analyze expert question answers and eduwiki question answers
+    separately
+    :param student_quiz_answers:
+    :return:
+    """
     student_ans_of_version = {}
     for workerId in student_quiz_answers:
         for s_quiz_ans in student_quiz_answers[workerId]:

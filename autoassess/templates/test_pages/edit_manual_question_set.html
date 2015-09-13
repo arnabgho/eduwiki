@@ -35,7 +35,7 @@
                 <td>
                     <a href="{% url 'edit_manual_question_set' %}?id={{ set.id }}">{{ set }}</a>
                 </td>
-                <td>{{ set.id }}</td>
+                <td>{{ set.id }} <a href="{% url 'quiz' %}?q={{ set.set_topic }}&v={{ set.version }}" target="_blank">visit</a></td>
             </tr>
         {% endfor %}
         </tbody>

@@ -43,7 +43,7 @@ def draw_scores(
 
     plt.show()
 
-    return pearson_corr
+    return pearson_corr, spearman_corr, kendalltau_corr
 
 
 def combine_score_dicts_to_score_list(score_dicts=[]):

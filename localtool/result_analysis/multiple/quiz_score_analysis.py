@@ -103,6 +103,17 @@ def db_quiz_stats():
         stats.append(stat)
     return stats
 
+def draw_quiz_score_correlation(quiz):
+    question_stat, expert_scores, eduwiki_scores = quiz_correct_rate(quiz)
+
+    print len(expert_scores), len(eduwiki_scores)
+
+    combined = combine_score_dicts_to_score_list(
+        [expert_scores, eduwiki_scores])
+    corr = draw_scores(
+        combined[0], combined[1], axis_range=(0, 1.05), overlap_weight=True)
+    return corr
+
 
 if __name__ == '__main__':
     from mongoengine import connect

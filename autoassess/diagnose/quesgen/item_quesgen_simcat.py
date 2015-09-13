@@ -17,6 +17,10 @@ def generate_item_question_simcat(
     question_stem = question_generated['stem']
     correct_answer = question_generated['answer']
     original_sentence = question_generated['original_sentence']
+
+    if not question_stem or not correct_answer:
+        return None
+
     distractors = []
 
     for distractor in item_distractor_generator(term, correct_answer):
@@ -24,7 +28,7 @@ def generate_item_question_simcat(
             break
         if is_heuristically_good_item_distractor(distractor, original_sentence):
             distractors.append(distractor)
-        if len(distractors) > distractor_num:
+        if len(distractors) >= distractor_num:
             break
 
     if len(distractors) < distractor_num:

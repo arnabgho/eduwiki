@@ -31,10 +31,18 @@ def create_hit_question(question_url, sandbox=True, max_assignments=2, reward=0.
     external_question = ExternalQuestion(external_url=question_url,
                                          frame_height=900)
 
-    title = 'Inspect multiple-choice question qualities'
+    title = 'Answer multiple-choice questions'
     description = 'Answer the multiple-choice questions of various topics, ' \
-                  'and inspect the qualities of them. ' \
-                  'You do not need to know about the question topics.'
+                  'and give explanations. ' \
+                  'You do not need to know a lot about the question topics. ' \
+                  '[Please use the newest version Chrome on your computer to ' \
+                  'take this HIT. Other environments may cause error.]'
+
+    # title = 'Inspect multiple-choice question qualities'
+    # description = 'Answer the multiple-choice questions of various topics, ' \
+    #               'and inspect the qualities of them. ' \
+    #               'You do not need to know about the question topics.'
+
 
     keywords = 'multiple-choice question, learning, quality inspection'
 

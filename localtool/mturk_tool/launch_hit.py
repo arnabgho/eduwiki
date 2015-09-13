@@ -98,5 +98,8 @@ if __name__ == "__main__":
     #     visit_question_generation_link=False
     # )
     create_hit_for_topic(
-        "Customer satisfaction 20", version=-1.0, sandbox=True,
-        max_assignments=1, reward=1.0)
+        "Vietnam War", version=-1.0, sandbox=True,
+        max_assignments=10, reward=1.0)
+    create_hit_for_topic(
+        "Earthquake", version=-1.0, sandbox=True,
+        max_assignments=10, reward=1.0)

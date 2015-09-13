@@ -39,8 +39,8 @@ def visit_eduwiki_link(version, local=True,
 
         link = dn + "/autoassess/quiz/?q=" + temp + \
                "&v=" + str(version) \
-               + "&pre=T" \
-               + "&f=T"
+               + "&pre=T"
+               # + "&f=T"
         r = requests.get(link)
         if r:
             print idx, "good_link"
@@ -89,22 +89,31 @@ def print_eduwiki_links(version, local=True,
 
     html += "</body></html>"
 
-    with open(filename + ".html", 'w') as page_file:
+    with open(filename + str(version) + "links.html", 'w') as page_file:
         page_file.write(html)
 
 
 if __name__ == "__main__":
-    #TODO:: (1)set correct topic file, (2) check correct link format
+    # TODO:: (1)set correct topic file, (2) check correct link format in func
 
-    visit_topic_file = "../mturk_tool/experiment_data/IRT_topics.txt"
     # visit_topic_file = "../mturk_tool/experiment_data/experiment_topics.txt"
+    visit_topic_file = "../mturk_tool/experiment_data/quiz_topics.txt"
 
     visit_eduwiki_link(
-        version=0.25, local=True, # local always True if db synced
-        start=0, topic_max=50,
+        version=0.25, local=True,  # local always True if db synced
+        start=0, topic_max=100,
         filename=visit_topic_file)
+
+    visit_eduwiki_link(
+        version=0.24, local=True,  # local always True if db synced
+        start=0, topic_max=100,
+        filename=visit_topic_file)
+
+    # print_eduwiki_links(
+    #     version=0.24, local=True,
+    #     start=0, topic_max=100,
+    #     filename=visit_topic_file)
     # print_eduwiki_links(
     #     version=0.25, local=True,
-    #     start=0, topic_max=50,
+    #     start=0, topic_max=100,
     #     filename=visit_topic_file)
-#

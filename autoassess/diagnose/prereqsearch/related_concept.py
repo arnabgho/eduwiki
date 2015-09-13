@@ -357,7 +357,7 @@ def two_way_ranked_wiki_links(
 
 
 def related_terms_in_article(
-        wikipage, rank_method=most_mentioned_wikilinks,
+        wikipage, rank_method=two_way_ranked_wiki_links,
         max_count=10):
     """
 

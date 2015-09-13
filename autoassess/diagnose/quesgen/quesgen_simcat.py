@@ -13,13 +13,15 @@ def generate_question_simcat(prereq_tree, distractor_num=3, version=None):
     correct_answer = question_generated['answer']
     stem_tenses = question_generated['tenses']
 
+    if not question_stem or not correct_answer:
+        return None
     # [ADD VERSION] choose the right function to generate distractors
     if version == WORD2VEC_CATEGORICAL_DISTRACTOR:
         distractors = generate_distractors_simcat(
             prereq_tree['wikipage'], stem_tenses, max_num=3)
     elif version == SKIPTHOUGHT_SIM_DISTRACTOR or \
-        version == IN_TEXT_QUESTIONS_WITH_MENTION_COUNT_CANDIDATE or \
-        version == SKIPTHOUGHT_SIM_DISTRACTOR_WITH_TWO_WAY_MEASURED_CANDIDATE:
+         version == IN_TEXT_QUESTIONS_WITH_MENTION_COUNT_CANDIDATE or \
+         version == SKIPTHOUGHT_SIM_DISTRACTOR_WITH_TWO_WAY_MEASURED_CANDIDATE:
         distractors = generate_distractors_simsent(
             prereq_tree['wikipage'], correct_answer,
             stem_tenses, max_num=3)
