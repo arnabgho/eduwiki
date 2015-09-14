@@ -1,6 +1,7 @@
 /**
  * Created by moonkey on 9/10/15.
  */
+//TODO:: always add update_answer.js before this, for function update_question()
 
 $(document).ready(function () {
 //    var question_answer_form = $('#question_answer_form');

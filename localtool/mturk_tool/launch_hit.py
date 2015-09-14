@@ -83,12 +83,13 @@ def create_for_experiment(topic_filename, version,
 if __name__ == "__main__":
     # ##############
     # Before running the script, make sure you have changed
-    # the url template in create_hit_for_topic() correctly!
-    # the payment reward !!!!!
+    # TODO:: the url template in create_hit_for_topic() correctly!
+    # TODO:: the payment reward !!!!!
 
-    # also pay attention to the version
-    # ALWAYS test in sandbox before doing real experiments
+    # TODO:: also pay attention to the version
+    # TODO:: ALWAYS test in sandbox before doing real experiments
     ###############
+    print "Launch HIT"
 
     # create_for_experiment(
     #     topic_filename="experiment_data/90_topics.txt",
@@ -97,9 +98,15 @@ if __name__ == "__main__":
     #     max_assignments=1,
     #     visit_question_generation_link=False
     # )
-    create_hit_for_topic(
-        "Vietnam War", version=-1.0, sandbox=True,
-        max_assignments=10, reward=1.0)
-    create_hit_for_topic(
-        "Earthquake", version=-1.0, sandbox=True,
-        max_assignments=10, reward=1.0)
+
+    # create_hit_for_topic(
+    #     "Vietnam War", version=-1.0, sandbox=True,
+    #     max_assignments=10, reward=1.0)
+    # create_hit_for_topic(
+    #     "Earthquake", version=-1.0, sandbox=True,
+    #     max_assignments=10, reward=1.0)
+    # create_hit_for_topic(
+    #     "Metaphysics", version=-1.0, sandbox=True,
+    #     max_assignments=10, reward=1.0)
+    # create_hit_for_topic("Market structure", version=-1.0, sandbox=True,
+    #     max_assignments=10, reward=1.0)

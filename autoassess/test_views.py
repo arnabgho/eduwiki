@@ -267,17 +267,22 @@ def multiple_questions(request):
             # this is the error it will raise if no questions is founded
             # if there is not questions for this topic in the database
             # then generate and save
-            questions = diagnose.diagnose(
-                search_term,
-                generate_prereq_question=False,
-                num_prereq=3,
-                version=version,
-                set_type=set_type)
-            save_diagnose_question_set(
-                questions,
-                version=version,
-                force=True,
-                set_type=set_type)
+
+            # questions = diagnose.diagnose(
+            #     search_term,
+            #     generate_prereq_question=False,
+            #     num_prereq=3,
+            #     version=version,
+            #     set_type=set_type)
+            # save_diagnose_question_set(
+            #     questions,
+            #     version=version,
+            #     force=True,
+            #     set_type=set_type)
+
+            # Do not generate question on server side
+            raise Http404("Page Not Found. Please contact webmaster to fix.")
+
     except DisambiguationError as dis:
         raise dis
 

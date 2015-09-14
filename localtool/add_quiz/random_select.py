@@ -22,8 +22,10 @@ if __name__ == "__main__":
     # random_selection(
     # 'Vietnam War', 30,
     #     negatives=[13, 14, 15, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29])
-    random_selection('Earthquake1', 8, select_count=int(10 * 8 / float(25)))
-    random_selection('Earthquake2', 11, select_count=int(10 * 11 / float(25)))
-    random_selection(
-        'Earthquake3', 6,
-        select_count=10-int(10 * 8 / float(25))-int(10 * 11 / float(25)))
+    # random_selection('Earthquake1', 8, select_count=int(10 * 8 / float(25)))
+    # random_selection('Earthquake2', 11, select_count=int(10 * 11 / float(25)))
+    # random_selection(
+    #     'Earthquake3', 6,
+    #     select_count=10-int(10 * 8 / float(25))-int(10 * 11 / float(25)))
+    # random_selection('Developmental psychology', 15, select_count=10)
+    # random_selection('Market structure', 15, select_count=10)

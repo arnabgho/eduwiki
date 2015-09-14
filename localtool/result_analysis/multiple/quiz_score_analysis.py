@@ -124,8 +124,10 @@ if __name__ == '__main__':
     # for p in stat:
     # print p
 
+    # "Customer satisfaction"
+    quiz_topic = "Developmental psychology"
     quiz = QuestionSet.objects(
-        set_topic="Customer satisfaction", version=-1.0)[0]
+        set_topic=quiz_topic, version=-1.0)[0]
     question_stat, expert_scores, eduwiki_scores = quiz_correct_rate(quiz)
 
     print len(expert_scores), len(eduwiki_scores)
