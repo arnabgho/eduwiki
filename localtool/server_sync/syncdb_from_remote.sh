@@ -14,7 +14,6 @@ ssh root@crowdtutor.info "mongodump --db eduwiki_db --collection wiki_question_a
 ssh root@crowdtutor.info "mongodump --db eduwiki_db --collection quiz_answers --out /opt/backup/eduwiki-20150914"
 scp -r root@crowdtutor.info:/opt/backup/eduwiki-20150914/ ./export_results/
 
-#mongo eduwiki_db --eval "db.wiki_question.drop()"
 #mongo eduwiki_db --eval "db.wiki_question_answer.drop()"
 #mongorestore --db eduwiki_db --collection wiki_question ./export_results/eduwiki-20150914/eduwiki_db/wiki_question.bson
 mongorestore --db eduwiki_db --collection wiki_question_answer ./export_results/eduwiki-20150914/eduwiki_db/wiki_question_answer.bson

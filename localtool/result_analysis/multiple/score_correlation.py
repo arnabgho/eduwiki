@@ -28,7 +28,8 @@ def scores_kde(m1, m2):
 
 
 def draw_scores(
-        scores1, scores2, axis_range=(0.0, 1.05), overlap_weight=False,
+        scores1, scores2, axis_range=(0.0, 1.05),
+        overlap_weight=False, count_annotation=False,
         filename=""):
     plt.figure(1)
     pearson_corr = pearsonr(scores1, scores2)
@@ -51,7 +52,8 @@ def draw_scores(
 
     plt.style.use('ggplot')
     if overlap_weight:
-        plot_with_overlapping_weight(scores1, scores2)
+        plot_with_overlapping_weight(
+            scores1, scores2, count_annotation=count_annotation)
     else:
         plt.scatter(scores1, scores2)
 
@@ -90,7 +92,7 @@ def combine_score_dicts_to_score_list(score_dicts=[]):
     return combined_list
 
 
-def plot_with_overlapping_weight(x=[], y=[]):
+def plot_with_overlapping_weight(x=[], y=[], count_annotation=False):
     """
     deal with the case where scatter points have overlapping
     :param x:
@@ -109,13 +111,14 @@ def plot_with_overlapping_weight(x=[], y=[]):
 
     count_list = [point_counts[p] for p in distinct_points]
     plt.scatter(d_x, d_y, s=[30 * c ^ 2 for c in count_list], marker='o')
-    for x, y, label in zip(d_x, d_y, count_list):
-        plt.annotate(
-            label,
-            xy=(x, y), xytext=(-10, -10),
-            textcoords='offset points', ha='right', va='bottom',
-            bbox=dict(boxstyle='round,pad=0.5', fc='green', alpha=0.5),
-            arrowprops=dict(arrowstyle='->', connectionstyle='arc3,rad=0'))
+    if count_annotation:
+        for x, y, label in zip(d_x, d_y, count_list):
+            plt.annotate(
+                label,
+                xy=(x, y), xytext=(-10, -10),
+                textcoords='offset points', ha='right', va='bottom',
+                bbox=dict(boxstyle='round,pad=0.5', fc='green', alpha=0.5),
+                arrowprops=dict(arrowstyle='->', connectionstyle='arc3,rad=0'))
 
 
 def read_in_student_score_khan_format(

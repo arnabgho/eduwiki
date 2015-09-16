@@ -102,12 +102,12 @@ if __name__ == "__main__":
     visit_topic_file = "../mturk_tool/experiment_data/done_topics.txt"
 
     # visit_eduwiki_link(
-    #     version=0.25, local=False,  # local always True if db synced
+    #     version=0.25, local=True,  # local always True if db synced
     #     start=0, topic_max=100,
     #     filename=visit_topic_file)
 
     print_eduwiki_links(
-        version=0.25, local=False,
+        version=-1.0, local=False,
         start=0, topic_max=100,
         filename=visit_topic_file)
 

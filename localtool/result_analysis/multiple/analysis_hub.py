@@ -24,12 +24,12 @@ def analysis_pipeline(quiz):
 
     corr = draw_scores(
         combined[0], combined[1], axis_range=(0, 1.05), overlap_weight=True,
-        filename=filename)
+        count_annotation=False, filename=filename)
 
     """
     Step : kde with 2 scores as the 2 dimensions
     """
-    scores_kde(combined[0], combined[1])
+    # scores_kde(combined[0], combined[1])
 
     """
     Step : IRT analysis and plot the sigmoid curves for questions
@@ -48,13 +48,13 @@ def analysis_pipeline(quiz):
 def analyze_all():
     quiz_topic_list = [
         "Customer satisfaction",
-        # "Developmental psychology",
-        # "Earthquake",
-        # "Market structure",
-        # "Metaphysics",
-        # "Vietnam War",
-        # "Stroke",
-        # "Waste management"
+        "Developmental psychology",
+        "Earthquake",
+        "Market structure",
+        "Metaphysics",
+        "Vietnam War",
+        "Stroke",
+        "Waste management"
     ]
     all_corrs = {}
     for quiz_topic in quiz_topic_list:

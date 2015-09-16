@@ -25,4 +25,31 @@ Kurtosis:                       2.320   Cond. No.                         1.48
 ==============================================================================
 
 Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.Pearson Corr:(0.27789558544316856, 0.012566461166075127)
+Spearman Corr:(0.24781997187060481, 0.026665463632614433)
+Kendall's tau Corr:(0.16898734177215183, 0.026514652878311347)
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.077
+Model:                            OLS   Adj. R-squared:                  0.065
+Method:                 Least Squares   F-statistic:                     6.528
+Date:                Tue, 15 Sep 2015   Prob (F-statistic):             0.0126
+Time:                        20:43:35   Log-Likelihood:                -88.074
+No. Observations:                  80   AIC:                             180.1
+Df Residuals:                      78   BIC:                             184.9
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [95.0% Conf. Int.]
+------------------------------------------------------------------------------
+const          0.1616      0.083      1.958      0.054        -0.003     0.326
+x1             0.3438      0.135      2.555      0.013         0.076     0.612
+==============================================================================
+Omnibus:                        4.300   Durbin-Watson:                   1.876
+Prob(Omnibus):                  0.116   Jarque-Bera (JB):                4.037
+Skew:                          -0.550   Prob(JB):                        0.133
+Kurtosis:                       2.964   Cond. No.                         1.64
+==============================================================================
+
+Warnings:
 [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.

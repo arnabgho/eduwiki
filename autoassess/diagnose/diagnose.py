@@ -62,7 +62,7 @@ def diagnose_mentioned(search_term, generate_prereq_question=False,
                        version=None,
                        verbose=True,
                        extra_question_in_text=False,
-                       candidate_question_max_count=9):
+                       candidate_question_max_count=10):
     # depth = 1
     # if generate_prereq_question:
     # depth = 2
