@@ -23,7 +23,6 @@ def read_student_answers_from_db(quiz):
     student_quiz_answers = {}
 
     for quiz_ans in quiz_answers:
-
         final_answers = quiz_ans.quiz_final_answers
         workerId = quiz_ans.workerId
         if quiz_question_number:

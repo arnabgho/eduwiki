@@ -69,12 +69,15 @@ def db_answer_stats():
     return stats
 
 
-def stats_linear_regression(x, y):
+def stats_linear_regression(x, y, filename=''):
     sm_fit = sm.OLS(y, sm.add_constant(x)).fit()
     print sm_fit.summary()
-
+    if filename:
+        with open(filename, 'a') as summary_file:
+            summary_file.write(str(sm_fit.summary()))
     lr = LinearRegression()
     lr.fit(np.array(x)[:, np.newaxis], np.array(y))
+    # print lr.intercept_, lr.coef_
     return lr
 
 

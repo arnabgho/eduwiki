@@ -25,7 +25,9 @@ def generate_question_stem(wikipage, verbose=False):
             continue
 
     if not question_generated:
-        raise ValueError("No question generated.")
+        # raise ValueError("No question generated.")
+        print >> sys.stderr, "No question generated."
+        return None
     return question_generated
 
 

@@ -1,5 +1,29 @@
 
-IRT Topics
+Biology
+Cell (biology)
+Cell membrane
+Photosynthesis
+DNA
+
+Physics
+Simple harmonic motion
+Newton's laws of motion
+Elasticity (physics)
+Thermodynamics
+
+Magnetism
+Magnetic field
+Alternating current
+Electric field
+
+Environmental Science
+Water resource management
+Hazardous waste
+Waste management
+Land-use planning
+Human overpopulation
+
+Few Uncategorized Topics
 Customer satisfaction
 Artificial neural network
 Positioning (marketing)

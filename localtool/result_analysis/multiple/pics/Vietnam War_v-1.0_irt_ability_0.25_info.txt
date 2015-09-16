@@ -1,0 +1,28 @@
+Pearson Corr:(0.23462528368266239, 0.033861374912672632)
+Spearman Corr:(0.1770006856695073, 0.11165654495727427)
+Kendall's tau Corr:(0.13459801264679305, 0.073455272894987725)
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.055
+Model:                            OLS   Adj. R-squared:                  0.043
+Method:                 Least Squares   F-statistic:                     4.660
+Date:                Tue, 15 Sep 2015   Prob (F-statistic):             0.0339
+Time:                        02:53:37   Log-Likelihood:                -72.997
+No. Observations:                  82   AIC:                             150.0
+Df Residuals:                      80   BIC:                             154.8
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [95.0% Conf. Int.]
+------------------------------------------------------------------------------
+const          0.0345      0.067      0.516      0.607        -0.099     0.167
+x1             0.2165      0.100      2.159      0.034         0.017     0.416
+==============================================================================
+Omnibus:                        6.593   Durbin-Watson:                   1.949
+Prob(Omnibus):                  0.037   Jarque-Bera (JB):                5.911
+Skew:                           0.612   Prob(JB):                       0.0520
+Kurtosis:                       3.482   Cond. No.                         1.55
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.

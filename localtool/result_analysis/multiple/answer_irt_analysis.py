@@ -21,15 +21,16 @@ def answer_irt(student_quiz_ans):
     return a, b, theta
 
 
-def plot_questions(questions, a, b):
+def plot_questions(questions, a, b, filename=''):
     question_params = {}
     for q_idx, q in enumerate(questions):
         question_params[q.topic] = {'a': a.trace().mean(0)[q_idx][0],
                                     'b': b.trace().mean(0)[q_idx]}
-    birt.plot_sigmoid(question_params)
+    birt.plot_sigmoid(question_params, filename)
 
 
-def compare_separate_student_ability(student_quiz_ans, expert_verison=-1.0):
+def compare_separate_student_ability(
+        student_quiz_ans, expert_verison=-1.0, filename=''):
     quiz_ans_by_v = separate_student_answers_by_version(student_quiz_ans)
 
     ans_mtx_version = {}
@@ -55,13 +56,17 @@ def compare_separate_student_ability(student_quiz_ans, expert_verison=-1.0):
 
         assert students_version[v] == students_version[expert_verison]
         a, b, theta2 = birt.bayesian_irt(ans_mtx_version[v])
+
+        if filename:
+            filename = filename + '_irt_ability_' + str(v)
         draw_scores(
             theta.trace().mean(0)[0], theta2.trace().mean(0)[0],
-            axis_range=(-3, 3), overlap_weight=False)
+            axis_range=(-3, 3), overlap_weight=False, filename=filename)
         # mean(0).shape=(1,40)
 
 
-def compare_quizzes_with_expert_quiz(student_quiz_ans, expert_verison=-1.0):
+def compare_quizzes_with_expert_quiz(
+        student_quiz_ans, expert_verison=-1.0, filename=''):
     quiz_ans_by_v = separate_student_answers_by_version(student_quiz_ans)
 
     ans_mtx_version = {}
@@ -76,7 +81,8 @@ def compare_quizzes_with_expert_quiz(student_quiz_ans, expert_verison=-1.0):
 
     a, b, theta = birt.bayesian_irt(ans_mtx)
 
-    plot_questions(questions, a, b)
+    plot_questions(
+        questions, a, b, filename=filename + '_expert' + str(expert_verison))
     # birt.plot_theta_trace(theta)
 
     # [DONE] A SPECIFIC TEST
@@ -95,9 +101,20 @@ def compare_quizzes_with_expert_quiz(student_quiz_ans, expert_verison=-1.0):
             answer_dict_to_arrays(quiz_ans_by_v[v])
 
         assert students_version[v] == students_version[expert_verison]
-        a, b, theta = birt.bayesian_irt(
+        a_v, b_v, theta_v = birt.bayesian_irt(
             ans_mtx_version[v], theta.trace().mean(0))
-        plot_questions(questions_version[v], a, b)
+        plot_questions(
+            questions_version[v], a_v, b_v,
+            filename=filename + "_eduwiki" + str(v))
+
+
+def test():
+    quiz = QuestionSet.objects(
+        set_topic="Customer satisfaction", version=-1.0)[0]
+    student_quiz_ans = read_student_answers_from_db(quiz)
+    # answer_irt(student_quiz_ans)
+    compare_quizzes_with_expert_quiz(student_quiz_ans, expert_verison=-1.0)
+    # compare_separate_student_ability(student_quiz_ans, expert_verison=-1.0)
 
 
 if __name__ == '__main__':
@@ -105,9 +122,4 @@ if __name__ == '__main__':
 
     connect('eduwiki_db', host='localhost')
 
-    quiz = QuestionSet.objects(
-        set_topic="Customer satisfaction", version=-1.0)[0]
-    student_quiz_ans = read_student_answers_from_db(quiz)
-    # answer_irt(student_quiz_ans)
-    compare_quizzes_with_expert_quiz(student_quiz_ans, expert_verison=-1.0)
-    # compare_separate_student_ability(student_quiz_ans, expert_verison=-1.0)
+    test()

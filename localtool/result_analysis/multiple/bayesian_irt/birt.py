@@ -108,7 +108,7 @@ def plot_theta_trace(theta, stepsize=20):
     plt.show()
 
 
-def plot_sigmoid(item_params):
+def plot_sigmoid(item_params, filename=''):
     abilities_to_plot = np.arange(-3, 3, .01)
     items = item_params.keys()
     item_plots = {}
@@ -127,14 +127,15 @@ def plot_sigmoid(item_params):
     # all_matplotlib_colors = []
     # for c_name, c_hex in matplotlib.colors.cnames.iteritems():
     # all_matplotlib_colors.append(c_name)
-    cmap = plt.get_cmap('jet')
-    colors = cmap(np.linspace(0, 1, len(items)))
+    # cmap = plt.get_cmap('jet')
+    # colors = cmap(np.linspace(0, 1, len(items)))
+
     line_styles = ['-', '--', '-.', ':', ]
     # plt.style.use('ggplot')
     for idx, item in enumerate(items):
         plt.plot(abilities_to_plot, item_plots[item],
                  # color=all_matplotlib_colors[idx],
-                 color=colors[idx],
+                 # color=colors[idx],
                  linestyle=line_styles[idx % len(line_styles)],
                  label=item)
     plt.xlabel('Student Ability')
@@ -143,4 +144,9 @@ def plot_sigmoid(item_params):
     plt.xlim((-3, 3))
     plt.title('Two parameter IRT model')
     plt.legend(loc='best', prop={'size': 6})
-    plt.show()
+    if not filename:
+        plt.show()
+    else:
+        filename += '_sigmoid.pdf'
+        plt.savefig(filename, bbox_inches='tight')
+    plt.close()

@@ -1,0 +1,28 @@
+Pearson Corr:(0.27630795630527027, 0.014334772093812629)
+Spearman Corr:(0.26046105792941238, 0.021273399807229913)
+Kendall's tau Corr:(0.17882117882117896, 0.020509867180143075)
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.076
+Model:                            OLS   Adj. R-squared:                  0.064
+Method:                 Least Squares   F-statistic:                     6.282
+Date:                Tue, 15 Sep 2015   Prob (F-statistic):             0.0143
+Time:                        02:52:56   Log-Likelihood:                -73.675
+No. Observations:                  78   AIC:                             151.4
+Df Residuals:                      76   BIC:                             156.1
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [95.0% Conf. Int.]
+------------------------------------------------------------------------------
+const          0.0569      0.071      0.796      0.428        -0.085     0.199
+x1             0.2882      0.115      2.506      0.014         0.059     0.517
+==============================================================================
+Omnibus:                        5.562   Durbin-Watson:                   1.859
+Prob(Omnibus):                  0.062   Jarque-Bera (JB):                5.228
+Skew:                          -0.633   Prob(JB):                       0.0733
+Kurtosis:                       3.072   Cond. No.                         1.61
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.

@@ -1,0 +1,28 @@
+Pearson Corr:(0.42916035450630741, 6.3964617787934253e-05)
+Spearman Corr:(0.32703252032520325, 0.0028829822083788971)
+Kendall's tau Corr:(0.21666666666666651, 0.0041959585159239057)
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.184
+Model:                            OLS   Adj. R-squared:                  0.174
+Method:                 Least Squares   F-statistic:                     17.83
+Date:                Tue, 15 Sep 2015   Prob (F-statistic):           6.40e-05
+Time:                        02:52:24   Log-Likelihood:                -72.282
+No. Observations:                  81   AIC:                             148.6
+Df Residuals:                      79   BIC:                             153.4
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [95.0% Conf. Int.]
+------------------------------------------------------------------------------
+const          0.1332      0.067      2.001      0.049         0.001     0.266
+x1             0.4479      0.106      4.223      0.000         0.237     0.659
+==============================================================================
+Omnibus:                        1.376   Durbin-Watson:                   1.433
+Prob(Omnibus):                  0.503   Jarque-Bera (JB):                1.044
+Skew:                          -0.277   Prob(JB):                        0.593
+Kurtosis:                       3.055   Cond. No.                         1.60
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.

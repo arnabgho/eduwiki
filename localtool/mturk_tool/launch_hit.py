@@ -88,7 +88,7 @@ if __name__ == "__main__":
 
     # TODO:: also pay attention to the version
     # TODO:: ALWAYS test in sandbox before doing real experiments
-    ###############
+    # ##############
     print "Launch HIT"
 
     # create_for_experiment(
@@ -110,3 +110,7 @@ if __name__ == "__main__":
     #     max_assignments=10, reward=1.0)
     # create_hit_for_topic("Market structure", version=-1.0, sandbox=True,
     #     max_assignments=10, reward=1.0)
+    # create_hit_for_topic("Waste management", version=-1.0, sandbox=True,
+    #                      max_assignments=10, reward=1.0)
+    # create_hit_for_topic("Stroke", version=-1.0, sandbox=True,
+    #                      max_assignments=10, reward=1.0)

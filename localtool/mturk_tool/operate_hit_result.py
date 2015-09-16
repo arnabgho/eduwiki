@@ -56,7 +56,9 @@ def operate_all_experiments(topic_filename, hit_op, sandbox=True):
 
 
 if __name__ == "__main__":
-    operate_all_experiments(
-        topic_filename="experiment_data/90_topics.txt",
-        hit_op=approve_hit,
-        sandbox=True)
+    # operate_all_experiments(
+    #     topic_filename="experiment_data/90_topics.txt",
+    #     hit_op=approve_hit,
+    #     sandbox=True)
+    for idx in range(0, 8):
+        approve_hit(hit_id="3EGKVCRQFVRKHSVMRZ6BWRK0KYEBYZ", sandbox=False)

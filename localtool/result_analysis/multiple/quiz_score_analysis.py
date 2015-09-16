@@ -21,8 +21,10 @@ def read_answers_from_db_by_question_and_student(quiz):
     question_version = {}
 
     for quiz_ans in quiz_answers:
-        # quiz_ans = QuizAnswers()
+        # Filter quiz answers that are not complete
         final_answers = quiz_ans.quiz_final_answers
+        if len(final_answers) != len(quiz_ans.quiz.questions):
+            continue
         workerId = quiz_ans.workerId
 
         for final_ans in final_answers:
@@ -103,6 +105,7 @@ def db_quiz_stats():
         stats.append(stat)
     return stats
 
+
 def draw_quiz_score_correlation(quiz):
     question_stat, expert_scores, eduwiki_scores = quiz_correct_rate(quiz)
 
@@ -115,17 +118,19 @@ def draw_quiz_score_correlation(quiz):
     return corr
 
 
-if __name__ == '__main__':
-    from mongoengine import connect
-
-    connect('eduwiki_db', host='localhost')
+def test():
     # stats = db_quiz_stats()
     # for stat in stats:
     # for p in stat:
     # print p
 
-    # "Customer satisfaction"
-    quiz_topic = "Developmental psychology"
+    # quiz_topic = "Customer satisfaction"
+    # quiz_topic = "Developmental psychology"
+    # quiz_topic = "Earthquake"
+    # quiz_topic = "Market structure"
+    # quiz_topic = "Metaphysics"
+    quiz_topic = "Vietnam War"
+
     quiz = QuestionSet.objects(
         set_topic=quiz_topic, version=-1.0)[0]
     question_stat, expert_scores, eduwiki_scores = quiz_correct_rate(quiz)
@@ -141,7 +146,7 @@ if __name__ == '__main__':
     # corrs = []
     # for idx in range(0, 50):
     # first_scores, second_scores = expert_expert_correlation(quiz)
-    #     combined = combine_score_dicts_to_score_list(
+    # combined = combine_score_dicts_to_score_list(
     #         [first_scores, second_scores])
     #     corr = draw_scores(combined[0], combined[1])
     #     corrs.append(corr)
@@ -153,3 +158,10 @@ if __name__ == '__main__':
     #     print c
     # print 'avg pearson corr', average_pearson_corr, std_pearson_corr
     # print 'avg p value', average_p_value, std_p_value
+
+
+if __name__ == '__main__':
+    from mongoengine import connect
+
+    connect('eduwiki_db', host='localhost')
+    test()

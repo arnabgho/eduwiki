@@ -29,3 +29,5 @@ if __name__ == "__main__":
     #     select_count=10-int(10 * 8 / float(25))-int(10 * 11 / float(25)))
     # random_selection('Developmental psychology', 15, select_count=10)
     # random_selection('Market structure', 15, select_count=10)
+    # random_selection('Stroke', 12, select_count=10)
+    random_selection('Waste management', 15, select_count=10)

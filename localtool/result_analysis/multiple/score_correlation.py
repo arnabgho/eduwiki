@@ -1,15 +1,35 @@
 __author__ = 'moonkey'
 
 import matplotlib.pyplot as plt
-from scipy.stats import pearsonr, spearmanr, kendalltau
+from scipy.stats import pearsonr, spearmanr, kendalltau, gaussian_kde
 import sys
 import numpy as np
 from autoassess.answer_analysis import stats_linear_regression
 from collections import defaultdict
 
 
+def scores_kde(m1, m2):
+    xmin = m1.min()
+    xmax = m1.max()
+    ymin = m2.min()
+    ymax = m2.max()
+    X, Y = np.mgrid[xmin:xmax:100j, ymin:ymax:100j]
+    positions = np.vstack([X.ravel(), Y.ravel()])
+    values = np.vstack([m1, m2])
+    kernel = gaussian_kde(values)
+    Z = np.reshape(kernel(positions).T, X.shape)
+    fig, ax = plt.subplots()
+    ax.imshow(np.rot90(Z), cmap=plt.cm.gist_earth_r,
+              extent=[xmin, xmax, ymin, ymax])
+    ax.plot(m1, m2, 'k.', markersize=2)
+    ax.set_xlim([xmin, xmax])
+    ax.set_ylim([ymin, ymax])
+    plt.show()
+
+
 def draw_scores(
-        scores1, scores2, axis_range=(0, 1.05), overlap_weight=False):
+        scores1, scores2, axis_range=(0.0, 1.05), overlap_weight=False,
+        filename=""):
     plt.figure(1)
     pearson_corr = pearsonr(scores1, scores2)
     spearman_corr = spearmanr(scores1, scores2)
@@ -23,14 +43,19 @@ def draw_scores(
     print 'P-value:', spearman_corr[1]
     print 'Kendall\'s tau Correlation:', kendalltau_corr[0]
     print 'P-value:', kendalltau_corr[1]
-    plt.style.use('ggplot')
+    if filename:
+        with open(filename + "_info.txt", 'a') as corr_file:
+            corr_file.write("Pearson Corr:" + str(pearson_corr) + '\n')
+            corr_file.write("Spearman Corr:" + str(spearman_corr) + '\n')
+            corr_file.write("Kendall's tau Corr:" + str(kendalltau_corr) + '\n')
 
+    plt.style.use('ggplot')
     if overlap_weight:
         plot_with_overlapping_weight(scores1, scores2)
     else:
         plt.scatter(scores1, scores2)
 
-    lr = stats_linear_regression(scores1, scores2)
+    lr = stats_linear_regression(scores1, scores2, filename + "_info.txt")
     predict_scores2 = lr.predict(np.array(scores1)[:, np.newaxis])
     plt.plot(scores1, predict_scores2, linewidth=4)
 
@@ -41,8 +66,12 @@ def draw_scores(
     plt.ylabel('Eduwiki Score')
     plt.title("Expert-Eduwiki Score Comparison")
 
-    plt.show()
-
+    if not filename:
+        plt.show()
+    else:
+        filename += '_score_scatter.pdf'
+        plt.savefig(filename, bbox_inches='tight')  # bbox_inches=0
+    plt.close()
     return pearson_corr, spearman_corr, kendalltau_corr
 
 
@@ -114,8 +143,8 @@ if __name__ == "__main__":
     # score_expert = read_in_student_score_khan_format(
     # score_file=open("./scores/student_score_v-1.0.txt", 'r'))
     # score_generated_ques = read_in_student_score_khan_format(
-    #     score_file=open("./scores/student_score_v0.23.txt", 'r'))
+    # score_file=open("./scores/student_score_v0.23.txt", 'r'))
     #
     # combined = combine_score_dicts_to_score_list(
-    #     [score_expert, score_generated_ques])
+    # [score_expert, score_generated_ques])
     # draw_scores(combined[0], combined[1])

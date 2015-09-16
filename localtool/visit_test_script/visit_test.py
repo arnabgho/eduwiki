@@ -31,6 +31,7 @@ def visit_eduwiki_link(version, local=True,
     else:
         dn = "https://crowdtutor.info"
 
+    print "version:", version
     for idx, t in enumerate(topics):
         if idx < start:
             continue
@@ -97,23 +98,25 @@ if __name__ == "__main__":
     # TODO:: (1)set correct topic file, (2) check correct link format in func
 
     # visit_topic_file = "../mturk_tool/experiment_data/experiment_topics.txt"
-    visit_topic_file = "../mturk_tool/experiment_data/quiz_topics.txt"
+    # visit_topic_file = "../mturk_tool/experiment_data/quiz_topics.txt"
+    visit_topic_file = "../mturk_tool/experiment_data/done_topics.txt"
 
-    visit_eduwiki_link(
-        version=0.25, local=True,  # local always True if db synced
+    # visit_eduwiki_link(
+    #     version=0.25, local=False,  # local always True if db synced
+    #     start=0, topic_max=100,
+    #     filename=visit_topic_file)
+
+    print_eduwiki_links(
+        version=0.25, local=False,
         start=0, topic_max=100,
         filename=visit_topic_file)
 
-    visit_eduwiki_link(
-        version=0.24, local=True,  # local always True if db synced
-        start=0, topic_max=100,
-        filename=visit_topic_file)
+    # visit_eduwiki_link(
+    #     version=0.24, local=True,  # local always True if db synced
+    #     start=0, topic_max=100,
+    #     filename=visit_topic_file)
 
     # print_eduwiki_links(
     #     version=0.24, local=True,
-    #     start=0, topic_max=100,
-    #     filename=visit_topic_file)
-    # print_eduwiki_links(
-    #     version=0.25, local=True,
     #     start=0, topic_max=100,
     #     filename=visit_topic_file)
