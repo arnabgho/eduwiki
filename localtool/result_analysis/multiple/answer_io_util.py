@@ -28,7 +28,8 @@ def read_student_answers_from_db(quiz):
         if quiz_question_number:
             if len(final_answers) != quiz_question_number:
                 print >> sys.stderr, "Not enough answers:", \
-                    quiz.id, workerId, len(final_answers)
+                    quiz.id, workerId, len(final_answers), \
+                    len(quiz_ans.quiz_answer_procedure)
                 continue
         for final_ans in final_answers:
             if workerId not in student_quiz_answers:

@@ -7,8 +7,8 @@ Kendall's tau Corr:(0.29824885164163689, 9.0168626596430756e-05)
 Dep. Variable:                      y   R-squared:                       0.134
 Model:                            OLS   Adj. R-squared:                  0.123
 Method:                 Least Squares   F-statistic:                     12.10
-Date:                Tue, 15 Sep 2015   Prob (F-statistic):           0.000828
-Time:                        20:43:38   Log-Likelihood:                 45.563
+Date:                Thu, 17 Sep 2015   Prob (F-statistic):           0.000828
+Time:                        03:37:09   Log-Likelihood:                 45.563
 No. Observations:                  80   AIC:                            -87.13
 Df Residuals:                      78   BIC:                            -82.36
 Df Model:                           1                                         
