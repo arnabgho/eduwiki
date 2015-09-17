@@ -36,9 +36,12 @@ $(document).ready(function () {
 
     $(window).blur(function () {
         if (user_consent) {
-            var leave_message = "You cannot leave the page during the " +
-                "process of the HIT. If you leave, you will not be able to submit." +
-                "If you just want to quit the HIT, please simply close the tab.";
+            var leave_message = "Please do not leave the page during the " +
+                "process of the HIT. Go back to the HIT by closing this warning " +
+                "window.\nSorry that we prevent you from leaving as long as " +
+                "you have this page open." +
+                "If you want to go to other tabs or programs," +
+                "please simply close the tab.";
             if (!confirm(leave_message)) {
                 if (!document.hasFocus()) {
                     console.log("user left the page");
