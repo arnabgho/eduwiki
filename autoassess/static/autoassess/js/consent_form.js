@@ -45,7 +45,7 @@ $(document).ready(function () {
             if (!confirm(leave_message)) {
                 if (!document.hasFocus()) {
                     console.log("user left the page");
-                    $("#submit_answer").disable();
+//                    $("#submit_answer").disable();
                 }
             }
         }
