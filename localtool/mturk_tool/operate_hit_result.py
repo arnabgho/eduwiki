@@ -60,5 +60,9 @@ if __name__ == "__main__":
     #     topic_filename="experiment_data/90_topics.txt",
     #     hit_op=approve_hit,
     #     sandbox=True)
+    # for idx in range(0, 8):
+    #     approve_hit(hit_id="3M0556243RJGIA3OPZJWY1DEWIKNFY", sandbox=False)
+    # for idx in range(0, 8):
+    #     approve_hit(hit_id="3GVPRXWRPGTBPGDRA08S514GBRII7B", sandbox=False)
     for idx in range(0, 8):
-        approve_hit(hit_id="3EGKVCRQFVRKHSVMRZ6BWRK0KYEBYZ", sandbox=False)
+        approve_hit(hit_id="368IUKXGA47K22MQ4LTK8K5W2USP6U", sandbox=False)

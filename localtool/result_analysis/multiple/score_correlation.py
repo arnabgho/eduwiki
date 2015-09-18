@@ -6,25 +6,60 @@ import sys
 import numpy as np
 from autoassess.answer_analysis import stats_linear_regression
 from collections import defaultdict
+from sklearn import mixture
+
+GAUSSIAN_KDE = 'gaussian_kde'
+SINGLE_GAUSSIAN = 'gaussian_fit'
 
 
-def scores_kde(m1, m2):
-    xmin = m1.min()
-    xmax = m1.max()
-    ymin = m2.min()
-    ymax = m2.max()
-    X, Y = np.mgrid[xmin:xmax:100j, ymin:ymax:100j]
-    positions = np.vstack([X.ravel(), Y.ravel()])
+def scores_gaussian(
+        m1, m2, bbox=(0, 1, 0, 1), fit_type=SINGLE_GAUSSIAN, filename=''):
+    m1 = np.asarray(m1)
+    m2 = np.asarray(m2)
+    if bbox:
+        x_min, x_max, y_min, y_max = bbox
+    else:
+        x_min = m1.min()
+        x_max = m1.max()
+        y_min = m2.min()
+        y_max = m2.max()
+    x_discrete, y_discrete = np.mgrid[x_min:x_max:100j, y_min:y_max:100j]
+    grid_positions = np.vstack([x_discrete.ravel(), y_discrete.ravel()])
     values = np.vstack([m1, m2])
-    kernel = gaussian_kde(values)
-    Z = np.reshape(kernel(positions).T, X.shape)
-    fig, ax = plt.subplots()
-    ax.imshow(np.rot90(Z), cmap=plt.cm.gist_earth_r,
-              extent=[xmin, xmax, ymin, ymax])
-    ax.plot(m1, m2, 'k.', markersize=2)
-    ax.set_xlim([xmin, xmax])
-    ax.set_ylim([ymin, ymax])
-    plt.show()
+
+    if fit_type == GAUSSIAN_KDE:
+        """KDE"""
+        kernel = gaussian_kde(values)
+        pdf_at_grid = np.reshape(kernel(grid_positions).T, x_discrete.shape)
+    else:  # elif type == SINGLE_GAUSSIAN:
+        """
+        fit a Gaussian Mixture Model with one components
+        """
+        clf = mixture.GMM(n_components=1, covariance_type='full')
+        clf.fit(values.T)
+
+        log_prob, resp_ = clf.score_samples(grid_positions.T)
+        pdf_at_grid = np.reshape(log_prob, x_discrete.shape)
+
+    # fig, ax = plt.subplots()
+
+    plt.style.use('ggplot')
+    plt.imshow(np.rot90(pdf_at_grid),
+               cmap=plt.cm.gist_earth_r,
+               extent=[x_min, x_max, y_min, y_max])
+    plot_with_overlapping_weight(
+        m1.tolist(), m2.tolist(), count_annotation=False)
+    # ax.plot(m1, m2, 'k.', markersize=2)
+    plt.xlim([x_min, x_max])
+    plt.ylim([y_min, y_max])
+
+    if not filename:
+        plt.show()
+    else:
+        filename += '_' + fit_type + '.pdf'
+        plt.savefig(filename, bbox_inches='tight')  # bbox_inches=0
+    plt.close()
+    return
 
 
 def draw_scores(

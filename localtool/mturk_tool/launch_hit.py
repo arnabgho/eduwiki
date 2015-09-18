@@ -118,3 +118,5 @@ if __name__ == "__main__":
     #                      max_assignments=10, reward=1.0)
     # create_hit_for_topic("Elasticity (physics)", version=-1.0, sandbox=True,
     #                      max_assignments=10, reward=1.0)
+    # create_hit_for_topic("Earthquake Quiz", version=-1.0, sandbox=True,
+    #                      max_assignments=10, reward=1.0)

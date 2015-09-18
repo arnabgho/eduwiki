@@ -52,9 +52,9 @@ def quiz_correct_rate(quiz):
     }
 
     manual_questions = [q for q in question_version if
-                        question_version[q] < 0]
+                        question_version[q] == -1.0]
     automatic_questions = [q for q in question_version if
-                           question_version[q] > 0]
+                           question_version[q] != -1.0]
 
     student_correct_rate_manual = {
         s: [student_ans[s][q] for q in student_ans[s] if q

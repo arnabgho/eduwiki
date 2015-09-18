@@ -1,1 +1,12 @@
-Quiz,Pearson Correlation,P-value,Spearman Correlation,P-value,Kendall's tau Correlation,P-valueCustomer satisfaction,0.4651,0,0.4314,0.0001,0.3425,0Vietnam War,0.275,0.0124,0.279,0.0112,0.2238,0.0029Developmental psychology,0.3665,0.0008,0.3844,0.0004,0.2982,0.0001Earthquake,0.4192,0.0003,0.3831,0.0011,0.3055,0.0002Stroke,0.2551,0.0224,0.2634,0.0183,0.22,0.0039Waste management,0.2163,0.0556,0.1861,0.1005,0.1422,0.0637Elasticity (physics),0.083,0.4641,0.0809,0.4757,0.0678,0.3732Cell (biology),0.3364,0.0023,0.3137,0.0046,0.2405,0.0016Metaphysics,0.2585,0.0223,0.2628,0.0201,0.2046,0.008Market structure,0.2823,0.0107,0.2548,0.0217,0.202,0.0076
+Quiz,Pearson Correlation,P-value,Spearman Correlation,P-value,Kendall's tau Correlation,P-value
+Customer satisfaction,0.4651,0.0000,0.4314,0.0001,0.3425,0.0000
+Vietnam War,0.2750,0.0124,0.2790,0.0112,0.2238,0.0029
+Developmental psychology,0.3665,0.0008,0.3844,0.0004,0.2982,0.0001
+Earthquake,0.3698,0.0007,0.3279,0.0028,0.2565,0.0007
+Stroke,0.2551,0.0224,0.2634,0.0183,0.2200,0.0039
+Waste management,0.2163,0.0556,0.1861,0.1005,0.1422,0.0637
+Earthquake Quiz,0.4634,0.0001,0.4171,0.0007,0.3350,0.0001
+Elasticity (physics),0.0830,0.4641,0.0809,0.4757,0.0678,0.3732
+Cell (biology),0.3364,0.0023,0.3137,0.0046,0.2405,0.0016
+Metaphysics,0.2585,0.0223,0.2628,0.0201,0.2046,0.0080
+Market structure,0.2823,0.0107,0.2548,0.0217,0.2020,0.0076
