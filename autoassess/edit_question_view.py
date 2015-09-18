@@ -12,7 +12,7 @@ def edit_question(request):
     response_data = {}
 
     # ## Retrieve all the question sets that are manually added
-    manual_questions = WikiQuestion.objects(version=MANUALLY_ADDED)
+    manual_questions = WikiQuestion.objects(version__lte=MANUALLY_ADDED)
     response_data['all_manual_questions'] = manual_questions
     ### End
 

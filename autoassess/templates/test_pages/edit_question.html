@@ -96,11 +96,13 @@
         <div class="form-group col-lg-4">
             <label for="version">Version</label>
             <select class="form-control" id="version" name="version">
-                <option value="-1.0">MANUALLY ADDED</option>
                 {% if question %}
                     <option value="{{ question.version }}">
                         Original {{ question.version }}</option>
                 {% endif %}
+                <option value="-1.0">MANUALLY ADDED</option>
+                <option value="-1.1">MANUALLY ADDED 2</option>
+                <option value="-1.2">MANUALLY ADDED 3</option>
             </select>
         </div>
 

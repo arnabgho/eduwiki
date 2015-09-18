@@ -71,18 +71,25 @@ def quiz(request):
         if not force_generating_new:
             try:
                 # the search term may not corresponds to a wikipedia entry
-                wiki_topic = WikipediaWrapper.page(search_term).title
+                quiz_topic = search_term
                 questions, quiz_id = load_diagnose_question_set(
-                    wiki_topic, version=version, set_type=set_type,
-                    with_meta_info=True, question_shuffle=False)
-                response_data['quiz_id'] = quiz_id
-            except IndexError or TypeError as e:
-                # this is the error it will raise if no questions is founded
-                # if there is not questions for this topic in the database
-                # then generate and save
+                    quiz_topic, version=version, set_type=set_type,
+                    with_meta_info=True, question_shuffle=True)
+            except Exception as e:
+                print >> sys.stderr, e
+                try:
+                    quiz_topic = WikipediaWrapper.page(search_term).title
+                    questions, quiz_id = load_diagnose_question_set(
+                        quiz_topic, version=version, set_type=set_type,
+                        with_meta_info=True, question_shuffle=True)
+                except IndexError or TypeError as e:
+                    # this is the error it will raise if no questions is founded
+                    # if there is not questions for this topic in the database
+                    # then generate and save
 
-                # Type Error: 'NoneType' object is not iterable
-                print "Failed to load question for", search_term, e
+                    # Type Error: 'NoneType' object is not iterable
+                    print "Failed to load question for", search_term, e
+
         if not questions:
             questions = diagnose.diagnose(
                 search_term,

@@ -42,6 +42,7 @@ def edit_manual_question_set(request):
                     question = WikiQuestion.objects(id=question_id)[0]
                     questions.append(question)
                 except Exception as e:
+                    print question_id
                     print e
         random_shuffle = request_data.get('random_shuffle', False)
         if random_shuffle:
