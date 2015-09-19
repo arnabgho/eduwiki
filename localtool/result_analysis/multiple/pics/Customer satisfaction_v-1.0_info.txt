@@ -1,1 +1,29 @@
 Num of quiz answers:80
+Pearson Corr:(0.46509198405224411, 1.3826583522575746e-05)
+Spearman Corr:(0.43142638330368943, 6.4576935846899676e-05)
+Kendall's tau Corr:(0.34252013268331111, 6.8965879097554876e-06)
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.216
+Model:                            OLS   Adj. R-squared:                  0.206
+Method:                 Least Squares   F-statistic:                     21.53
+Date:                Fri, 18 Sep 2015   Prob (F-statistic):           1.38e-05
+Time:                        05:00:45   Log-Likelihood:                 22.103
+No. Observations:                  80   AIC:                            -40.21
+Df Residuals:                      78   BIC:                            -35.44
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [95.0% Conf. Int.]
+------------------------------------------------------------------------------
+const          0.3926      0.059      6.685      0.000         0.276     0.510
+x1             0.6664      0.144      4.640      0.000         0.380     0.952
+==============================================================================
+Omnibus:                        1.630   Durbin-Watson:                   1.722
+Prob(Omnibus):                  0.443   Jarque-Bera (JB):                1.663
+Skew:                          -0.300   Prob(JB):                        0.435
+Kurtosis:                       2.626   Cond. No.                         7.94
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.

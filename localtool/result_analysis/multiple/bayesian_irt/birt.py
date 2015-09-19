@@ -108,7 +108,7 @@ def plot_theta_trace(theta, stepsize=20):
     plt.show()
 
 
-def plot_sigmoid(item_params, filename=''):
+def plot_sigmoid(item_params, filename='', fig_title=''):
     abilities_to_plot = np.arange(-3, 3, .01)
     items = item_params.keys()
     item_plots = {}
@@ -142,7 +142,10 @@ def plot_sigmoid(item_params, filename=''):
     plt.ylabel('P(Answer Correctly)')
     plt.ylim((0, 1))
     plt.xlim((-3, 3))
-    plt.title('Two parameter IRT model')
+    if not fig_title:
+        plt.title('Two parameter IRT model')
+    else:
+        plt.title(fig_title)
     plt.legend(loc='best', prop={'size': 6})
     if not filename:
         plt.show()

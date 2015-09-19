@@ -18,17 +18,19 @@ def analysis_pipeline(
     else:
         filename = ''
 
+    fig_title = quiz.set_topic
+    corr = None
     """
     Step : quiz_score_analysis (correlation analysis)
     """
-    if SCORE_OLS or SCORE_KDE in steps:
+    if SCORE_OLS in steps or SCORE_KDE in steps:
         question_stat, expert_scores, eduwiki_scores = quiz_correct_rate(quiz)
 
         assert len(expert_scores) == len(eduwiki_scores)
         print "Number of answers:", len(expert_scores), len(eduwiki_scores)
 
         # record the context into a txt file, also in draw_scores()
-        if write_output:
+        if write_output and SCORE_OLS in steps:
             with open(filename + "_info.txt", 'w') as corr_file:
                 corr_file.write(
                     "Num of quiz answers:" + str(len(expert_scores)) + '\n')
@@ -39,7 +41,8 @@ def analysis_pipeline(
     if SCORE_OLS in steps:
         corr = draw_scores(
             combined[0], combined[1], axis_range=(0, 1.05), overlap_weight=True,
-            count_annotation=False, filename=filename)
+            count_annotation=False, filename=filename, fig_title=fig_title)
+        fig_title += '%.4f' % corr[0][0]
 
     """
     Step : kde with 2 scores as the 2 dimensions
@@ -47,9 +50,10 @@ def analysis_pipeline(
     if SCORE_KDE:
         scores_gaussian(
             combined[0], combined[1],
-            # fit_type=SINGLE_GAUSSIAN,
-            fit_type=GAUSSIAN_KDE,
-            filename=filename)
+            fit_type=SINGLE_GAUSSIAN,
+            # fit_type=GAUSSIAN_KDE,
+            filename=filename,
+            fig_title=fig_title)
 
     """
     Step : IRT analysis and plot the sigmoid curves for questions
@@ -57,14 +61,16 @@ def analysis_pipeline(
     student_quiz_ans = read_student_answers_from_db(quiz)
     if IRT_SIGMOID in steps:
         compare_quizzes_with_expert_quiz(
-            student_quiz_ans, expert_verison=-1.0, filename=filename)
+            student_quiz_ans, expert_verison=-1.0,
+            filename=filename, fig_title=fig_title)
 
     # # correlation analysis of student ability?
     if ABILITY_OLS in steps:
         compare_separate_student_ability(
-            student_quiz_ans, expert_verison=-1.0, filename=filename)
+            student_quiz_ans, expert_verison=-1.0,
+            filename=filename, fig_title=fig_title)
 
-    if SCORE_OLS in steps:
+    if corr:
         return corr
     else:
         return True
@@ -89,19 +95,19 @@ def corr_form(all_corrs):
             ])
 
 
-def analyze_all(all_in_one=False):
+def analyze_all(all_in_one=True):
     quiz_topic_list = [
         "Earthquake Quiz",
-        # "Customer satisfaction",
-        # "Developmental psychology",
-        # "Earthquake",
-        # "Market structure",
-        # "Metaphysics",
-        # "Vietnam War",
-        # "Stroke",
-        # "Waste management",
-        # "Cell (biology)",
-        # "Elasticity (physics)",
+        "Customer satisfaction",
+        "Developmental psychology",
+        "Earthquake",
+        "Market structure",
+        "Metaphysics",
+        "Vietnam War",
+        "Stroke",
+        "Waste management",
+        "Cell (biology)",
+        "Elasticity (physics)",
     ]
 
     all_corrs = {}

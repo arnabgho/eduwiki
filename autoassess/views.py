@@ -74,14 +74,14 @@ def quiz(request):
                 quiz_topic = search_term
                 questions, quiz_id = load_diagnose_question_set(
                     quiz_topic, version=version, set_type=set_type,
-                    with_meta_info=True, question_shuffle=True)
+                    with_meta_info=True, question_shuffle=False)
             except Exception as e:
                 print >> sys.stderr, e
                 try:
                     quiz_topic = WikipediaWrapper.page(search_term).title
                     questions, quiz_id = load_diagnose_question_set(
                         quiz_topic, version=version, set_type=set_type,
-                        with_meta_info=True, question_shuffle=True)
+                        with_meta_info=True, question_shuffle=False)
                 except IndexError or TypeError as e:
                     # this is the error it will raise if no questions is founded
                     # if there is not questions for this topic in the database

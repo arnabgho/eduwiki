@@ -21,16 +21,17 @@ def answer_irt(student_quiz_ans):
     return a, b, theta
 
 
-def plot_questions(questions, a, b, filename=''):
+def plot_questions(questions, a, b, filename='', fig_title=''):
     question_params = {}
     for q_idx, q in enumerate(questions):
         question_params[q.topic] = {'a': a.trace().mean(0)[q_idx][0],
                                     'b': b.trace().mean(0)[q_idx]}
-    birt.plot_sigmoid(question_params, filename)
+    birt.plot_sigmoid(question_params, filename, fig_title=fig_title)
 
 
 def compare_separate_student_ability(
-        student_quiz_ans, expert_verison=-1.0, filename=''):
+        student_quiz_ans, expert_verison=-1.0,
+        filename='', fig_title=''):
     quiz_ans_by_v = separate_student_answers_by_version(student_quiz_ans)
 
     ans_mtx_version = {}
@@ -61,12 +62,13 @@ def compare_separate_student_ability(
             filename = filename + '_irt_ability_' + str(v)
         draw_scores(
             theta.trace().mean(0)[0], theta2.trace().mean(0)[0],
-            axis_range=(-3, 3), overlap_weight=False, filename=filename)
+            axis_range=(-3, 3), overlap_weight=False,
+            filename=filename, fig_title=fig_title)
         # mean(0).shape=(1,40)
 
 
 def compare_quizzes_with_expert_quiz(
-        student_quiz_ans, expert_verison=-1.0, filename=''):
+        student_quiz_ans, expert_verison=-1.0, filename='', fig_title=''):
     quiz_ans_by_v = separate_student_answers_by_version(student_quiz_ans)
 
     ans_mtx_version = {}
@@ -82,7 +84,9 @@ def compare_quizzes_with_expert_quiz(
     a, b, theta = birt.bayesian_irt(ans_mtx)
 
     plot_questions(
-        questions, a, b, filename=filename + '_expert' + str(expert_verison))
+        questions, a, b,
+        filename=filename + '_expert' + str(expert_verison),
+        fig_title=fig_title + str(expert_verison))
     # birt.plot_theta_trace(theta)
 
     # [DONE] A SPECIFIC TEST
@@ -105,7 +109,8 @@ def compare_quizzes_with_expert_quiz(
             ans_mtx_version[v], theta.trace().mean(0))
         plot_questions(
             questions_version[v], a_v, b_v,
-            filename=filename + "_eduwiki" + str(v))
+            filename=filename + "_eduwiki" + str(v),
+            fig_title=fig_title + str(v))
 
 
 def test():

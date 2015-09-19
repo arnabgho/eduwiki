@@ -13,7 +13,8 @@ SINGLE_GAUSSIAN = 'gaussian_fit'
 
 
 def scores_gaussian(
-        m1, m2, bbox=(0, 1, 0, 1), fit_type=SINGLE_GAUSSIAN, filename=''):
+        m1, m2, bbox=(0, 1, 0, 1), fit_type=SINGLE_GAUSSIAN,
+        filename='', fig_title=""):
     m1 = np.asarray(m1)
     m2 = np.asarray(m2)
     if bbox:
@@ -39,7 +40,7 @@ def scores_gaussian(
         clf.fit(values.T)
 
         log_prob, resp_ = clf.score_samples(grid_positions.T)
-        pdf_at_grid = np.reshape(log_prob, x_discrete.shape)
+        pdf_at_grid = np.reshape(np.exp(log_prob), x_discrete.shape)
 
     # fig, ax = plt.subplots()
 
@@ -53,6 +54,8 @@ def scores_gaussian(
     plt.xlim([x_min, x_max])
     plt.ylim([y_min, y_max])
 
+    if fig_title:
+        plt.title(fig_title)
     if not filename:
         plt.show()
     else:
@@ -65,7 +68,7 @@ def scores_gaussian(
 def draw_scores(
         scores1, scores2, axis_range=(0.0, 1.05),
         overlap_weight=False, count_annotation=False,
-        filename=""):
+        filename="", fig_title=""):
     plt.figure(1)
     pearson_corr = pearsonr(scores1, scores2)
     spearman_corr = spearmanr(scores1, scores2)
@@ -101,7 +104,10 @@ def draw_scores(
     plt.ylim(axis_range)
     plt.xlabel('Expert Score')
     plt.ylabel('Eduwiki Score')
-    plt.title("Expert-Eduwiki Score Comparison")
+    if not fig_title:
+        plt.title("Expert-Eduwiki Score Comparison")
+    else:
+        plt.title(fig_title + '%.4f' % pearson_corr[0])
 
     if not filename:
         plt.show()
