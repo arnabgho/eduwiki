@@ -92,7 +92,7 @@ if __name__ == "__main__":
     print "Launch HIT"
 
     # create_for_experiment(
-    #     topic_filename="experiment_data/90_topics.txt",
+    # topic_filename="experiment_data/90_topics.txt",
     #     sandbox=True,
     #     topic_max_idx=1, start_idx=0,
     #     max_assignments=1,
@@ -119,4 +119,6 @@ if __name__ == "__main__":
     # create_hit_for_topic("Elasticity (physics)", version=-1.0, sandbox=True,
     #                      max_assignments=10, reward=1.0)
     # create_hit_for_topic("Earthquake Quiz", version=-1.0, sandbox=True,
+    #                      max_assignments=10, reward=1.0)
+    # create_hit_for_topic("Vietnam War Quiz", version=-1.0, sandbox=True,
     #                      max_assignments=10, reward=1.0)

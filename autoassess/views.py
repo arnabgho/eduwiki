@@ -149,6 +149,19 @@ def quiz(request):
     return render(request, 'autoassess/quiz.html', response_data)
 
 
+def quiz_list(request):
+    request_data = {}
+    if request.method == 'GET':
+        request_data = request.GET
+    elif request.method == 'POST':
+        request_data = request.POST
+    response_data = {}
+
+    quizzes = QuestionSet.objects({})
+    response_data['quizzes'] = quizzes
+    return render(request, 'autoassess/quiz_list.html', response_data)
+
+
 def disambiguation(request, dis=[]):
     """
     The search term may not corresponds to multiple terms, ask the user

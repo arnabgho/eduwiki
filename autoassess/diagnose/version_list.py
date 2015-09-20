@@ -36,7 +36,8 @@ SET_SELF_DEFINED = "Self-defined"
 ##########    SETTINGS     ##############
 #########################################
 #########################################
-CURRENT_QUESTION_VERSION = SKIPTHOUGHT_SIM_DISTRACTOR
+CURRENT_QUESTION_VERSION = \
+    SKIPTHOUGHT_SIM_DISTRACTOR_WITH_TWO_WAY_MEASURED_CANDIDATE
 CURRENT_QUESTION_SET = SET_MENTIONED
 WITH_PREREQ = True
 
