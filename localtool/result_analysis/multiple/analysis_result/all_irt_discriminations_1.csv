@@ -1,13 +1,13 @@
-Quiz,Average Discrimination Power
-Market structure,1.1608
-Vietnam War [Expert-Expert2],0.7174
-Customer satisfaction,0.6880
-Stroke,0.6039
-Earthquake [Expert-Expert2],0.5677
-Cell (biology),0.5427
-Waste management,0.5415
-Earthquake,0.5271
-Metaphysics,0.4952
-Developmental psychology,0.4922
-Elasticity (physics),0.4540
-Vietnam War,0.4044
+Quiz,Average Discrimination,Median Discrimination,# Discrimination > 0,# Discrimination > 0.5
+Customer satisfaction,0.9319,0.8765,1.0000,0.8000
+Stroke,0.8331,0.9348,1.0000,0.9000
+Vietnam War [Expert-Expert2],0.6930,0.7556,1.0000,0.7778
+Market structure,0.5757,0.4707,0.8000,0.5000
+Earthquake [Expert-Expert2],0.5655,0.5947,0.9000,0.6000
+Cell (biology),0.5637,0.5724,1.0000,0.6000
+Metaphysics,0.5586,0.6071,0.9000,0.6000
+Waste management,0.5504,0.6056,0.9000,0.7000
+Earthquake,0.5243,0.5647,1.0000,0.6000
+Developmental psychology,0.4896,0.4662,0.8000,0.5000
+Vietnam War,0.4093,0.3965,0.9000,0.5000
+Elasticity (physics),0.1827,0.2613,0.8000,0.1000
