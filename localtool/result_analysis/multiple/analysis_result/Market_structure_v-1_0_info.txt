@@ -1,0 +1,29 @@
+Num of quiz answers:81
+Pearson Corr:(0.28228003175155925, 0.010674311364215499)
+Spearman Corr:(0.25484347430373205, 0.021676322215104883)
+Kendall's tau Corr:(0.20198499517793059, 0.0076069032845613458)
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.080
+Model:                            OLS   Adj. R-squared:                  0.068
+Method:                 Least Squares   F-statistic:                     6.840
+Date:                Fri, 25 Sep 2015   Prob (F-statistic):             0.0107
+Time:                        03:56:21   Log-Likelihood:                 29.531
+No. Observations:                  81   AIC:                            -55.06
+Df Residuals:                      79   BIC:                            -50.27
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [95.0% Conf. Int.]
+------------------------------------------------------------------------------
+const          0.4182      0.063      6.591      0.000         0.292     0.544
+x1             0.3215      0.123      2.615      0.011         0.077     0.566
+==============================================================================
+Omnibus:                        4.410   Durbin-Watson:                   1.818
+Prob(Omnibus):                  0.110   Jarque-Bera (JB):                3.645
+Skew:                          -0.422   Prob(JB):                        0.162
+Kurtosis:                       3.607   Cond. No.                         8.11
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
