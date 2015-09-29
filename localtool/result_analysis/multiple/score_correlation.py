@@ -66,22 +66,22 @@ def scores_gaussian(
 
 
 def draw_scores(
-        scores1, scores2, axis_range=(0.0, 1.05),
+        scores1, scores2, axis_range=(0.0, 1.0),
         overlap_weight=False, count_annotation=False,
-        filename="", fig_title=""):
-    plt.figure(1)
+        filename="", fig_title="",
+        text_size=20):
+    assert len(scores1) == len(scores2)
+    # plt.figure(1)
     pearson_corr = pearsonr(scores1, scores2)
     spearman_corr = spearmanr(scores1, scores2)
     kendalltau_corr = kendalltau(scores1, scores2)
 
-    # print 'scores1', scores1
-    # print 'scores2', scores2
     print 'Pearson Correlation:', pearson_corr[0]
     print 'P-value:', pearson_corr[1]
-    print 'Spearman Correlation:', spearman_corr[0]
-    print 'P-value:', spearman_corr[1]
-    print 'Kendall\'s tau Correlation:', kendalltau_corr[0]
-    print 'P-value:', kendalltau_corr[1]
+    # print 'Spearman Correlation:', spearman_corr[0]
+    # print 'P-value:', spearman_corr[1]
+    # print 'Kendall\'s tau Correlation:', kendalltau_corr[0]
+    # print 'P-value:', kendalltau_corr[1]
     if filename:
         with open(filename + "_info.txt", 'a') as corr_file:
             corr_file.write("Pearson Corr:" + str(pearson_corr) + '\n')
@@ -99,23 +99,36 @@ def draw_scores(
     predict_scores2 = lr.predict(np.array(scores1)[:, np.newaxis])
     plt.plot(scores1, predict_scores2, linewidth=4)
 
-    plt.axis('equal')
+    # plt.axis('equal')
     plt.xlim(axis_range)
     plt.ylim(axis_range)
-    plt.xlabel('Expert Score')
-    plt.ylabel('Eduwiki Score')
-    if not fig_title:
-        plt.title("Expert-Eduwiki Score Comparison")
+    plt.axes().set_aspect('equal')
+    if '[Expert-Expert2]' in fig_title:
+        fig_title = '[Expert-Expert2]'
+        plt.xlabel('Expert Score', size=text_size, color="k")
+        plt.ylabel('Expert2 Score', size=text_size, color="k")
     else:
-        plt.title(fig_title + '%.4f' % pearson_corr[0])
+        fig_title += ' [Questimator-Expert]'
+        fig_title = '[Questimator-Expert]'
+        plt.xlabel('Expert Score', size=text_size, color="k")
+        plt.ylabel('Questimator Score', size=text_size, color="k")
+    if not fig_title:
+        if '[Expert-Expert2]' in fig_title:
+            plt.title("Expert-Expert2 Score Comparison")
+        else:
+            plt.title("Expert-Eduwiki Score Comparison")
+    else:
+        plt.title(fig_title + ' (Corr: %.4f)' % pearson_corr[0], size=text_size)
 
+
+    # plt.show()
     if not filename:
         plt.show()
     else:
         filename += '_score_scatter.pdf'
         plt.savefig(filename, bbox_inches='tight')  # bbox_inches=0
     plt.close()
-    return pearson_corr, spearman_corr, kendalltau_corr
+    return pearson_corr, len(scores1)
 
 
 def combine_score_dicts_to_score_list(score_dicts=[]):

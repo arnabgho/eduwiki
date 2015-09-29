@@ -18,7 +18,8 @@ def answer_irt(student_quiz_ans):
         }
     birt.plot_sigmoid(question_params)
 
-    return a, b, theta
+    # return a, b, theta
+    return question_params
 
 
 def plot_questions(questions, a, b, filename='', fig_title=''):
@@ -27,6 +28,7 @@ def plot_questions(questions, a, b, filename='', fig_title=''):
         question_params[q.topic] = {'a': a.trace().mean(0)[q_idx][0],
                                     'b': b.trace().mean(0)[q_idx]}
     birt.plot_sigmoid(question_params, filename, fig_title=fig_title)
+    return question_params
 
 
 def compare_separate_student_ability(
@@ -46,7 +48,10 @@ def compare_separate_student_ability(
 
     a, b, theta = birt.bayesian_irt(ans_mtx)
 
-    # birt.plot_theta_trace(theta)
+    # if filename:
+    # temp_filename = filename + '_irt_ability_' + str(expert_verison)
+    # birt.plot_theta_trace(theta, filename=temp_filename)
+
 
     # # Fix theta, and fit for the other (non-expert) questions
     for v in quiz_ans_by_v:
@@ -59,11 +64,13 @@ def compare_separate_student_ability(
         a, b, theta2 = birt.bayesian_irt(ans_mtx_version[v])
 
         if filename:
-            filename = filename + '_irt_ability_' + str(v)
+            temp_filename = filename + '_student_ability_' + str(v)
+        else:
+            temp_filename = filename
         draw_scores(
             theta.trace().mean(0)[0], theta2.trace().mean(0)[0],
             axis_range=(-3, 3), overlap_weight=False,
-            filename=filename, fig_title=fig_title)
+            filename=temp_filename, fig_title=fig_title)
         # mean(0).shape=(1,40)
 
 
@@ -83,11 +90,21 @@ def compare_quizzes_with_expert_quiz(
 
     a, b, theta = birt.bayesian_irt(ans_mtx)
 
-    plot_questions(
+    ##################
+    ##### Sigmoids
+    ##################
+    # if filename:
+    #     temp_filename = filename.replace(' ', '_') + '_irt_ability_' \
+    #                     + str(expert_verison).replace('.', '_')
+    #     birt.plot_theta_trace(theta, filename=temp_filename)
+
+    temp_filename = filename.replace(' ', '_') + '_expert' \
+                    + str(expert_verison).replace('.', '_')
+    question_params_expert = plot_questions(
         questions, a, b,
-        filename=filename + '_expert' + str(expert_verison),
-        fig_title=fig_title + str(expert_verison))
-    # birt.plot_theta_trace(theta)
+        filename=temp_filename,
+        fig_title=fig_title  # + 'v:' + str(expert_verison)
+    )
 
     # [DONE] A SPECIFIC TEST
     # test whether the estimation of the parameters for expert question is stable
@@ -98,6 +115,7 @@ def compare_quizzes_with_expert_quiz(
     # plot_questions(questions, a, b)
 
     # # Fix theta, and fit for the other (non-expert) questions
+    question_params = {}
     for v in quiz_ans_by_v:
         if v == expert_verison:
             continue
@@ -107,10 +125,14 @@ def compare_quizzes_with_expert_quiz(
         assert students_version[v] == students_version[expert_verison]
         a_v, b_v, theta_v = birt.bayesian_irt(
             ans_mtx_version[v], theta.trace().mean(0))
-        plot_questions(
+        temp_filename = filename.replace(' ', '_') + "_eduwiki" \
+                        + str(v).replace('.', '_')
+        question_params = plot_questions(
             questions_version[v], a_v, b_v,
-            filename=filename + "_eduwiki" + str(v),
-            fig_title=fig_title + str(v))
+            filename=temp_filename,
+            fig_title=fig_title  # + 'v:' + str(v)
+        )
+    return question_params, question_params_expert
 
 
 def test():

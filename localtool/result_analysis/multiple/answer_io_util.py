@@ -7,7 +7,7 @@ import numpy as np
 import sys
 
 
-def read_student_answers_from_db(quiz):
+def read_student_answers_from_db(quiz, verbose=False):
     """
     read question
     :param quiz:
@@ -27,9 +27,10 @@ def read_student_answers_from_db(quiz):
         workerId = quiz_ans.workerId
         if quiz_question_number:
             if len(final_answers) != quiz_question_number:
-                print >> sys.stderr, "Not enough answers:", \
-                    quiz.id, workerId, len(final_answers), \
-                    len(quiz_ans.quiz_answer_procedure)
+                if verbose:
+                    print >> sys.stderr, "Not enough answers:", \
+                        quiz.id, workerId, len(final_answers), \
+                        len(quiz_ans.quiz_answer_procedure)
                 continue
         for final_ans in final_answers:
             if workerId not in student_quiz_answers:
@@ -81,6 +82,7 @@ def answer_dict_to_arrays(student_quiz_answers):
     question_idx = {q: idx for idx, q in enumerate(questions)}
     for s_idx, s in enumerate(student_quiz_answers):
         s_answers = student_quiz_answers[s]
+        # print "Debug:", len(s_answers), num_questions
         assert len(s_answers) == num_questions
         for s_q_ans in s_answers:
             q_idx = question_idx[s_q_ans.question]

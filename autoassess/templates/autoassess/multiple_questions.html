@@ -5,7 +5,7 @@
 <html>
 <head>
     <title>
-        EduWiki Prototype - Multiple Questions
+        Questimator Prototype - Multiple Questions
     </title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,7 +19,7 @@
 
 {% if assignmentId %}
     {#    TODO:: Uncomment consent form for debug purpose, change it back after#}
-    {% include "test_pages/consent_form.html" %}
+{#    {% include "test_pages/consent_form.html" %}#}
 {% endif %}
 <div class="row" id="question_area">
 {#            <h2>&nbsp;&nbsp;&nbsp;&nbsp;The prerequisites are:</h2>#}
@@ -101,7 +101,7 @@
             <div class="h3">
                 <b>
                 <span class="text-warning">
-                    Choose the most proper answer(s) for the following {{ quiz | length }} question(s).
+                    Choose the best answer(s) for the following {{ quiz | length }} question(s).
                 </span>
                 </b>
             </div>
@@ -199,7 +199,7 @@
                     [Optional] </label>
                 <input type="text" class="form-control" id="comment"
                        name="comment"
-                       placeholder="Anything wrong with the questions? How can we improve the question quality? How can we improve this HIT?">
+                       placeholder="Is anything wrong with the questions? How can we improve the question quality? How can we improve this HIT?">
             </div>
 
             <div class="col-md-6 col-md-offset-3">
@@ -249,7 +249,7 @@
 <script src="{% static 'autoassess/js/time_management.js' %}"></script>
 
 {# TODO:: Uncomment consent form for debug purpose, change it back after#}
-<script src="{% static 'autoassess/js/consent_form.js' %}"></script>
+{#<script src="{% static 'autoassess/js/consent_form.js' %}"></script>#}
 
 <script src="{% static 'autoassess/js/multiple_questions_submit.js' %}"></script>
 <script src="{% static 'autoassess/js/update_answer.js' %}"></script>

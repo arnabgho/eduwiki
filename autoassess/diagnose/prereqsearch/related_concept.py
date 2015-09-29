@@ -101,9 +101,15 @@ def most_mentioned_wikilinks(wikipage, with_count=True):
 
     # when "Markov", "Markov model"show up together
     # count(Markov) -= count(Markov model)
+
+    # still problematic, but should work in most cases:
+    # first sort the aliases
+    # so HMM > MM > M, forming the right order of subtraction
+    alias_keys = alias.keys()
+    topics_sort_by_len = sorted(alias_keys, key=lambda s: len(s), reverse=True)
     try:
-        for l in alias:
-            for other_l in alias:
+        for l in topics_sort_by_len:
+            for other_l in topics_sort_by_len:
                 if other_l == l:
                     continue
                 if topic_remove_bracket(
@@ -111,7 +117,6 @@ def most_mentioned_wikilinks(wikipage, with_count=True):
                     term_count[other_l] -= term_count[l]
     except Exception as e:
         print >> sys.stderr, e
-    # TODO:: when Markov, Markov model, Hidden Markov model show up together
 
     # get high number mention topics
     most_mentioned = sorted(
@@ -139,32 +144,35 @@ def list_overlapping(a, b):
 
 
 def similarly_covered_topics(wikipage, with_count=True):
-    link_to_main = WikipediaWrapper.page_ids_links_here(wikipage.title)
+    backlink_to_main = WikipediaWrapper.page_ids_links_here(wikipage.title)
 
-    if not link_to_main:
+    if not backlink_to_main:
         return most_mentioned_wikilinks(wikipage, with_count=with_count)
 
     mm_links, aliases = most_mentioned_wikilinks(wikipage, with_count=True)
     mm_link_titles = [m[0] for m in mm_links]
 
-    links_here_dict = {}
+    backlink_dict = {}
     for title in mm_link_titles:
         try:
-            link_to_title = WikipediaWrapper.page_ids_links_here(title)
+            backlink_to_title = WikipediaWrapper.page_ids_links_here(title)
 
             # It is possible that some pages are not retrievable.
-            if link_to_title:
-                links_here_dict.update({title: link_to_title})
+            if backlink_to_title:
+                backlink_dict.update({title: backlink_to_title})
         except Exception as e:
-            pass
+            print "Cannot find backlink to title", title
+            print e
 
     # calculate coverage overlap
     link_overlap = {}
-    for title in links_here_dict:
+    for title in backlink_dict:
         overlap_sim = len(list_overlapping(
-            links_here_dict[title], link_to_main))
-        overlap_sim /= math.exp(len(links_here_dict[title]) / len(link_to_main))
-        # overlap_sim /= len(links_here_dict[title])
+            backlink_dict[title], backlink_to_main))
+        # overlap_sim /= math.exp(
+        #     len(backlink_dict[title]) / len(backlink_to_main))
+        # overlap_sim /= len(backlink_dict[title]) * len(backlink_to_main)
+        overlap_sim /= len(backlink_dict[title])
 
         link_overlap.update(
             {title: overlap_sim}
@@ -177,117 +185,6 @@ def similarly_covered_topics(wikipage, with_count=True):
         mostly_together_linked = [m[0] for m in mostly_together_linked]
 
     return mostly_together_linked, aliases
-
-
-def similar_concept_by_clustering_bag_of_links_to_here(wikipage):
-    link_to_main = WikipediaWrapper.page_ids_links_here(wikipage.title)
-    mm_links, aliases = most_mentioned_wikilinks(wikipage, with_count=True)
-    mm_link_titles = [m[0] for m in mm_links]
-
-    links_here_dict = {}
-    for title in mm_link_titles:
-        try:
-            link_to_title = WikipediaWrapper.page_ids_links_here(title)
-            links_here_dict.update({title: link_to_title})
-        except Exception as e:
-            pass
-
-    return cluster_bag_of_links_to_here(links_here_dict)
-
-
-def cluster_bag_of_links_to_here(links_here_dict):
-    """
-    Totally not working at all, clustering methods will most likely result
-    in one big cluster, with (n-1) cluster containing merely one node
-    :param links_here_dict:
-    :return:
-    """
-    # convert it to bags of links-to-here (B-O-L)
-    #
-    # for title in links_here_dict:
-    title_list = []
-    feature_dict_list = []
-    for title in links_here_dict:
-        title_list.append(title)
-        links = links_here_dict[title]
-        feature_dict = collections.Counter(links)  # {1435:1, 235345:1, ...}
-        feature_dict_list.append(feature_dict)
-    vec = DictVectorizer()
-    bol_mtx = vec.fit_transform(feature_dict_list).toarray()
-    print bol_mtx.shape
-
-    # TODO::
-    # DBSCAN might be the best for this
-    # but it is good for data with similar density, which does not hold here
-    # db = DBSCAN(eps=10, min_samples=3)
-    # clusters = db.fit_predict(bol_mtx)
-
-    kmeans = KMeans(
-        init='k-means++',
-        n_clusters=int(math.sqrt(len(title_list))),
-        n_init=10)
-    clusters = kmeans.fit_predict(bol_mtx)
-
-    cluster_set = collections.Counter(clusters)
-    print cluster_set
-    clusters = [(title_list[idx], c) for idx, c in enumerate(clusters)]
-    return clusters
-
-
-def sparse_mention_spanning_graph(wikipage):
-    """
-    To get a graph for the mentions
-    :return:
-    """
-    least_mention = 5
-    mention_graph = nx.DiGraph()
-    current_title = wikipage.title
-    mention_graph.add_node(current_title)
-
-    spanning_wikipages = [wikipage]
-    next_depth_wikipages = []
-    for depth in range(2, 0, -1):
-        while True:
-            if not spanning_wikipages:
-                break
-
-            # pop one page
-            wikipage = spanning_wikipages.pop(0)
-
-            current_title = wikipage.title
-            print current_title
-            # mention_graph.add_node(current_title)
-
-            # mm for "most mentioned"
-            mm_link_counts, alias = most_mentioned_wikilinks(wikipage)
-
-            mm_links = [m[0] for m in mm_link_counts if m[1] > least_mention]
-            # mm_counts = [m[1] for m in mm_link_counts]
-
-            mention_graph.add_nodes_from(nodes=mm_links, depth=depth)
-
-            mention_edges = [(current_title, m[0], m[1]) for m in
-                             mm_link_counts]
-            mention_graph.add_weighted_edges_from(mention_edges)
-
-            # branch out from the key mentioned terms, and add them to the graph
-            if depth > 1:
-                key_mention_terms = [
-                    m[0] for m in mm_link_counts if m[1] > least_mention]
-                key_mention_terms = key_mention_terms[:5]
-                print key_mention_terms
-                next_depth_wikipages.extend(
-                    [WikipediaWrapper.page(t) for t in key_mention_terms])
-
-        spanning_wikipages = list(next_depth_wikipages)
-        next_depth_wikipages = []
-
-    low_d_nodes = [node for node, degree in mention_graph.degree().items() if
-                   degree < 3]
-    mention_graph.remove_nodes_from(low_d_nodes)
-    print mention_graph.nodes()
-    nx.draw_networkx(mention_graph, with_labels=True, prog='dot')
-    plt.show()
 
 
 def two_way_ranked_wiki_links(
@@ -421,3 +318,114 @@ if __name__ == "__main__":
     test("Marketing Strategy")
     test("Customer satisfaction")
     test("Artificial neural network")
+
+
+    # def similar_concept_by_clustering_bag_of_links_to_here(wikipage):
+    # link_to_main = WikipediaWrapper.page_ids_links_here(wikipage.title)
+    #     mm_links, aliases = most_mentioned_wikilinks(wikipage, with_count=True)
+    #     mm_link_titles = [m[0] for m in mm_links]
+    #
+    #     links_here_dict = {}
+    #     for title in mm_link_titles:
+    #         try:
+    #             link_to_title = WikipediaWrapper.page_ids_links_here(title)
+    #             links_here_dict.update({title: link_to_title})
+    #         except Exception as e:
+    #             pass
+    #
+    #     return cluster_bag_of_links_to_here(links_here_dict)
+
+    # def sparse_mention_spanning_graph(wikipage):
+    # """
+    # To get a graph for the mentions
+    #     :return:
+    #     """
+    #     least_mention = 5
+    #     mention_graph = nx.DiGraph()
+    #     current_title = wikipage.title
+    #     mention_graph.add_node(current_title)
+    #
+    #     spanning_wikipages = [wikipage]
+    #     next_depth_wikipages = []
+    #     for depth in range(2, 0, -1):
+    #         while True:
+    #             if not spanning_wikipages:
+    #                 break
+    #
+    #             # pop one page
+    #             wikipage = spanning_wikipages.pop(0)
+    #
+    #             current_title = wikipage.title
+    #             print current_title
+    #             # mention_graph.add_node(current_title)
+    #
+    #             # mm for "most mentioned"
+    #             mm_link_counts, alias = most_mentioned_wikilinks(wikipage)
+    #
+    #             mm_links = [m[0] for m in mm_link_counts if m[1] > least_mention]
+    #             # mm_counts = [m[1] for m in mm_link_counts]
+    #
+    #             mention_graph.add_nodes_from(nodes=mm_links, depth=depth)
+    #
+    #             mention_edges = [(current_title, m[0], m[1]) for m in
+    #                              mm_link_counts]
+    #             mention_graph.add_weighted_edges_from(mention_edges)
+    #
+    #             # branch out from the key mentioned terms,
+    #             # and add them to the graph
+    #             if depth > 1:
+    #                 key_mention_terms = [
+    #                     m[0] for m in mm_link_counts if m[1] > least_mention]
+    #                 key_mention_terms = key_mention_terms[:5]
+    #                 print key_mention_terms
+    #                 next_depth_wikipages.extend(
+    #                     [WikipediaWrapper.page(t) for t in key_mention_terms])
+    #
+    #         spanning_wikipages = list(next_depth_wikipages)
+    #         next_depth_wikipages = []
+    #
+    #     low_d_nodes = [node for node, degree in mention_graph.degree().items() if
+    #                    degree < 3]
+    #     mention_graph.remove_nodes_from(low_d_nodes)
+    #     print mention_graph.nodes()
+    #     nx.draw_networkx(mention_graph, with_labels=True, prog='dot')
+    #     plt.show()
+
+
+# def cluster_bag_of_links_to_here(links_here_dict):
+#     """
+#     Totally not working at all, clustering methods will most likely result
+#     in one big cluster, with (n-1) cluster containing merely one node
+#     :param links_here_dict:
+#     :return:
+#     """
+#     # convert it to bags of links-to-here (B-O-L)
+#     #
+#     # for title in links_here_dict:
+#     title_list = []
+#     feature_dict_list = []
+#     for title in links_here_dict:
+#         title_list.append(title)
+#         links = links_here_dict[title]
+#         feature_dict = collections.Counter(links)  # {1435:1, 235345:1, ...}
+#         feature_dict_list.append(feature_dict)
+#     vec = DictVectorizer()
+#     bol_mtx = vec.fit_transform(feature_dict_list).toarray()
+#     print bol_mtx.shape
+#
+#     # TODO::
+#     # DBSCAN might be the best for this
+#     # but it is good for data with similar density, which does not hold here
+#     # db = DBSCAN(eps=10, min_samples=3)
+#     # clusters = db.fit_predict(bol_mtx)
+#
+#     kmeans = KMeans(
+#         init='k-means++',
+#         n_clusters=int(math.sqrt(len(title_list))),
+#         n_init=10)
+#     clusters = kmeans.fit_predict(bol_mtx)
+#
+#     cluster_set = collections.Counter(clusters)
+#     print cluster_set
+#     clusters = [(title_list[idx], c) for idx, c in enumerate(clusters)]
+#     return clusters

@@ -20,6 +20,8 @@ def topic_remove_bracket(topic=""):
 
 def escape_slash(text):
     text = text.replace("/", "\/")
+    # TODO:: why did I not use the following line?:
+    # * => \* (not wanted)
     # text = re.escape(text)
     return text
 
@@ -35,9 +37,8 @@ def topic_regex(topic=""):
 
     # 1) Separate linked terms to tokens, like "Karush–Kuhn–Tucker conditions"
     # 2) remove symbols in the title
-    topic = re.sub(r"[-–_!@#\$%\^&\*\?:;/\\]+", ' ', topic, re.UNICODE)
+    topic = re.sub(r"[-–_`~!@#\$%\^&\*\?:;/\\\+]+", ' ', topic, re.UNICODE)
     # note '-' is ascii while '–' is not, though they look the same.
-
 
 
     topic_tokens = nltk.word_tokenize(topic)
@@ -61,13 +62,13 @@ def topic_regex(topic=""):
     return topic_reg
 
 
-def match_noun_phrase(sentence, topic, topic_aliases=None, verbose=True):
+def match_noun_phrase(sentence, topic, topic_aliases=None, verbose=False):
     #TODO:: add aliases
     return match_key_phrase(
         sentence, topic, phrase_type='NP', verbose=verbose)
 
 
-def match_verbal_phrase(sentence, topic, verbose=False):
+def match_verbal_phrase(sentence, topic, verbose=True):
     return match_key_phrase(
         sentence, topic, phrase_type='VP', verbose=verbose)
 
@@ -82,16 +83,17 @@ def match_key_phrase(sentence, topic, phrase_type='VP', verbose=False):
             print >> sys.stderr, "no parsed tree returned for extracting VP."
         return None, None
 
-    if verbose:
-        print >> sys.stderr, "parsed_sentence" + str(parsed_sentence)
+    # if verbose:
+    #     print >> sys.stderr, "parsed_sentence" + str(parsed_sentence)
 
     # matching  certain patterns that are suitable for question generation.
     topic = topic_remove_bracket(topic)
     # 1) Separate linked terms to tokens, like "Karush–Kuhn–Tucker conditions"
     # 2) remove symbols in the title
-    topic = re.sub(r"[-–_!@#\$%\^&\*\?:;/\\]+", ' ', topic, re.UNICODE)
+    topic = re.sub(r"[-–_`~!@#\$%\^&\*\?:;/\\\+]+", ' ', topic, re.UNICODE)
     # note '-' is ascii while '–' is not, though they look the same.
 
+    print 'debug topic:', topic
     topic = escape_slash(topic)
     topic_tokens = nltk.word_tokenize(topic)
 
@@ -159,6 +161,8 @@ def match_key_phrase(sentence, topic, phrase_type='VP', verbose=False):
         # default
         match_pattern = following_vp
 
+    if verbose:
+        print "Pattern:", match_pattern
     matched_positions = process_util.tgrep_positions(
         parsed_sentence,
         match_pattern)

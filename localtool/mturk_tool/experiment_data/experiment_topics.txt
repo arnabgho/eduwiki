@@ -2,22 +2,22 @@
 Machine Learning & Stats
 Artificial neural network
 Reinforcement Learning
-Random forest
+#Random forest
 Latent Dirichlet allocation
 Newton's method
-Convex function
+#Convex function
 Deep learning
-Moment-generating function
+#Moment-generating function
 Karush-Kuhn-Tucker conditions
 Gaussian process
 Word Embedding
 Recurrent Neural Network
-Machine Learning
+#Machine Learning
 Central Limit Theorem
 Statistical hypothesis testing
 Support Vector Machine
 Hidden Markov Model
-Dimensionality reduction
+#Dimensionality reduction
 Kalman filter
 Bayesian Optimization
 Baum–Welch algorithm
@@ -35,8 +35,8 @@ Pseudovector
 Ordinary differential equation
 Ellipse
 Conic section
-Parabola
-Power function
+#Parabola
+#Power function
 Euclidean space
 Trigonometric functions
 Law of sines

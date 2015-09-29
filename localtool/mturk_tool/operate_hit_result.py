@@ -65,4 +65,4 @@ if __name__ == "__main__":
     # for idx in range(0, 8):
     #     approve_hit(hit_id="3GVPRXWRPGTBPGDRA08S514GBRII7B", sandbox=False)
     for idx in range(0, 8):
-        approve_hit(hit_id="368IUKXGA47K22MQ4LTK8K5W2USP6U", sandbox=False)
+        approve_hit(hit_id="3NKW03WTLL63WT2BVGLD6JUJWY5QWY", sandbox=False)

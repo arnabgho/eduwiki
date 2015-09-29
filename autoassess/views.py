@@ -101,7 +101,7 @@ def quiz(request):
                 version=version,
                 force=True,
                 set_type=set_type)
-    except DisambiguationError, dis:
+    except DisambiguationError as dis:
         return disambiguation(request, dis)
 
     # display feedback answers for a single question
@@ -162,7 +162,7 @@ def quiz_list(request):
     return render(request, 'autoassess/quiz_list.html', response_data)
 
 
-def disambiguation(request, dis=[]):
+def disambiguation(request, dis=None):
     """
     The search term may not corresponds to multiple terms, ask the user
     to select the exact term
@@ -171,6 +171,7 @@ def disambiguation(request, dis=[]):
     :return: a page with multiple related terms returned by Wikipedia API
     """
     if not dis:
+        print >> sys.stderr, dis
         return redirect('index')
     pages = [{'title': option, 'text': description, 'link': link}
              for option, description, link in

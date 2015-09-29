@@ -1,7 +1,9 @@
 __author__ = 'moonkey'
 
 from autoassess.diagnose.prereqsearch.related_concept import \
-    most_mentioned_wikilinks, similarly_covered_topics
+    most_mentioned_wikilinks, \
+    similarly_covered_topics, \
+    two_way_ranked_wiki_links
 from autoassess.diagnose.util.wikipedia_util import WikipediaWrapper
 import codecs
 import sys
@@ -20,6 +22,7 @@ def test(filename, topic_max=200, start=0, sim_method=most_mentioned_wikilinks):
                 print "Cat:" + t
                 continue
 
+            t = t.strip('#')
             t = t.strip('\n')
             if t.replace(" ", "") != "":
                 topics.append(t)
@@ -37,7 +40,7 @@ def test(filename, topic_max=200, start=0, sim_method=most_mentioned_wikilinks):
             related_list.append((t, candidate_topics[:10]))
             print "Finding related topics for:", t, candidate_topics[:10]
         except Exception as e:
-            print >> sys.stderr, e, t
+            print >> sys.stderr, "Cannot find related topics", e, t
     output_file = codecs.open("related_topics.csv", 'w', encoding='utf-8')
     for rc in related_list:
         try:
@@ -56,6 +59,11 @@ if __name__ == "__main__":
     from mongoengine import connect
 
     connect('eduwiki_db', host='localhost')
-    test("../mturk_tool/experiment_data/quiz_topics.txt",
-         topic_max=200, start=0,
-         sim_method=most_mentioned_wikilinks)
+    test(
+        "../mturk_tool/experiment_data/done_topic.txt",
+        # "../mturk_tool/experiment_data/experiment_topics.txt",
+         topic_max=30, start=0,
+         # sim_method=most_mentioned_wikilinks,
+         # sim_method=similarly_covered_topics,
+         sim_method=two_way_ranked_wiki_links,
+    )

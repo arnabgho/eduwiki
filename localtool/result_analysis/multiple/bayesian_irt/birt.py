@@ -65,7 +65,7 @@ def bayesian_irt(correctness_data, theta_true=None):
     return a, b, theta
 
 
-def plot_theta_trace(theta, stepsize=20):
+def plot_theta_trace(theta, stepsize=20, filename='', fig_title=''):
     """
     animated plot of theta values being sampled over time
     lines are thetas (dotted are original thetas used to generate),
@@ -77,38 +77,54 @@ def plot_theta_trace(theta, stepsize=20):
     plt.style.use('ggplot')
     trace = theta.trace()
     theta_mean = trace.mean(0)[0]
-    print 'theta_mean:', theta_mean
+    # print 'theta_mean:', theta_mean
 
     theta_stderr = np.sqrt(trace.var(0)[0])
-    print 'theta_stderr:', theta_stderr
+    # print 'theta_stderr:', theta_stderr
     x_labels = range(0, len(theta_mean.T))
 
-    for i in range(0, trace.shape[0], stepsize):
-        # trace = theta.trace()
-        sample = trace[i:i + stepsize, :, :].mean(0).T
+    if not filename:
+        for i in range(0, trace.shape[0], stepsize):
+            # trace = theta.trace()
+            sample = trace[i:i + stepsize, :, :].mean(0).T
 
-        # in case we're running the simulation in another thread,
-        # wait a bit for it to catch up
-        if sample[-3:, :].mean() == 0:
-            plt.pause(1)
-            continue
+            # in case we're running the simulation in another thread,
+            # wait a bit for it to catch up
+            if sample[-3:, :].mean() == 0:
+                plt.pause(1)
+                continue
 
-        plt.clf()
+            plt.clf()
 
+            plt.plot(theta_mean.T, "--")
+            plt.fill_between(x_labels,
+                             (theta_mean - theta_stderr).T,
+                             (theta_mean + theta_stderr).T,
+                             facecolor=(0.8, 0.8, 0.8), linewidth=0.0)
+            plt.plot(sample)
+            plt.title('Iteration ' + str(i))
+            plt.ylim((-3, 3))
+            plt.pause(0.01)
+        plt.show()
+    else:
         plt.plot(theta_mean.T, "--")
         plt.fill_between(x_labels,
                          (theta_mean - theta_stderr).T,
                          (theta_mean + theta_stderr).T,
                          facecolor=(0.8, 0.8, 0.8), linewidth=0.0)
-        plt.plot(sample)
-        plt.title('Iteration ' + str(i))
         plt.ylim((-3, 3))
-        plt.pause(0.01)
+        if not fig_title:
+            plt.title('Student Ability')
+        else:
+            plt.title('[Student Ability] ' + fig_title)
+        filename += '_theta.pdf'
+        plt.savefig(filename, bbox_inches='tight')
+    plt.close()
 
-    plt.show()
 
-
-def plot_sigmoid(item_params, filename='', fig_title=''):
+def plot_sigmoid(
+        item_params, filename='', fig_title='',
+        text_size=20):
     abilities_to_plot = np.arange(-3, 3, .01)
     items = item_params.keys()
     item_plots = {}
@@ -138,15 +154,18 @@ def plot_sigmoid(item_params, filename='', fig_title=''):
                  # color=colors[idx],
                  linestyle=line_styles[idx % len(line_styles)],
                  label=item)
-    plt.xlabel('Student Ability')
-    plt.ylabel('P(Answer Correctly)')
+    plt.xlabel('Student Ability', size=text_size, color='k')
+    plt.ylabel('P(Answer Correctly)', size=text_size, color='k')
     plt.ylim((0, 1))
     plt.xlim((-3, 3))
+    plt.legend(loc="lower center", bbox_to_anchor=(0.5, -1),
+               fancybox=True, shadow=True, ncol=2, prop={'size': text_size})
+    # plt.show()
     if not fig_title:
         plt.title('Two parameter IRT model')
     else:
-        plt.title(fig_title)
-    plt.legend(loc='best', prop={'size': 6})
+        plt.title(fig_title, size=text_size)
+    # plt.legend(loc='best', prop={'size': text_size})
     if not filename:
         plt.show()
     else:

@@ -46,7 +46,7 @@ def test_sentence_extraction():
     #         sentfile.write((sent[1]+"\n").encode("utf-8"))
 
     sentences = []
-    with open("../../../random/topics/../../../../random/topics/sentences.txt",
+    with open("../../../../random/topics/sentences.txt",
               "r") as sentfile:
         is_sent = True
         sent_tuple = [None, None]
@@ -63,8 +63,8 @@ def test_sentence_extraction():
     for idx, sent in enumerate(sentences):
         # if idx > 10:
         #     break
-        if sent[1] != 'Random forest':
-            continue
+        # if sent[1] != 'Random forest':
+        #     continue
         print "====================="
         print "Sentence:" + sent[0]
         question = quesgen_sentstruct.question_from_single_sentence(
@@ -109,7 +109,10 @@ def test_sentence_syntree():
     # "where Apache Hadoop does not support support vector machines, "
     # "no matter how long it is gonna take."
     return draw_sentence_syntree(
-        "Reinforcement learning is an area of machine learning inspired by behaviorist psychology, concerned with how software agents ought to take actions in an environment so as to maximize some notion of cumulative reward."
+        "Reinforcement learning is an area of machine learning inspired"
+        " by behaviorist psychology, concerned with how software agents ought "
+        "to take actions in an environment so as to maximize some notion of "
+        "cumulative reward."
     )
 
 
@@ -127,5 +130,5 @@ def draw_sentence_syntree(sentence):
 # TODO:: find the positions of the manually selected prereqs. (here)
 
 if __name__ == '__main__':
-    # test_sentence_extraction()
-    test_sentence_syntree()
+    test_sentence_extraction()
+    # test_sentence_syntree()
