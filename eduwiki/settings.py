@@ -51,6 +51,7 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'eduwiki.ProfileMiddleware.ProfileMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',

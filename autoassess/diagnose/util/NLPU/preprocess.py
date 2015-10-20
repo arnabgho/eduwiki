@@ -117,7 +117,7 @@ class ProcessUtil:
         blob = textblob.TextBlob(text, np_extractor=self.np_extractor)
         return blob.noun_phrases
 
-    def parsing(self, text, pre_chunk_nps=True, stanford_pos=False):
+    def parsing(self, text, pre_chunk_nps=False, stanford_pos=False):
         """
         :param pre_chunk_nps: this will not "machine learning"
         """
@@ -160,39 +160,19 @@ class ProcessUtil:
             else:
                 parsed = self.parser.parse(tokens).next()
 
-            # get the original noun phrases back
-            for leaf_idx in range(0, len(parsed.leaves())):
-                leaf_position = parsed.leaf_treeposition(leaf_idx)
-                parent_position = tuple(
-                    list(leaf_position)[:len(leaf_position) - 1])
+            if pre_chunk_nps:
+                # get the original noun phrases back
+                for leaf_idx in range(0, len(parsed.leaves())):
+                    leaf_position = parsed.leaf_treeposition(leaf_idx)
+                    parent_position = tuple(
+                        list(leaf_position)[:len(leaf_position) - 1])
 
-                new_node = parsed[leaf_position].replace("_", " ")
-                parsed[parent_position][0] = new_node
-                # more strict substitution rules
-                if parsed[leaf_position] in chunked_nps:
-                    parsed[parent_position][0] = chunked_nps[
-                        parsed[leaf_position]]
-
-                    # (Deprecated) Trying to recover the parser tree structure
-                    # Problematic code:
-                    # "an o_d_e" will be (NP (DT an) (NP (JJ o) (JJ d) (NN e)))
-                    # which was supposed to be
-                    # (NP (DT an) (JJ o) (JJ d) (NN e))
-                    # if '_' in parsed[leaf_position]:
-                    # word_list = parsed[leaf_position].split("_")
-                    # if len(word_list) == 1:
-                    # new_node = Tree.fromstring("(NN " + word_list[0] + ")")
-                    # parsed[parent_position][0] = new_node
-                    # else:
-                    # node_str = "(NP "
-                    # for idx in range(0, len(word_list) - 1):
-                    # node_str += "(JJ " + word_list[idx] + ")"
-                    # node_str += "(" + parsed[parent_position].label() + \
-                    # " " + word_list[-1] + ")"
-                    # node_str += ")"
-                    # new_node = Tree.fromstring(node_str)
-                    #         parsed[parent_position] = new_node
-                    #         Tree.insert()
+                    new_node = parsed[leaf_position].replace("_", " ")
+                    parsed[parent_position][0] = new_node
+                    # more strict substitution rules
+                    if parsed[leaf_position] in chunked_nps:
+                        parsed[parent_position][0] = chunked_nps[
+                            parsed[leaf_position]]
 
         except Exception, err:
             print >> sys.stderr, str(err)

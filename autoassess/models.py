@@ -129,6 +129,17 @@ class QuestionSet(Document):
     def __unicode__(self):
         return unicode(self.__str__())
 
+    @property
+    def note(self):
+        quiz_note = ''
+        if self.version == -1.0:
+            quiz_note = 'Expert-Questimator Mixture'
+        elif self.version == -1.1:
+            quiz_note = 'Expert1 - Expert2 Mixture'
+        elif self.version > 0:
+            quiz_note = 'Questimator generated'
+        return quiz_note
+
 
 class QuizAnswers(Document):
     """

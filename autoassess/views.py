@@ -157,7 +157,9 @@ def quiz_list(request):
         request_data = request.POST
     response_data = {}
 
-    quizzes = QuestionSet.objects({})
+    quizzes = [q for q in QuestionSet.objects(version__gte=0.25)]
+    quizzes += [q for q in QuestionSet.objects(version__lte=-1.0)]
+    # print type(quizzes[0])
     response_data['quizzes'] = quizzes
     return render(request, 'autoassess/quiz_list.html', response_data)
 
