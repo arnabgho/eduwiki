@@ -3,4 +3,4 @@
 cd /home/django/eduwiki
 git pull
 python manage.py collectstatic
-service gunicorn restartgit p
+service gunicorn restart
