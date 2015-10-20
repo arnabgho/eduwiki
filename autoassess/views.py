@@ -7,6 +7,7 @@ from answer_db import *
 from diagnose.util.wikipedia_util import WikipediaWrapper
 from diagnose.version_list import *
 from answer_analysis import answer_stat
+from visitorlog import log_visitor_ip
 
 
 def index(request):
@@ -18,6 +19,7 @@ def search_page(request):
     A search box, directed to /quiz/ page with the search term
     """
     context_dict = {}
+    log_visitor_ip(request)
     return render(request, 'autoassess/index.html', context_dict)
 
 
@@ -26,6 +28,7 @@ def quiz(request):
     The intro view\n
     Requires Input: a search term in request.GET["q"].
     """
+    log_visitor_ip(request)
 
     request_data = {}
     if request.method == 'GET':
@@ -150,6 +153,7 @@ def quiz(request):
 
 
 def quiz_list(request):
+    log_visitor_ip(request)
     request_data = {}
     if request.method == 'GET':
         request_data = request.GET
@@ -189,6 +193,7 @@ def learn(request):
     :param request:
     :return:
     """
+    log_visitor_ip(request)
 
     response_data = {}
     response_data['topics'] = []

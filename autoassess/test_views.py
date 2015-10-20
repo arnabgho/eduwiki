@@ -8,9 +8,11 @@ from django.views.decorators.clickjacking import xframe_options_exempt
 from question_db import *
 import json
 import answer_db
+from visitorlog import log_visitor_ip
 
 from diagnose.version_list import *
 import string
+
 
 @xframe_options_exempt
 def consent_form(request):
@@ -24,6 +26,7 @@ def consent_form(request):
 
     return render(request, 'test_pages/consent_form.html', response_data)
 
+
 @xframe_options_exempt
 def single_question(request):
     """
@@ -36,6 +39,7 @@ def single_question(request):
     ======= Question form ========
     GET
     """
+    log_visitor_ip(request)
     request_data = {}
     if request.method == 'GET':
         request_data = request.GET
@@ -180,6 +184,8 @@ def multiple_questions(request):
     :param request:
     :return:
     """
+    log_visitor_ip(request)
+
     request_data = {}
     if request.method == 'GET':
         request_data = request.GET
