@@ -8,6 +8,7 @@ class VisitorLog(Document):
     ip = StringField(required=True)
     ip_real = BooleanField(required=True)
     path = StringField(required=True)
+    time = DateTimeField(required=True, default=datetime.datetime.now())
 
 
 def log_visitor_ip(request):
@@ -22,7 +23,8 @@ def log_visitor_ip(request):
             return
 
         path = request.path
-        vl = VisitorLog(ip=ip, ip_real=ip_real, path=path)
+        vl = VisitorLog(
+            ip=ip, ip_real=ip_real, path=path, time=datetime.datetime.now())
         vl.save()
         return True
     except Exception:
