@@ -2,13 +2,14 @@ __author__ = 'moonkey'
 
 from ipware.ip import get_real_ip, get_ip
 from mongoengine import *
+from datetime import datetime
 
 
 class VisitorLog(Document):
     ip = StringField(required=True)
     ip_real = BooleanField(required=True)
     path = StringField(required=True)
-    time = DateTimeField(required=True, default=datetime.datetime.now())
+    time = DateTimeField(required=True, default=datetime.now())
 
 
 def log_visitor_ip(request):
@@ -24,7 +25,7 @@ def log_visitor_ip(request):
 
         path = request.path
         vl = VisitorLog(
-            ip=ip, ip_real=ip_real, path=path, time=datetime.datetime.now())
+            ip=ip, ip_real=ip_real, path=path, time=datetime.now())
         vl.save()
         return True
     except Exception:
