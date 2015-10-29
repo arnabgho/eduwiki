@@ -14,14 +14,15 @@ import nltk
 from collections import OrderedDict, defaultdict
 from scipy.linalg import norm
 from nltk.tokenize import word_tokenize
+from autoassess.local_conf import *
 
 profile = False
 
 #-----------------------------------------------------------------------------#
 # Specify model and table locations here
 #-----------------------------------------------------------------------------#
-path_to_models = '/opt/skip-thought/'
-path_to_tables = '/opt/skip-thought/'
+path_to_models = skip_thought_models_dir
+path_to_tables = skip_thought_models_dir
 #-----------------------------------------------------------------------------#
 
 path_to_umodel = path_to_models + 'uni_skip.npz'
@@ -146,7 +147,7 @@ def encode(model, X, use_norm=True, verbose=True, batch_size=128, use_eos=False)
             for ind, c in enumerate(caps):
                 ufeatures[c] = uff[ind]
                 bfeatures[c] = bff[ind]
-    
+
     features = numpy.c_[ufeatures, bfeatures]
     return features
 
@@ -236,7 +237,8 @@ def load_params(path, params):
     pp = numpy.load(path)
     for kk, vv in params.iteritems():
         if kk not in pp:
-            warnings.warn('%s is not in the archive'%kk)
+            # warnings.warn('%s is not in the archive'%kk)
+            print '%s is not in the archive' % kk
             continue
         params[kk] = pp[kk]
     return params

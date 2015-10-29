@@ -2,7 +2,7 @@ beautifulsoup4>=4.3.2
 bokeh>=0.9.1
 boto>=2.38.0
 Cython>=0.22.1
-Django>=1.7.3
+Django==1.8.4
 django-etc>=0.7.0
 django-gravatar2>=1.1.4
 django-http-proxy>=0.4
@@ -18,7 +18,7 @@ gunicorn>=19.3.0
 httplib2>=0.9
 ipython>=3.1.0
 matplotlib>=1.4.3
-mongoengine==0.9.0
+mongoengine>=0.9.0
 networkx>=1.9.1
 nltk>=3.0.2
 nltk-tgrep>=1.0.6
@@ -27,7 +27,7 @@ oauth2client>=1.3.1
 Pattern>=2.6
 pylab>=0.1.3
 pymc>=2.3.4
-pymongo>=2.8.1
+pymongo==2.8
 python-memcached>=1.53
 requests>=2.4.3
 scikit-learn>=0.15.2

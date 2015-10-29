@@ -8,6 +8,7 @@ from diagnose.util.wikipedia_util import WikipediaWrapper
 from diagnose.version_list import *
 from answer_analysis import answer_stat
 from visitorlog import log_visitor_ip
+from error_db import save_error
 
 
 def index(request):
@@ -94,6 +95,7 @@ def quiz(request):
                     print "Failed to load question for", search_term, e
 
         if not questions:
+            # try:
             questions = diagnose.diagnose(
                 search_term,
                 generate_prereq_question=generate_prereq_question,
@@ -104,10 +106,14 @@ def quiz(request):
                 version=version,
                 force=True,
                 set_type=set_type)
+            # except Exception as e:
+            #     save_error(search_term, e)
+            #     raise e
     except DisambiguationError as dis:
         return disambiguation(request, dis)
 
     # display feedback answers for a single question
+    # 'qfb' = question feedback
     if 'qfb' in request_data and bool(request_data['qfb']):
         all_answers = []
         for ques in questions:

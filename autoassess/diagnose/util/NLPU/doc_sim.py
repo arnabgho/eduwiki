@@ -7,6 +7,7 @@ import time
 from sklearn.metrics.pairwise import cosine_similarity
 from autoassess.diagnose.util.quesgen_util import topic_remove_bracket
 from autoassess.diagnose.util.stvectors import skipthoughts
+from autoassess.local_conf import *
 
 import numpy as np
 import math
@@ -18,10 +19,10 @@ SKIP_THOUGHT_MODEL = None
 
 
 def load_word2vec(
-        # model_filename="/opt/word2vec/GoogleNews-vectors-negative300.bin.gz",
+        # model_filename=word2vec_model_dir + "GoogleNews-vectors-negative300.bin.gz",
         # model_type="c_word2vec",
         # compact_name="google300",
-        model_filename="/opt/word2vec/en_1000_no_stem/en.model",
+        model_filename=word2vec_model_dir + 'en_1000_no_stem/en.model',
         model_type="gensim",
         compact_name="wiki1000"
 ):

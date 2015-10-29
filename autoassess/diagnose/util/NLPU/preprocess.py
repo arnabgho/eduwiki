@@ -10,6 +10,7 @@ import nltk.parse.stanford
 import nltk.tag.stanford
 import string
 import itertools
+from autoassess.local_conf import *
 
 __author__ = 'moonkey'
 
@@ -17,14 +18,14 @@ __author__ = 'moonkey'
 def load_stanford_parser():
     print >> sys.stderr, "loading stanford_parser"
 
-    stanford_parser_path = '/opt/stanford-parser/stanford-parser.jar'
+    stanford_parser_path = stanford_parser_dir + 'stanford-parser.jar'
     env_stanford_parser = os.environ.get('STANFORD_PARSER', "")
     if stanford_parser_path not in env_stanford_parser:
         os.environ['STANFORD_PARSER'] = \
             stanford_parser_path  # + ";" + env_stanford_parser
 
     stanford_model_path = \
-        '/opt/stanford-parser/stanford-parser-3.5.2-models.jar'
+        stanford_parser_dir + 'stanford-parser-3.5.2-models.jar'
     env_stanford_model = os.environ.get('STANFORD_MODELS', "")
     if stanford_model_path not in env_stanford_model:
         os.environ['STANFORD_MODELS'] = \
@@ -39,9 +40,9 @@ def load_stanford_parser():
 def load_stanford_pos_tagger():
     print >> sys.stderr, "loading stanford pos tagger"
     try:
-        path_to_model = \
-            '/opt/stanford-postagger/models/english-bidirectional-distsim.tagger'
-        path_to_jar = '/opt/stanford-postagger/stanford-postagger.jar'
+        path_to_model = stanford_postagger_dir \
+                        + 'models/english-bidirectional-distsim.tagger'
+        path_to_jar = stanford_postagger_dir + 'stanford-postagger.jar'
         tagger = nltk.tag.stanford.POSTagger(
             path_to_model=path_to_model, path_to_jar=path_to_jar)
         return tagger
@@ -55,8 +56,8 @@ def load_stanford_ner_tagger():
     print >> sys.stderr, "loading stanford NER tagger"
     try:
         path_to_model = \
-            '/opt/stanford-ner/classifiers/all.3class.distsim.crf.ser.gz'
-        path_to_jar = '/opt/stanford-ner/stanford-ner.jar'
+            stanford_ner_dir + 'classifiers/all.3class.distsim.crf.ser.gz'
+        path_to_jar = stanford_ner_dir + 'stanford-ner.jar'
         tagger = nltk.tag.stanford.NERTagger(
             path_to_model=path_to_model, path_to_jar=path_to_jar)
         return tagger
@@ -186,7 +187,7 @@ class ProcessUtil:
             sent_tree = nltk.tree.ParentedTree.convert(sent_tree)
         matched_positions = nltk_tgrep.tgrep_positions(sent_tree, match_pattern)
 
-        # TODO:: insepct other functions, is there a result like
+        # TODO:: inspect other functions, is there a result like
         # in regex where each parts are separated?
         return matched_positions
 
