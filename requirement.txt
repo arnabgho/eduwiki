@@ -32,3 +32,6 @@ python-memcached>=1.53
 requests>=2.4.3
 scikit-learn>=0.15.2
 textblob>=0.9.1
+theano==0.7.0
+statsmodels==0.6.1
+django-ipware==1.1.1
