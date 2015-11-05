@@ -1,21 +1,35 @@
 {% extends 'base.html' %}
+{% block css_block %}
+    {% load static %}
+    <link href="{% static 'autoassess/css/disambigution.css' %}"
+          rel="stylesheet">
+{% endblock %}
 
 {% block body_block %}
 <div class="container">
-	<div class="row">
-		<div class="page-header">
-		  <h1>Sorry, there are a few things with that name.<br> <small>&nbsp;&nbsp;&nbsp;&nbsp;Did you mean:</small></h1>
-		</div>
-	</div>
-	<div class="row">
-		<dl class="dl-horizontal">
-		{% for page in pages %}
-			<dt>
-			<a href="/autoassess/quiz/?q={{ page.link }}">{{ page.title }}</a>
-			</dt>
-			<dd>{{ page.text }}</dd>
-		{% endfor %}
-		</dl>
-	</div>
+    <div class="row">
+        <div class="row">
+            <h2>
+                {{ search_term }} <small>may refer to:</small>
+{#                <small>(Sorry, there are a few things with that name.)</small>#}
+            </h2>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table table-responsive table-striped table-condensed col-lg-10">
+            <tr class="success">
+            <th>Title</th>
+            <th>Description</th>
+            </tr>
+            {% for page in pages %}
+            <tr>
+                <td>
+                    <a href="{% url 'quiz' %}?q={{ page.link }}">{{ page.title }}</a>
+                </td>
+                <td>{{ page.text }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
 </div>
 {% endblock %}

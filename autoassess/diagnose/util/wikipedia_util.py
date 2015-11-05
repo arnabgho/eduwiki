@@ -40,7 +40,6 @@ class WikipediaWrapper:
                     suggestion=True)
                 suggested_term = suggestion or results[0]
                 page = WikipediaArticle.objects(title=suggested_term)
-
         if page:
             page = page[0]
         else:

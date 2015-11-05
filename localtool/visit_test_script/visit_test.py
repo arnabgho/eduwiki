@@ -2,6 +2,7 @@ __author__ = 'moonkey'
 
 import requests
 import codecs
+import time
 
 
 def visit_eduwiki_link(version, local=True,
@@ -35,6 +36,12 @@ def visit_eduwiki_link(version, local=True,
         dn = "https://crowdtutor.info"
 
     print "version:", version
+
+    success_time = 0
+    fail_time = 0
+    success_count = 0
+    fail_count = 0
+
     for idx, t in enumerate(topics):
         if idx < start:
             continue
@@ -44,12 +51,20 @@ def visit_eduwiki_link(version, local=True,
         link = dn + "/autoassess/quiz/?q=" + temp + \
                "&v=" + str(version) \
                + "&pre=T"
-               # + "&f=T"
+        # + "&f=T"
+        start = time.time()
         r = requests.get(link)
+        end = time.time()
         if r:
-            print idx, "good_link"
+            print idx, "good_link", end - start
+            success_count += 1
+            success_time += end - start
         else:
             print idx, "bad_link >>>>>>>>>>>>>>>>>>>>>>>>>"
+            fail_count += 1
+            fail_time += end - start
+        print success_count, fail_count, \
+            success_time / success_count, fail_time / fail_count
 
 
 def print_eduwiki_links(version, local=True,
@@ -112,7 +127,7 @@ if __name__ == "__main__":
         filename=visit_topic_file)
     #
     # print_eduwiki_links(
-    #     version=-1.0, local=False,
+    # version=-1.0, local=False,
     #     start=0, topic_max=100,
     #     filename=visit_topic_file)
 

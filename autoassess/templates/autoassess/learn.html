@@ -3,6 +3,17 @@
 {% block body_block %}
     <div class="container">
         <div class="row">
+            {% for question in right_answers %}
+                <h4>{{ question.question_text }}</h4>
+                <p><strong>Right Answer:</strong>{{ question.right_answer }}</p>
+                {% if question.learner_answer %}
+                <p><strong>Your Answer:</strong>{{ question.learner_answer }}</p>
+                {% else %}
+                    <p><strong>Your Answer:</strong>CORRECT</p>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="row">
             {% for topic in topics %}
                 {% if topic.is_main_topic %}
                     <h2>{{ topic.title }}</h2>

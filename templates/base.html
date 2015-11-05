@@ -12,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'main.css' %}" rel="stylesheet">
+    {% block css_block %}{% endblock %}
 </head>
 <body>
 <nav class="navbar navbar-default" role="navigation">
@@ -54,5 +55,6 @@
 
 <script src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
+{% block js_block %}{% endblock %}
 </body>
 </html>

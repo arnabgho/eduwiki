@@ -107,8 +107,8 @@ def quiz(request):
                 force=True,
                 set_type=set_type)
             # except Exception as e:
-            #     save_error(search_term, e)
-            #     raise e
+            # save_error(search_term, e)
+            # raise e
     except DisambiguationError as dis:
         return disambiguation(request, dis)
 
@@ -182,14 +182,22 @@ def disambiguation(request, dis=None):
     :param dis: the object of the DisambiguationError
     :return: a page with multiple related terms returned by Wikipedia API
     """
+    request_data = {}
+    if request.method == 'GET':
+        request_data = request.GET
+    elif request.method == 'POST':
+        request_data = request.POST
+
+    search_term = request_data['q']
     if not dis:
         print >> sys.stderr, dis
         return redirect('index')
+    # pages = [{'title': option, 'link': option} for option in dis.options]
     pages = [{'title': option, 'text': description, 'link': link}
              for option, description, link in
              zip(dis.options, dis.descriptions, dis.links)]
-    context_dict = {'pages': pages}
-    return render(request, 'autoassess/disambiguation.html', context_dict)
+    response_data = {'pages': pages, 'search_term': search_term}
+    return render(request, 'autoassess/disambiguation.html', response_data)
 
 
 def learn(request):
@@ -200,31 +208,59 @@ def learn(request):
     :return:
     """
     log_visitor_ip(request)
-
+    request_data = {}
+    if request.method == 'GET':
+        request_data = request.GET
+    elif request.method == 'POST':
+        request_data = request.POST
     response_data = {}
+
+
+    # ###############################
+    # ### Answer Display Part
+    # ###############################
+    response_data['right_answers'] = []
+    for ques_id in request_data:
+        if ques_id == 'main_topic':
+            continue
+        try:
+            question = WikiQuestion.objects(id=ques_id)[0]
+            question_with_answer = {}
+            question_with_answer['question_text'] = question.question_text
+            question_with_answer['right_answer'] = question.choices[
+                question.correct_answer]
+            if question.correct_answer != int(request_data[ques_id]):
+                question_with_answer['learner_answer'] = question.choices[
+                    int(request_data[ques_id])]
+            response_data['right_answers'].append(question_with_answer)
+        except:
+            continue
+
+    ################################
+    #### Topic Learning Part
+    ################################
     response_data['topics'] = []
 
-    user_answers = request.GET
-    if 'main_topic' in user_answers:
-        main_topic = user_answers['main_topic']
+    if 'main_topic' in request_data:
+        main_topic = request_data['main_topic']
         response_data['topics'].append({
             'title': main_topic,
             'wikipage': WikipediaWrapper.page(main_topic),
             # in the template a summary section is used
             'is_main_topic': True
         })
-        # user_answers.pop('main_topic')
+        # request_data.pop('main_topic')
     else:
         main_topic = None
 
     topics_to_learn = []
     # get a list of which questions had correct responses
-    for ques_id in user_answers:
+    for ques_id in request_data:
         if ques_id == 'main_topic':
             continue
         try:
             if not check_answer_correctness(question_id=ques_id,
-                                            ans=user_answers[ques_id]):
+                                            ans=request_data[ques_id]):
                 topic = WikiQuestion.objects(id=ques_id)[0].topic
                 if topic.lower() == main_topic.lower():
                     continue
@@ -233,7 +269,7 @@ def learn(request):
         except:
             continue
 
-            # if user_answers[ques_id] == 'False' \
+            # if request_data[ques_id] == 'False' \
             # and ques_id.lower() != main_topic.lower():
             # topics_to_learn.append(ques_id)
 
@@ -243,7 +279,6 @@ def learn(request):
                 'title': topic,
                 'wikipage': WikipediaWrapper.page(topic)
             })
-    print topics_to_learn
     print response_data
     return render(request, 'autoassess/learn.html', response_data)
 
