@@ -6,7 +6,7 @@ import time
 
 
 def visit_eduwiki_link(version, local=True,
-                       topic_max=200, start=0,
+                       topic_max=200, topic_start=0,
                        filename="../../../random/topics/topic.txt"):
     topics = []
     with open(filename, "rU") as topic_file:
@@ -43,7 +43,7 @@ def visit_eduwiki_link(version, local=True,
     fail_count = 0
 
     for idx, t in enumerate(topics):
-        if idx < start:
+        if idx < topic_start:
             continue
         print "visiting topic:" + t
         temp = t.replace(' ', '+')
@@ -63,8 +63,12 @@ def visit_eduwiki_link(version, local=True,
             print idx, "bad_link >>>>>>>>>>>>>>>>>>>>>>>>>"
             fail_count += 1
             fail_time += end - start
-        print success_count, fail_count, \
-            success_time / success_count, fail_time / fail_count
+            with codecs.open('./failures/'+t+'.html', 'w', encoding='utf-8') as fail_html_file:
+                fail_html_file.write(r.text)
+        if success_count:
+            print 'SUCCESS:', success_count, success_time / success_count
+        if fail_count:
+            print 'FAIL:', fail_count, fail_time / fail_count
 
 
 def print_eduwiki_links(version, local=True,
@@ -122,13 +126,13 @@ if __name__ == "__main__":
     visit_topic_file = "./featured_articles.txt"
 
     visit_eduwiki_link(
-        version=0.25, local=True,  # local always True if db synced
-        start=400, topic_max=500,
+        version=0.25, local=False,  # local always True if db synced
+        topic_start=400, topic_max=500,
         filename=visit_topic_file)
     #
     # print_eduwiki_links(
     # version=-1.0, local=False,
-    #     start=0, topic_max=100,
+    # start=0, topic_max=100,
     #     filename=visit_topic_file)
 
     # visit_eduwiki_link(
