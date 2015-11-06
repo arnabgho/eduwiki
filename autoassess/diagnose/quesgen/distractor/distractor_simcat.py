@@ -28,7 +28,7 @@ def generate_distractors_simcat(wikipage, tenses=[], max_num=3, try_max_num=4):
             for sentence in sentences:
                 try_num += 1
                 if try_num > try_max_num:
-                    break # give up this page
+                    break  # give up this page
                 distractor = distractor_from_single_sentence(
                     sentence, sim_page.title, tenses,
                     original_topic=wikipage.title)
@@ -42,7 +42,7 @@ def generate_distractors_simcat(wikipage, tenses=[], max_num=3, try_max_num=4):
         except Exception:
             # There might be page error,
             # or a distractor cannot be generated from the page.
-            #TODO::logging
+            # TODO::logging
             continue
     return distractors
 

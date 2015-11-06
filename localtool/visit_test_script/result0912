@@ -1,0 +1,151 @@
+/usr/bin/python /Users/moonkey/Dropbox/Research/question_generation/code/eduwiki/localtool/visit_test_script/visit_test.py
+Cat:IRT Topics
+
+Cat:Health Topics
+
+Cat:Economics Topics
+
+Cat:Earth Science Topics
+
+Cat:Psychology Topics
+
+Cat:Philosophy Topics
+
+visiting topic:Customer satisfaction
+0 good_link
+visiting topic:Artificial neural network
+1 good_link
+visiting topic:Positioning (marketing)
+2 good_link
+visiting topic:Marketing strategy
+3 good_link
+visiting topic:Vietnam War
+4 bad_link >>>>>>>>>>>>>>>>>>>>>>>>>
+visiting topic:American Civil War
+5 good_link
+visiting topic:Cancer
+6 bad_link >>>>>>>>>>>>>>>>>>>>>>>>>
+visiting topic:Breast Cancer
+7 good_link
+visiting topic:Methicillin-resistant Staphylococcus aureus
+8 bad_link >>>>>>>>>>>>>>>>>>>>>>>>>
+visiting topic:Schizophrenia
+9 bad_link >>>>>>>>>>>>>>>>>>>>>>>>>
+visiting topic:Stroke
+10 good_link
+visiting topic:Ankylosing spondylitis
+11 good_link
+visiting topic:Imperfect competition
+12 good_link
+visiting topic:Market structure
+13 good_link
+visiting topic:Competition (economics)
+14 good_link
+visiting topic:Perfect competition
+15 bad_link >>>>>>>>>>>>>>>>>>>>>>>>>
+visiting topic:Matter
+16 good_link
+visiting topic:Erosion
+17 bad_link >>>>>>>>>>>>>>>>>>>>>>>>>
+visiting topic:Erosion and tectonics
+18 good_link
+visiting topic:Earthquake
+19 good_link
+visiting topic:Oceanography
+20 good_link
+visiting topic:Solar System
+21 good_link
+visiting topic:Behavioral neuroscience
+22 good_link
+visiting topic:Motivation
+23 good_link
+visiting topic:Developmental psychology
+24 good_link
+visiting topic:Mental disorder
+25 bad_link >>>>>>>>>>>>>>>>>>>>>>>>>
+visiting topic:Logic
+26 good_link
+visiting topic:Philosophy of science
+27 good_link
+visiting topic:Metaphysics
+28 good_link
+visiting topic:Epistemology
+29 good_link
+visiting topic:Aesthetics
+30 good_link
+Cat:IRT Topics
+
+Cat:Health Topics
+
+Cat:Economics Topics
+
+Cat:Earth Science Topics
+
+Cat:Psychology Topics
+
+Cat:Philosophy Topics
+
+visiting topic:Customer satisfaction
+0 good_link
+visiting topic:Artificial neural network
+1 good_link
+visiting topic:Positioning (marketing)
+2 good_link
+visiting topic:Marketing strategy
+3 good_link
+visiting topic:Vietnam War
+4 good_link
+visiting topic:American Civil War
+5 good_link
+visiting topic:Cancer
+6 good_link
+visiting topic:Breast Cancer
+7 good_link
+visiting topic:Methicillin-resistant Staphylococcus aureus
+8 good_link
+visiting topic:Schizophrenia
+9 good_link
+visiting topic:Stroke
+10 bad_link >>>>>>>>>>>>>>>>>>>>>>>>>
+visiting topic:Ankylosing spondylitis
+11 good_link
+visiting topic:Imperfect competition
+12 good_link
+visiting topic:Market structure
+13 bad_link >>>>>>>>>>>>>>>>>>>>>>>>>
+visiting topic:Competition (economics)
+14 good_link
+visiting topic:Perfect competition
+15 good_link
+visiting topic:Matter
+16 good_link
+visiting topic:Erosion
+17 bad_link >>>>>>>>>>>>>>>>>>>>>>>>>
+visiting topic:Erosion and tectonics
+18 good_link
+visiting topic:Earthquake
+19 good_link
+visiting topic:Oceanography
+20 good_link
+visiting topic:Solar System
+21 good_link
+visiting topic:Behavioral neuroscience
+22 good_link
+visiting topic:Motivation
+23 good_link
+visiting topic:Developmental psychology
+24 good_link
+visiting topic:Mental disorder
+25 good_link
+visiting topic:Logic
+26 good_link
+visiting topic:Philosophy of science
+27 good_link
+visiting topic:Metaphysics
+28 good_link
+visiting topic:Epistemology
+29 good_link
+visiting topic:Aesthetics
+30 bad_link >>>>>>>>>>>>>>>>>>>>>>>>>
+
+Process finished with exit code 0
