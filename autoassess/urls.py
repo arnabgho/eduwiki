@@ -13,6 +13,7 @@ urlpatterns = patterns(
     '',
     url(r'^$', views.index, name='home'),
     url(r'^index/$', views.index, name='index'),
+    url(r'^search/$', views.search_page, name='search'),
     url(r'^quiz_gen/$', views.quiz, name='quiz'),
     url(r'^disambiguation/$', views.disambiguation, name='disambiguation'),
     url(r'^learn/$', views.learn, name='learn'),
