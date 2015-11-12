@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, Http404
 
 from diagnose.util.wikipedia import DisambiguationError
 from diagnose import diagnose
@@ -12,7 +12,8 @@ from error_db import save_error
 
 
 def index(request):
-    return search_page(request)
+    # return search_page(request)
+    return quiz_list(request)
 
 
 def search_page(request):
@@ -156,6 +157,7 @@ def quiz(request):
     response_data['search_term'] = search_term
 
     return render(request, 'autoassess/quiz.html', response_data)
+
 
 
 def quiz_list(request):

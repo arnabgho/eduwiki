@@ -3,8 +3,9 @@
 {% block body_block %}
     <div class="container">
         <div class="row">
-            <h1> Reference Answers </h1>
+            <h2 class="text-success"> Reference Answers </h2>
             {% for question in right_answers %}
+
                 <h4>{{ question.question_text }}</h4>
                 <p><strong>Right Answer: </strong>{{ question.right_answer }}
                 </p>
@@ -25,12 +26,12 @@
             {% endfor %}
         </div>
         <div class="row">
-            <h1> Start Learning !</h1>
+            <h2 class="text-info"> Start Learning !</h2>
             {% for topic in topics %}
                 {% if topic.is_main_topic %}
-                    <h2>{{ topic.title }}</h2>
-                {% else %}
                     <h3>{{ topic.title }}</h3>
+                {% else %}
+                    <h4>{{ topic.title }}</h4>
                 {% endif %}
                 <p>
                     {{ topic.wikipage.summary }}

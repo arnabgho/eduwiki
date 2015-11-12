@@ -29,8 +29,17 @@ $(document).ready(function () {
 
         var question_radio = 'question_answer_' + current_question;
         var question_comment = 'comment_' + current_question;
+        var comment_validated = false;
+        if ($('#'+question_comment)[0] == undefined){
+            comment_validated = true;
+        }else{
+            if($('#'+question_comment)[0].checkValidity()){
+                comment_validated = true;
+            }
+        }
         if (!$('#'+question_radio)[0].checkValidity() ||
-            !$('#'+question_comment)[0].checkValidity()){
+            !(comment_validated)
+            ){
             quiz_submit_button.click();
             return false;
         }

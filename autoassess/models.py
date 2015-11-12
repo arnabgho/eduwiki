@@ -170,3 +170,15 @@ class QuizAnswers(Document):
 
     def __unicode__(self):
         return unicode(self.__str__())
+
+
+class QuestionRequest(Document):
+    search_term = StringField(required=True)
+    request_time = StringField(required=True)
+    request_email = EmailField()
+
+
+class FeedbackMessage(Document):
+    nickname = StringField(default='Anonymous')
+    email = EmailField()
+    feedback = StringField()

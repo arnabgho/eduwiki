@@ -123,11 +123,12 @@ if __name__ == "__main__":
     # visit_topic_file = "../mturk_tool/experiment_data/quiz_topics.txt"
     # visit_topic_file = "../mturk_tool/experiment_data/done_topics.txt"
     # visit_topic_file = "./1000topics.txt"
-    visit_topic_file = "./featured_articles.txt"
+    # visit_topic_file = "./featured_articles.txt"
+    visit_topic_file = "./ran.txt"
 
     visit_eduwiki_link(
         version=0.25, local=False,  # local always True if db synced
-        topic_start=400, topic_max=500,
+        topic_start=0, topic_max=500,
         filename=visit_topic_file)
     #
     # print_eduwiki_links(

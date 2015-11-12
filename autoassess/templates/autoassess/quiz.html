@@ -20,7 +20,7 @@
                 {#            <div class="col-sm-10 col-sm-offset-1">#}
 
 
-                <form role="quiz" action="/autoassess/learn/" method="get">
+                <form role="quiz" action="{% url 'learn' %}" method="get">
                     <input name="main_topic" value="{{ search_term }}"
                            hidden="hidden">
                     {% for question in quiz %}

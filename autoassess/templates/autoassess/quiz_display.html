@@ -1,0 +1,271 @@
+{% extends 'base.html' %}
+
+
+{#<html>#}
+{#<head>#}
+{#    <title>#}
+{#        Questimator - {{ search_term  }}#}
+{#    </title>#}
+{#    <meta charset="utf-8">#}
+{#    <meta http-equiv="X-UA-Compatible" content="IE=edge">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1">#}
+{#    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">#}
+{#    <link href="{% static 'main.css' %}" rel="stylesheet">#}
+{#    <link href="{% static 'autoassess/css/star-rating.min.css' %}" media="all"#}
+{#          rel="stylesheet" type="text/css">#}
+{#</head>#}
+{#<body>#}
+
+{% block title_block %}
+        <title>[{{ search_term }}] Questimator - How much do you know about {{ search_term }} ?</title>
+{% endblock %}
+{% block css_block %}
+{% endblock %}
+{% block body_block %}
+    {% load static %}
+    <div class="row" id="question_area">
+
+    <div class="col-sm-10 col-sm-offset-1">
+    {% if assignmentId %}
+        {% ifequal assignmentId "ASSIGNMENT_ID_NOT_AVAILABLE" %}
+            <h2 class="text-danger text-center">
+                Please accept the HIT before you start to answer and submit.
+            </h2>
+        {% else %}
+            <h2 class="text-info text-center">{{ search_term }}</h2>
+        {% endifequal %}
+    {% else %}
+        <h2 class="text-danger text-center">
+            Please accept the HIT before you start to answer and submit.
+        </h2>
+    {% endif %}
+
+
+{#    <div class="text-center">#}
+{#        {% if assignmentId %}#}
+{#            {% ifequal assignmentId "ASSIGNMENT_ID_NOT_AVAILABLE" %}#}
+{#                <div class="btn btn-primary">#}
+{#                            <span class="glyphicon glyphicon-file"#}
+{#                                  aria-hidden="true"></span>#}
+{#                    Preview Mode#}
+{#                </div>#}
+{#            {% else %}#}
+{#                <div class="btn btn-primary">#}
+{#                            <span class="glyphicon glyphicon-user"#}
+{#                                  aria-hidden="true"></span>#}
+{#                    Assigned Id = {{ workerId }}#}
+{#                </div>#}
+{#            {% endifequal %}#}
+{#        {% endif %}#}
+{#    </div>#}
+    <div class="text-center">
+        <span class='st_sharethis_large' displayText='ShareThis'></span>
+        <span class='st_facebook_large' displayText='Facebook'></span>
+        <span class='st_twitter_large' displayText='Tweet'></span>
+        <span class='st_linkedin_large' displayText='LinkedIn'></span>
+        <span class='st_email_large' displayText='Email'></span>
+    </div>
+    <div id="pre_quiz_area"
+         class="alert alert-info alert-dismissable text-center">
+        <b>
+            These questions are automatically generated
+            by machine learning algorithms using Wikipedia articles.<br>
+            See if you can beat AI on {{ search_term }}!
+            Your response will help us making learning experience better!
+        </b>
+        <br>
+    </div>
+
+    <form role="form" action="{% url 'quiz_check' %}"
+          method="post"
+          eduwiki_action="{% url 'multiple_questions_submit' %}"
+          eduwiki_update_action="{% url 'multiple_questions_single_update' %}"
+          name="question_answer_form" id="question_answer_form">
+        {#        <form role="form" action="{% url 'single_question_submit' %}" method="get">#}
+        {% csrf_token %}
+        {#        Meta Information about the HIT #}
+        <input name="assignmentId" value="{{ assignmentId }}"
+               hidden="hidden">
+        <input name="hitId" value="{{ hitId }}" hidden="hidden">
+        <input name="workerId" value="{{ workerId }}" hidden="hidden">
+        <input name="turkSubmitTo" value="{{ turkSubmitTo }}"
+               hidden="hidden">
+        <input name="main_topic" value="{{ search_term }}" hidden="hidden">
+        <input name="quiz_id" value="{{ quiz_id }}" hidden="hidden">
+
+        {#        Questions for the HIT #}
+        <div id="quiz_and_submission_area">
+            <div id="quiz_area">
+                <div class="h3">
+                    <b>
+                        {#                <span class="text-warning">#}
+                        {#                    Choose the best answer(s) for the following {{ quiz | length }} question(s).#}
+                        {#                </span>#}
+                    </b>
+                </div>
+                {% for question in quiz %}
+                    <input name="choice_order_{{ question.id }}"
+                           id="choice_order_{{ question.id }}"
+                           value="{{ question.choice_order }}" hidden="">
+                    <div class="panel panel-default"
+                         id="question_panel_{{ question.id }}">
+                        <div class="panel-heading">
+                            <b><span class="text-info">
+                        Counter:{{ forloop.counter }}/{{ quiz | length }} questions
+                    </span></b>
+                            <h4>{{ question.question_text | safe }}
+                            </h4>
+                        </div>
+                        <table class="table">
+                            {% for answer in question.choices %}
+                                <tr>
+                                    <td>
+                                        {# <input type="radio" name="{{ question.topic }}" value="{{ answer.correct }}"> #}
+                                        <input type="radio"
+                                               name="question_answer_{{ question.id }}"
+                                               id="question_answer_{{ question.id }}"
+                                               value="{{ answer.idx }}"
+                                                {#                                           required=""#}
+                                                >
+                                        <span class="text-success"><b>({{ forloop.counter }}) </b></span>
+                                        {{ answer.text | safe }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            {#                        <tr>#}
+                            {#                            <td>#}
+                            {#                                <div class="form-group">#}
+                            {#                                    <label for="comment_{{ question.id }}">#}
+                            {#                                        Please explain your reason (15#}
+                            {#                                        characters minimum, please avoid#}
+                            {#                                        answers like "I do not know.")#}
+                            {#                                    </label>#}
+                            {#                                    <input#}
+                            {#                                            type="text"#}
+                            {#                                            name="comment_{{ question.id }}"#}
+                            {#                                            class="form-control"#}
+                            {#                                            id="comment_{{ question.id }}"#}
+                            {#                                            required=""#}
+                            {#                                            pattern=".{15,}">#}
+                            {#                                </div>#}
+                            {#                            </td>#}
+                            {#                        </tr>#}
+
+                            {#                        <tr>#}
+                            {#                            <td>#}
+                            {#                                <div class="col-md-6 col-md-offset-3">#}
+                            {#                                    {% if assignmentId %}#}
+                            {#                                        {% ifequal assignmentId "ASSIGNMENT_ID_NOT_AVAILABLE" %}#}
+                            {#                                            <button class="btn btn-lg btn-block btn-primary"#}
+                            {#                                                    disabled>#}
+                            {#                                                Cannot proceed in#}
+                            {#                                                preview#}
+                            {#                                                mode#}
+                            {#                                            </button>#}
+                            {#                                        {% else %}#}
+                            {#                                            <button type="button"#}
+                            {#                                                    class="btn btn-lg btn-block btn-primary btn-next-question"#}
+                            {#                                                    id="submit_question_{{ question.id }}"#}
+                            {#                                                    name="submit_question_{{ question.id }}">#}
+                            {#                                                Next Question#}
+                            {#                                            </button>#}
+                            {#                                        {% endifequal %}#}
+                            {#                                    {% else %}#}
+                            {#                                        <button class="btn btn-lg btn-block btn-primary"#}
+                            {#                                                disabled>#}
+                            {#                                            Cannot proceed in preview#}
+                            {#                                            mode#}
+                            {#                                        </button>#}
+                            {#                                    {% endif %}#}
+                            {#                                </div>#}
+                            {#                            </td>#}
+                            {#                        </tr>#}
+                        </table>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+            <div id="final_submission_area">
+                {#            <div class="h3 text-center"><b><span class="text-success">#}
+                {#                        Congratulation! You have finished all {{ quiz | length }} question(s).#}
+                {#                    </span></b>#}
+                {#            </div>#}
+                <div class="form-group">
+                    <label for="comment">
+                        <span class="text-warning">Additional Comments</span>
+                        {#                    [Optional] #}
+                    </label>
+                    <input type="text" class="form-control" id="comment"
+                           name="comment"
+                           placeholder="How do you like the questions? How can we improve this quiz?">
+                </div>
+
+                <div class="col-md-6 col-md-offset-3">
+                    {% if assignmentId %}
+                        {% ifequal assignmentId "ASSIGNMENT_ID_NOT_AVAILABLE" %}
+                            <button class="btn btn-lg btn-block btn-primary"
+                                    disabled>
+                                Cannot submit in preview mode
+                            </button>
+                        {% else %}
+                            <button type="submit"
+                                    class="btn btn-lg btn-block btn-primary"
+                                    id="submit_answer" name="submit_answer">
+                                Check Answers!
+                            </button>
+                        {% endifequal %}
+                    {% else %}
+                        <button class="btn btn-lg btn-block btn-primary"
+                                disabled>
+                            Cannot submit in preview mode
+                        </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </form>
+    </div>
+    </div>
+
+    <div id="error_info">
+
+    </div>
+
+{% endblock %}
+{% block js_block %}
+    <script>
+        var question_order = [
+            {% for question in quiz %}
+                "{{  question.id }}",
+            {% endfor %}];
+
+    </script>
+
+    {#<script src="{% static 'js/jquery-2.1.1.min.js' %}"></script>#}
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+    {#<script src="{% static 'js/bootstrap.min.js' %}"></script>#}
+    <script src="{% static 'autoassess/js/star-rating.min.js' %}"></script>
+    <script src="{% static 'autoassess/js/time_management.js' %}"></script>
+    {#<script src="{% static 'autoassess/js/consent_form.js' %}"></script>#}
+
+    <script src="{% static 'autoassess/js/multiple_questions_submit.js' %}"></script>
+    <script src="{% static 'autoassess/js/update_answer.js' %}"></script>
+    {#<script src="{% static 'autoassess/js/question_visibility.js' %}"></script>#}
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+
+    {#    For sharing buttons#}
+    <script type="text/javascript">var switchTo5x = true;</script>
+{#    <script type="text/javascript" src="https://ws.sharethis.com/button/buttons.js"></script>#}
+    <script src="{% static 'autoassess/js/sharethis_buttons.js' %}"></script>
+    <script type="text/javascript">stLight.options({publisher: "77f511af-724c-4e30-8c10-6367b4ed2a55", doNotHash: false, doNotCopy: false, hashAddressBar: true});</script>
+
+{% endblock %}
+{#</body>#}
+{#</html>#}

@@ -1,0 +1,8 @@
+Temporal difference learning
+Dynamic programming
+Monte Carlo method
+Gibbs sampling
+Online learning
+Forward–backward algorithm
+Expectation–maximization algorithm
+Backpropagation

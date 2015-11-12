@@ -4,9 +4,11 @@
 
 <html>
 <head>
+    {% block title_block%}
     <title>
         Questimator Prototype
     </title>
+    {% endblock %}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,14 +37,14 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse" id="bs-example-navbar-collapse-1">
             <div class="col-sm-5 col-md-5 pull-left">
                 <form class="navbar-form" role="search" action="/autoassess/quiz/" method="get">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="What would you like to learn?" name="q">
-
-                        <div class="input-group-btn">
-                            <button class="btn btn-default" type="submit"><i class="text-success glyphicon glyphicon-book"></i>
-                            </button>
-                        </div>
-                    </div>
+{#                    <div class="input-group">#}
+{#                        <input type="text" class="form-control" placeholder="What would you like to learn?" name="q">#}
+{##}
+{#                        <div class="input-group-btn">#}
+{#                            <button class="btn btn-default" type="submit"><i class="text-success glyphicon glyphicon-book"></i>#}
+{#                            </button>#}
+{#                        </div>#}
+{#                    </div>#}
                 </form>
             </div>
         </div>

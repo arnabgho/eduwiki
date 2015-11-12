@@ -8,7 +8,7 @@ from autoassess.diagnose.util.NLPU.doc_sim import skip_thoughts_n_sim, \
     sort_docs_by_similarity
 
 
-def generate_distractors_simcat(wikipage, tenses=[], max_num=3, try_max_num=4):
+def generate_distractors_simcat(wikipage, tenses=[], max_num=3, try_max_num=10):
     """
     :param wikipage:
     :param tenses:

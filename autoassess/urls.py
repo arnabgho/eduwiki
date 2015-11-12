@@ -3,14 +3,17 @@ from django.conf import settings
 
 from autoassess import views
 from autoassess import test_views
+from autoassess import quiz_display
+
 from autoassess import edit_question_view
 from autoassess import edit_question_set
+
 
 urlpatterns = patterns(
     '',
     url(r'^$', views.index, name='home'),
     url(r'^index/$', views.index, name='index'),
-    url(r'^quiz/$', views.quiz, name='quiz'),
+    # url(r'^quiz/$', views.quiz, name='quiz'),
     url(r'^disambiguation/$', views.disambiguation, name='disambiguation'),
     url(r'^learn/$', views.learn, name='learn'),
     url(r'^quiz_list/$', views.quiz_list, name='quiz_list'),
@@ -41,6 +44,9 @@ urlpatterns = patterns(
         edit_question_set.edit_manual_question_set_submit,
         name='edit_manual_question_set_submit'),
 
+    url(r'^quiz/$', quiz_display.quiz_new, name='quiz'),
+    url(r'^quiz_display/$', quiz_display.quiz_new, name='quiz_display'),
+    url(r'^quiz_check/$', quiz_display.quiz_check, name='quiz_check'),
 )
 
 if settings.DEBUG:
