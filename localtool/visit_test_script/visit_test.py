@@ -48,7 +48,7 @@ def visit_eduwiki_link(version, local=True,
         print "visiting topic:" + t
         temp = t.replace(' ', '+')
 
-        link = dn + "/autoassess/quiz/?q=" + temp + \
+        link = dn + "/autoassess/quiz_gen/?q=" + temp + \
                "&v=" + str(version) \
                + "&pre=T"
         # + "&f=T"
@@ -105,7 +105,7 @@ def print_eduwiki_links(version, local=True,
         print "visiting topic:" + t
         temp = t.replace(' ', '+')
 
-        link = dn + "/autoassess/quiz/?q=" + temp + \
+        link = dn + "/autoassess/quiz_gen/?q=" + temp + \
                "&v=" + str(version)
         lstr = '<a href="' + link + '" target="_blank">' + t + "</a><br>"
         html += lstr + '\n'
