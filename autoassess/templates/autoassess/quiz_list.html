@@ -13,10 +13,11 @@
             </div>
             <div class="col-sm-8 col-sm-offset-1">
                 <div class="alert alert-dismissable alert-info" role="alert">
-                    The search box is currently not functioning properly.
-                    An interactive version where you can input arbitrary topics
-                    and generate quizzes on the fly is under deployment! Keep
-                    tuned.
+                    The search box is currently not functioning properly. It
+                    only logs your topic you request on the server for future
+                    generation now.
+                    An interactive version where you can generate quizzes for
+                    arbitrary topics on the fly is under deployment! Keep tuned.
                 </div>
                 <table class="table table-responsive table-condensed table-striped">
                     <tr>
@@ -31,11 +32,9 @@
                             </td>
                             <td> {{ quiz.note }}</td>
                             <td> {{ quiz.version }}</td>
-
                         </tr>
                         {#                    <br>#}
                     {% endfor %}
-
                 </table>
             </div>
         </div>
