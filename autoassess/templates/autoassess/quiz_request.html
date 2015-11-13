@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+    <div class="container">
+        <div class="row" id="success">
+            Your quiz request <span class="text-success">{{ search_term }}</span> has been logged.
+            It will show up in the quiz list once it is generated.
+            Thanks for your interest in our system, your feedback helps us improve our system.
+        </div>
+        <div class="row">
+            Go back to
+            <a href="{% url 'index' %}">Quiz List</a><br>
+        </div>
+    </div>
+{% endblock %}

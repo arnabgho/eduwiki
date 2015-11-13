@@ -36,15 +36,16 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse" id="bs-example-navbar-collapse-1">
             <div class="col-sm-5 col-md-5 pull-left">
-                <form class="navbar-form" role="search" action="/autoassess/quiz/" method="get">
-{#                    <div class="input-group">#}
-{#                        <input type="text" class="form-control" placeholder="What would you like to learn?" name="q">#}
-{##}
-{#                        <div class="input-group-btn">#}
-{#                            <button class="btn btn-default" type="submit"><i class="text-success glyphicon glyphicon-book"></i>#}
-{#                            </button>#}
-{#                        </div>#}
-{#                    </div>#}
+                <form class="navbar-form" role="search" action="{% url 'quiz_display' %}" method="get">
+{#                <form class="navbar-form" role="search" action="/autoassess/quiz/" method="get">#}
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="What would you like to learn?" name="q">
+
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="submit"><i class="text-success glyphicon glyphicon-book"></i>
+                            </button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>

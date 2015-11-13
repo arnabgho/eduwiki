@@ -1,7 +1,6 @@
 import random
-
 from mongoengine import *
-
+import datetime
 # Create your models here.
 
 
@@ -178,7 +177,9 @@ class QuestionRequest(Document):
     request_email = EmailField()
 
 
-class FeedbackMessage(Document):
+class QuizRequest(Document):
     nickname = StringField(default='Anonymous')
     email = EmailField()
-    feedback = StringField()
+    request_topic = StringField(max_length=100)
+    time = DateTimeField(default=datetime.datetime.now())
+    status = StringField()

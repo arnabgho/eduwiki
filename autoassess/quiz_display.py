@@ -110,24 +110,16 @@ def quiz_new(request):
             # this is the error it will raise if no questions is founded
             # if there is not questions for this topic in the database
             # then generate and save
-
-            # questions = diagnose.diagnose(
-            #     search_term,
-            #     generate_prereq_question=False,
-            #     num_prereq=3,
-            #     version=version,
-            #     set_type=set_type)
-            # save_diagnose_question_set(
-            #     questions,
-            #     version=version,
-            #     force=True,
-            #     set_type=set_type)
-
             # Do not generate question on server side
             raise Http404("Page Not Found. Please contact webmaster to fix.")
 
     except DisambiguationError as dis:
         raise dis
+
+    if not questions:
+        # no question loaded,
+        # put this in the request queue, instead of generating it.
+        return quiz_request(request)
 
     response_data['quiz'] = questions
     response_data['search_term'] = search_term
@@ -236,3 +228,26 @@ def check_answers(ans_data):
                 'wikipage': WikipediaWrapper.page(topic)
             })
     return response_data
+
+
+def quiz_request(request):
+    log_visitor_ip(request)
+
+    request_data = {}
+    if request.method == 'GET':
+        request_data = request.GET
+    elif request.method == 'POST':
+        request_data = request.POST
+    response_data = {}
+
+    search_term = request_data.get('q', None)
+    try:
+        if search_term:
+            old_qr = QuizRequest.objects(request_topic=search_term)
+            if not old_qr:
+                qr = QuizRequest(request_topic=search_term)
+                qr.save()
+            response_data['search_term'] = search_term
+    except:
+        pass
+    return render(request, 'autoassess/quiz_request.html', response_data)
