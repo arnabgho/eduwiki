@@ -1,0 +1,331 @@
+{% extends 'base.html' %}
+
+
+{#<html>#}
+{#<head>#}
+{#    <title>#}
+{#        Questimator - {{ search_term  }}#}
+{#    </title>#}
+{#    <meta charset="utf-8">#}
+{#    <meta http-equiv="X-UA-Compatible" content="IE=edge">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1">#}
+{#    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">#}
+{#    <link href="{% static 'main.css' %}" rel="stylesheet">#}
+{#    <link href="{% static 'autoassess/css/star-rating.min.css' %}" media="all"#}
+{#          rel="stylesheet" type="text/css">#}
+{#</head>#}
+{#<body>#}
+
+{% block title_block %}
+    <title>[{{ search_term }}] Questimator - How much do you know
+        about {{ search_term }} ?</title>
+{% endblock %}
+{% block css_block %}
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+{% endblock %}
+{% block body_block %}
+    {% load static %}
+    <div class="row" id="question_area">
+
+    <div class="col-sm-10 col-sm-offset-1">
+    {% if assignmentId %}
+        {% ifequal assignmentId "ASSIGNMENT_ID_NOT_AVAILABLE" %}
+            <h2 class="text-danger text-center">
+                Please accept the HIT before you start to answer and submit.
+            </h2>
+        {% else %}
+            <h2 class="text-info text-center">{{ search_term }}</h2>
+        {% endifequal %}
+    {% else %}
+        <h2 class="text-danger text-center">
+            Please accept the HIT before you start to answer and submit.
+        </h2>
+    {% endif %}
+
+
+    {#    <div class="text-center">#}
+    {#        {% if assignmentId %}#}
+    {#            {% ifequal assignmentId "ASSIGNMENT_ID_NOT_AVAILABLE" %}#}
+    {#                <div class="btn btn-primary">#}
+    {#                            <span class="glyphicon glyphicon-file"#}
+    {#                                  aria-hidden="true"></span>#}
+    {#                    Preview Mode#}
+    {#                </div>#}
+    {#            {% else %}#}
+    {#                <div class="btn btn-primary">#}
+    {#                            <span class="glyphicon glyphicon-user"#}
+    {#                                  aria-hidden="true"></span>#}
+    {#                    Assigned Id = {{ workerId }}#}
+    {#                </div>#}
+    {#            {% endifequal %}#}
+    {#        {% endif %}#}
+    {#    </div>#}
+    <div id="pre_quiz_area"
+         class="alert alert-info alert-dismissable text-center">
+        <b>
+            Thanks for helping us label the quality our questions!
+        </b>
+        <br>
+    </div>
+
+    {#    <form role="form" action="{% url 'quiz_check' %}"#}
+    {#          method="post"#}
+    {#          eduwiki_action="{% url 'multiple_questions_submit' %}"#}
+    {#          eduwiki_update_action="{% url 'multiple_questions_single_update' %}"#}
+    {#          name="question_answer_form" id="question_answer_form">#}
+    {#                <form role="form" action="{% url 'single_question_submit' %}" method="get">#}
+    {#        {% csrf_token %}#}
+    {#        Meta Information about the HIT #}
+
+    {#        Questions for the HIT #}
+    <div id="quiz_and_submission_area">
+    <div id="quiz_area">
+        <div class="h3">
+            <b>
+                {#                <span class="text-warning">#}
+                {#                    Choose the best answer(s) for the following {{ quiz | length }} question(s).#}
+                {#                </span>#}
+            </b>
+        </div>
+        {% for question in quiz %}
+            <form role="form" action="{% url 'quiz_label_submit' %}"
+                  method="post"
+                  name="question_label_form_{{ question.id }}"
+                  id="question_label_form_{{ question.id }}"
+                  class="form-label-question"
+                    >
+                {% csrf_token %}
+                {#                    <input name="choice_order_{{ question.id }}"#}
+                {#                           id="choice_order_{{ question.id }}"#}
+                {#                           value="{{ question.choice_order }}" hidden="">#}
+{#                <input name="assignmentId" value="{{ assignmentId }}"#}
+{#                       hidden="hidden">#}
+{#                <input name="hitId" value="{{ hitId }}" hidden="hidden">#}
+                <input name="workerId" value="{{ workerId }}" hidden="hidden">
+{#                <input name="turkSubmitTo" value="{{ turkSubmitTo }}"#}
+{#                       hidden="hidden">#}
+                <input name="main_topic" value="{{ search_term }}"
+                       hidden="hidden">
+                <input name="quiz_id" value="{{ quiz_id }}" hidden="hidden">
+
+
+                <input name="question_id" id="question_id"
+                       value="{{ question.id }}" hidden="">
+
+                <div class="panel panel-default"
+                     id="question_panel_{{ question.id }}">
+                    <div class="panel-heading">
+                        <b><span class="text-info">
+                        Counter:{{ forloop.counter }}/{{ quiz | length }} questions
+                    </span></b>
+                        <h4>{{ question.question_text | safe }}
+                        </h4>
+                    </div>
+                    <table class="table">
+                        {% for answer in question.choices %}
+                            <tr>
+                                <td>
+                                    {# <input type="radio" name="{{ question.topic }}" value="{{ answer.correct }}"> #}
+                                    {#                                        <input type="radio"#}
+                                    {#                                               name="question_answer_{{ question.id }}"#}
+                                    {#                                               id="question_answer_{{ question.id }}"#}
+                                    {#                                               value="{{ answer.idx }}"#}
+                                    {#                                           required=""#}
+                                    {#                                                >#}
+                                    {% if answer.correct %}
+                                        <span class="text-success"><i
+                                                class="fa fa-check"></i><b>({{ forloop.counter }}) </b></span>
+                                    {% else %}
+                                        <span class="text-danger"><i
+                                                class="fa fa-times"></i><b>({{ forloop.counter }}) </b></span>
+                                    {% endif %}
+
+                                    {{ answer.text | safe }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <input
+                                            type="checkbox"
+                                            class="form-inline"
+                                            name="grammar_{{ question.id }}"
+                                            id="grammar_{{ question.id }}"
+                                            >
+                                    <label for="grammar_{{ question.id }}">
+                                        <span class="text-warning">Grammatical/ typographical error</span>
+                                    </label>
+
+                                    <input
+                                            type="checkbox"
+                                            class="form-inline"
+                                            name="multi_answer_{{ question.id }}"
+                                            id="multi_answer_{{ question.id }}"
+                                            >
+                                    <label for="multi_answer_{{ question.id }}">
+                                        <span class="text-warning">Multiple correct answers</span>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pedagogical_{{ question.id }}">
+                                        <span class="text-success">Pedagogical utility: </span>
+                                    </label>
+                                    <input
+                                            type="radio"
+                                            class="form-inline"
+                                            name="pedagogical_{{ question.id }}"
+                                            id="pedagogical_{{ question.id }}_1"
+                                            value="0"
+                                            required=""
+                                            >
+                                    <label for="pedagogical_{{ question.id }}_1">Not
+                                        useful</label>
+                                    <input
+                                            type="radio"
+                                            class="form-inline"
+                                            name="pedagogical_{{ question.id }}"
+                                            id="pedagogical_{{ question.id }}_2"
+                                            value="1"
+                                            required=""
+                                            >
+                                    <label for="pedagogical_{{ question.id }}_2">It
+                                        tests knowledge of the topic.</label>
+                                    <input
+                                            type="radio"
+                                            class="form-inline"
+                                            name="pedagogical_{{ question.id }}"
+                                            id="pedagogical_{{ question.id }}_3"
+                                            value="2"
+                                            required=""
+                                            >
+                                    <label for="pedagogical_{{ question.id }}_3">I
+                                        will use this on a quiz.</label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="comment_{{ question.id }}">
+                                        Additional comment
+                                    </label>
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            name="comment_{{ question.id }}"
+                                            id="comment_{{ question.id }}"
+                                            {#                                                required=""#}
+                                            {#  pattern=".{15,}"#}
+                                            >
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <div class="col-md-6 col-md-offset-3">
+                                    {% if assignmentId %}
+                                        {% ifequal assignmentId "ASSIGNMENT_ID_NOT_AVAILABLE" %}
+                                            <button class="btn btn-lg btn-block btn-primary"
+                                                    disabled>
+                                                Cannot proceed in
+                                                preview
+                                                mode
+                                            </button>
+                                        {% else %}
+                                            <button type="submit"
+                                                    class="btn btn-lg btn-block btn-primary btn-label-question"
+                                                    id="submit_question_{{ question.id }}"
+                                                    name="submit_question_{{ question.id }}">
+                                                Label Question
+                                            </button>
+                                        {% endifequal %}
+                                    {% else %}
+                                        <button class="btn btn-lg btn-block btn-primary"
+                                                disabled>
+                                            Cannot proceed in preview
+                                            mode
+                                        </button>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+        <div id="info_{{ question.id }}"
+            class="alert alert-dismissable text-center" hidden="">
+        </div>
+        {% endfor %}
+
+    </div>
+    {#            <div id="final_submission_area">#}
+    {#            <div class="h3 text-center"><b><span class="text-success">#}
+    {#                        Congratulation! You have finished all {{ quiz | length }} question(s).#}
+    {#                    </span></b>#}
+    {#            </div>#}
+    {#                <div class="form-group">#}
+    {#                    <label for="comment">#}
+    {#                        <span class="text-warning">Additional Comments</span>#}
+    {#                    [Optional] #}
+    {#                    </label>#}
+    {#                    <input type="text" class="form-control" id="comment"#}
+    {#                           name="comment"#}
+    {#                           placeholder="How do you like the questions? How can we improve this quiz?">#}
+    {#                </div>#}
+    {##}
+    {#                <div class="col-md-6 col-md-offset-3">#}
+    {#                    {% if assignmentId %}#}
+    {#                        {% ifequal assignmentId "ASSIGNMENT_ID_NOT_AVAILABLE" %}#}
+    {#                            <button class="btn btn-lg btn-block btn-primary"#}
+    {#                                    disabled>#}
+    {#                                Cannot submit in preview mode#}
+    {#                            </button>#}
+    {#                        {% else %}#}
+    {#                            <button type="submit"#}
+    {#                                    class="btn btn-lg btn-block btn-primary"#}
+    {#                                    id="submit_answer" name="submit_answer">#}
+    {#                                Check Answers!#}
+    {#                            </button>#}
+    {#                        {% endifequal %}#}
+    {#                    {% else %}#}
+    {#                        <button class="btn btn-lg btn-block btn-primary"#}
+    {#                                disabled>#}
+    {#                            Cannot submit in preview mode#}
+    {#                        </button>#}
+    {#                    {% endif %}#}
+    {#                </div>#}
+    {#            </div>#}
+    </div>
+    {#    </form>#}
+    </div>
+    </div>
+
+    <div id="error_info">
+    </div>
+
+{% endblock %}
+{% block js_block %}
+    <script>
+        var question_order = [
+            {% for question in quiz %}
+                "{{  question.id }}",
+            {% endfor %}];
+
+    </script>
+
+    {#<script src="{% static 'js/jquery-2.1.1.min.js' %}"></script>#}
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+    {#<script src="{% static 'js/bootstrap.min.js' %}"></script>#}
+    <script src="{% static 'autoassess/js/star-rating.min.js' %}"></script>
+    <script src="{% static 'autoassess/js/label_question.js' %}"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+
+    </script>
+    <script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+
+    {#    For sharing buttons#}
+{% endblock %}
+{#</body>#}
+{#</html>#}

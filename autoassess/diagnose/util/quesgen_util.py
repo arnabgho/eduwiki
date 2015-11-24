@@ -7,6 +7,7 @@ import re
 import nltk
 import sys
 from wikipedia_util import WikipediaWrapper
+import time
 
 
 def topic_remove_bracket(topic=""):
@@ -74,6 +75,7 @@ def match_verbal_phrase(sentence, topic, verbose=True):
 
 
 def match_key_phrase(sentence, topic, phrase_type='VP', verbose=False):
+    parse_start = time.time()
     process_util = ProcessUtil()
 
     # print >> sys.stderr, "pre process_util.parsing()"
@@ -83,6 +85,8 @@ def match_key_phrase(sentence, topic, phrase_type='VP', verbose=False):
             print >> sys.stderr, "no parsed tree returned for extracting VP."
         return None, None
 
+    tree_done = time.time()
+    print 'parsing syntax tree,', tree_done - parse_start
     # if verbose:
     #     print >> sys.stderr, "parsed_sentence" + str(parsed_sentence)
 
@@ -93,7 +97,8 @@ def match_key_phrase(sentence, topic, phrase_type='VP', verbose=False):
     topic = re.sub(r"[-–_`~!@#\$%\^&\*\?:;/\\\+]+", ' ', topic, re.UNICODE)
     # note '-' is ascii while '–' is not, though they look the same.
 
-    print 'debug topic:', topic
+    if verbose:
+        print 'debug topic:', topic
     topic = escape_slash(topic)
     topic_tokens = nltk.word_tokenize(topic)
 
@@ -167,6 +172,8 @@ def match_key_phrase(sentence, topic, phrase_type='VP', verbose=False):
         parsed_sentence,
         match_pattern)
 
+    match_done = time.time()
+    print 'matching VP on syntax tree,', match_done - tree_done
     if verbose and not matched_positions:
         print >> sys.stderr, "No matched positions"
     return parsed_sentence, matched_positions

@@ -183,3 +183,17 @@ class QuizRequest(Document):
     request_topic = StringField(max_length=100)
     time = DateTimeField(default=datetime.datetime.now())
     status = StringField()
+
+
+class QuestionLabel(Document):
+    question_id = ObjectIdField(required=True)
+    quiz_id = ObjectIdField(required=True)
+
+    typo = BooleanField(required=True)
+    multi_answer = BooleanField(required=True)
+    pedagogical_utility = IntField(required=True)
+    comment = StringField()
+
+    workerId = StringField(required=True)
+
+    time = DateTimeField(default=datetime.datetime.now())

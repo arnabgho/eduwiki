@@ -6,6 +6,7 @@ import quesgen_wrapper
 from util.wikipedia_util import WikipediaWrapper
 import sys
 from version_list import *
+import time
 
 
 def diagnose(search_term, generate_prereq_question=False, num_prereq=3,
@@ -67,6 +68,7 @@ def diagnose_mentioned(search_term, generate_prereq_question=False,
     # if generate_prereq_question:
     # depth = 2
 
+    diagnose_start = time.time()
     prereq_tree = prereq_early_terms.find_prereq_tree(
         search_term, depth=1,  # depth,
         num_prereq=num_prereq)
@@ -75,6 +77,8 @@ def diagnose_mentioned(search_term, generate_prereq_question=False,
     topic_question = quesgen_wrapper.generate_question(
         prereq_tree, version=version)
 
+    main_question_finished = time.time()
+    print 'main question:', main_question_finished - diagnose_start
     main_article_wikipage = prereq_tree['wikipage']
     child_questions = []
     if generate_prereq_question:
@@ -84,7 +88,7 @@ def diagnose_mentioned(search_term, generate_prereq_question=False,
         # candidate_topics = [u'Software agent', u'Markov decision process',
         # u'Machine learning', u'Temporal difference',
         # u'Dynamic programming']
-        #     alias = {}
+        # alias = {}
         #     for c in candidate_topics:
         #         alias[c] = []
         # else:
@@ -103,6 +107,9 @@ def diagnose_mentioned(search_term, generate_prereq_question=False,
         # TODO:: make this a parameter
         candidate_question_count = 0
 
+        cand_select_finished = time.time()
+        print 'candidate got:', cand_select_finished - main_question_finished
+
         if verbose:
             print "Candidates for", search_term, ":", \
                 candidate_topics[:candidate_question_max_count]
@@ -110,6 +117,7 @@ def diagnose_mentioned(search_term, generate_prereq_question=False,
         if extra_question_in_text:
             used_sentences = []
             for candidate in candidate_topics:
+                child_question_start = time.time()
                 try:
                     # [Future] TODO:: intelligently decide
                     # question type for subtopics
@@ -141,8 +149,10 @@ def diagnose_mentioned(search_term, generate_prereq_question=False,
                 except ValueError, ve:
                     print >> sys.stderr, ve
                     continue
+                print 'child question', candidate_question_count, time.time() - child_question_start
         else:
             for candidate in candidate_topics:
+                child_question_start = time.time()
                 try:
                     candidate_page = WikipediaWrapper.page(candidate)
                 except Exception as e:
@@ -156,7 +166,9 @@ def diagnose_mentioned(search_term, generate_prereq_question=False,
                     candidate_question_count += 1
                 if candidate_question_count >= candidate_question_max_count:
                     break
+                print 'child question', candidate_question_count, time.time() - child_question_start
 
     questions = [topic_question] + child_questions
 
+    print 'diagnose in total takes', time.time() - diagnose_start
     return questions

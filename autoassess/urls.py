@@ -4,7 +4,7 @@ from django.conf import settings
 from autoassess import views
 from autoassess import test_views
 from autoassess import quiz_display
-
+from autoassess import label_views
 from autoassess import edit_question_view
 from autoassess import edit_question_set
 
@@ -48,6 +48,9 @@ urlpatterns = patterns(
     url(r'^quiz/$', quiz_display.quiz_new, name='quiz'),
     url(r'^quiz_display/$', quiz_display.quiz_new, name='quiz_display'),
     url(r'^quiz_check/$', quiz_display.quiz_check, name='quiz_check'),
+
+    url(r'^quiz_label/$', label_views.quiz_label, name='quiz_label'),
+    url(r'^quiz_label_submit/$', label_views.quiz_label_submit, name='quiz_label_submit'),
 )
 
 if settings.DEBUG:

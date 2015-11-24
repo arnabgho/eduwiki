@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 
+{% block css_block %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+{% endblock %}
 {% block body_block %}
     <div class="container">
         <div class="row">
@@ -22,6 +25,7 @@
                 <table class="table table-responsive table-condensed table-striped">
                     <tr>
                         <th>Quiz Topic</th>
+                        <th>Action</th>
                         <th>Type</th>
                         <th>Version</th>
                     </tr>
@@ -29,6 +33,11 @@
                         <tr>
                             <td>
                                 <a href="{% url 'quiz' %}?q={{ quiz.set_topic }}&v={{ quiz.version }}">{{ quiz.set_topic }}</a>
+                            </td>
+                            <td>
+                                <a href="{% url 'quiz' %}?q={{ quiz.set_topic }}&v={{ quiz.version }}"><i class="fa fa-file"></i></a>
+                                <a href="https://en.wikipedia.org/wiki/{{ quiz.set_topic }}"><i class="fa fa-wikipedia-w"></i></a>
+                                <a href="{% url 'quiz_label' %}?q={{ quiz.set_topic }}&v={{ quiz.version }}"><i class="fa fa-tag"></i></a>
                             </td>
                             <td> {{ quiz.note }}</td>
                             <td> {{ quiz.version }}</td>

@@ -2,12 +2,14 @@ from common import *
 from distractor.distractor_simcat import *
 from stem.question_stem_gen import generate_question_stem
 from ..version_list import *
+import time
 
 __author__ = 'moonkey'
 
 
 def generate_question_simcat(prereq_tree, distractor_num=3, version=None):
     # wrong name: question_text should be question_stem or question_stem_text
+    gen_start = time.time()
     try:
         question_generated = generate_question_stem(prereq_tree['wikipage'])
         question_stem = question_generated['stem']
@@ -17,6 +19,9 @@ def generate_question_simcat(prereq_tree, distractor_num=3, version=None):
         print >> sys.stderr, "Error in question stem generation"
         print >> sys.stderr, e
         return None
+    gen_stem_finished = time.time()
+    print 'stem:', gen_stem_finished - gen_start
+
 
     if not question_stem or not correct_answer:
         return None
@@ -33,6 +38,8 @@ def generate_question_simcat(prereq_tree, distractor_num=3, version=None):
     else:
         distractors = []
 
+    gen_dist_finished = time.time()
+    print 'distractors:', gen_dist_finished - gen_stem_finished, gen_dist_finished - gen_start
     if len(distractors) < distractor_num:
         raise ValueError("Only " + str(len(distractors)) + " generated.")
 

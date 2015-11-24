@@ -3,6 +3,7 @@ __author__ = 'moonkey'
 # from ...util.quesgen_util import *
 from autoassess.diagnose.util.quesgen_util import *
 from autoassess.diagnose.util.NLPU import tense_match
+import time
 
 
 def distractor_from_single_sentence(
@@ -23,7 +24,10 @@ def distractors_from_single_sentence(sentence, topic, tenses=[]):
     :return: usually there is only one matched positions, thus one distractors,
             in rare cases, there might be multiple distractors
     """
+    single_dis_start = time.time()
     parsed_sentence, matched_positions = match_verbal_phrase(sentence, topic)
+    parse_done = time.time()
+    print 'parse done:', parse_done - single_dis_start
     if matched_positions:
         # distractors = []
         for matched_pos in matched_positions:
@@ -33,7 +37,7 @@ def distractors_from_single_sentence(sentence, topic, tenses=[]):
             if tenses:
                 matched_vp = tense_match.match_sentence_tense(
                     matched_vp, tenses)
-
+            print 'tense matching done:', time.time() - parse_done
             distractor = ProcessUtil.untokenize(matched_vp.leaves())
             distractor = ProcessUtil.revert_penntreebank_symbols(distractor)
 
