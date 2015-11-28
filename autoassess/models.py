@@ -189,6 +189,8 @@ class QuestionLabel(Document):
     question_id = ObjectIdField(required=True)
     quiz_id = ObjectIdField(required=True)
 
+    answer_qualities = ListField(BooleanField(required=True))
+
     typo = BooleanField(required=True)
     multi_answer = BooleanField(required=True)
     pedagogical_utility = IntField(required=True)

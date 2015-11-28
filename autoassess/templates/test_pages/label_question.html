@@ -61,9 +61,15 @@
     {#        {% endif %}#}
     {#    </div>#}
     <div id="pre_quiz_area"
-         class="alert alert-info alert-dismissable text-center">
+         class="alert alert-info alert-dismissable">
         <b>
-            Thanks for helping us label the quality our questions!
+            <span class="text-center">Thanks for helping us label the quality our questions!</span>
+            <br>
+            Instruction for answer labelling:
+            <span class="text-success"><i class="fa fa-check"></i></span> indicates a correct answer,
+            <span class="text-danger"><i class="fa fa-times"></i></span> indicates a distractor answer.
+            Mark the answers as good (<code><i class="fa fa-arrow-up"></i></code>) or bad (<code><i class="fa fa-arrow-down"></i></code>).<br>
+            Instruction for general labels of the questions:
         </b>
         <br>
     </div>
@@ -132,6 +138,18 @@
                                     {#                                               value="{{ answer.idx }}"#}
                                     {#                                           required=""#}
                                     {#                                                >#}
+                                    <label for="answer_{{ question.id }}_{{ answer.idx }}_t">
+                                        <i class="fa fa-arrow-up"></i>
+                                    </label>
+                                    <input type="radio" class="radio-inline"
+                                           name="answer_{{ question.id }}_{{ answer.idx }}"
+                                           id="answer_{{ question.id }}_{{ answer.idx }}_t" value="True" required="" checked="">
+                                    <label for="answer_{{ question.id }}_{{ answer.idx }}_f">
+                                        <i class="fa fa-arrow-down"></i>
+                                    </label>
+                                    <input type="radio" class="radio-inline"
+                                           name="answer_{{ question.id }}_{{ answer.idx }}"
+                                           id="answer_{{ question.id }}_{{ answer.idx }}_f" value="False" required="">
                                     {% if answer.correct %}
                                         <span class="text-success"><i
                                                 class="fa fa-check"></i><b>({{ forloop.counter }}) </b></span>
@@ -139,7 +157,6 @@
                                         <span class="text-danger"><i
                                                 class="fa fa-times"></i><b>({{ forloop.counter }}) </b></span>
                                     {% endif %}
-
                                     {{ answer.text | safe }}
                                 </td>
                             </tr>
@@ -179,8 +196,7 @@
                                             value="0"
                                             required=""
                                             >
-                                    <label for="pedagogical_{{ question.id }}_1">Not
-                                        useful</label>
+                                    <label for="pedagogical_{{ question.id }}_1">Not useful.</label>
                                     <input
                                             type="radio"
                                             class="form-inline"
@@ -188,6 +204,7 @@
                                             id="pedagogical_{{ question.id }}_2"
                                             value="1"
                                             required=""
+                                            checked=""
                                             >
                                     <label for="pedagogical_{{ question.id }}_2">It
                                         tests knowledge of the topic.</label>

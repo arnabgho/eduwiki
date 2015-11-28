@@ -120,8 +120,19 @@ def quiz_label_submit(request):
 
     print request_data
 
-    # save it to db
     qid = request_data['question_id']
+    # distractor entries
+    answer_keys = [d for d in request_data.keys() if 'answer_' in d]
+    answer_qualities = []
+    answer_num = len(answer_keys)
+    for idx in range(0, answer_num):
+        answer_key = 'answer_' + qid + '_' + str(idx)
+        answer_qual = True
+        if request_data.pop(answer_key, True) == 'False':
+            answer_qual = False
+        answer_qualities.append(answer_qual)
+    # save it to db
+
     label = QuestionLabel(
         question_id=qid,
         quiz_id=request_data['quiz_id'],
@@ -130,6 +141,7 @@ def quiz_label_submit(request):
         multi_answer=('multi_answer_' + qid in request_data),
         pedagogical_utility=int(request_data.pop('pedagogical_' + qid)),
         comment=request_data.pop('comment_' + qid),
+        answer_qualities=answer_qualities
     )
     label.save()
 
