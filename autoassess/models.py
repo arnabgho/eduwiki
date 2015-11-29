@@ -193,6 +193,9 @@ class QuestionLabel(Document):
 
     typo = BooleanField(required=True)
     multi_answer = BooleanField(required=True)
+    ambiguous_correct_answer = BooleanField(required=True)
+    irrelevant_topic = BooleanField(required=True)
+
     pedagogical_utility = IntField(required=True)
     comment = StringField()
 

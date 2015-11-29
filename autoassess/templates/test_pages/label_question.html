@@ -65,11 +65,12 @@
         <b>
             <span class="text-center">Thanks for helping us label the quality our questions!</span>
             <br>
-            Instruction for answer labelling:
+            Instruction for labelling:<br>
             <span class="text-success"><i class="fa fa-check"></i></span> indicates a correct answer,
-            <span class="text-danger"><i class="fa fa-times"></i></span> indicates a distractor answer.
-            Mark the answers as good (<code><i class="fa fa-arrow-up"></i></code>) or bad (<code><i class="fa fa-arrow-down"></i></code>).<br>
-            Instruction for general labels of the questions:
+            <span class="text-danger"><i class="fa fa-times"></i></span> indicates a distractor answer.<br>
+{#            Mark the answers as good (<code><i class="fa fa-arrow-up"></i></code>) or bad (<code><i class="fa fa-arrow-down"></i></code>).<br>#}
+            First mark the question with an overall label of pedagogical utility.
+            And then label them with errors present (optional, but required if you choose "Not Useful" for the pedagogical utility label).
         </b>
         <br>
     </div>
@@ -138,18 +139,18 @@
                                     {#                                               value="{{ answer.idx }}"#}
                                     {#                                           required=""#}
                                     {#                                                >#}
-                                    <label for="answer_{{ question.id }}_{{ answer.idx }}_t">
-                                        <i class="fa fa-arrow-up"></i>
-                                    </label>
-                                    <input type="radio" class="radio-inline"
-                                           name="answer_{{ question.id }}_{{ answer.idx }}"
-                                           id="answer_{{ question.id }}_{{ answer.idx }}_t" value="True" required="" checked="">
-                                    <label for="answer_{{ question.id }}_{{ answer.idx }}_f">
-                                        <i class="fa fa-arrow-down"></i>
-                                    </label>
-                                    <input type="radio" class="radio-inline"
-                                           name="answer_{{ question.id }}_{{ answer.idx }}"
-                                           id="answer_{{ question.id }}_{{ answer.idx }}_f" value="False" required="">
+{#                                    <label for="answer_label_{{ question.id }}_{{ answer.idx }}_t">#}
+{#                                        <i class="fa fa-arrow-up"></i>#}
+{#                                    </label>#}
+{#                                    <input type="radio" class="radio-inline"#}
+{#                                           name="answer_label_{{ question.id }}_{{ answer.idx }}"#}
+{#                                           id="answer_label_{{ question.id }}_{{ answer.idx }}_t" value="True" required="" checked="">#}
+{#                                    <label for="answer_label_{{ question.id }}_{{ answer.idx }}_f">#}
+{#                                        <i class="fa fa-arrow-down"></i>#}
+{#                                    </label>#}
+{#                                    <input type="radio" class="radio-inline"#}
+{#                                           name="answer_label_{{ question.id }}_{{ answer.idx }}"#}
+{#                                           id="answer_label_{{ question.id }}_{{ answer.idx }}_f" value="False" required="">#}
                                     {% if answer.correct %}
                                         <span class="text-success"><i
                                                 class="fa fa-check"></i><b>({{ forloop.counter }}) </b></span>
@@ -163,27 +164,6 @@
                         {% endfor %}
                         <tr>
                             <td>
-                                <div class="form-group">
-                                    <input
-                                            type="checkbox"
-                                            class="form-inline"
-                                            name="grammar_{{ question.id }}"
-                                            id="grammar_{{ question.id }}"
-                                            >
-                                    <label for="grammar_{{ question.id }}">
-                                        <span class="text-warning">Grammatical/ typographical error</span>
-                                    </label>
-
-                                    <input
-                                            type="checkbox"
-                                            class="form-inline"
-                                            name="multi_answer_{{ question.id }}"
-                                            id="multi_answer_{{ question.id }}"
-                                            >
-                                    <label for="multi_answer_{{ question.id }}">
-                                        <span class="text-warning">Multiple correct answers</span>
-                                    </label>
-                                </div>
                                 <div class="form-group">
                                     <label for="pedagogical_{{ question.id }}">
                                         <span class="text-success">Pedagogical utility: </span>
@@ -218,6 +198,47 @@
                                             >
                                     <label for="pedagogical_{{ question.id }}_3">
                                         I will use this on a quiz.</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <input
+                                            type="checkbox"
+                                            class="form-inline"
+                                            name="irrelevant_topic_{{ question.id }}"
+                                            id="irrelevant_topic_{{ question.id }}"
+                                            >
+                                    <label for="irrelevant_topic_{{ question.id }}">
+                                        <span class="text-warning"> Irrelevant question topic</span>
+                                    </label>
+                                    <input
+                                            type="checkbox"
+                                            class="form-inline"
+                                            name="grammar_{{ question.id }}"
+                                            id="grammar_{{ question.id }}"
+                                            >
+                                    <label for="grammar_{{ question.id }}">
+                                        <span class="text-warning">Grammatical/ typographical error</span>
+                                    </label>
+
+                                    <input
+                                            type="checkbox"
+                                            class="form-inline"
+                                            name="multi_answer_{{ question.id }}"
+                                            id="multi_answer_{{ question.id }}"
+                                            >
+                                    <label for="multi_answer_{{ question.id }}">
+                                        <span class="text-warning"> Distractor is correct.</span>
+                                    </label>
+
+                                    <input
+                                            type="checkbox"
+                                            class="form-inline"
+                                            name="ambiguous_correct_answer_{{ question.id }}"
+                                            id="ambiguous_correct_answer_{{ question.id }}"
+                                            >
+                                    <label for="ambiguous_correct_answer_{{ question.id }}">
+                                        <span class="text-warning">Correct answers is too ambiguous.</span>
+                                    </label>
                                 </div>
                                 <div class="form-group">
                                     <label for="comment_{{ question.id }}">

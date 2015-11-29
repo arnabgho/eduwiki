@@ -122,11 +122,11 @@ def quiz_label_submit(request):
 
     qid = request_data['question_id']
     # distractor entries
-    answer_keys = [d for d in request_data.keys() if 'answer_' in d]
+    answer_keys = [d for d in request_data.keys() if 'answer_label_' in d]
     answer_qualities = []
     answer_num = len(answer_keys)
     for idx in range(0, answer_num):
-        answer_key = 'answer_' + qid + '_' + str(idx)
+        answer_key = 'answer_label_' + qid + '_' + str(idx)
         answer_qual = True
         if request_data.pop(answer_key, True) == 'False':
             answer_qual = False
@@ -139,6 +139,9 @@ def quiz_label_submit(request):
         workerId=request_data['workerId'],
         typo=('grammar_' + qid in request_data),
         multi_answer=('multi_answer_' + qid in request_data),
+        ambiguous_correct_answer=(
+            'ambiguous_correct_answer_' + qid in request_data),
+        irrelevant_topic=('irrelevant_topic_' + qid in request_data),
         pedagogical_utility=int(request_data.pop('pedagogical_' + qid)),
         comment=request_data.pop('comment_' + qid),
         answer_qualities=answer_qualities
