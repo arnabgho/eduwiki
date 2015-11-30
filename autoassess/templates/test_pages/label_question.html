@@ -62,17 +62,61 @@
     {#    </div>#}
     <div id="pre_quiz_area"
          class="alert alert-info alert-dismissable">
-        <b>
-            <span class="text-center">Thanks for helping us label the quality our questions!</span>
-            <br>
-            Instruction for labelling:<br>
-            <span class="text-success"><i class="fa fa-check"></i></span> indicates a correct answer,
-            <span class="text-danger"><i class="fa fa-times"></i></span> indicates a distractor answer.<br>
-{#            Mark the answers as good (<code><i class="fa fa-arrow-up"></i></code>) or bad (<code><i class="fa fa-arrow-down"></i></code>).<br>#}
-            First mark the question with an overall label of pedagogical utility.
-            And then label them with errors present (optional, but required if you choose "Not Useful" for the pedagogical utility label).
-        </b>
+        Thanks for helping us label the quality our questions!
         <br>
+        <b>Please read the instruction before you continue:</b> <br>
+        <span class="text-success"><i class="fa fa-check"></i></span> indicates
+        a correct answer,
+        <span class="text-danger"><i class="fa fa-times"></i></span> indicates a
+        distractor answer.<br>
+        {#            Mark the answers as good (<code><i class="fa fa-arrow-up"></i></code>) or bad (<code><i class="fa fa-arrow-down"></i></code>).<br>#}
+        First label the overall <b>pedagogical utility</b> of a question:<br>
+        <ul>
+            <li>
+                <b>"Not useful"</b>: if any of the following significant errors
+                occurs:
+                <ul>
+                    <li>It is about a topic totally irrelevant of the quiz
+                        topic.
+                    </li>
+                    <li>It contains terrible typo that confuses people.</li>
+                    <li>The question stem and correct answer do not form a
+                        reasonable
+                        statement itself
+                        (e.g. broken sentence, unexplained coreference).
+                    </li>
+                    <li>One or more distractor answers are actually correct
+                        answers.
+                    </li>
+                    <li>Other terrible errors not listed (please explain it in
+                        comment).
+                    </li>
+                </ul>
+            </li>
+            <li><b>"Useful for assessing knowledge of the topic"</b>: none of
+                above errors
+                occur,
+                may contain small typos that does not affect understanding.
+            </li>
+            <li>
+                <b>"I will use this on the quiz."</b>: Useful, and is
+                <ul>
+                    <li>about very relevant subtopics that you would choose for
+                        the quiz
+                        topic,
+                    </li>
+                    <li>with distractors comparable to human generated ones
+                        (e.g., using the definition of "Unsupervised learning"
+                        or
+                        "Machine learning" for question about "Supervised
+                        learning").
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        Then label it with <b>errors present (optional, but required if you
+        choose
+        "Not Useful" for the pedagogical utility label)</b>.
     </div>
 
     {#    <form role="form" action="{% url 'quiz_check' %}"#}
@@ -87,211 +131,213 @@
     {#        Questions for the HIT #}
     <div id="quiz_and_submission_area">
     <div id="quiz_area">
-        <div class="h3">
-            <b>
-                {#                <span class="text-warning">#}
-                {#                    Choose the best answer(s) for the following {{ quiz | length }} question(s).#}
-                {#                </span>#}
-            </b>
-        </div>
-        {% for question in quiz %}
-            <form role="form" action="{% url 'quiz_label_submit' %}"
-                  method="post"
-                  name="question_label_form_{{ question.id }}"
-                  id="question_label_form_{{ question.id }}"
-                  class="form-label-question"
-                    >
-                {% csrf_token %}
-                {#                    <input name="choice_order_{{ question.id }}"#}
-                {#                           id="choice_order_{{ question.id }}"#}
-                {#                           value="{{ question.choice_order }}" hidden="">#}
-{#                <input name="assignmentId" value="{{ assignmentId }}"#}
-{#                       hidden="hidden">#}
-{#                <input name="hitId" value="{{ hitId }}" hidden="hidden">#}
-                <input name="workerId" value="{{ workerId }}" hidden="hidden">
-{#                <input name="turkSubmitTo" value="{{ turkSubmitTo }}"#}
-{#                       hidden="hidden">#}
-                <input name="main_topic" value="{{ search_term }}"
-                       hidden="hidden">
-                <input name="quiz_id" value="{{ quiz_id }}" hidden="hidden">
+    <div class="h3">
+        <b>
+            {#                <span class="text-warning">#}
+            {#                    Choose the best answer(s) for the following {{ quiz | length }} question(s).#}
+            {#                </span>#}
+        </b>
+    </div>
+    {% for question in quiz %}
+        <form role="form" action="{% url 'quiz_label_submit' %}"
+              method="post"
+              name="question_label_form_{{ question.id }}"
+              id="question_label_form_{{ question.id }}"
+              class="form-label-question"
+                >
+            {% csrf_token %}
+            {#                    <input name="choice_order_{{ question.id }}"#}
+            {#                           id="choice_order_{{ question.id }}"#}
+            {#                           value="{{ question.choice_order }}" hidden="">#}
+            {#                <input name="assignmentId" value="{{ assignmentId }}"#}
+            {#                       hidden="hidden">#}
+            {#                <input name="hitId" value="{{ hitId }}" hidden="hidden">#}
+            <input name="workerId" value="{{ workerId }}" hidden="hidden">
+            {#                <input name="turkSubmitTo" value="{{ turkSubmitTo }}"#}
+            {#                       hidden="hidden">#}
+            <input name="main_topic" value="{{ search_term }}"
+                   hidden="hidden">
+            <input name="quiz_id" value="{{ quiz_id }}" hidden="hidden">
 
 
-                <input name="question_id" id="question_id"
-                       value="{{ question.id }}" hidden="">
+            <input name="question_id" id="question_id"
+                   value="{{ question.id }}" hidden="">
 
-                <div class="panel panel-default"
-                     id="question_panel_{{ question.id }}">
-                    <div class="panel-heading">
-                        <b><span class="text-info">
+            <div class="panel panel-default"
+                 id="question_panel_{{ question.id }}">
+                <div class="panel-heading">
+                    <b><span class="text-info">
                         Counter:{{ forloop.counter }}/{{ quiz | length }} questions
                     </span></b>
-                        <h4>{{ question.question_text | safe }}
-                        </h4>
-                    </div>
-                    <table class="table">
-                        {% for answer in question.choices %}
-                            <tr>
-                                <td>
-                                    {# <input type="radio" name="{{ question.topic }}" value="{{ answer.correct }}"> #}
-                                    {#                                        <input type="radio"#}
-                                    {#                                               name="question_answer_{{ question.id }}"#}
-                                    {#                                               id="question_answer_{{ question.id }}"#}
-                                    {#                                               value="{{ answer.idx }}"#}
-                                    {#                                           required=""#}
-                                    {#                                                >#}
-{#                                    <label for="answer_label_{{ question.id }}_{{ answer.idx }}_t">#}
-{#                                        <i class="fa fa-arrow-up"></i>#}
-{#                                    </label>#}
-{#                                    <input type="radio" class="radio-inline"#}
-{#                                           name="answer_label_{{ question.id }}_{{ answer.idx }}"#}
-{#                                           id="answer_label_{{ question.id }}_{{ answer.idx }}_t" value="True" required="" checked="">#}
-{#                                    <label for="answer_label_{{ question.id }}_{{ answer.idx }}_f">#}
-{#                                        <i class="fa fa-arrow-down"></i>#}
-{#                                    </label>#}
-{#                                    <input type="radio" class="radio-inline"#}
-{#                                           name="answer_label_{{ question.id }}_{{ answer.idx }}"#}
-{#                                           id="answer_label_{{ question.id }}_{{ answer.idx }}_f" value="False" required="">#}
-                                    {% if answer.correct %}
-                                        <span class="text-success"><i
-                                                class="fa fa-check"></i><b>({{ forloop.counter }}) </b></span>
-                                    {% else %}
-                                        <span class="text-danger"><i
-                                                class="fa fa-times"></i><b>({{ forloop.counter }}) </b></span>
-                                    {% endif %}
-                                    {{ answer.text | safe }}
-                                </td>
-                            </tr>
-                        {% endfor %}
+                    <h4>{{ question.question_text | safe }}
+                    </h4>
+                </div>
+                <table class="table">
+                    {% for answer in question.choices %}
                         <tr>
                             <td>
-                                <div class="form-group">
-                                    <label for="pedagogical_{{ question.id }}">
-                                        <span class="text-success">Pedagogical utility: </span>
-                                    </label>
-                                    <input
-                                            type="radio"
-                                            class="form-inline"
-                                            name="pedagogical_{{ question.id }}"
-                                            id="pedagogical_{{ question.id }}_1"
-                                            value="0"
-                                            required=""
-                                            >
-                                    <label for="pedagogical_{{ question.id }}_1">Not useful.</label>
-                                    <input
-                                            type="radio"
-                                            class="form-inline"
-                                            name="pedagogical_{{ question.id }}"
-                                            id="pedagogical_{{ question.id }}_2"
-                                            value="1"
-                                            required=""
-                                            checked=""
-                                            >
-                                    <label for="pedagogical_{{ question.id }}_2">
-                                        Useful for assessing knowledge of the topic.</label>
-                                    <input
-                                            type="radio"
-                                            class="form-inline"
-                                            name="pedagogical_{{ question.id }}"
-                                            id="pedagogical_{{ question.id }}_3"
-                                            value="2"
-                                            required=""
-                                            >
-                                    <label for="pedagogical_{{ question.id }}_3">
-                                        I will use this on a quiz.</label>
-                                </div>
-
-                                <div class="form-group">
-                                    <input
-                                            type="checkbox"
-                                            class="form-inline"
-                                            name="irrelevant_topic_{{ question.id }}"
-                                            id="irrelevant_topic_{{ question.id }}"
-                                            >
-                                    <label for="irrelevant_topic_{{ question.id }}">
-                                        <span class="text-warning"> Irrelevant question topic</span>
-                                    </label>
-                                    <input
-                                            type="checkbox"
-                                            class="form-inline"
-                                            name="grammar_{{ question.id }}"
-                                            id="grammar_{{ question.id }}"
-                                            >
-                                    <label for="grammar_{{ question.id }}">
-                                        <span class="text-warning">Grammatical/ typographical error</span>
-                                    </label>
-
-                                    <input
-                                            type="checkbox"
-                                            class="form-inline"
-                                            name="multi_answer_{{ question.id }}"
-                                            id="multi_answer_{{ question.id }}"
-                                            >
-                                    <label for="multi_answer_{{ question.id }}">
-                                        <span class="text-warning"> Distractor is correct.</span>
-                                    </label>
-
-                                    <input
-                                            type="checkbox"
-                                            class="form-inline"
-                                            name="ambiguous_correct_answer_{{ question.id }}"
-                                            id="ambiguous_correct_answer_{{ question.id }}"
-                                            >
-                                    <label for="ambiguous_correct_answer_{{ question.id }}">
-                                        <span class="text-warning">Correct answers is too ambiguous.</span>
-                                    </label>
-                                </div>
-                                <div class="form-group">
-                                    <label for="comment_{{ question.id }}">
-                                        Additional comment
-                                    </label>
-                                    <input
-                                            type="text"
-                                            class="form-control"
-                                            name="comment_{{ question.id }}"
-                                            id="comment_{{ question.id }}"
-                                            {#                                                required=""#}
-                                            {#  pattern=".{15,}"#}
-                                            >
-                                </div>
+                                {# <input type="radio" name="{{ question.topic }}" value="{{ answer.correct }}"> #}
+                                {#                                        <input type="radio"#}
+                                {#                                               name="question_answer_{{ question.id }}"#}
+                                {#                                               id="question_answer_{{ question.id }}"#}
+                                {#                                               value="{{ answer.idx }}"#}
+                                {#                                           required=""#}
+                                {#                                                >#}
+                                {#                                    <label for="answer_label_{{ question.id }}_{{ answer.idx }}_t">#}
+                                {#                                        <i class="fa fa-arrow-up"></i>#}
+                                {#                                    </label>#}
+                                {#                                    <input type="radio" class="radio-inline"#}
+                                {#                                           name="answer_label_{{ question.id }}_{{ answer.idx }}"#}
+                                {#                                           id="answer_label_{{ question.id }}_{{ answer.idx }}_t" value="True" required="" checked="">#}
+                                {#                                    <label for="answer_label_{{ question.id }}_{{ answer.idx }}_f">#}
+                                {#                                        <i class="fa fa-arrow-down"></i>#}
+                                {#                                    </label>#}
+                                {#                                    <input type="radio" class="radio-inline"#}
+                                {#                                           name="answer_label_{{ question.id }}_{{ answer.idx }}"#}
+                                {#                                           id="answer_label_{{ question.id }}_{{ answer.idx }}_f" value="False" required="">#}
+                                {% if answer.correct %}
+                                    <span class="text-success"><i
+                                            class="fa fa-check"></i><b>({{ forloop.counter }}) </b></span>
+                                {% else %}
+                                    <span class="text-danger"><i
+                                            class="fa fa-times"></i><b>({{ forloop.counter }}) </b></span>
+                                {% endif %}
+                                {{ answer.text | safe }}
                             </td>
                         </tr>
+                    {% endfor %}
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label for="pedagogical_{{ question.id }}">
+                                    <span class="text-success">Pedagogical utility: </span>
+                                </label>
+                                <input
+                                        type="radio"
+                                        class="form-inline"
+                                        name="pedagogical_{{ question.id }}"
+                                        id="pedagogical_{{ question.id }}_1"
+                                        value="0"
+                                        required=""
+                                        >
+                                <label for="pedagogical_{{ question.id }}_1">Not
+                                    useful.</label>
+                                <input
+                                        type="radio"
+                                        class="form-inline"
+                                        name="pedagogical_{{ question.id }}"
+                                        id="pedagogical_{{ question.id }}_2"
+                                        value="1"
+                                        required=""
+                                        checked=""
+                                        >
+                                <label for="pedagogical_{{ question.id }}_2">
+                                    Useful for assessing knowledge of the
+                                    topic.</label>
+                                <input
+                                        type="radio"
+                                        class="form-inline"
+                                        name="pedagogical_{{ question.id }}"
+                                        id="pedagogical_{{ question.id }}_3"
+                                        value="2"
+                                        required=""
+                                        >
+                                <label for="pedagogical_{{ question.id }}_3">
+                                    I will use this on the quiz.</label>
+                            </div>
 
-                        <tr>
-                            <td>
-                                <div class="col-md-6 col-md-offset-3">
-                                    {% if assignmentId %}
-                                        {% ifequal assignmentId "ASSIGNMENT_ID_NOT_AVAILABLE" %}
-                                            <button class="btn btn-lg btn-block btn-primary"
-                                                    disabled>
-                                                Cannot proceed in
-                                                preview
-                                                mode
-                                            </button>
-                                        {% else %}
-                                            <button type="submit"
-                                                    class="btn btn-lg btn-block btn-primary btn-label-question"
-                                                    id="submit_question_{{ question.id }}"
-                                                    name="submit_question_{{ question.id }}">
-                                                Label Question
-                                            </button>
-                                        {% endifequal %}
-                                    {% else %}
+                            <div class="form-group">
+                                <input
+                                        type="checkbox"
+                                        class="form-inline"
+                                        name="irrelevant_topic_{{ question.id }}"
+                                        id="irrelevant_topic_{{ question.id }}"
+                                        >
+                                <label for="irrelevant_topic_{{ question.id }}">
+                                    <span class="text-warning"> Irrelevant question topic</span>
+                                </label>
+                                <input
+                                        type="checkbox"
+                                        class="form-inline"
+                                        name="grammar_{{ question.id }}"
+                                        id="grammar_{{ question.id }}"
+                                        >
+                                <label for="grammar_{{ question.id }}">
+                                    <span class="text-warning">Grammatical/ typographical error</span>
+                                </label>
+
+                                <input
+                                        type="checkbox"
+                                        class="form-inline"
+                                        name="multi_answer_{{ question.id }}"
+                                        id="multi_answer_{{ question.id }}"
+                                        >
+                                <label for="multi_answer_{{ question.id }}">
+                                    <span class="text-warning"> A distractor is correct.</span>
+                                </label>
+
+                                <input
+                                        type="checkbox"
+                                        class="form-inline"
+                                        name="ambiguous_correct_answer_{{ question.id }}"
+                                        id="ambiguous_correct_answer_{{ question.id }}"
+                                        >
+                                <label for="ambiguous_correct_answer_{{ question.id }}">
+                                    <span class="text-warning">Correct answer is too ambiguous.</span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label for="comment_{{ question.id }}">
+                                    Additional comment
+                                </label>
+                                <input
+                                        type="text"
+                                        class="form-control"
+                                        name="comment_{{ question.id }}"
+                                        id="comment_{{ question.id }}"
+                                        {#                                                required=""#}
+                                        {#  pattern=".{15,}"#}
+                                        >
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="col-md-6 col-md-offset-3">
+                                {% if assignmentId %}
+                                    {% ifequal assignmentId "ASSIGNMENT_ID_NOT_AVAILABLE" %}
                                         <button class="btn btn-lg btn-block btn-primary"
                                                 disabled>
-                                            Cannot proceed in preview
+                                            Cannot proceed in
+                                            preview
                                             mode
                                         </button>
-                                    {% endif %}
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </form>
+                                    {% else %}
+                                        <button type="submit"
+                                                class="btn btn-lg btn-block btn-primary btn-label-question"
+                                                id="submit_question_{{ question.id }}"
+                                                name="submit_question_{{ question.id }}">
+                                            Label Question
+                                        </button>
+                                    {% endifequal %}
+                                {% else %}
+                                    <button class="btn btn-lg btn-block btn-primary"
+                                            disabled>
+                                        Cannot proceed in preview
+                                        mode
+                                    </button>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </form>
         <div id="info_{{ question.id }}"
-            class="alert alert-dismissable text-center" hidden="">
+             class="alert alert-dismissable text-center" hidden="">
         </div>
-        {% endfor %}
+    {% endfor %}
 
     </div>
     {#            <div id="final_submission_area">#}
@@ -356,6 +402,8 @@
     <script src="{% static 'autoassess/js/label_question.js' %}"></script>
     <script type="text/x-mathjax-config">
         MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+
+
 
     </script>
     <script type="text/javascript"
