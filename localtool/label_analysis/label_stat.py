@@ -1,7 +1,4 @@
 from __future__ import division
-
-__author__ = 'moonkey'
-
 from autoassess.models import QuestionLabel, QuestionSet, WikiQuestion
 import collections
 
