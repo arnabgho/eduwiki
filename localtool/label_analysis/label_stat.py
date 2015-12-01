@@ -21,8 +21,6 @@ def read_all_labels():
     #     if count > 1]
 
     labels = sorted(labels, key=lambda k: k['time'], reverse=True)
-    seen_questions = set()
-
     labels = list_of_seq_unique_by_key(labels, 'question_id')
     return labels
 
