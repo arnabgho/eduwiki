@@ -195,6 +195,7 @@ class QuestionLabel(Document):
     multi_answer = BooleanField(required=True)
     ambiguous_correct_answer = BooleanField(required=True)
     irrelevant_topic = BooleanField(required=True)
+    too_easy = BooleanField(required=True)
 
     pedagogical_utility = IntField(required=True)
     comment = StringField()
