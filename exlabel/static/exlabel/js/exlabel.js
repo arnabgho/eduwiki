@@ -4,8 +4,9 @@
 
 $(document).ready(function () {
     var pixel_size = 20;
-    var x1, y1, timeout;//, totimes = 100, distance = 30;
+    var pos_x, pos_y, timeout;//, totimes = 100, distance = 30;
     var trajectory = [];
+    var actions = [];
     var steps = 0;
 
     var canvas = document.getElementById("cas"), ctx = canvas.getContext("2d");
@@ -15,7 +16,8 @@ $(document).ready(function () {
     mask_img.onload = function () {
         var w = canvas.height * mask_img.width / mask_img.height;
         ctx.drawImage(mask_img, (canvas.width - w) / 2, 0, w, canvas.height);
-        tapClip();
+//        tapClip();
+        startOrigin();
     };
 
     var label_form = $('#label_form');
@@ -27,7 +29,7 @@ $(document).ready(function () {
             form_dict[form_data[i].name] = form_data[i].value;
         }
         form_dict['trajectory'] = JSON.stringify(trajectory);
-
+        form_dict['actions'] = JSON.stringify(actions);
         info_region = $('#submit_info');
         $.ajax({
             url: this.action,
@@ -72,86 +74,89 @@ $(document).ready(function () {
         }
     }
 
-// Getting the erasing effect by changing "globalCompositeOperation"
-    function tapClip() {
-        var hastouch = false, tapstart = "mousedown", keydown = "keydown";
-        var area;
-//        var x2, y2;
+    function startOrigin() {
+        // Getting the erasing effect by changing "globalCompositeOperation"
         ctx.globalCompositeOperation = "destination-out";
+        clearTimeout(timeout);
 
-        function tapstartHandler(e) {
-            clearTimeout(timeout);
-            e.preventDefault();
-            area = getClipArea(e, hastouch);
-            x1 = Math.round(area.x / pixel_size) * pixel_size;
-            y1 = Math.round(area.y / pixel_size) * pixel_size;
-            x1 = Math.max(x1, 10);
-            y1 = Math.max(y1, 10);
-            x1 = Math.min(x1, canvas.width - 10);
-            y1 = Math.min(y1, canvas.height - 10);
-            goDot(x1, y1);
-            this.removeEventListener(tapstart, tapstartHandler);
-            this.addEventListener(keydown, keydownHandler);
-        }
-
-        window.addEventListener(tapstart, tapstartHandler);
+        var keydown = "keydown";
+        pos_x = 0;
+        pos_y = 0;
+        goDot(pos_x, pos_y);
+        window.addEventListener(keydown, keydownHandler);
     }
 
     function keydownHandler(e) {
         e = e || event;
+        var next_x, next_y;
         //window.alert(e.keyCode);
-        if (e.keyCode == "81") {
-            // Q
-            x1 = x1 - pixel_size;
-            y1 = y1 - pixel_size;
-            goDot(x1, y1);
-        }
-        if (e.keyCode == "69") {
-            // E
-            x1 = x1 + pixel_size;
-            y1 = y1 - pixel_size;
-            goDot(x1, y1);
-        }
-        if (e.keyCode == "90") {
-            // E
-            x1 = x1 - pixel_size;
-            y1 = y1 + pixel_size;
-            goDot(x1, y1);
-        }
-        if (e.keyCode == "67") {
-            // C
-            x1 = x1 + pixel_size;
-            y1 = y1 + pixel_size;
-            goDot(x1, y1);
-        }
+//        if (e.keyCode == "81") {
+//            // Q
+//            next_x = pos_x - pixel_size;
+//            next_y = pos_y - pixel_size;
+//            goDot(next_x, next_y);
+//        }
+//        if (e.keyCode == "69") {
+//            // E
+//            next_x = pos_x + pixel_size;
+//            next_y = pos_y - pixel_size;
+//            goDot(next_x, next_y);
+//        }
+//        if (e.keyCode == "90") {
+//            // E
+//            next_x = pos_x - pixel_size;
+//            next_y = pos_y + pixel_size;
+//            goDot(next_x, next_y);
+//        }
+//        if (e.keyCode == "67") {
+//            // C
+//            next_x = pos_x + pixel_size;
+//            next_y = pos_y + pixel_size;
+//            goDot(next_x, next_y);
+//        }
         if (e.keyCode == "37" || e.keyCode == "65") {
             // left
-            x1 = x1 - pixel_size;
-            goDot(x1, y1);
+            next_x = pos_x - pixel_size;
+            goDot(next_x, pos_y);
         }
         if (e.keyCode == "38" || e.keyCode == "87") {
             // up or W
-            y1 = y1 - pixel_size;
-            goDot(x1, y1);
+            next_y = pos_y - pixel_size;
+            goDot(pos_x, next_y);
         }
         if (e.keyCode == "39" || e.keyCode == "68") {
             // right or D
-            x1 = x1 + pixel_size;
-            goDot(x1, y1);
+            next_x = pos_x + pixel_size;
+            goDot(next_x, pos_y);
         }
         if (e.keyCode == "40" || e.keyCode == "88") {
             // down or W
-            y1 = y1 + pixel_size;
-            goDot(x1, y1);
+            next_y = pos_y + pixel_size;
+            goDot(pos_x, next_y);
         }
     }
 
-    function goDot(x1, y1) {
-        x1 = Math.min(Math.max(x1, 0), canvas.width - pixel_size);
-        y1 = Math.min(Math.max(y1, 0), canvas.height - pixel_size);
-        drawDot(x1, y1);
+    function goDot(next_x, next_y) {
+        next_x = Math.min(Math.max(next_x, 0), canvas.width - pixel_size);
+        next_y = Math.min(Math.max(next_y, 0), canvas.height - pixel_size);
 
-        trajectory.push([x1/pixel_size, y1/pixel_size]);
+        if (pos_x > next_x) {
+            actions.push(0);
+        }
+        if (pos_x < next_x) {
+            actions.push(1);
+        }
+        if (pos_y > next_y) {
+            actions.push(2);
+        }
+        if (pos_y < next_y) {
+            actions.push(3);
+        }
+        pos_x = next_x;
+        pos_y = next_y;
+        drawDot(pos_x, pos_y);
+
+        trajectory.push([pos_x / pixel_size, pos_y / pixel_size]);
         steps = trajectory.length;
 
         document.getElementById("steps").innerHTML = steps.toString();
@@ -164,4 +169,27 @@ $(document).ready(function () {
         ctx.fill();
         ctx.restore();
     }
+
+//    function tapClip() {
+//        var hastouch = false, tapstart = "mousedown", keydown = "keydown";
+//        var area;
+//        ctx.globalCompositeOperation = "destination-out";
+//
+//        function tapstartHandler(e) {
+//            clearTimeout(timeout);
+//            e.preventDefault();
+//            area = getClipArea(e, hastouch);
+//            var x = Math.round(area.x / pixel_size) * pixel_size;
+//            var y = Math.round(area.y / pixel_size) * pixel_size;
+//            x = Math.max(x, 10);
+//            y = Math.max(y, 10);
+//            x = Math.min(x, canvas.width - 10);
+//            y = Math.min(y, canvas.height - 10);
+//            goDot(x, y);
+//            this.removeEventListener(tapstart, tapstartHandler);
+//            this.addEventListener(keydown, keydownHandler);
+//        }
+//
+//        window.addEventListener(tapstart, tapstartHandler);
+//    }
 });

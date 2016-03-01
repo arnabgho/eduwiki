@@ -64,7 +64,7 @@ def label_submit(request):
         # image_label=request_data['image_label'],
         worker_label=request_data['worker_label'],
         trajectory=request_data['trajectory'],
-        # use ast.literal_eval() to get back the lists when processing
+        actions=request_data['actions'],
 
         time=datetime.datetime.now(),
         workerId=request_data['workerId'],
