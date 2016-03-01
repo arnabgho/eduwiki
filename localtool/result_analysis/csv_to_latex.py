@@ -33,8 +33,19 @@ def csv_to_tex_table(str_csv_file, str_tex_file=""):
     list_tex_rows = []
     for str_csv_row in list_csv_rows:
         if len(str_csv_row) > 1:
-            str_tex_r1 = sub(',', ' & ', str_csv_row.rstrip('\r\n'))
-            list_tex_rows.append('\t\t' + str_tex_r1 + '\t\\\\\n')
+            row_array = str_csv_row.split(',')
+            for idx, e in enumerate(row_array):
+                if '0.' in e:
+                    if '*' in e:
+                        start_count = e.count('*')
+                        row_array[idx] = "${:.3f}$".format(
+                            float(e.replace('*', '')))
+                        row_array[idx] += '*' * start_count
+                    else:
+                        row_array[idx] = "${:.3f}$".format(float(e))
+            str_tex_row = ' & '.join(row_array)
+            # str_tex_row = sub(',', ' & ', str_csv_row.rstrip('\r\n'))
+            list_tex_rows.append('\t\t' + str_tex_row + '\t\\\\\n')
     str_tex_rows = ''.join(list_tex_rows)
 
     # build output
@@ -55,10 +66,10 @@ def csv_to_tex_table(str_csv_file, str_tex_file=""):
 if __name__ == "__main__":
     print "IRT Alpha"
     # csv_to_tex_table(
-    #     str_csv_file='multiple/analysis_result/all_score_correlations.csv')
+    # str_csv_file='multiple/analysis_result/all_score_correlations.csv')
     # csv_to_tex_table(
     #     str_csv_file='multiple/analysis_result/all_irt_discriminations_d0.csv')
     # csv_to_tex_table(
-        # str_csv_file='multiple/analysis_result/all_irt_discriminations_d1.csv')
+    # str_csv_file='multiple/analysis_result/all_irt_discriminations_d1.csv')
     csv_to_tex_table(
-        str_csv_file='multiple/analysis_result/a_others/sorted_avg.csv')
+        str_csv_file='multiple/analysis_result/3run/all_irt_discriminations_all.csv')

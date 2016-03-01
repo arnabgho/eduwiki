@@ -178,7 +178,7 @@ def analyze_all(all_in_one=False):
         "Elasticity (physics)",
     ]
     steps = [
-        SCORE_OLS,
+        # SCORE_OLS,
         IRT_SIGMOID,
         # SCORE_GAUSSIAN,
     ]
@@ -217,4 +217,4 @@ if __name__ == '__main__':
     from mongoengine import connect
 
     connect('eduwiki_db', host='localhost')
-    analyze_all()
+    analyze_all(all_in_one=True)

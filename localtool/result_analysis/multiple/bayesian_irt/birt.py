@@ -15,9 +15,12 @@ def bayesian_irt(correctness_data, theta_true=None):
     num_thetas = 1
 
     # theta (student proficiency params)
+    # "observed = True" means the value is fixed.
+
     if theta_true is not None:
         theta = pymc.Normal(
-            "theta", mu=0, tau=1, value=theta_true, observed=True)
+            "theta", mu=0, tau=1, value=theta_true,
+            observed=True, doc='Student ability')
     else:
         theta_initial = np.zeros((num_thetas, num_people))
         theta = pymc.Normal(
@@ -56,13 +59,41 @@ def bayesian_irt(correctness_data, theta_true=None):
     correct = pymc.Bernoulli(
         'correct', p=sigmoid, value=correctness_data, observed=True)
 
+    # TODO:: is this correct
     # create a pymc simulation object, including all the above variables
     m = pymc.MCMC([a, b, theta, sigmoid, correct])
 
-    # run an interactive MCMC sampling session
-    m.isample(iter=20000, burn=15000)
+    # run an interactive (for the 'i' in 'isample') MCMC sampling session
+    m.isample(iter=2000000, burn=1990000, thin=20)
+
+    # pymc.Matplot.autocorrelation(a.trace()[0, :],'alpha')
+    # convergence_diagnose_birt(m)
 
     return a, b, theta
+
+
+def plot_a_trace(trace, filename='', fig_title=''):
+    assert isinstance(trace, np.ndarray)
+    tr_mean = trace.mean(0).flatten()
+    tr_stderr = np.sqrt(trace.var(0).flatten() / trace.var(0).size)
+    if not filename:
+        plt.clf()
+        plt.errorbar(range(0, tr_mean.size), tr_mean,
+                     fmt="-", yerr=tr_stderr)
+        plt.ylim((-3, 3))
+        plt.show()
+    else:
+        plt.clf()
+        plt.errorbar(range(0, tr_mean.size), tr_mean,
+                     fmt="-", yerr=tr_stderr)
+        plt.ylim((-3, 3))
+        if not fig_title:
+            plt.title('Discrimination power')
+        else:
+            plt.title('Discrimination power' + fig_title)
+        filename += '_alpha.pdf'
+        plt.savefig(filename, bbox_inches='tight')
+    plt.close()
 
 
 def plot_theta_trace(theta, stepsize=20, filename='', fig_title=''):
@@ -74,12 +105,12 @@ def plot_theta_trace(theta, stepsize=20, filename='', fig_title=''):
     :param stepsize:
     :return:
     """
-    plt.style.use('ggplot')
+    # plt.style.use('ggplot')
     trace = theta.trace()
     theta_mean = trace.mean(0)[0]
     # print 'theta_mean:', theta_mean
 
-    theta_stderr = np.sqrt(trace.var(0)[0])
+    theta_stderr = np.sqrt(trace.var(0)[0] / trace.var(0).size)
     # print 'theta_stderr:', theta_stderr
     x_labels = range(0, len(theta_mean.T))
 
@@ -96,12 +127,13 @@ def plot_theta_trace(theta, stepsize=20, filename='', fig_title=''):
 
             plt.clf()
 
-            plt.plot(theta_mean.T, "--")
-            plt.fill_between(x_labels,
-                             (theta_mean - theta_stderr).T,
-                             (theta_mean + theta_stderr).T,
-                             facecolor=(0.8, 0.8, 0.8), linewidth=0.0)
-            plt.plot(sample)
+            plt.errorbar(range(0, theta_mean.shape[0]), theta_mean,
+                         fmt="-", yerr=theta_stderr)
+            # plt.fill_between(x_labels,
+            # (theta_mean - theta_stderr).T,
+            #                  (theta_mean + theta_stderr).T,
+            #                  facecolor=(0.8, 0.8, 0.8), linewidth=0.0)
+            # plt.plot(sample)
             plt.title('Iteration ' + str(i))
             plt.ylim((-3, 3))
             plt.pause(0.01)
@@ -156,19 +188,30 @@ def plot_sigmoid(
                  label=item)
     plt.xlabel('Student Ability', size=text_size, color='k')
     plt.ylabel('P(Answer Correctly)', size=text_size, color='k')
-    plt.ylim((0, 1))
     plt.xlim((-3, 3))
-    plt.legend(loc="lower center", bbox_to_anchor=(0.5, -1),
+    plt.ylim((0, 1))
+    plt.legend(loc="lower center", bbox_to_anchor=(0.5, -0.6),
                fancybox=True, shadow=True, ncol=2, prop={'size': text_size})
+    plt.legend().set_visible(False)
+    # plt.legend(loc='best', prop={'size': text_size})
     # plt.show()
     if not fig_title:
         plt.title('Two parameter IRT model')
     else:
         plt.title(fig_title, size=text_size)
-    # plt.legend(loc='best', prop={'size': text_size})
+
     if not filename:
         plt.show()
     else:
         filename += '_sigmoid.pdf'
         plt.savefig(filename, bbox_inches='tight')
     plt.close()
+
+
+def convergence_diagnose_birt(m, a):
+    # birt_model = pymc.MCMC(...)
+
+    pymc.raftery_lewis(m.a, q=0.025, r=0.01)
+    scores = pymc.geweke(m.a, intervals=20)
+    pymc.Matplot.geweke_plot(scores)
+    pymc.gelman_rubin(m)

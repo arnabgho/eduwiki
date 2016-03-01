@@ -53,3 +53,16 @@ localtool/mturk_tool/mturk_config.xml
 localtool/server_sync/export_results/wiki_question_answer.csv
 localtool/server_sync/export_results/wiki_question_answer.xls
 localtool/wiki_question_answer.csv
+localtool/mturk_tool/pay_bonus.py
+
+# analysis results
+localtool/add_quiz/select_result/
+localtool/mturk_tool/experiment_data/
+localtool/server_sync/export_results/
+localtool/result_analysis/multiple/analysis_result/
+localtool/visit_test_script/failures/
+
+
+exlabel/static/mnist_images/
+autoassess/diagnose/util/wikipedia_old_for_ref/
+

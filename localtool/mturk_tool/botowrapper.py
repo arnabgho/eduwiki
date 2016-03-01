@@ -2,6 +2,7 @@ from xml.etree import ElementTree
 from boto.mturk.connection import MTurkConnection
 from boto.mturk.price import Price
 from boto.mturk.question import ExternalQuestion
+from boto.mturk.connection import BaseAutoResultElement
 from django.template.loader import render_to_string
 from datetime import datetime, timedelta
 
@@ -24,7 +25,8 @@ def connect_mturk(sandbox=True):
     return mtc
 
 
-def create_hit_question(question_url, sandbox=True, max_assignments=2, reward=0.1):
+def create_hit_question(question_url, sandbox=True, max_assignments=2,
+                        reward=0.1):
     mtc = connect_mturk(sandbox=sandbox)
 
     # --------------- META INFO -------------------
@@ -40,8 +42,8 @@ def create_hit_question(question_url, sandbox=True, max_assignments=2, reward=0.
 
     # title = 'Inspect multiple-choice question qualities'
     # description = 'Answer the multiple-choice questions of various topics, ' \
-    #               'and inspect the qualities of them. ' \
-    #               'You do not need to know about the question topics.'
+    # 'and inspect the qualities of them. ' \
+    # 'You do not need to know about the question topics.'
 
 
     keywords = 'multiple-choice question, learning, quality inspection'
@@ -61,6 +63,45 @@ def create_hit_question(question_url, sandbox=True, max_assignments=2, reward=0.
     if not result:
         raise ValueError("ERROR: Failed to create HIT.")
     return result
+
+
+class BonusPayment(BaseAutoResultElement):
+    # def __init__(self, connection):
+    #     self.amount = -1
+    #     self.currency_code = 'USD'
+    #     self.formatted_price = ''
+    #     self.woker_id = ''
+    #     self.assignment_id = ''
+
+    def endElement(self, name, value, connection):
+        if name == 'Amount':
+            self.amount = float(value)
+        elif name == 'CurrencyCode':
+            self.currency_code = value
+        elif name == 'FormattedPrice':
+            self.formatted_price = value
+        elif name == 'AssignmentId':
+            self.assignment_id = value
+        elif name == 'WorkerId':
+            self.woker_id = value
+        else:
+            setattr(self, name, value)
+
+
+def get_bonus_payments(mtc=connect_mturk(), assignment_id=None, hit_id=None):
+    if not assignment_id and not hit_id:
+        return -1
+    if assignment_id:
+        params = {'AssignmentId': assignment_id}
+    else:
+        params = {'HITId': hit_id}
+    params['Operation'] = 'GetBonusPayments'
+    http_request = mtc.build_base_http_request(
+        'POST', '/', None, params, {}, '', mtc.host)
+    http_request.params['Version'] = '2014-08-15'
+    response = mtc._mexe(http_request)
+    return mtc._process_response(
+        response, marker_elems=[('BonusPayment', BonusPayment)])
 
 
 def expire_hit(question_hit_id, sandbox=True):

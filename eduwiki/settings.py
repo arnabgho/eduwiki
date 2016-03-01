@@ -49,6 +49,7 @@ INSTALLED_APPS = (
     'sslserver',
     'gunicorn',
     'autoassess',
+    'exlabel',
 )
 
 MIDDLEWARE_CLASSES = (

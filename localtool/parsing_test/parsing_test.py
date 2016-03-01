@@ -21,6 +21,7 @@ def test_sentence_syntree():
     some_sentences = []
     count = 0
     max_count = 100
+    start_time = time.time()
     for p in pages:
         sentences = WikipediaWrapper.article_sentences(p)
         for sentence in sentences:
@@ -30,12 +31,13 @@ def test_sentence_syntree():
                 break
         if count > max_count:
             break
+    elapsed_time = time.time() - start_time
+    print float(elapsed_time) / float(max_count)
 
     start_time = time.time()
     for idx, sentence in enumerate(some_sentences):
-        # print idx
-        # parsed_sentence = nlutil.parsing(sentence)
-        parsed_result = json.loads(server.parse(sentence))
+        parsed_result = nlutil.parsing(sentence)
+        # parsed_result = json.loads(server.parse(sentence))
         # try:
         #     tree = Tree.fromstring(parsed_result['sentences'][0]['parsetree'])
         # except:
@@ -43,6 +45,7 @@ def test_sentence_syntree():
         #     print idx
         #     print parsed_result['sentences'][0]['parsetree']
         # print parsed_result
+
     elapsed_time = time.time() - start_time
 
     print float(elapsed_time) / float(max_count)

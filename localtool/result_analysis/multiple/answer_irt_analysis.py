@@ -28,6 +28,7 @@ def plot_questions(questions, a, b, filename='', fig_title=''):
         question_params[q.topic] = {'a': a.trace().mean(0)[q_idx][0],
                                     'b': b.trace().mean(0)[q_idx]}
     birt.plot_sigmoid(question_params, filename, fig_title=fig_title)
+    birt.plot_a_trace(a.trace(), filename)
     return question_params
 
 

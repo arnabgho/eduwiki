@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport"
+          content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <title>LINE</title>
+    <style type="text/css">
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .view {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .box {
+            float: left;
+            width: 560px;
+            height: 560px;
+            background: #FFF url("/static/mnist_images/{{ image_name }}") no-repeat center center;
+            background-size: auto 100%;
+            backface-visibility: hidden;
+            overflow: hidden;
+        }
+
+        #cas {
+            opacity: 1;
+            -webkit-transition: opacity .5s;
+            -ms-transition: opacity .5s;
+            -moz-transition: opacity .5s;
+        }
+
+        .noOp {
+            opacity: 0 !important;
+        }
+
+        .panel {
+            float: left;
+            width: 50%;
+            height: 50%;
+            background: #FFF
+        }
+    </style>
+</head>
+<body>
+<div class="view">
+    <div class="box" id="bb">
+        <canvas id="cas"></canvas>
+    </div>
+    <div class="panel">
+        <h1>Number of steps:</h1>
+
+        <p id="steps">0</p>
+
+        <form id="label_form" name="label_form" action="{% url 'exlabel_submit' %}">
+            {% csrf_token %}
+            <input name="image_name" value="{{ image_name }}" hidden="hidden">
+            <input name="workerId" value="{{ workerId }}" hidden="hidden">
+            <input name="assignmentId" value="{{ assignmentId }}"
+                   hidden="hidden">
+            <input name="hitId" value="{{ hitId }}" hidden="hidden">
+            <input name="turkSubmitTo" value="{{ turkSubmitTo }}"
+                   hidden="hidden">
+            <input type="text" name="worker_label" value="0"><br><br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    <a href="{% url 'exlabel' %}" role="link">Next One</a>
+    <div id="submit_info" class="alert alert-dismissable text-center"
+         hidden=""></div>
+    <div id="error_info"></div>
+</div>
+
+
+<script type="text/javascript" charset="utf-8">
+    var mask_img = new Image();
+    mask_img.src = "{% static 'exlabel/blue.png' %}";
+</script>
+
+<script src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'exlabel/js/exlabel.js' %}"></script>
+</body>
+</html>

@@ -11,12 +11,18 @@ import nltk.tag.stanford
 import string
 import itertools
 from autoassess.local_conf import *
+import jsonrpclib
+import logging
+import json
 
 __author__ = 'moonkey'
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 
 def load_stanford_parser():
-    print >> sys.stderr, "loading stanford_parser"
+    logger.info("loading stanford_parser")
 
     stanford_parser_path = stanford_parser_dir + 'stanford-parser.jar'
     env_stanford_parser = os.environ.get('STANFORD_PARSER', "")
@@ -38,7 +44,7 @@ def load_stanford_parser():
 
 
 def load_stanford_pos_tagger():
-    print >> sys.stderr, "loading stanford pos tagger"
+    logger.info("loading stanford pos tagger")
     try:
         path_to_model = stanford_postagger_dir \
                         + 'models/english-bidirectional-distsim.tagger'
@@ -47,13 +53,13 @@ def load_stanford_pos_tagger():
             path_to_model=path_to_model, path_to_jar=path_to_jar)
         return tagger
     except Exception as e:
-        print >> sys.stderr, "FAILED: loading stanford pos tagger"
-        print >> sys.stderr, e
+        logger.error("FAILED: loading stanford pos tagger")
+        logger.exception(e)
         return None
 
 
 def load_stanford_ner_tagger():
-    print >> sys.stderr, "loading stanford NER tagger"
+    logger.info("loading stanford NER tagger")
     try:
         path_to_model = \
             stanford_ner_dir + 'classifiers/all.3class.distsim.crf.ser.gz'
@@ -62,19 +68,31 @@ def load_stanford_ner_tagger():
             path_to_model=path_to_model, path_to_jar=path_to_jar)
         return tagger
     except Exception as e:
-        print >> sys.stderr, "FAILED: loading stanford NER tagger"
-        print >> sys.stderr, e
+        logger.error("FAILED: loading stanford NER tagger")
+        logger.exception(e)
         return None
 
 
 def load_np_extractor():
-    print >> sys.stderr, "loading noun phrase extractor"
+    logger.info("loading noun phrase extractor")
     return ConllExtractor()
+
+
+def connect_corenlp_server():
+    logger.info("connecting stanford corenlp server")
+    try:
+        server = jsonrpclib.Server("http://localhost:8080")
+    except Exception as e:
+        logger.error('stanford corenlp cannot be connected')
+        logger.exception(e)
+        server = None
+    return server
 
 
 STANFORD_PARSER = load_stanford_parser()
 NP_EXTRACTOR = load_np_extractor()
 STANFORD_POS_TAGGER = load_stanford_pos_tagger()
+STANFORD_CORENLP_SERVER = connect_corenlp_server()
 
 
 class ProcessUtil:
@@ -83,18 +101,13 @@ class ProcessUtil:
         self.np_extractor = NP_EXTRACTOR
         self.pos_tagger = STANFORD_POS_TAGGER
 
+        self.corenlp_server = STANFORD_CORENLP_SERVER
+
     def _load_parser(self):
         if self.parser:
             return self.parser
         try:
             self.parser = load_stanford_parser()
-            # os.environ['STANFORD_PARSER'] = os.path.join(
-            # '/opt/stanford-parser/stanford-parser.jar')
-            # os.environ['STANFORD_MODELS'] = os.path.join(
-            # '/opt/stanford-parser/stanford-parser-3.5.2-models.jar')
-            # self.parser = nltk.parse.stanford.StanfordParser(
-            # model_path="edu/stanford/nlp/models"
-            # "/lexparser/englishPCFG.ser.gz")
             return self.parser
         except Exception:
             raise Exception
@@ -123,6 +136,11 @@ class ProcessUtil:
         :param pre_chunk_nps: this will not "machine learning"
         """
 
+        # if self.corenlp_server is not None:
+        #     parsed = self.parsing_server(text)
+        #     if parsed:
+        #         return parsed
+
         if not self.parser:
             self._load_parser()
 
@@ -144,7 +162,7 @@ class ProcessUtil:
             if stanford_pos and self.pos_tagger:
                 tagged = self.pos_tagger.tag(tokens)
                 if len(tagged) > 1:
-                    print >> sys.stderr, "POS tagger found >1 sentences", tagged
+                    logger.error(["POS tagger found >1 sentences", tagged])
                     tagged = list(itertools.chain(*tagged))
                 else:
                     tagged = tagged[0]
@@ -176,10 +194,35 @@ class ProcessUtil:
                             parsed[leaf_position]]
 
         except Exception, err:
-            print >> sys.stderr, str(err)
-            traceback.print_exc(file=sys.stderr)
+            logger.exception(err)
             return None
         return parsed
+
+    def parsing_server(self, text):
+        """
+        dependencies, parsertree, words (postags),
+        :param text:
+        :return:
+        """
+        # if self.corenlp_server is None:
+        #     return None
+        try:
+            parsed_result = json.loads(self.corenlp_server.parse(text))
+        except Exception as e:
+            return None
+        try:
+            if len(parsed_result['sentences']) > 1:
+                logger.warning('sentences > 1')
+            tree = nltk.ParentedTree.fromstring(
+                parsed_result['sentences'][0]['parsetree'])
+            logger.debug(tree)
+            return tree
+        except ValueError as e:
+            logger.error('Cannot process the following sentece:')
+            logger.error(parsed_result['sentences'][0]['parsetree'])
+            logger.exception(e)
+            return None
+
 
     @staticmethod
     def tgrep_positions(sent_tree, match_pattern):
@@ -303,7 +346,7 @@ def test():
 
     sentence = "At eight o'clock on Thursday morning " \
                "Arthur didn't feel very good. I am good."
-    tags = nlutil.pos_tag(sentence)
+    tags = nlutil.parsing(sentence)
     print tags
 
 

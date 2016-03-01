@@ -13,4 +13,6 @@ urlpatterns = patterns('',
 
     url(r'^$', include('autoassess.urls')),
     url(r'^autoassess/', include('autoassess.urls')),
+
+    url(r'^exlabel/', include('exlabel.urls')),
 )

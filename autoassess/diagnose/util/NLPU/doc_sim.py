@@ -258,8 +258,6 @@ def test():
     sent0 = 'Reinforcement learning'
     sentl = ['Markov decision process learning', 'machine learning']
     print bow_sim(sent0, sentl)
-    # print word2vec_n_sim(sent0, sentl)
-    # print doc2vec_n_sim(sent0, sentl)
     print skip_thoughts_n_sim(sent0, sentl)
 
 

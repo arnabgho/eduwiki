@@ -37,18 +37,11 @@ def stats(labels):
     bad_stats = {i: bad_count_dict[i] / quality_count[0] for i in
                  bad_count_dict}
     print 'Not useful:', bad_stats
-
+    print sum([bad_stats[k] for k in bad_stats])
     # good_question_labels = [l for l in labels if l.pedagogical_utility]
     # good_count_dict = error_type_stat(good_question_labels)
     # print 'Good:', good_count_dict
 
-    for l in labels:
-        if not l.pedagogical_utility and not l.ambiguous_correct_answer and not l.irrelevant_topic and not l.multi_answer and not l.typo:
-            if l.comment:
-                print l.comment, l.id, l.question_id
-            else:
-                print "No comment", l.id, l.question_id
-                # print l.comment
 
 
 def error_type_stat(labels):
@@ -56,11 +49,23 @@ def error_type_stat(labels):
     multi_ans_count = len([True for l in labels if l.multi_answer])
     ambiguous_count = len([True for l in labels if l.ambiguous_correct_answer])
     irrelevant_count = len([True for l in labels if l.irrelevant_topic])
+
+    other_count = 0
+    for l in labels:
+        if not l.pedagogical_utility and not l.ambiguous_correct_answer and not l.irrelevant_topic and not l.multi_answer and not l.typo:
+            other_count += 1
+            if l.comment:
+                print l.comment, l.id, l.question_id
+            else:
+                print "No comment", l.id, l.question_id
+                # print l.comment
+
     error_stat_dict = {
         'typo': typo_count,
         'multi_answer': multi_ans_count,
         'ambiguous_correct_answer': ambiguous_count,
         'irrelevant_topic': irrelevant_count,
+        'other': other_count,
     }
 
     return error_stat_dict

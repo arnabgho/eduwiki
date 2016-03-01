@@ -1,0 +1,22 @@
+Constraint satisfaction problem
+A* search algorithm
+Knowledge representation and reasoning
+Game theory
+Nash equilibrium
+K-means clustering
+Random forest
+Decision tree
+K-nearest neighbors algorithm
+Linear regression
+Logistic regression
+Naive Bayes classifier
+Principal component analysis
+Call stack
+Stack (abstract data type)
+Concurrent computing
+Virtual memory
+File system
+Optimizing compiler
+Program optimization
+CPU cache
+Cache (computing)
