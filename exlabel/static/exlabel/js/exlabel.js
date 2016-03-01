@@ -41,7 +41,7 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (response) {
                 // Nothing needs to be done for the intermediate results
-                $(window).scrollTop(next_pos);
+//                $(window).scrollTop(next_pos);
                 info_region.html('<b>Label successfully submitted to server.</b>');
                 info_region.addClass('alert-success');
                 info_region.removeClass('alert-danger');
