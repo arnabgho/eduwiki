@@ -13,6 +13,8 @@ $(document).ready(function () {
     var canvasBox = document.getElementById("bb");
     canvas.width = canvasBox.clientWidth;
     canvas.height = canvasBox.clientHeight;
+    var mask_img = new Image();
+    mask_img.src = "/static/exlabel/blue.png";
     mask_img.onload = function () {
         var w = canvas.height * mask_img.width / mask_img.height;
         ctx.drawImage(mask_img, (canvas.width - w) / 2, 0, w, canvas.height);

@@ -18,7 +18,7 @@ def label_guess(request):
     response_data = {}
 
     if 'img' not in request_data or not request_data['img']:
-        image_name = random_image_name()
+        image_name = random_image_name(binary=True)
     else:
         image_name = request_data['img']
     response_data['image_name'] = image_name
@@ -84,10 +84,12 @@ def id_generator(size=10, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
 
 
-def random_image_name():
+def random_image_name(binary=True):
     path = os.path.dirname(os.path.abspath(__file__))
     img_folder = os.path.join(path, 'static/mnist_images/')
     img_names = os.listdir(img_folder)
+    if binary:
+        img_names = [i for i in img_names if '-0.png' in i or '-1.png' in i]
     rnd_idx = random.randrange(len(img_names))
     img_name = img_names[rnd_idx]
     return img_name
