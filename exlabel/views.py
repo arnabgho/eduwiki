@@ -23,6 +23,9 @@ def label_guess(request):
         image_name = request_data['img']
     response_data['image_name'] = image_name
 
+    # hack for mnist images
+    response_data['true_label'] = image_name[-5]
+
     if 'assignmentId' not in request_data:
         # user visiting mode not from mturk
         response_data['hitId'] = None

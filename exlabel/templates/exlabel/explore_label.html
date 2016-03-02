@@ -25,7 +25,7 @@
             float: left;
             width: 560px;
             height: 560px;
-            background: #FFF url("/static/mnist_images/{{ image_name }}") no-repeat center center;
+{#            background: #FFF url("/static/mnist_images/{{ image_name }}") no-repeat center center;#}
             background-size: auto 100%;
             backface-visibility: hidden;
             overflow: hidden;
@@ -80,10 +80,12 @@
 </div>
 
 
-{#<script type="text/javascript" charset="utf-8">#}
+<script type="text/javascript" charset="utf-8">
 {#    var mask_img = new Image();#}
 {#    mask_img.src = "{% static 'exlabel/blue.png' %}";#}
-{#</script>#}
+    var image_name = '{{ image_name }}';
+    var true_label = {{ true_label }};
+</script>
 
 <script src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>

@@ -18,7 +18,8 @@ $(document).ready(function () {
     mask_img.onload = function () {
         var w = canvas.height * mask_img.width / mask_img.height;
         ctx.drawImage(mask_img, (canvas.width - w) / 2, 0, w, canvas.height);
-//        tapClip();
+        $('.box').css('background-image', 'url("/static/mnist_images/' + image_name + '")');
+        // tapClip();
         startOrigin();
     };
 
@@ -44,7 +45,9 @@ $(document).ready(function () {
             success: function (response) {
                 // Nothing needs to be done for the intermediate results
 //                $(window).scrollTop(next_pos);
-                info_region.html('<b>Label successfully submitted to server.</b>');
+                info_region.html();
+                info_region.html('<b>True Label:' + String(true_label) + '.</b>'
+                    + '<b>Label successfully submitted to server.</b>');
                 info_region.addClass('alert-success');
                 info_region.removeClass('alert-danger');
                 info_region.show();
