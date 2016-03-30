@@ -37,9 +37,9 @@ def traverse_eduwiki_link(version, local=True, topic_start=0):
                     str(art_id) + ",t" + str(end - start) + 's')
             else:
                 logging.error(str(art_id) + ",f")
-                with codecs.open('./failures/' + topic + '.html',
-                                 'w', encoding='utf-8') as fail_html_file:
-                    fail_html_file.write(r.text)
+                # with codecs.open('./failures/' + topic + '.html',
+                #                  'w', encoding='utf-8') as fail_html_file:
+                #     fail_html_file.write(r.text)
         except requests.ConnectionError:
             logging.error(str(art_id) + "bad_link")
 
