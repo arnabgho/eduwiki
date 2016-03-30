@@ -2,6 +2,7 @@
 
 *.pyc
 url_cache/
+*.log
 
 *.iml
 .DS_Store
@@ -65,4 +66,3 @@ localtool/visit_test_script/failures/
 
 exlabel/static/mnist_images/
 autoassess/diagnose/util/wikipedia_old_for_ref/
-
