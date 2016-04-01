@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'nameall/css/nameall.css' %}" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <!--Font -->
+    <script src="//use.edgefonts.net/open-sans:n3,i3,n4,i4,n6,i6,n7,i7,n8,i8.js"></script>
+    <link rel="stylesheet" media="all"
+          href="https://use.edgefonts.net/c/6b6760/1w;open-sans,2,VvG:W:i3,VvD:W:i4,VvK:W:i6,Vv9:W:i7,VvC:W:i8,VvF:W:n3,VvH:W:n4,VvJ:W:n6,Vv8:W:n7,VvB:W:n8/l">
+    <style type="text/css"></style>
+    <link rel="stylesheet"
+          href="https://use.edgefonts.net/c/931123/1w;open-sans-condensed,2,Wky:W:i3,Wkx:W:n3,Wkw:W:n7/l"
+          media="all">
+    <script src="//use.edgefonts.net/open-sans-condensed:n3,i3,n7.js"></script>
+    <link rel="stylesheet"
+          href="https://use.edgefonts.net/c/25cd39/1w;league-gothic,2,ZvY:W:n4/l"
+          media="all">
+    <script src="//use.edgefonts.net/league-gothic:n4.js"></script>
+
+    <title>Deep Gender Classifier</title>
+</head>
+<body>
+<div class="container col-md-offset-1">
+    <h2 class="col-md-6 col-lg-6 col-sm-12 title-text">
+        Deep Nonparametric High-Dimensional
+        Spectral Reinforcement Gender Classifier
+        with Crowdsourced Big Data
+    </h2>
+
+    <div id="ad" class="col-md-12">
+        <p class="col-md-8 col-sm-12">
+            When some professor or HR out of nowhere,
+            with a name like <em>Srinivasa Avasarala</em>,
+            sends you an email, do you know if this is a "he" or "she"?<br>
+            Or
+            <em>Fizah Latiff</em>,
+            <em>Mariusz Wojczyk</em>,
+            <em>Wei-Chiu Ma</em>,
+            <em>Vello Ruutel</em>,
+            <em>Irmgard Erdmann</em>?
+            <br>
+            Tired of guessing along?
+            <strong>Well, guess better with us!</strong>
+        </p>
+    </div>
+    <div class="col-md-5 col-sm-12">
+        <form action="{% url 'name_submit' %}" id="name_form"
+              class="form-inline">
+            {#    <label for="name">Shoot a name at me!</label>#}
+            {% csrf_token %}
+            <div class="input-group">
+                <input type="text" name="name" id="name" class="form-control"
+                       placeholder="Yuntian Deng">
+
+                <div class="input-group-btn">
+                    <button type="submit"
+                            class="btn btn-default">
+                        <strong class="text-danger">
+                            <del>Don't</del>
+                            Judge</strong>
+                        <i class="text-danger fa fa-eye"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div id="error_info" hidden="" class="col-md-12">
+        <p>
+            HTTP 404: After some deep thought, I decided to tell you later.<br>
+            Try again, try harder, you can do it!
+        </p>
+    </div>
+    <div id="report_confirm" hidden="">
+        <p>
+            Thanks for help me learning! A little bit lazy right now, I will
+            digest that later.
+        </p>
+    </div>
+    <div id="gender_result" class="col-md-12">
+        <div id="male_info" hidden="">
+            <div class="row">
+                <img src="{% static 'nameall/images/homme.png' %}"
+                     class="col-md-2">
+            </div>
+            <div class="row">
+                <button id="report_female" class="btn btn-default">
+                <span class="text-warning">
+                    <strong>No! She is a female!</strong> <small>(Give feedback
+                    and
+                    help me learn!)
+                </small></span>
+                </button>
+            </div>
+        </div>
+        <div id="female_info" hidden="">
+            <div class="row">
+                <img src="{% static 'nameall/images/femme.png' %}"
+                     class="col-md-2">
+            </div>
+            <div class="row">
+                <button id="report_male" class="btn btn-default">
+                <span class="text-warning">
+                    <strong>No! He is a male!</strong> <small>(Give feedback and
+                    help me learn!)
+                </small></span>
+                </button>
+            </div>
+        </div>
+        <div id="neutral_info" hidden="">
+            <img src="{% static 'nameall/images/symbole-homme-femme.jpg' %}">
+        </div>
+    </div>
+    <p hidden="">To the lovely girls. To the foolishly loving boys.</p>
+
+    <div class="container col-md-12">
+        <footer id="footer" class="text-center">
+            <small>
+                Machine Learner: Cloudycloud Deep
+                <a href="https://drive.google.com/file/d/0B6jmzHcwgaDgell5VWFWVmlqbEU/view">[Resume]
+                    (Hire Me!)</a>
+            </small>
+        </footer>
+    </div>
+</div>
+
+<script src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'nameall/js/nameall.js' %}"></script>
+</body>
+</html>

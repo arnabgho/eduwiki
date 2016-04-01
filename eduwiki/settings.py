@@ -50,6 +50,7 @@ INSTALLED_APPS = (
     'gunicorn',
     'autoassess',
     'exlabel',
+    'nameall'
 )
 
 MIDDLEWARE_CLASSES = (
