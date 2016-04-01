@@ -51,6 +51,9 @@ def name_submit(request):
         GENDER_PREDICTOR = load_gender_predict_model(GENDER_MODEL_PATH)
 
     target_name = request_data['name']
+
+    if not target_name:
+        return JsonResponse({'gender': 'NONAME'})
     try:
         name_info = NameInfo(
             name=request_data['name'],

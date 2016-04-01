@@ -7,13 +7,16 @@ $(document).ready(function () {
     var female_info = $('#female_info');
     var neutral_info = $('#neutral_info');
     var error_info = $('#error_info');
+    var noname_info = $('#noname_info');
     var report_info = $('#report_confirm');
 
     function hide_all_info() {
         male_info.hide();
         female_info.hide();
         neutral_info.hide();
+
         error_info.hide();
+        noname_info.hide();
         report_info.hide();
     }
 
@@ -50,6 +53,10 @@ $(document).ready(function () {
                     $('#footer').html(
                         'It has been a nice day. :) <br>--<font color="white">Moonkey</font>');
 
+                }
+                else if (response['gender'] == 'NONAME') {
+                    hide_all_info();
+                    noname_info.fadeIn();
                 }
                 else if (response['gender'] == 'SPECIAL') {
                     window.location.replace(response['redirect_url']);
