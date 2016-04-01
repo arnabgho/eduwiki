@@ -28,14 +28,14 @@
     <title>Deep Gender Classifier</title>
 </head>
 <body>
-<div class="container col-md-offset-1">
+<div class="container col-md-offset-1 col-md-12 col-sm-12">
     <h2 class="col-md-6 col-lg-6 col-sm-12 title-text">
         Deep Nonparametric High-Dimensional
         Spectral Reinforcement Gender Classifier
         with Crowdsourced Big Data
     </h2>
 
-    <div id="ad" class="col-md-12">
+    <div id="ad" class="col-md-12 col-sm-12">
         <p class="col-md-8 col-sm-12">
             When some professor or HR out of nowhere,
             with a name like <em>Srinivasa Avasarala</em>,
@@ -73,23 +73,25 @@
         </form>
     </div>
 
-    <div id="error_info" hidden="" class="col-md-12">
+    <div id="error_info" hidden="" class="col-md-8 col-sm-12">
         <p>
             HTTP 404: After some deep thought, I decided to tell you later.<br>
             Try again, try harder, you can do it!
         </p>
     </div>
-    <div id="report_confirm" hidden="">
+    <div id="report_confirm" hidden="" class="col-md-8 col-sm-12">
         <p>
             Thanks for help me learning! A little bit lazy right now, I will
             digest that later.
         </p>
     </div>
-    <div id="gender_result" class="col-md-12">
-        <div id="male_info" hidden="">
+
+    <div id="gender_result" class="col-md-8 col-sm-12">
+        <div id="male_info" hidden="" class="col-md-12 col-sm-12">
             <div class="row">
                 <img src="{% static 'nameall/images/homme.png' %}"
-                     class="col-md-2">
+                     class="img-responsive col-md-2 col-sm-6"
+                     alt="Male">
             </div>
             <div class="row">
                 <button id="report_female" class="btn btn-default">
@@ -101,10 +103,10 @@
                 </button>
             </div>
         </div>
-        <div id="female_info" hidden="">
+        <div id="female_info" hidden="" class="col-md-12 col-sm-12">
             <div class="row">
-                <img src="{% static 'nameall/images/femme.png' %}"
-                     class="col-md-2">
+                <img src="{% static 'nameall/images/femme.png' %}" class="img-responsive col-md-2 col-sm-6"
+                        alt="Female">
             </div>
             <div class="row">
                 <button id="report_male" class="btn btn-default">
@@ -115,7 +117,7 @@
                 </button>
             </div>
         </div>
-        <div id="neutral_info" hidden="">
+        <div id="neutral_info" hidden="" class="col-md-2 col-sm-6">
             <img src="{% static 'nameall/images/symbole-homme-femme.jpg' %}">
         </div>
     </div>
