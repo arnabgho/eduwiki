@@ -79,6 +79,11 @@ def name_submit(request):
         response_data['redirect_url'] = '/nameall/ydy'
         return JsonResponse(response_data)
 
+    if ('lidan' in target_name.lower() or 'coco' in target_name.lower()) \
+            and ('mu' in target_name.lower() or 'mou' in target_name.lower()):
+        response_data['gender'] = 'LOVELY'
+
+        return JsonResponse(response_data)
     is_male = GENDER_PREDICTOR.predict(target_name)
     if is_male:
         response_data['gender'] = 'MALE'

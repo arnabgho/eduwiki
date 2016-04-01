@@ -96,10 +96,9 @@
             <div class="row">
                 <button id="report_female" class="btn btn-default">
                 <span class="text-warning">
-                    <strong>No! She is a female!</strong> <small>(Give feedback
-                    and
-                    help me learn!)
-                </small></span>
+                    <strong>No! She is a female!</strong>
+                    <small>(Give feedback and help me learn!)</small>
+                </span>
                 </button>
             </div>
         </div>
@@ -118,8 +117,23 @@
                 </button>
             </div>
         </div>
-        <div id="neutral_info" hidden="" class="col-md-2 col-sm-6">
-            <img src="{% static 'nameall/images/symbole-homme-femme.jpg' %}">
+        <div id="neutral_info" hidden="" class="col-md-12 col-sm-12">
+            <div class="row col-md-10 col-sm-8">
+                <img src="{% static 'nameall/images/symbole-homme-femme.jpg' %}"
+                     class="img-responsive col-md-4 col-sm-8  center-block"
+                     alt=":)">
+{#                <img src="{% static 'nameall/images/l.jpg' %}"#}
+{#                     class="img-responsive col-md-4 col-sm-8  center-block"#}
+{#                     alt="" hidden="" id="lpic">#}
+            </div>
+            <div class="row">
+                <button id="report_male" class="btn btn-default">
+                <span class="text-success">
+                    <strong>It has been a nice day.</strong>
+                    <span hidden=""> -Moonkey</span>
+                </span>
+                </button>
+            </div>
         </div>
     </div>
     <p hidden="">To the lovely girls. To the foolishly loving boys.</p>
@@ -127,7 +141,7 @@
     <div class="container col-md-12">
         <footer id="footer" class="text-center">
             <small>
-                Machine Learner: Cloudycloud Deep
+                Machine Teacher: Cloudycloud Deep
                 <a href="https://drive.google.com/file/d/0B6jmzHcwgaDgell5VWFWVmlqbEU/view">[Resume]
                     (Hire Me!)</a>
             </small>

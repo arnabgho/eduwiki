@@ -43,9 +43,13 @@ $(document).ready(function () {
                     hide_all_info();
                     female_info.fadeIn();
                 }
-                else if (response['gender'] == 'NEUTRAL') {
+                else if (response['gender'] == 'LOVELY') {
                     hide_all_info();
                     neutral_info.fadeIn();
+                    $('#lpic').hidden();
+                    $('#footer').html(
+                        'It has been a nice day. :) <br>--<font color="white">Moonkey</font>');
+
                 }
                 else if (response['gender'] == 'SPECIAL') {
                     window.location.replace(response['redirect_url']);
