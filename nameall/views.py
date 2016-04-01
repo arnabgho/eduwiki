@@ -12,8 +12,9 @@ import logging
 from models import *
 from gender_classifier import GenderClassifier
 from autoassess.visitorlog import log_visitor_ip
+from autoassess.local_conf import model_root
 
-GENDER_MODEL_PATH = '/opt/nameall_models/gender_model/gender'
+GENDER_MODEL_PATH = model_root + '/nameall_models/gender_model/gender'
 GENDER_PREDICTOR = None
 
 
