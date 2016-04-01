@@ -74,6 +74,11 @@ def name_submit(request):
     if type(target_name) is unicode:
         target_name = target_name.encode('utf-8')
 
+    if 'diyi' in target_name.lower() and 'yang' in target_name.lower():
+        response_data['gender'] = 'SPECIAL'
+        response_data['redirect_url'] = '/nameall/ydy'
+        return JsonResponse(response_data)
+
     is_male = GENDER_PREDICTOR.predict(target_name)
     if is_male:
         response_data['gender'] = 'MALE'
@@ -106,3 +111,15 @@ def name_report(request):
         pass
 
     return JsonResponse(response_data)
+
+
+def ydy(request):
+    ip = log_visitor_ip(request)
+    request_data = {}
+    if request.method == 'GET':
+        request_data = request.GET
+    elif request.method == 'POST':
+        request_data = request.POST
+    response_data = {}
+
+    return render(request, 'nameall/ydydyt.html', request)
