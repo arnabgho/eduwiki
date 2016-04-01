@@ -6,3 +6,4 @@ class NameInfo(Document):
     gender = StringField()
     country = StringField()
     time = DateTimeField()
+    ip = StringField()

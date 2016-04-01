@@ -21,13 +21,13 @@ def log_visitor_ip(request):
             ip_real = False
 
         if not ip or ip == '127.0.0.1':
-            return
+            return None
 
         path = request.path
         vl = VisitorLog(
             ip=ip, ip_real=ip_real, path=path, time=datetime.now())
         vl.save()
-        return True
+        return ip
     except Exception:
         # It does not matter if this code fails
-        return False
+        return None

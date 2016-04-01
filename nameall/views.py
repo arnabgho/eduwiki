@@ -38,7 +38,7 @@ def name_home(request):
 
 
 def name_submit(request):
-    log_visitor_ip(request)
+    ip = log_visitor_ip(request)
     request_data = {}
     if request.method == 'GET':
         request_data = request.GET
@@ -51,12 +51,24 @@ def name_submit(request):
         GENDER_PREDICTOR = load_gender_predict_model(GENDER_MODEL_PATH)
 
     target_name = request_data['name']
+    try:
+        name_info = NameInfo(
+            name=request_data['name'],
+            gender=request_data.get('gender', None),
+            country=request_data.get('country', None),
+            time=datetime.datetime.now(),
+            ip=ip
+        )
+        name_info.save()
+    except:
+        pass
+
     is_chinese = any(u'\u4e00' <= c <= u'\u9fff' for c in target_name)
     if is_chinese:
         py = Pinyin()
         target_name = ' '.join(
-            [string.capitalize(py.get_pinyin(target_name[0])),
-             string.capitalize(py.get_pinyin(target_name[1:]))]
+            [string.capitalize(py.get_pinyin(target_name[1:], '')),
+             string.capitalize(py.get_pinyin(target_name[0], ''))]
         )
 
     if type(target_name) is unicode:
@@ -73,7 +85,7 @@ def name_submit(request):
 
 @csrf_exempt
 def name_report(request):
-    log_visitor_ip(request)
+    ip = log_visitor_ip(request)
     request_data = {}
     if request.method == 'GET':
         request_data = request.GET
@@ -81,12 +93,16 @@ def name_report(request):
         request_data = request.POST
     response_data = {}
 
-    name_info = NameInfo(
-        name=request_data['name'],
-        gender=request_data.get('gender', None),
-        country=request_data.get('country', None),
-        time=datetime.datetime.now()
-    )
-    name_info.save()
+    try:
+        name_info = NameInfo(
+            name=request_data['name'],
+            gender=request_data.get('gender', None),
+            country=request_data.get('country', None),
+            time=datetime.datetime.now(),
+            ip=ip
+        )
+        name_info.save()
+    except:
+        pass
 
     return JsonResponse(response_data)
