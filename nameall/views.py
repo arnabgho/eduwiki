@@ -11,18 +11,34 @@ import logging
 
 from models import *
 from gender_classifier import GenderClassifier
+from country_classifier import CountryClassifier
 from autoassess.visitorlog import log_visitor_ip
 from autoassess.local_conf import model_root
 
 GENDER_MODEL_PATH = model_root + '/nameall_models/gender_model/gender'
 GENDER_PREDICTOR = None
+CHINESE_GENDER_MODEL_PATH = model_root + '/nameall_models/gender_model/gender-zh'
+CHINESE_GENDER_PREDICTOR = None
+COUNTRY_MODEL_PATH = model_root + '/nameall_models/gender_model/country'
+COUNTRY_ID_PATH = model_root + '/nameall_models/gender_model/country-id.txt'
+COUNTRY_PREDICTOR = None
 
 
 def load_gender_predict_model(model_path=GENDER_MODEL_PATH):
-    logging.info('Loading gender model...')
+    logging.info('Loading model...' + str(model_path))
     gen_class = GenderClassifier()
     gen_class.loadModel(model_path)
-    logging.info('Gender model loaded.')
+    logging.info('Gender loaded.')
+    return gen_class
+
+
+def load_country_predict_model(
+        model_path=COUNTRY_MODEL_PATH,
+        country_id_file=COUNTRY_ID_PATH):
+    logging.info('Loading model...' + str(model_path))
+    gen_class = CountryClassifier()
+    gen_class.loadModel(model_path, country_id_file)
+    logging.info('Country model loaded.')
     return gen_class
 
 
@@ -46,7 +62,12 @@ def name_submit(request):
         request_data = request.POST
     response_data = {}
 
-    global GENDER_PREDICTOR
+    global GENDER_PREDICTOR, CHINESE_GENDER_PREDICTOR, COUNTRY_PREDICTOR
+    if not COUNTRY_PREDICTOR:
+        COUNTRY_PREDICTOR = load_country_predict_model()
+    if not CHINESE_GENDER_PREDICTOR:
+        CHINESE_GENDER_PREDICTOR = load_gender_predict_model(
+            CHINESE_GENDER_MODEL_PATH)
     if not GENDER_PREDICTOR:
         GENDER_PREDICTOR = load_gender_predict_model(GENDER_MODEL_PATH)
 
@@ -73,21 +94,19 @@ def name_submit(request):
             [string.capitalize(py.get_pinyin(target_name[1:], '')),
              string.capitalize(py.get_pinyin(target_name[0], ''))]
         )
-
     if type(target_name) is unicode:
         target_name = target_name.encode('utf-8')
+    ### Country Prediction
+    country = COUNTRY_PREDICTOR.predict(target_name)
+    response_data['country'] = country.capitalize()
+    if country == 'china':
+        is_chinese = True
+    ### Gender Prediction
+    if is_chinese:
+        is_male = CHINESE_GENDER_PREDICTOR.predict(target_name)
+    else:
+        is_male = GENDER_PREDICTOR.predict(target_name)
 
-    if 'diyi' in target_name.lower() and 'yang' in target_name.lower():
-        response_data['gender'] = 'SPECIAL'
-        response_data['redirect_url'] = '/nameall/ydy'
-        return JsonResponse(response_data)
-
-    if ('lidan' in target_name.lower() or 'coco' in target_name.lower()) \
-            and ('mu' in target_name.lower() or 'mou' in target_name.lower()):
-        response_data['gender'] = 'LOVELY'
-
-        return JsonResponse(response_data)
-    is_male = GENDER_PREDICTOR.predict(target_name)
     if is_male:
         response_data['gender'] = 'MALE'
     else:
@@ -119,15 +138,3 @@ def name_report(request):
         pass
 
     return JsonResponse(response_data)
-
-
-def ydy(request):
-    ip = log_visitor_ip(request)
-    request_data = {}
-    if request.method == 'GET':
-        request_data = request.GET
-    elif request.method == 'POST':
-        request_data = request.POST
-    response_data = {}
-
-    return render(request, 'nameall/ydydyt.html', request)

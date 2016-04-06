@@ -9,6 +9,7 @@ $(document).ready(function () {
     var error_info = $('#error_info');
     var noname_info = $('#noname_info');
     var report_info = $('#report_confirm');
+    var country_info = $('#country_result');
 
     function hide_all_info() {
         male_info.hide();
@@ -18,6 +19,7 @@ $(document).ready(function () {
         error_info.hide();
         noname_info.hide();
         report_info.hide();
+        country_info.hide();
     }
 
     var name_form = $('#name_form');
@@ -38,29 +40,29 @@ $(document).ready(function () {
             data: form_dict,
             dataType: 'json',
             success: function (response) {
+//                GENDER
+                hide_all_info();
                 if (response['gender'] == 'MALE') {
-                    hide_all_info();
                     male_info.fadeIn();
                 }
                 else if (response['gender'] == 'FEMALE') {
-                    hide_all_info();
                     female_info.fadeIn();
                 }
                 else if (response['gender'] == 'LOVELY') {
-                    hide_all_info();
                     neutral_info.fadeIn();
                     $('#lpic').hidden();
                     $('#footer').html(
                         'It has been a nice day. :) <br>--<font color="white">Moonkey</font>');
-
                 }
                 else if (response['gender'] == 'NONAME') {
-                    hide_all_info();
                     noname_info.fadeIn();
                 }
                 else if (response['gender'] == 'SPECIAL') {
                     window.location.replace(response['redirect_url']);
                 }
+//                COUNTRY
+                country_info.fadeIn();
+                $('#country_predicted').html(response['country']);
             },
             error: function (xhr) {
                 hide_all_info();
