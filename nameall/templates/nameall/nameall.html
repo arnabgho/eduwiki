@@ -25,22 +25,20 @@
     <script src="//use.edgefonts.net/league-gothic:n4.js"></script>
 
     <link href="{% static 'nameall/css/nameall.css' %}" rel="stylesheet">
-    <title>Deep Gender Classifier</title>
+    <title>Name Info Predictor</title>
 </head>
 <body>
 <div class="container col-md-offset-1 col-md-12 col-sm-12">
     <h2 class="col-md-6 col-lg-6 col-sm-12 title-text">
-        Deep Nonparametric High-Dimensional
-        Spectral Reinforcement Gender Classifier
-        with Crowdsourced Big Data
+        Name Info Predictor<br>
+        <small> country and gender prediction, trained with names from Wikipedia</small>
     </h2>
-
     <div id="ad" class="col-md-12 col-sm-12">
         <p class="col-md-8 col-sm-12">
             When some professor or HR out of nowhere,
             with a name like <em>Srinivasa Avasarala</em>,
-            sends you an email, do you know if this is a "he" or "she"?<br>
-            Or
+            sends you an email, do you know if this is a "he" or "she" or where he/she is from?<br>
+            How about
             <em>Fizah Latiff</em>,
             <em>Mariusz Wojczyk</em>,
             <em>Wei-Chiu Ma</em>,
@@ -92,7 +90,7 @@
     </div>
 
     <div id="country_result" class="col-md-8 col-sm-12" hidden="">
-        Country: <p id ='country_predicted'>Not sure.</p>
+        Country: <span id ='country_predicted'>Not sure.</span>
     </div>
     <div id="gender_result" class="col-md-8 col-sm-12">
         <div id="male_info" hidden="" class="col-md-12 col-sm-10">
