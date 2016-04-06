@@ -15,12 +15,12 @@ from country_classifier import CountryClassifier
 from autoassess.visitorlog import log_visitor_ip
 from autoassess.local_conf import model_root
 
-GENDER_MODEL_PATH = model_root + '/nameall_models/gender_model/gender'
+GENDER_MODEL_PATH = model_root + 'nameall_models/gender_model/gender'
 GENDER_PREDICTOR = None
-CHINESE_GENDER_MODEL_PATH = model_root + '/nameall_models/gender_model/gender-zh'
+CHINESE_GENDER_MODEL_PATH = model_root + 'nameall_models/gender_model/gender-zh'
 CHINESE_GENDER_PREDICTOR = None
-COUNTRY_MODEL_PATH = model_root + '/nameall_models/gender_model/country'
-COUNTRY_ID_PATH = model_root + '/nameall_models/gender_model/country-id.txt'
+COUNTRY_MODEL_PATH = model_root + 'nameall_models/gender_model/country'
+COUNTRY_ID_PATH = model_root + 'nameall_models/gender_model/country-id.txt'
 COUNTRY_PREDICTOR = None
 
 
@@ -63,13 +63,14 @@ def name_submit(request):
     response_data = {}
 
     global GENDER_PREDICTOR, CHINESE_GENDER_PREDICTOR, COUNTRY_PREDICTOR
-    if not COUNTRY_PREDICTOR:
-        COUNTRY_PREDICTOR = load_country_predict_model()
     if not CHINESE_GENDER_PREDICTOR:
         CHINESE_GENDER_PREDICTOR = load_gender_predict_model(
             CHINESE_GENDER_MODEL_PATH)
     if not GENDER_PREDICTOR:
         GENDER_PREDICTOR = load_gender_predict_model(GENDER_MODEL_PATH)
+    if not COUNTRY_PREDICTOR:
+        COUNTRY_PREDICTOR = load_country_predict_model()
+
 
     target_name = request_data['name']
 
