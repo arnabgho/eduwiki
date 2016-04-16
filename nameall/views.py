@@ -53,6 +53,10 @@ def name_home(request):
     return render(request, 'nameall/nameall.html', response_data)
 
 
+def name_redirect(request):
+    return render(request, 'nameall/nameall_redirect.html', {})
+
+
 def name_submit(request):
     ip = log_visitor_ip(request)
     request_data = {}
@@ -70,7 +74,6 @@ def name_submit(request):
         GENDER_PREDICTOR = load_gender_predict_model(GENDER_MODEL_PATH)
     if not COUNTRY_PREDICTOR:
         COUNTRY_PREDICTOR = load_country_predict_model()
-
 
     target_name = request_data['name']
 
@@ -97,7 +100,7 @@ def name_submit(request):
         )
     if type(target_name) is unicode:
         target_name = target_name.encode('utf-8')
-    ### Country Prediction
+    # ## Country Prediction
     country = COUNTRY_PREDICTOR.predict(target_name)
     response_data['country'] = country.capitalize()
     if country == 'china':
